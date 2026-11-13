@@ -20,7 +20,7 @@ jobs:
   artifacts:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Read the pinned toolchain
         run: sed -n '/^JAX_/p' vendor/jax-js/build.env >> "$GITHUB_ENV"
       - uses: actions/setup-node@v4
