@@ -1,0 +1,102 @@
+{
+  "label": "pre-final-fixes-plain",
+  "route": "/examples/sunburst",
+  "instrument": false,
+  "browser": "154.0.8037.98",
+  "summarySHA256": "6984d14c57bdd05095b6d4ce958b63b75acc2d8b1e8ab197fcd84c7aed218414",
+  "sourceFingerprint": null,
+  "sourceMapFingerprints": {},
+  "limitations": [
+    "CPU samples and CPU conservative pending deadlines do not measure GPU execution or GPU row start times.",
+    "Async read waits overlap; their sums are not a critical-path total. Callers lost across async boundaries stay unresolved.",
+    "Historical diagnostic runs without sourceFingerprint must not be assigned later snapshot hashes.",
+    "The original baseline sunburst has no mark lifecycle fades; a total-wall comparison with the changed example is not identical behavior."
+  ],
+  "flights": [
+    {
+      "flight": 1,
+      "direction": "zoom",
+      "wallMs": 1534.7,
+      "completedFrames": 43,
+      "frameP50": 16.8,
+      "frameP95": 94.3,
+      "maxGap": 357,
+      "gpu": null,
+      "asyncReads": {},
+      "trackEpisodes": [],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 2,
+      "direction": "reset",
+      "wallMs": 1433.9,
+      "completedFrames": 46,
+      "frameP50": 16.8,
+      "frameP95": 84.7,
+      "maxGap": 149,
+      "gpu": null,
+      "asyncReads": {},
+      "trackEpisodes": [],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 3,
+      "direction": "zoom",
+      "wallMs": 1469.5,
+      "completedFrames": 45,
+      "frameP50": 16.8,
+      "frameP95": 84.3,
+      "maxGap": 180.8,
+      "gpu": null,
+      "asyncReads": {},
+      "trackEpisodes": [],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 4,
+      "direction": "reset",
+      "wallMs": 1433.9,
+      "completedFrames": 47,
+      "frameP50": 16.7,
+      "frameP95": 99.7,
+      "maxGap": 140.2,
+      "gpu": null,
+      "asyncReads": {},
+      "trackEpisodes": [],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 5,
+      "direction": "zoom",
+      "wallMs": 1485.4,
+      "completedFrames": 46,
+      "frameP50": 16.7,
+      "frameP95": 83.4,
+      "maxGap": 223.6,
+      "gpu": null,
+      "asyncReads": {},
+      "trackEpisodes": [],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 6,
+      "direction": "reset",
+      "wallMs": 1422.8,
+      "completedFrames": 46,
+      "frameP50": 16.8,
+      "frameP95": 82,
+      "maxGap": 137.2,
+      "gpu": null,
+      "asyncReads": {},
+      "trackEpisodes": [],
+      "errors": [],
+      "renderError": ""
+    }
+  ],
+  "errors": []
+}

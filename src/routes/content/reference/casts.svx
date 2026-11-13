@@ -1,0 +1,3 @@
+## Usage
+
+A schema types a column for its whole scope; a cast types one use of a value. `as_category` and `as_ordinal` make categories, `as_numeric` numbers, `as_datetime` times and `as_duration` durations, and the result carries its type to the axis, scale, legend and tooltip that show it. A domain fixes the categories and their order and is matched on the GPU; text is parsed once per category, never per row.

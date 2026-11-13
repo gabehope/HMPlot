@@ -1,0 +1,5 @@
+## Usage
+
+Contour draws iso-lines (`mode="lines"`: `start`, `end` and `level` per segment, for Segments) or filled bands (`mode="bands"`: triangles with `lower`, `upper` and `band`, for Polygon) of a grid table's `field`, on the GPU. `thresholds` is a count of nice levels over the field's range (default 10) or the levels themselves.
+
+Lines match d3-contour's marching squares. Bands clip four triangles per cell against each band, so a saddle is resolved by the cell's mean. Missing values and hidden cells draw nothing.

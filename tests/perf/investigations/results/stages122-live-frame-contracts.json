@@ -1,0 +1,127 @@
+{
+  "generated_by": "Codex",
+  "date": "2026-10-11",
+  "stages": [
+    "122.15",
+    "122.16"
+  ],
+  "scope": "Strict checking of existing numerical-frame and live-channel writer bodies, with shared prepared-result and borrowed callback contracts.",
+  "completion": {
+    "strict_module_floor": 69,
+    "named_core_implementations": "9/9",
+    "full_strict_svelte_preparation": "open",
+    "full_frame_composition_and_promotion": "open"
+  },
+  "mechanical_formatting_commits": [
+    "7dc8ac9b",
+    "fb8ea4c2"
+  ],
+  "runtime_proof": {
+    "baseline": "72f2bf208a9f4d21ae4134c64626aeb71662ff57",
+    "method": "esbuild type/comment erasure with minifySyntax/minifyWhitespace, identifier minification disabled; no changed Svelte module.",
+    "toolVersions": {
+      "esbuild": "0.25.12"
+    },
+    "files": [
+      {
+        "file": "src/lib/plot/utils/frameMapping.js",
+        "sourceSHA256": [
+          "cae9c97496c5f003eb60ab316fd2b0ae11d61e596b7a428ddb46c3dce6674e28",
+          "da0da5c59d773cfd52e69d109c82081bb327bdd04773c05753fdb74dbc46d2b4"
+        ],
+        "executableSHA256": [
+          "492dc3ef047498bcf265a77bbd5a72537d87e7d608ae5008461f0b9e42451de6",
+          "492dc3ef047498bcf265a77bbd5a72537d87e7d608ae5008461f0b9e42451de6"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/proceduralChannels.js",
+        "sourceSHA256": [
+          "26ba1299a249806a30986a4b374fb8242d0c5e5bc35b6438691fc7eb02d399b4",
+          "555c1237dc9b5e6e97b03c5a1eef6ca390a3a50585e2cd337b0c45aeb0ae07b5"
+        ],
+        "executableSHA256": [
+          "2c45a7bc6ef3cc075f0a663a8cb701d7aabe4b0790a5a91e02839fcb66507441",
+          "2c45a7bc6ef3cc075f0a663a8cb701d7aabe4b0790a5a91e02839fcb66507441"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/markPlanTypes.ts",
+        "sourceSHA256": [
+          "d33de825ba69d0c69c594b6bdcf60c19b56934753cc7ecf892787cd1c97f3b72",
+          "e329a52cf5df6ea9f5bb9c94382ffe58b16839f02d4c4561ee7e62a52711768e"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/expressionPlanTypes.ts",
+        "sourceSHA256": [
+          "69b9961bd192c6346b9f7925a8b555c91a8baabfdf8976e6a723176cb43ece3c",
+          "2a704eef67c50a4421ff69c72cf1f709cd0cd4bf7c4a5f017ec1fcaaec5672cd"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/viewState.js",
+        "sourceSHA256": [
+          "6fda53d2a21822210691b169e81b2e5be79f7b9cf0c814c6947ab27c3f47f489",
+          "4bbd6f78279cce5a12e58b77856b693f5d2d0326018c8903f005b98515bfe483"
+        ],
+        "executableSHA256": [
+          "eaeda3008c89369808f0722fdd885022f8e989b97c3d1982a2877442b60bfeea",
+          "eaeda3008c89369808f0722fdd885022f8e989b97c3d1982a2877442b60bfeea"
+        ],
+        "identical": true
+      }
+    ]
+  },
+  "validation": {
+    "unit_tests": {
+      "command": "npm test",
+      "passed": 1385,
+      "failed": 0,
+      "scope": "Full suite after the live-writer contract changes; subsequent numerical-frame annotations covered by final frame leak cases and executable equivalence."
+    },
+    "strict_and_svelte": {
+      "command": "npm run check",
+      "errors": 0,
+      "warnings": 0
+    },
+    "focused_leak_tests": {
+      "command": "LEAK_CHECK=1 node --import ./tests/unit/helpers/leakHarness.js --test tests/unit/mark-update-plan.test.js tests/unit/named-data.test.js tests/unit/view-state.test.js tests/unit/view-services.test.js tests/unit/settle.test.js tests/unit/frame-mapping.test.js tests/unit/frame-model.test.js tests/unit/root-frame-selection.test.js tests/unit/coordinate-operations.test.js tests/unit/refactor-ratchet.test.js",
+      "passed": 106,
+      "failed": 0
+    },
+    "format_check": "passed",
+    "python_signatures": {
+      "passed": true,
+      "components": 112
+    },
+    "api_check": "passed; no public API change",
+    "installed_package_smoke": "passed: installed types, SSR, production rendering at DPR 2, settings, fonts, remounts, coordinate frames and JAX inputs"
+  },
+  "contracts": [
+    "Live-channel getters borrow target/display preparations from the shared PreparedMark record.",
+    "afterWrites borrows temporary values until its promise resolves; consumers retain any published arrays. finally preserves the existing releases.",
+    "Serialized queues preserve callback result types, skip newer-order superseded work and permit a later batch after rejection.",
+    "Numerical frame mapping borrows option/stage owners, copies and freezes validated intervals, and names forward/inverse numerical scales without camera state.",
+    "Lazy view-state input functions are named alongside ViewStateRecord; the viewState body itself is not newly strict-checked."
+  ],
+  "limitations": [
+    "Executable source identity after type/comment erasure is not a new performance measurement or a claim of identical flight/readback counts.",
+    "No actual Svelte module is newly strict-checked; its request/action/result producers and consumers remain pending.",
+    "Numerical mapping does not complete the root-promotion Svelte handoff or checking of all JAX/WGSL consumers.",
+    "Dynamic evaluator payloads remain validated by array conversion and field writers; annotations introduce no runtime defaults or new validation paths.",
+    "No new public props, generated API inputs, runtime node capabilities, scheduler or wrapper module."
+  ]
+}

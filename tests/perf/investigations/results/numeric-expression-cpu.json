@@ -1,0 +1,54 @@
+{
+  "note": "CPU-only temporary prototype; identical existing expression operators, no GPU/FPS claim.",
+  "rows": 31,
+  "shownRows": 29,
+  "valid": true,
+  "materialization": "ref.dataSync() with typed-array/shape-size assertions",
+  "traceAndParityMs": 50.25120899999996,
+  "programs": 22,
+  "parity": "passed",
+  "sourceRefCounts": {
+    "id": 1,
+    "up": 1,
+    "stop": 1,
+    "upStop": 1,
+    "level": 1,
+    "upLevel": 1,
+    "branch": 1,
+    "x0": 1,
+    "x1": 1,
+    "y0": 1,
+    "y1": 1,
+    "@selected": 1,
+    "exact": 1,
+    "valid": 1
+  },
+  "trials": [
+    {
+      "mode": "eager",
+      "repeats": 1000,
+      "wallMs": 1171.0093749999999
+    },
+    {
+      "mode": "compiled",
+      "repeats": 1000,
+      "wallMs": 211.85345800000005
+    },
+    {
+      "mode": "eager",
+      "repeats": 1000,
+      "wallMs": 1091.1525840000002
+    },
+    {
+      "mode": "compiled",
+      "repeats": 1000,
+      "wallMs": 246.62091699999974
+    }
+  ],
+  "sourceSHA256": {
+    "numeric-program.mjs": "a59c1aabb7ea6d6454424a0dcb911fbd002a17a8e94cf4dbfd3df24434281774",
+    "check.mjs": "69046af7ae9d3a73beb8224ff699d04d66854095f819c7894620b5d6005ddadb",
+    "src/lib/plot/utils/expressions.js": "aec7affd34446e7fc487203fac60193cee4c1747e7ed5815c38e10aedeebd088"
+  },
+  "limitation": "CPU-only materialized prototype; does not predict GPU frame rate. Earlier Promise-to-Array.from parity and timing runs are invalid and excluded."
+}

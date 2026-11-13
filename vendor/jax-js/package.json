@@ -1,0 +1,23 @@
+{
+  "name": "@hmplot/jax",
+  "version": "0.1.25-hmplot.1",
+  "description": "jax-js 0.1.25 with hmplot's patches (see PATCHES.md). Bundled inside hmplot; not published on its own.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "PATCHES.md"
+  ]
+}

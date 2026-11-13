@@ -1,0 +1,59 @@
+{
+  "minimal": {
+    "grid": "off",
+    "line": false,
+    "ticks": true,
+    "tickDirection": "outside",
+    "tickSize": 3,
+    "frame": false,
+    "arrow": "none"
+  },
+  "grid": {
+    "grid": "major",
+    "line": false,
+    "ticks": false,
+    "frame": false,
+    "arrow": "none"
+  },
+  "frame": {
+    "grid": "off",
+    "line": true,
+    "ticks": true,
+    "tickDirection": "inside",
+    "frame": true,
+    "arrow": "none"
+  },
+  "quiet-grid": {
+    "grid": "major",
+    "gridWidth": 0.6,
+    "gridDash": [],
+    "line": false,
+    "ticks": false,
+    "frame": false,
+    "arrow": "none"
+  },
+  "print-frame": {
+    "grid": "off",
+    "line": true,
+    "lineWidth": 1.2,
+    "ticks": true,
+    "tickDirection": "inside",
+    "tickSize": 4,
+    "frame": true,
+    "arrow": "none"
+  },
+  "inside-ticks": {
+    "tickDirection": "inside"
+  },
+  "light-titles": {
+    "titleFontWeight": 400
+  },
+  "close-labels": {
+    "titleOffset": 6,
+    "tickLabelOffset": 3
+  },
+  "comfortable-labels": {
+    "titleOffset": 12,
+    "tickLabelOffset": 7
+  }
+}

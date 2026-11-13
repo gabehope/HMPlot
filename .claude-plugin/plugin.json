@@ -1,0 +1,10 @@
+{
+  "name": "hmplot",
+  "version": "0.1.0-alpha.1",
+  "description": "A skill for writing and checking HMPlot plots: WebGPU charts, maps, graphs and 3D scenes for Python notebooks and Svelte 5.",
+  "author": { "name": "Gabe Hope" },
+  "homepage": "https://github.com/hmplot/hmplot",
+  "repository": "https://github.com/hmplot/hmplot",
+  "license": "MIT",
+  "keywords": ["visualization", "plotting", "webgpu", "jupyter", "svelte"]
+}

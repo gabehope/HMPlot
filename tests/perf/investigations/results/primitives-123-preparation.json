@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-17T20:04:30.979Z",
+  "baseline": "0041638d",
+  "node": "v23.7.0",
+  "scope": "Correctness and harness preparation only; no new GPU performance results.",
+  "runs": [
+    {
+      "label": "candidate-cpu",
+      "command": "LEAK_CHECK=1 node --import ./tests/unit/helpers/leakHarness.js --test tests/perf/investigations/primitives-123/correctness.test.mjs",
+      "exitCode": 0,
+      "stdout": "✔ stable scan/scatter preserves order, retained ownership, chained provenance and bucket padding (339.916458ms)\n✔ segmented search finds visible endpoints across holes, duplicates, empty segments and nonfinite times (100.836708ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 790.565875\n",
+      "stderr": ""
+    },
+    {
+      "label": "candidate-wasm",
+      "command": "LEAK_CHECK=1 PRIMITIVE_DEVICE=wasm node --import ./tests/unit/helpers/leakHarness.js --test tests/perf/investigations/primitives-123/correctness.test.mjs",
+      "exitCode": 0,
+      "stdout": "✔ stable scan/scatter preserves order, retained ownership, chained provenance and bucket padding (373.82125ms)\n✔ segmented search finds visible endpoints across holes, duplicates, empty segments and nonfinite times (108.040375ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 789.843083\n",
+      "stderr": ""
+    },
+    {
+      "label": "production-slice-cpu",
+      "command": "LEAK_CHECK=1 node --import ./tests/unit/helpers/leakHarness.js --test tests/unit/slice.test.js",
+      "exitCode": 0,
+      "stdout": "✔ masked Slice reuses ordering and duplicate validation across time, but rechecks new masks (83.416375ms)\n✔ Slice topology certifies endpoints and membership for compact and padded rows (75.734708ms)\n✔ Slice matches keys across irregular records in original entity order (31.600958ms)\n✔ Slice omits unbracketed entities and retains exact endpoints (23.07875ms)\n✔ Slice category midpoint chooses earlier record and duplicate keys reject (6.720334ms)\n✔ Slice aborts before allocating replacement data (0.542209ms)\n✔ Slice batches many entities without changing ordering or tail interpolation (31.517292ms)\n✔ Slice equals a brute-force reference, with and without a Filter's mask (134.983209ms)\n✔ Slice reads back nothing for a time inside its active span, with and without a mask (170.2625ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 907.59125\n",
+      "stderr": ""
+    }
+  ],
+  "build": {
+    "command": "node node_modules/vite/bin/vite.js build --config tests/perf/investigations/primitives-123/vite.config.mjs",
+    "snapshot": "/tmp/hmplot-123-frozen-ready",
+    "manifestSha256": "01429e875ce3cd2e1aba4b9f87b00b78cf39eac672421b62d95793386437b90f",
+    "log": "../../../../primitive-build/assets/index-DkZVElX1.css                    26.54 kB │ gzip:     5.70 kB\n../../../../primitive-build/assets/_commonjsHelpers-Cpj98o6Y.js           0.24 kB │ gzip:     0.18 kB\n../../../../primitive-build/assets/video-BuBhBT2L.js                      4.56 kB │ gzip:     2.04 kB\n../../../../primitive-build/assets/webgl-DCXRXwYI-D-kSaD1Z.js            13.87 kB │ gzip:     4.74 kB\n../../../../primitive-build/assets/purify.es-DedTAGkB.js                 29.05 kB │ gzip:    11.15 kB\n../../../../primitive-build/assets/webgpu-CSSAaGW0-CCvrnRjE.js           59.44 kB │ gzip:    17.46 kB\n../../../../primitive-build/assets/svg2pdf.es.min--_0jRRps.js            87.61 kB │ gzip:    25.75 kB\n../../../../primitive-build/assets/index.es-PdwVNn1Y.js                 159.79 kB │ gzip:    53.41 kB\n../../../../primitive-build/assets/html2canvas.esm-B0tyYwQk.js          202.36 kB │ gzip:    47.70 kB\n../../../../primitive-build/assets/jspdf.es.min-CV2dhBqT.js             388.04 kB │ gzip:   125.91 kB\n../../../../primitive-build/assets/index-Y2VLqiDg.js                  3,897.00 kB │ gzip: 1,231.73 kB\n\n(!) Some chunks are larger than 500 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n✓ built in 8.29s\n"
+  },
+  "gpu": {
+    "status": "awaiting-primary-agent-exclusive-window",
+    "contactRequest": "Asked through request_user_input_async; no primary agent is listed in the collaboration tree.",
+    "timingSamples": [],
+    "recommendations": {
+      "123.9": "Keep current sort pending matched GPU timings.",
+      "123.10": "Do not add a fork search primitive pending dominance and end-to-end evidence."
+    }
+  },
+  "checks": {
+    "diffCheck": "passed",
+    "focusedPrettier": "passed",
+    "javascriptSyntax": "passed",
+    "pythonSyntax": "passed"
+  }
+}

@@ -1,0 +1,1323 @@
+{
+  "Arrows": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Arrows from start to end, one per row, with heads sized in pixels.",
+    "use": [
+      "mark",
+      "endsOptions",
+      "maxInstancesOption",
+      "interpolationOption",
+      "markSettings",
+      "transparent",
+      "arrowSettings"
+    ],
+    "omit": [
+      "brush",
+      "drag",
+      "fill",
+      "fillScale",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "outlineColor",
+      "outlineColorScale",
+      "outlineWidth",
+      "outlineOpacity",
+      "position",
+      "size",
+      "sizeScale",
+      "x",
+      "y",
+      "z"
+    ],
+    "options": {
+      "connections": {
+        "type": "connect()",
+        "doc": "Draw between other marks instead of from start and end: connect(a, b, {key}) draws an arrow from a to b for each matched key."
+      },
+      "curve": {
+        "type": "\"linear\" | \"step\" | \"step-before\" | \"step-after\" | \"link-horizontal\" | \"link-vertical\" | \"quadratic\" | \"cubic\"",
+        "doc": "How each arrow runs from start to end; the head follows the curve.",
+        "default": "linear"
+      },
+      "control1": {
+        "type": "channel",
+        "doc": "Each arrow's control point for a quadratic or cubic curve: a column of positions or an N x 2 (N x 3) array.",
+        "input": true
+      },
+      "control2": {
+        "type": "channel",
+        "doc": "Each arrow's second control point for a cubic curve.",
+        "input": true
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "color": {
+        "defaultText": "the theme's (#3478c7 in the default theme)"
+      },
+      "width": {
+        "defaultText": "the theme's (2 in the default theme)"
+      },
+      "headLength": {
+        "default": 10
+      },
+      "headWidth": {
+        "default": 8
+      }
+    }
+  },
+  "Bar": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Bars from a baseline to a value, one per row, on a categorical axis.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "rotationOption",
+      "shapeOptions",
+      "markSettings",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "width",
+      "widthScale"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The categories along x for vertical bars, or the values the bars reach for horizontal ones."
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The values the bars reach for vertical bars, or the categories along y for horizontal ones."
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "doc": "Vertical bars rise from categories on x; horizontal bars run from categories on y.",
+        "defaultText": "from which of x and y is categorical"
+      },
+      "baseline": {
+        "type": "channel",
+        "doc": "Where each bar starts on the value axis: a number or a column.",
+        "default": 0,
+        "input": true
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of its category's band each bar fills, 0 to 1; on a numeric axis, the bar's width in data units.",
+        "default": 0.8
+      },
+      "arrange": {
+        "type": "\"stack\" | \"group\" | \"overlap\"",
+        "doc": "Bars that share a category: \"stack\" stacks them from zero in the order of the column fill (or color) names, \"group\" sets them side by side with each fill value in the same slot of every category, \"overlap\" draws each from its baseline. One bar per category draws the same in all three.",
+        "defaultText": "\"stack\" (\"overlap\" with a baseline)",
+        "input": true
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "fill": {
+        "defaultText": "the theme's first palette color (#3478c7 in the default theme)"
+      }
+    }
+  },
+  "BoxPlot": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Box-and-whisker plots: each group's quartiles, median, whiskers and outliers.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "rotationOption",
+      "markSettings",
+      "detail",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "width",
+      "widthScale"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The groups along x, a box each, or the measurements for horizontal boxes."
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The measurements for vertical boxes, or the groups along y for horizontal ones."
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "doc": "Vertical boxes stand on categories along x; horizontal boxes sit on categories along y.",
+        "defaultText": "from which of x and y is categorical"
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of its category's band each box fills, 0 to 1; on a numeric axis, the box's width in data units.",
+        "default": 0.8
+      },
+      "whisker": {
+        "type": "number",
+        "doc": "How far the whiskers may reach beyond the box, in interquartile ranges; each ends at the farthest value within that reach (Tukey's rule).",
+        "default": 1.5
+      },
+      "outliers": {
+        "type": "boolean",
+        "doc": "Draw the values beyond the whiskers as points.",
+        "default": true
+      },
+      "outlierSize": {
+        "type": "number",
+        "doc": "The outlier points' diameter.",
+        "default": 2.5,
+        "units": "px"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "fill": {
+        "default": "#547ba2",
+        "doc": "The boxes' and outliers' fill: a CSS color, or the group column to color each group."
+      },
+      "outlineColor": {
+        "default": "#30343b",
+        "doc": "The whiskers' and medians' color, and the boxes' outline color when outlineWidth is set."
+      }
+    }
+  },
+  "Callout": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A note a fixed distance from a point, with a leader line to the point.",
+    "use": [
+      "mark",
+      "maxInstancesOption"
+    ],
+    "omit": [
+      "rows",
+      "domains",
+      "outlineColor",
+      "outlineColorScale",
+      "outlineWidth",
+      "outlineOpacity",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "position",
+      "z"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The x of the point the callout points at: a number or a time draws one callout, a column one per row."
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The y of the point the callout points at."
+      },
+      "text": {
+        "type": "string | number | column | (string | number)[]",
+        "doc": "The text: a string or a number, or a column of them for a callout per row."
+      },
+      "dx": {
+        "type": "channel",
+        "doc": "How far right of its point the text sits (left when negative): a number or a column.",
+        "default": 24,
+        "units": "px",
+        "input": true
+      },
+      "dy": {
+        "type": "channel",
+        "doc": "How far below its point the text sits (above when negative): a number or a column.",
+        "default": -24,
+        "units": "px",
+        "input": true
+      },
+      "box": {
+        "type": "boolean | {fill, outlineColor, outlineWidth, padding, radius, opacity}",
+        "doc": "A box behind the text: true for white with a gray outline, or its style. Without one the text has a halo of the plot's background.",
+        "default": false
+      },
+      "leader": {
+        "type": "boolean | {color, width}",
+        "doc": "The line from near the point to the text (or its box): true (1.5 px in the text's color), false, or its color and width.",
+        "default": true
+      },
+      "align": {
+        "type": "\"left\" | \"center\" | \"right\" | \"auto\"",
+        "doc": "How the text sits at its offset; \"auto\" puts each row's text on the side of the point it is offset to.",
+        "default": "auto"
+      },
+      "font": {
+        "type": "string",
+        "doc": "The text's font, a CSS font-family.",
+        "defaultText": "the plot's font"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "color": {
+        "defaultText": "the theme's text color, as Text's",
+        "doc": "The text's color: a CSS color, or a column mapped to colors."
+      },
+      "size": {
+        "defaultText": "the theme's font size, as Text's (14 in the default theme)",
+        "doc": "The text's font size: a number, or a column mapped to sizes."
+      },
+      "legend": {
+        "default": false
+      }
+    }
+  },
+  "Crosshair": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Rules that follow the pointer across the frame, with a readout of its x and y.",
+    "options": {
+      "axes": {
+        "type": "\"x\" | \"y\" | \"xy\"",
+        "doc": "Which rules to draw: a vertical one (\"x\"), a horizontal one (\"y\"), or both.",
+        "default": "xy"
+      },
+      "readout": {
+        "type": "boolean",
+        "doc": "Show the pointer's value on each axis, finer than the ticks, where readoutPosition puts it.",
+        "default": true
+      },
+      "readoutPosition": {
+        "type": "\"edges\" | \"pointer\"",
+        "doc": "Where the readouts sit: just inside the frame's bottom (x) and left (y) edges, or as one label beside the pointer, for a polar frame or a map, whose rules have no edge to pin to.",
+        "default": "edges"
+      },
+      "color": {
+        "type": "color",
+        "doc": "The rules' color.",
+        "default": "#40505d"
+      },
+      "width": {
+        "type": "number",
+        "doc": "The rules' width.",
+        "default": 1,
+        "units": "px"
+      },
+      "dash": {
+        "type": "boolean | number | [number, number]",
+        "doc": "Dash the rules: true (4 px dashes and gaps), a dash length (gaps as long), or [dash, gap], measured along the drawn rules.",
+        "units": "px"
+      },
+      "textColor": {
+        "type": "color",
+        "doc": "The readouts' text color.",
+        "default": "#40505d"
+      },
+      "name": {
+        "type": "string",
+        "doc": "The rules' name in the settings pane."
+      }
+    }
+  },
+  "DensityBands": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Filled bands of the density of points in two dimensions, each filled by its lower level.",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "color",
+      "colorScale",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "position",
+      "z"
+    ],
+    "options": {
+      "x": {
+        "type": "column",
+        "doc": "The column along x of the points whose density is banded.",
+        "input": false
+      },
+      "y": {
+        "type": "column",
+        "doc": "The column along y of the points whose density is banded.",
+        "input": false
+      },
+      "weight": {
+        "type": "column",
+        "doc": "A column of nonnegative weights, one per row; without it every row counts once."
+      },
+      "bandwidth": {
+        "type": "number | [number, number] | \"auto\"",
+        "doc": "The width of the Gaussian kernel: one for both axes, one per axis, or \"auto\" for Scott's rule.",
+        "default": "auto",
+        "units": "data units"
+      },
+      "resolution": {
+        "type": "number | [number, number]",
+        "doc": "The size of the grid the density is estimated on: [along x, along y], or one number for both.",
+        "default": 128
+      },
+      "bounds": {
+        "type": "{x: [number, number], y: [number, number]}",
+        "doc": "The region the density is estimated over.",
+        "defaultText": "the points' extent, widened by three bandwidths",
+        "units": "data units"
+      },
+      "thresholds": {
+        "type": "number | number[]",
+        "doc": "How many band edges, chosen as round values over the density's range, or the edges themselves.",
+        "default": 10
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "fill": {
+        "defaultText": "each band's lower level",
+        "doc": "The bands' fill: a CSS color, or lower (the density at the band's lower edge) mapped to colors."
+      }
+    }
+  },
+  "DensityContour": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Contour lines of the density of points in two dimensions.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "interpolationOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "column",
+        "doc": "The column along x of the points whose density is contoured.",
+        "input": false
+      },
+      "y": {
+        "type": "column",
+        "doc": "The column along y of the points whose density is contoured.",
+        "input": false
+      },
+      "weight": {
+        "type": "column",
+        "doc": "A column of nonnegative weights, one per row; without it every row counts once."
+      },
+      "bandwidth": {
+        "type": "number | [number, number] | \"auto\"",
+        "doc": "The width of the Gaussian kernel: one for both axes, one per axis, or \"auto\" for Scott's rule.",
+        "default": "auto",
+        "units": "data units"
+      },
+      "resolution": {
+        "type": "number | [number, number]",
+        "doc": "The size of the grid the density is estimated on: [along x, along y], or one number for both.",
+        "default": 128
+      },
+      "bounds": {
+        "type": "{x: [number, number], y: [number, number]}",
+        "doc": "The region the density is estimated over.",
+        "defaultText": "the points' extent, widened by three bandwidths",
+        "units": "data units"
+      },
+      "thresholds": {
+        "type": "number | number[]",
+        "doc": "How many contour levels, chosen as round values over the density's range, or the levels themselves.",
+        "default": 10
+      },
+      "mode": {
+        "type": "\"lines\" | \"bands\"",
+        "doc": "Deprecated: use DensityBands for filled bands; mode will be removed. \"lines\" draws contour lines, colored by their level; \"bands\" draws a DensityBands.",
+        "default": "lines"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "color": {
+        "defaultText": "each line's level",
+        "doc": "The lines' color: a CSS color, or level (the density along the line) mapped to colors."
+      },
+      "fill": {
+        "defaultText": "each band's lower level",
+        "doc": "The bands' fill, with the deprecated mode=\"bands\": a CSS color, or lower (the density at the band's lower edge) mapped to colors."
+      },
+      "width": {
+        "default": 1,
+        "doc": "The lines' width."
+      }
+    }
+  },
+  "Ecdf": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Empirical cumulative distributions as step lines, one per group.",
+    "use": [
+      "mark",
+      "samplingOption",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "outlineColor",
+      "outlineColorScale",
+      "outlineWidth",
+      "outlineOpacity",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "column",
+        "doc": "The column whose distribution is drawn.",
+        "input": false
+      },
+      "by": {
+        "type": "column",
+        "doc": "Groups: a step line each, colored by its group."
+      },
+      "complementary": {
+        "type": "boolean",
+        "doc": "Draw the share of values above each value (1 − ECDF) instead of at or below it.",
+        "default": false
+      },
+      "normalize": {
+        "type": "\"fraction\" | \"count\"",
+        "doc": "Measure in fractions of the group or in counts of rows.",
+        "default": "fraction"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "color": {
+        "defaultText": "the by column, when given"
+      },
+      "width": {
+        "default": 2
+      }
+    }
+  },
+  "ErrorBars": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Error bars: an interval with caps at each row, such as a confidence interval.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "outlineColor",
+      "outlineColorScale",
+      "outlineWidth",
+      "outlineOpacity",
+      "brush",
+      "drag",
+      "fill",
+      "fillScale",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "size",
+      "sizeScale"
+    ],
+    "options": {
+      "position": {
+        "type": "channel",
+        "doc": "Each bar's point as one column of positions or an N x 2 (N x 3) array, instead of x and y."
+      },
+      "x": {
+        "type": "channel",
+        "doc": "Each bar's x position; horizontal bars run from lower to upper along x instead."
+      },
+      "y": {
+        "type": "channel",
+        "doc": "Each bar's y position; vertical bars run from lower to upper along y instead."
+      },
+      "lower": {
+        "type": "channel",
+        "doc": "Where each bar starts, in its axis's units (not a distance from the point).",
+        "input": true
+      },
+      "upper": {
+        "type": "channel",
+        "doc": "Where each bar ends, in its axis's units; a bar whose upper is below its lower is not drawn.",
+        "input": true
+      },
+      "orientation": {
+        "type": "\"vertical\" | \"horizontal\"",
+        "doc": "Whether the bars run along y or along x.",
+        "default": "vertical"
+      },
+      "capSize": {
+        "type": "number",
+        "doc": "The length of the caps across each bar's ends.",
+        "default": 6,
+        "units": "px"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "color": {
+        "defaultText": "the theme's (#3478c7 in the default theme)"
+      },
+      "width": {
+        "defaultText": "the theme's (1 in the default theme)"
+      }
+    }
+  },
+  "Histogram": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Bars counting how many values fall in each bin of a numeric column.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "rotationOption",
+      "markSettings",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "position",
+      "z"
+    ],
+    "options": {
+      "brush": {
+        "type": "boolean | {selection, axis}",
+        "doc": "Shift-drag brushes an interval of the binned column along its axis (x, or y for a horizontal histogram): the rows in it are @brushed in every view of the data, so a Filter elsewhere follows it (a crossfilter). true, or {selection} for a named selection.",
+        "input": true
+      },
+      "bins": {
+        "type": "number | number[] | \"auto\" | \"sturges\" | \"fd\" | \"scott\" | expression",
+        "doc": "A bin count, the bins' edges, a rule that picks the count from the data (as numpy's does), or an expression such as power(count(\"x\"), 0.5).",
+        "default": 30
+      },
+      "normalization": {
+        "type": "\"count\" | \"proportion\" | \"density\"",
+        "doc": "What each bar's length measures: its values (\"count\"), their share of all values (\"proportion\"), or that share divided by the bin's width (\"density\").",
+        "default": "count"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "x": {
+        "type": "column | number[]",
+        "doc": "The values to bin along x, for vertical bars: a column or per-row values. Give x or y, not both."
+      },
+      "y": {
+        "type": "column | number[]",
+        "doc": "The values to bin along y, for horizontal bars. Give x or y, not both."
+      },
+      "fill": {
+        "defaultText": "the theme's first palette color (#3478c7 in the default theme)",
+        "doc": "The bars' fill: a CSS color, or a column of the bins (such as count) mapped to colors."
+      }
+    }
+  },
+  "Lollipop": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A stem from a baseline to each value, with a point at its end.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "rotationOption",
+      "shapeOptions",
+      "sizeUnitsOption",
+      "markSettings",
+      "detail",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The categories along x for vertical stems, or the values the stems reach for horizontal ones."
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The values the stems reach for vertical stems, or the categories along y for horizontal ones."
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "doc": "Whether the stems run along y (\"vertical\") or along x (\"horizontal\").",
+        "defaultText": "horizontal when only y is categorical, else vertical"
+      },
+      "baseline": {
+        "type": "channel",
+        "doc": "Where the stems start: a number or a column. Values on either side of it get a stem.",
+        "default": 0,
+        "input": true
+      },
+      "stem": {
+        "type": "object",
+        "doc": "The stems' own Segments props, as one object: {color: \"gray\", width: 2, dash: [2, 2]}. Defaults to the Lollipop theme's color and width (#8a949e and 1.5 pixels)."
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "size": {
+        "default": 5,
+        "doc": "The heads' diameter in CSS pixels: a number, or a column mapped through sizeScale (by default onto the automatic size range)."
+      }
+    }
+  },
+  "Pie": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A pie or donut chart: a sector per row, its angle its value's share of the total.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "position",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "x",
+      "y",
+      "z"
+    ],
+    "options": {
+      "value": {
+        "type": "channel",
+        "doc": "Each sector's size: a numeric column or expression. A negative value is an error; a zero or missing one draws nothing.",
+        "input": true
+      },
+      "category": {
+        "type": "column",
+        "doc": "The sectors' categories: they fill the sectors unless fill is given, so the legend lists them."
+      },
+      "by": {
+        "type": "column | column[]",
+        "doc": "One pie per group, drawn as concentric rings that each sum to their own total, each ring's sectors aligned to the inner ones they sum (in row order; sort sorts each ring on its own and breaks that); for pies side by side, use a Facet."
+      },
+      "sort": {
+        "type": "\"none\" | \"asc\" | \"desc\" | category[]",
+        "doc": "The sectors' order clockwise from startAngle: row order, by value, or a list of categories (the others after them).",
+        "default": "none"
+      },
+      "startAngle": {
+        "type": "number",
+        "doc": "Where the pie starts, clockwise from 12 o'clock.",
+        "default": 0,
+        "units": "degrees"
+      },
+      "endAngle": {
+        "type": "number",
+        "doc": "Where the pie ends, clockwise from 12 o'clock; below startAngle the sectors run counter-clockwise.",
+        "default": 360,
+        "units": "degrees"
+      },
+      "padAngle": {
+        "type": "number",
+        "doc": "A gap between sectors, taken from their shares as d3.pie's padAngle is; with by, from each sector's own share (at most half its width, so a very small sector gets a narrower gap), so the rings stay aligned.",
+        "default": 0,
+        "units": "degrees"
+      },
+      "innerRadius": {
+        "type": "number",
+        "doc": "The hole's radius as a fraction of the disk's: above 0 makes a donut.",
+        "default": 0
+      },
+      "outerRadius": {
+        "type": "number",
+        "doc": "The pie's radius as a fraction of the disk's.",
+        "default": 1
+      },
+      "sectorLabel": {
+        "type": "\"category\" | \"value\" | \"percent\" | column | expression",
+        "doc": "Text at each sector's centroid: its category, its value, its percent of its pie, a column, or an expression; a label that would overlap a larger sector's is hidden."
+      },
+      "sectorLabelFormat": {
+        "type": "string",
+        "doc": "A d3-format string for numeric sector labels.",
+        "defaultText": "\".0%\" for \"percent\", \",.7~r\" otherwise"
+      },
+      "textColor": {
+        "type": "color",
+        "doc": "The sector labels' color.",
+        "default": "#ffffff"
+      },
+      "fontSize": {
+        "type": "number",
+        "doc": "The sector labels' font size.",
+        "default": 12,
+        "units": "px"
+      },
+      "placement": {
+        "type": "{anchor, size}",
+        "doc": "Where the pie goes in a Cartesian plot: anchor in data coordinates, size in pixels. In a polar plot the pie fills the disk.",
+        "defaultText": "centered in the frame, across 90% of its shorter side"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "fill": {
+        "defaultText": "the category column"
+      }
+    }
+  },
+  "RuleX": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A vertical reference line at x across the frame: one per row, or one at a value or the pointer.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "domains",
+      "y",
+      "z",
+      "position",
+      "fill",
+      "size",
+      "outlineColor",
+      "outlineWidth",
+      "outlineOpacity",
+      "fillScale",
+      "colorScale",
+      "colormap",
+      "sizeScale",
+      "widthScale",
+      "outlineColorScale",
+      "opacityScale",
+      "options",
+      "tooltip",
+      "brush",
+      "nearby",
+      "nearest",
+      "selectionOpacity",
+      "drag",
+      "ondrag",
+      "ondragend",
+      "enterEffect",
+      "exitEffect"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "Where the rule stands: a number, a time or a category draws one rule, a column one per row, and \"@pointer_x\" follows the pointer."
+      },
+      "y0": {
+        "type": "channel",
+        "doc": "Where the rule starts in y: a number or a column.",
+        "defaultText": "the bottom of the frame's visible domain",
+        "input": true
+      },
+      "y1": {
+        "type": "channel",
+        "doc": "Where the rule ends in y: a number or a column. By default the rule spans the frame as it pans and zooms.",
+        "defaultText": "the top of the frame's visible domain",
+        "input": true
+      },
+      "color": {
+        "type": "color",
+        "doc": "The rule's color.",
+        "default": "#8a949e",
+        "defaultText": "the theme's rule gray",
+        "input": false
+      },
+      "width": {
+        "type": "number",
+        "doc": "The rule's width.",
+        "default": 1,
+        "defaultText": "1",
+        "units": "px",
+        "input": false
+      },
+      "dash": {
+        "type": "boolean | number | [number, number]",
+        "doc": "Dash the rule: true (4 px dashes and gaps), a dash length (gaps as long), or [dash, gap], measured along the drawn rule.",
+        "units": "px"
+      },
+      "opacity": {
+        "type": "number",
+        "doc": "The rule's opacity, 0 to 1.",
+        "default": 1,
+        "input": false
+      },
+      "name": {
+        "type": "string",
+        "doc": "The rule's name in the settings pane."
+      },
+      "select": {
+        "type": "boolean | selection",
+        "doc": "Click a rule to select its row: true uses its data's selection, or give a selection()."
+      },
+      "hover": {
+        "type": "boolean | selection",
+        "doc": "Mark the rule under the pointer as @hovered, without fading the others: true uses its data's hover, or give a selection()."
+      },
+      "respond": {
+        "type": "boolean | \"selected\" | \"brushed\" | \"hovered\" | \"nearby\" | selection | array",
+        "doc": "Which interaction states fade the rules outside them.",
+        "defaultText": "the states it sets, except hover"
+      },
+      "identity": {
+        "type": "identity",
+        "doc": "Whose rows these are for selections: an identity() shared by tables that show the same things.",
+        "defaultText": "its data's"
+      },
+      "visible": {
+        "type": "boolean",
+        "doc": "Whether the rule is drawn.",
+        "default": true
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "legend": {
+        "default": false
+      }
+    }
+  },
+  "RuleY": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A horizontal reference line at y across the frame: one per row, or one at a value or the pointer.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "domains",
+      "x",
+      "z",
+      "position",
+      "fill",
+      "size",
+      "outlineColor",
+      "outlineWidth",
+      "outlineOpacity",
+      "fillScale",
+      "colorScale",
+      "colormap",
+      "sizeScale",
+      "widthScale",
+      "outlineColorScale",
+      "opacityScale",
+      "options",
+      "tooltip",
+      "brush",
+      "nearby",
+      "nearest",
+      "selectionOpacity",
+      "drag",
+      "ondrag",
+      "ondragend",
+      "enterEffect",
+      "exitEffect"
+    ],
+    "options": {
+      "y": {
+        "type": "channel",
+        "doc": "Where the rule stands: a number, a time or a category draws one rule, a column one per row, and \"@pointer_y\" follows the pointer."
+      },
+      "x0": {
+        "type": "channel",
+        "doc": "Where the rule starts in x: a number or a column.",
+        "defaultText": "the left of the frame's visible domain",
+        "input": true
+      },
+      "x1": {
+        "type": "channel",
+        "doc": "Where the rule ends in x: a number or a column. By default the rule spans the frame as it pans and zooms.",
+        "defaultText": "the right of the frame's visible domain",
+        "input": true
+      },
+      "color": {
+        "type": "color",
+        "doc": "The rule's color.",
+        "default": "#8a949e",
+        "defaultText": "the theme's rule gray",
+        "input": false
+      },
+      "width": {
+        "type": "number",
+        "doc": "The rule's width.",
+        "default": 1,
+        "defaultText": "1",
+        "units": "px",
+        "input": false
+      },
+      "dash": {
+        "type": "boolean | number | [number, number]",
+        "doc": "Dash the rule: true (4 px dashes and gaps), a dash length (gaps as long), or [dash, gap], measured along the drawn rule.",
+        "units": "px"
+      },
+      "opacity": {
+        "type": "number",
+        "doc": "The rule's opacity, 0 to 1.",
+        "default": 1,
+        "input": false
+      },
+      "name": {
+        "type": "string",
+        "doc": "The rule's name in the settings pane."
+      },
+      "select": {
+        "type": "boolean | selection",
+        "doc": "Click a rule to select its row: true uses its data's selection, or give a selection()."
+      },
+      "hover": {
+        "type": "boolean | selection",
+        "doc": "Mark the rule under the pointer as @hovered, without fading the others: true uses its data's hover, or give a selection()."
+      },
+      "respond": {
+        "type": "boolean | \"selected\" | \"brushed\" | \"hovered\" | \"nearby\" | selection | array",
+        "doc": "Which interaction states fade the rules outside them.",
+        "defaultText": "the states it sets, except hover"
+      },
+      "identity": {
+        "type": "identity",
+        "doc": "Whose rows these are for selections: an identity() shared by tables that show the same things.",
+        "defaultText": "its data's"
+      },
+      "visible": {
+        "type": "boolean",
+        "doc": "Whether the rule is drawn.",
+        "default": true
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "legend": {
+        "default": false
+      }
+    }
+  },
+  "Smooth": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A fitted curve through a scatter, with its confidence band.",
+    "use": [
+      "mark",
+      "samplingOption",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "outlineColor",
+      "outlineColorScale",
+      "outlineWidth",
+      "outlineOpacity",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "column",
+        "doc": "The column along x: the fit is of y on x.",
+        "input": false
+      },
+      "y": {
+        "type": "column",
+        "doc": "The column fitted, along y.",
+        "input": false
+      },
+      "method": {
+        "type": "\"linear\" | \"poly\" | \"log\" | \"exp\" | \"pow\"",
+        "doc": "The model: a line, a polynomial of degree order, y on ln x (\"log\"), ln y on x (\"exp\"), or ln y on ln x (\"pow\").",
+        "default": "linear"
+      },
+      "order": {
+        "type": "number",
+        "doc": "The polynomial's degree for method \"poly\", 1 to 6.",
+        "default": 2
+      },
+      "samples": {
+        "type": "number",
+        "doc": "How many points the curve is drawn through, evenly spaced across extent.",
+        "default": 100
+      },
+      "extent": {
+        "type": "[number, number]",
+        "doc": "The x range the curve spans.",
+        "defaultText": "the fitted rows' x range",
+        "units": "data units"
+      },
+      "band": {
+        "type": "number | false",
+        "doc": "The confidence level of the band around the fit, or false for no band.",
+        "default": 0.95
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "color": {
+        "default": "#30343b",
+        "doc": "The fitted line's color."
+      },
+      "width": {
+        "default": 2,
+        "doc": "The fitted line's width."
+      },
+      "fill": {
+        "default": "#547ba2",
+        "doc": "The confidence band's color."
+      },
+      "opacity": {
+        "default": 0.25,
+        "doc": "The confidence band's opacity, 0 to 1; the line stays opaque."
+      }
+    }
+  },
+  "Swarm": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "A beeswarm: points along a categorical axis, moved aside so none overlap.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "rotationOption",
+      "shapeOptions",
+      "sizeUnitsOption",
+      "markSettings",
+      "detail",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows"
+    ],
+    "options": {
+      "x": {
+        "type": "column",
+        "doc": "The categories along x for a vertical swarm, or the values for a horizontal one.",
+        "input": false
+      },
+      "y": {
+        "type": "column",
+        "doc": "The values for a vertical swarm, or the categories along y for a horizontal one.",
+        "input": false
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "doc": "A vertical swarm spreads its points sideways from categories on x; a horizontal one spreads them up and down from categories on y.",
+        "defaultText": "from which of x and y is categorical"
+      },
+      "padding": {
+        "type": "number",
+        "doc": "The gap kept between neighboring points.",
+        "default": 1,
+        "units": "px"
+      },
+      "seed": {
+        "type": "number",
+        "doc": "The seed of the random order the points are placed in: another seed arranges the same points differently.",
+        "default": 42
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      }
+    }
+  },
+  "Violin": {
+    "tier": "charts",
+    "mark": true,
+    "group": "Marks",
+    "summary": "Violin plots: each group's distribution as a mirrored density curve.",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "detail",
+      "lit",
+      "transparent"
+    ],
+    "omit": [
+      "rows",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend",
+      "width",
+      "widthScale"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The groups along x, a violin each, or the measurements for horizontal violins."
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The measurements for vertical violins, or the groups along y for horizontal ones."
+      },
+      "orientation": {
+        "type": "\"horizontal\" | \"vertical\"",
+        "doc": "Vertical violins stand on categories along x; horizontal violins sit on categories along y.",
+        "defaultText": "from which of x and y is categorical"
+      },
+      "scale": {
+        "type": "\"width\" | \"count\" | \"area\"",
+        "doc": "How the violins' sizes compare: equally wide (\"width\"), equal in area (\"area\"), or with areas in proportion to their groups' rows (\"count\").",
+        "default": "width"
+      },
+      "side": {
+        "type": "\"left\" | \"right\" | \"both\"",
+        "doc": "Draw the density on both sides of its category, or on one side only (a half violin).",
+        "default": "both"
+      },
+      "bandwidth": {
+        "type": "number | \"auto\"",
+        "doc": "The width of the Gaussian kernel; \"auto\" picks it by Scott's rule.",
+        "default": "auto",
+        "units": "data units"
+      },
+      "resolution": {
+        "type": "number",
+        "doc": "How many points along the measurement axis the density is evaluated at.",
+        "default": 256
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of its category's band each violin may fill, 0 to 1; on a numeric axis, a width in data units.",
+        "default": 0.8
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "fill": {
+        "default": "#547ba2"
+      },
+      "opacity": {
+        "default": 0.35
+      },
+      "outlineColor": {
+        "default": "#30343b"
+      },
+      "outlineWidth": {
+        "default": 1,
+        "units": "px"
+      }
+    }
+  }
+}

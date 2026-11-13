@@ -1,0 +1,2891 @@
+{
+ "commit": "9e0830f3",
+ "date": "2026-10-09",
+ "note": "Stage 112 (P0) baseline for docs/REFACTOR-PLAN-2026-10-09.md. The tree also held Stage 112's uncommitted test, harness and driver files and the VITE_HMPLOT_PERF_HOOKS switch in Example.svelte; no library source differed from 9e0830f3.",
+ "machine": "Apple M2 Max (Mac14,5), 32 GB, macOS 15.6.1",
+ "power": "battery, 39% and discharging at the start",
+ "browser": "Google Chrome 154.0.8037.98",
+ "dpr": 2,
+ "servers": "Production: npm run build, then VITE_HMPLOT_PERF_HOOKS=1 npx vite build, served by vite preview on 127.0.0.1:5601. Dev: playwright.perf.config.js's dev server on 127.0.0.1:5173. Idle servers from other sessions were listening on 4173, [::1]:5173 and 5509-5542.",
+ "scenarios": {
+  "sunburst": {
+   "server": "production preview",
+   "harness": "tests/perf/investigations/sunburst-profile.mjs (SUNBURST_CPU=1, then SUNBURST_PROFILE=1), 3 runs of 6 zoom/reset flights; per-frame means over flights 2-6",
+   "cpuMsPerFrame": {
+    "median": 3.652,
+    "min": 3.606,
+    "max": 4.479,
+    "spread": 0.873,
+    "runs": [
+     3.652,
+     3.606,
+     4.479
+    ]
+   },
+   "frameP95": {
+    "median": 17.94,
+    "min": 17.82,
+    "max": 18.14,
+    "spread": 0.32,
+    "runs": [
+     17.94,
+     17.82,
+     18.14
+    ]
+   },
+   "framesPerFlight": {
+    "median": 79,
+    "min": 78.8,
+    "max": 79,
+    "spread": 0.2,
+    "runs": [
+     79,
+     79,
+     78.8
+    ]
+   },
+   "submitsPerFrame": {
+    "median": 13.803,
+    "min": 13.769,
+    "max": 13.838,
+    "spread": 0.069,
+    "runs": [
+     13.769,
+     13.803,
+     13.838
+    ]
+   },
+   "readbacksPerFrame": {
+    "median": 1.235,
+    "min": 1.232,
+    "max": 1.238,
+    "spread": 0.006,
+    "runs": [
+     1.232,
+     1.235,
+     1.238
+    ]
+   }
+  },
+  "lorenz": {
+   "server": "production preview",
+   "harness": "tests/perf/investigations/lorenz-profile.mjs, 3 runs (4 s warm-up, 6 s samples)",
+   "fps": {
+    "median": 59.974,
+    "min": 59.973,
+    "max": 59.984,
+    "spread": 0.011,
+    "runs": [
+     59.984,
+     59.974,
+     59.973
+    ]
+   },
+   "presentedFps": [
+    {
+     "median": 59.974,
+     "min": 59.973,
+     "max": 59.984,
+     "spread": 0.011,
+     "runs": [
+      59.984,
+      59.974,
+      59.973
+     ]
+    },
+    {
+     "median": 59.974,
+     "min": 59.973,
+     "max": 59.984,
+     "spread": 0.011,
+     "runs": [
+      59.984,
+      59.974,
+      59.973
+     ]
+    },
+    {
+     "median": 59.974,
+     "min": 59.973,
+     "max": 59.984,
+     "spread": 0.011,
+     "runs": [
+      59.984,
+      59.974,
+      59.973
+     ]
+    }
+   ],
+   "frameP50": {
+    "median": 16.7,
+    "min": 16.7,
+    "max": 16.7,
+    "spread": 0,
+    "runs": [
+     16.7,
+     16.7,
+     16.7
+    ]
+   },
+   "frameP95": {
+    "median": 16.7,
+    "min": 16.7,
+    "max": 16.8,
+    "spread": 0.1,
+    "runs": [
+     16.7,
+     16.8,
+     16.7
+    ]
+   },
+   "cpuMsPerFrame": {
+    "median": 6.378,
+    "min": 5.742,
+    "max": 6.576,
+    "spread": 0.834,
+    "runs": [
+     5.742,
+     6.378,
+     6.576
+    ]
+   },
+   "gpuMsPerFrame": {
+    "median": 3.997,
+    "min": 3.969,
+    "max": 4.069,
+    "spread": 0.1,
+    "runs": [
+     4.069,
+     3.969,
+     3.997
+    ]
+   },
+   "submitsPerFrame": {
+    "median": 30.925,
+    "min": 30.925,
+    "max": 31,
+    "spread": 0.075,
+    "runs": [
+     31,
+     30.925,
+     30.925
+    ]
+   },
+   "readbacksPerFrame": {
+    "median": 0.997,
+    "min": 0.997,
+    "max": 1,
+    "spread": 0.003,
+    "runs": [
+     1,
+     0.997,
+     0.997
+    ]
+   },
+   "builds": {
+    "median": 0,
+    "min": 0,
+    "max": 0,
+    "spread": 0,
+    "runs": [
+     0,
+     0,
+     0
+    ]
+   }
+  },
+  "gestureChurn": {
+   "server": "dev",
+   "runs": 1,
+   "harness": "PERF=1 playwright.perf.config.js gesture-churn.spec.js (imports /src modules, so dev only); counts are deterministic",
+   "results": [
+    {
+     "name": "categories hover",
+     "load": {
+      "compute": 14,
+      "render": 12,
+      "shaders": 33,
+      "readbacks": 0,
+      "bufferMB": 67,
+      "ms": 2556
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 62,
+      "bufferKB": 1,
+      "readbacks": 62,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 62,
+      "fences": 1,
+      "readbackP50": 0.7,
+      "readbackP95": 1.4,
+      "readbackMax": 2.1,
+      "builds": 0,
+      "ms": 1165,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 1,
+       "svelte": 3,
+       "app": 5,
+       "otherLibs": 0,
+       "gpuApi": 4,
+       "gc": 0,
+       "idle": 805,
+       "program": 283,
+       "other": 2
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 62,
+      "bufferKB": 1,
+      "readbacks": 62,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 62,
+      "fences": 1,
+      "readbackP50": 0.6,
+      "readbackP95": 0.8,
+      "readbackMax": 0.8,
+      "builds": 0,
+      "ms": 1001,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 1,
+       "svelte": 2,
+       "app": 3,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 812,
+       "program": 61,
+       "other": 2
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 62,
+      "bufferKB": 1,
+      "readbacks": 62,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 62,
+      "fences": 1,
+      "readbackP50": 0.6,
+      "readbackP95": 0.9,
+      "readbackMax": 1.1,
+      "builds": 0,
+      "ms": 890,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 0,
+       "svelte": 1,
+       "app": 2,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 813,
+       "program": 59,
+       "other": 1
+      }
+     }
+    },
+    {
+     "name": "categories brush",
+     "load": {
+      "compute": 14,
+      "render": 12,
+      "shaders": 33,
+      "readbacks": 0,
+      "bufferMB": 67,
+      "ms": 2536
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 48,
+      "bufferKB": 1,
+      "readbacks": 48,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 48,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 108,
+      "fences": 1,
+      "readbackP50": 1,
+      "readbackP95": 1.4,
+      "readbackMax": 1.5,
+      "builds": 0,
+      "ms": 1062,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 6,
+       "svelte": 4,
+       "app": 12,
+       "otherLibs": 0,
+       "gpuApi": 2,
+       "gc": 1,
+       "idle": 627,
+       "program": 284,
+       "other": 4
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 48,
+      "bufferKB": 1,
+      "readbacks": 48,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 48,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 108,
+      "fences": 1,
+      "readbackP50": 0.8,
+      "readbackP95": 1.1,
+      "readbackMax": 1.2,
+      "builds": 0,
+      "ms": 857,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 5,
+       "svelte": 4,
+       "app": 11,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 637,
+       "program": 69,
+       "other": 2
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 48,
+      "bufferKB": 1,
+      "readbacks": 48,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 48,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 108,
+      "fences": 1,
+      "readbackP50": 0.8,
+      "readbackP95": 1.2,
+      "readbackMax": 1.5,
+      "builds": 0,
+      "ms": 841,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 4,
+       "svelte": 3,
+       "app": 9,
+       "otherLibs": 0,
+       "gpuApi": 2,
+       "gc": 0,
+       "idle": 624,
+       "program": 67,
+       "other": 4
+      }
+     }
+    },
+    {
+     "name": "categories brush resize",
+     "load": {
+      "compute": 14,
+      "render": 12,
+      "shaders": 33,
+      "readbacks": 0,
+      "bufferMB": 67,
+      "ms": 3409
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 46,
+      "bufferKB": 1,
+      "readbacks": 46,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 46,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 106,
+      "fences": 1,
+      "readbackP50": 0.8,
+      "readbackP95": 0.9,
+      "readbackMax": 1.1,
+      "builds": 0,
+      "ms": 1082,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 5,
+       "svelte": 3,
+       "app": 10,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 633,
+       "program": 308,
+       "other": 1
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 48,
+      "bufferKB": 1,
+      "readbacks": 48,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 48,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 108,
+      "fences": 1,
+      "readbackP50": 0.7,
+      "readbackP95": 1,
+      "readbackMax": 1.1,
+      "builds": 0,
+      "ms": 837,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 5,
+       "svelte": 4,
+       "app": 8,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 633,
+       "program": 60,
+       "other": 1
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 48,
+      "bufferKB": 1,
+      "readbacks": 48,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 48,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 108,
+      "fences": 1,
+      "readbackP50": 0.7,
+      "readbackP95": 1,
+      "readbackMax": 1,
+      "builds": 0,
+      "ms": 833,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 4,
+       "svelte": 3,
+       "app": 8,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 640,
+       "program": 63,
+       "other": 1
+      }
+     }
+    },
+    {
+     "name": "categories legend toggle",
+     "load": {
+      "compute": 14,
+      "render": 12,
+      "shaders": 33,
+      "readbacks": 0,
+      "bufferMB": 67,
+      "ms": 2522
+     },
+     "cold": {
+      "compute": 2,
+      "render": 0,
+      "shaders": 2,
+      "buffers": 2,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 18,
+      "fences": 5,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 814,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 2,
+       "svelte": 1,
+       "app": 6,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 0,
+       "idle": 364,
+       "program": 300,
+       "other": 3
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 18,
+      "fences": 5,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 598,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 2,
+       "svelte": 3,
+       "app": 4,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 0,
+       "idle": 384,
+       "program": 61,
+       "other": 3
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 18,
+      "fences": 5,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 596,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 1,
+       "svelte": 3,
+       "app": 4,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 0,
+       "idle": 390,
+       "program": 70,
+       "other": 3
+      }
+     }
+    },
+    {
+     "name": "dashboard brush",
+     "load": {
+      "compute": 13,
+      "render": 20,
+      "shaders": 45,
+      "readbacks": 2,
+      "bufferMB": 133,
+      "ms": 2605
+     },
+     "cold": {
+      "compute": 7,
+      "render": 0,
+      "shaders": 7,
+      "buffers": 27,
+      "bufferKB": 0,
+      "readbacks": 25,
+      "readbackKinds": {
+       "jax": 21,
+       "picking": 4,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 306,
+      "fences": 24,
+      "readbackP50": 0.6,
+      "readbackP95": 1.4,
+      "readbackMax": 5.1,
+      "builds": 0,
+      "ms": 1122,
+      "cpu": {
+       "jaxHash": 2,
+       "jaxOther": 8,
+       "three": 11,
+       "svelte": 11,
+       "app": 26,
+       "otherLibs": 0,
+       "gpuApi": 5,
+       "gc": 1,
+       "idle": 567,
+       "program": 338,
+       "other": 7
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 21,
+      "bufferKB": 0,
+      "readbacks": 21,
+      "readbackKinds": {
+       "jax": 21,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 302,
+      "fences": 24,
+      "readbackP50": 0.5,
+      "readbackP95": 0.8,
+      "readbackMax": 1,
+      "builds": 0,
+      "ms": 870,
+      "cpu": {
+       "jaxHash": 1,
+       "jaxOther": 6,
+       "three": 9,
+       "svelte": 7,
+       "app": 15,
+       "otherLibs": 0,
+       "gpuApi": 4,
+       "gc": 1,
+       "idle": 597,
+       "program": 86,
+       "other": 5
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 21,
+      "bufferKB": 0,
+      "readbacks": 21,
+      "readbackKinds": {
+       "jax": 21,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 302,
+      "fences": 24,
+      "readbackP50": 0.6,
+      "readbackP95": 0.7,
+      "readbackMax": 1.1,
+      "builds": 0,
+      "ms": 866,
+      "cpu": {
+       "jaxHash": 2,
+       "jaxOther": 5,
+       "three": 7,
+       "svelte": 9,
+       "app": 13,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 596,
+       "program": 92,
+       "other": 5
+      }
+     }
+    },
+    {
+     "name": "dashboard hover",
+     "load": {
+      "compute": 13,
+      "render": 20,
+      "shaders": 45,
+      "readbacks": 2,
+      "bufferMB": 133,
+      "ms": 2535
+     },
+     "cold": {
+      "compute": 9,
+      "render": 0,
+      "shaders": 9,
+      "buffers": 102,
+      "bufferKB": 49,
+      "readbacks": 90,
+      "readbackKinds": {
+       "jax": 28,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 602,
+      "fences": 32,
+      "readbackP50": 1,
+      "readbackP95": 1.6,
+      "readbackMax": 4.6,
+      "builds": 0,
+      "ms": 1262,
+      "cpu": {
+       "jaxHash": 3,
+       "jaxOther": 14,
+       "three": 13,
+       "svelte": 11,
+       "app": 28,
+       "otherLibs": 0,
+       "gpuApi": 7,
+       "gc": 1,
+       "idle": 733,
+       "program": 292,
+       "other": 4
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 90,
+      "bufferKB": 1,
+      "readbacks": 90,
+      "readbackKinds": {
+       "jax": 28,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 602,
+      "fences": 32,
+      "readbackP50": 0.8,
+      "readbackP95": 1.2,
+      "readbackMax": 6,
+      "builds": 0,
+      "ms": 1036,
+      "cpu": {
+       "jaxHash": 3,
+       "jaxOther": 10,
+       "three": 9,
+       "svelte": 13,
+       "app": 20,
+       "otherLibs": 0,
+       "gpuApi": 8,
+       "gc": 2,
+       "idle": 741,
+       "program": 81,
+       "other": 3
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 88,
+      "bufferKB": 1,
+      "readbacks": 88,
+      "readbackKinds": {
+       "jax": 26,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 576,
+      "fences": 30,
+      "readbackP50": 1,
+      "readbackP95": 2,
+      "readbackMax": 9.6,
+      "builds": 0,
+      "ms": 1078,
+      "cpu": {
+       "jaxHash": 2,
+       "jaxOther": 8,
+       "three": 11,
+       "svelte": 14,
+       "app": 33,
+       "otherLibs": 0,
+       "gpuApi": 7,
+       "gc": 1,
+       "idle": 735,
+       "program": 113,
+       "other": 4
+      }
+     }
+    },
+    {
+     "name": "keyed updates advance",
+     "load": {
+      "compute": 15,
+      "render": 6,
+      "shaders": 22,
+      "readbacks": 0,
+      "bufferMB": 50,
+      "ms": 2368
+     },
+     "cold": {
+      "compute": 10,
+      "render": 0,
+      "shaders": 10,
+      "buffers": 480,
+      "bufferKB": 193,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 573,
+      "fences": 87,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 954,
+      "cpu": {
+       "jaxHash": 4,
+       "jaxOther": 12,
+       "three": 8,
+       "svelte": 8,
+       "app": 15,
+       "otherLibs": 0,
+       "gpuApi": 5,
+       "gc": 2,
+       "idle": 442,
+       "program": 299,
+       "other": 12
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 148,
+      "bufferKB": 34,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 555,
+      "fences": 82,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 706,
+      "cpu": {
+       "jaxHash": 3,
+       "jaxOther": 6,
+       "three": 10,
+       "svelte": 8,
+       "app": 12,
+       "otherLibs": 0,
+       "gpuApi": 4,
+       "gc": 1,
+       "idle": 438,
+       "program": 73,
+       "other": 10
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 148,
+      "bufferKB": 34,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 541,
+      "fences": 82,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 679,
+      "cpu": {
+       "jaxHash": 3,
+       "jaxOther": 4,
+       "three": 7,
+       "svelte": 7,
+       "app": 12,
+       "otherLibs": 0,
+       "gpuApi": 4,
+       "gc": 10,
+       "idle": 441,
+       "program": 77,
+       "other": 8
+      }
+     }
+    },
+    {
+     "name": "timeseries zoom",
+     "load": {
+      "compute": 27,
+      "render": 6,
+      "shaders": 36,
+      "readbacks": 1,
+      "bufferMB": 53,
+      "ms": 2482
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 2,
+      "bufferKB": 4,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 70,
+      "fences": 2,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 1419,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 11,
+       "svelte": 13,
+       "app": 26,
+       "otherLibs": 25,
+       "gpuApi": 2,
+       "gc": 2,
+       "idle": 869,
+       "program": 290,
+       "other": 2
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 70,
+      "fences": 2,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 1203,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 5,
+       "svelte": 11,
+       "app": 22,
+       "otherLibs": 21,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 911,
+       "program": 70,
+       "other": 5
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 70,
+      "fences": 2,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 1265,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 6,
+       "svelte": 15,
+       "app": 27,
+       "otherLibs": 26,
+       "gpuApi": 2,
+       "gc": 1,
+       "idle": 907,
+       "program": 101,
+       "other": 3
+      }
+     }
+    },
+    {
+     "name": "timeseries pan",
+     "load": {
+      "compute": 27,
+      "render": 6,
+      "shaders": 36,
+      "readbacks": 1,
+      "bufferMB": 53,
+      "ms": 2369
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 40,
+      "fences": 1,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 1035,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 6,
+       "svelte": 6,
+       "app": 15,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 618,
+       "program": 257,
+       "other": 3
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 40,
+      "fences": 1,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 845,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 5,
+       "svelte": 2,
+       "app": 14,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 8,
+       "idle": 611,
+       "program": 76,
+       "other": 1
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 40,
+      "fences": 1,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 866,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 4,
+       "svelte": 5,
+       "app": 15,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 633,
+       "program": 59,
+       "other": 4
+      }
+     }
+    },
+    {
+     "name": "large-graph zoom",
+     "load": {
+      "compute": 49,
+      "render": 8,
+      "shaders": 62,
+      "readbacks": 10,
+      "bufferMB": 31,
+      "ms": 2506
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 22,
+      "bufferKB": 0,
+      "readbacks": 22,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 22,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 82,
+      "fences": 2,
+      "readbackP50": 2.2,
+      "readbackP95": 32.9,
+      "readbackMax": 33,
+      "builds": 0,
+      "ms": 1401,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 12,
+       "svelte": 14,
+       "app": 25,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 897,
+       "program": 313,
+       "other": 4
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 20,
+      "bufferKB": 0,
+      "readbacks": 20,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 20,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 80,
+      "fences": 2,
+      "readbackP50": 1.8,
+      "readbackP95": 2.1,
+      "readbackMax": 2.1,
+      "builds": 0,
+      "ms": 1182,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 7,
+       "svelte": 10,
+       "app": 19,
+       "otherLibs": 0,
+       "gpuApi": 2,
+       "gc": 1,
+       "idle": 937,
+       "program": 83,
+       "other": 3
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 22,
+      "bufferKB": 0,
+      "readbacks": 22,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 22,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 82,
+      "fences": 2,
+      "readbackP50": 2.7,
+      "readbackP95": 3.4,
+      "readbackMax": 3.5,
+      "builds": 0,
+      "ms": 1217,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 12,
+       "svelte": 17,
+       "app": 25,
+       "otherLibs": 0,
+       "gpuApi": 2,
+       "gc": 1,
+       "idle": 904,
+       "program": 103,
+       "other": 3
+      }
+     }
+    },
+    {
+     "name": "histogram bins",
+     "load": {
+      "compute": 31,
+      "render": 4,
+      "shaders": 37,
+      "readbacks": 3,
+      "bufferMB": 24,
+      "ms": 2287
+     },
+     "cold": {
+      "compute": 9,
+      "render": 0,
+      "shaders": 9,
+      "buffers": 73,
+      "bufferKB": 37,
+      "readbacks": 6,
+      "readbackKinds": {
+       "jax": 6,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 50,
+      "fences": 11,
+      "readbackP50": 1.9,
+      "readbackP95": 2.8,
+      "readbackMax": 2.8,
+      "builds": 0,
+      "ms": 866,
+      "cpu": {
+       "jaxHash": 6,
+       "jaxOther": 16,
+       "three": 3,
+       "svelte": 4,
+       "app": 16,
+       "otherLibs": 0,
+       "gpuApi": 2,
+       "gc": 2,
+       "idle": 388,
+       "program": 252,
+       "other": 6
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 14,
+      "bufferKB": 2,
+      "readbacks": 6,
+      "readbackKinds": {
+       "jax": 6,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 48,
+      "fences": 11,
+      "readbackP50": 1,
+      "readbackP95": 1.1,
+      "readbackMax": 1.1,
+      "builds": 0,
+      "ms": 537,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 2,
+       "three": 1,
+       "svelte": 5,
+       "app": 10,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 339,
+       "program": 58,
+       "other": 3
+      }
+     },
+     "fresh": {
+      "compute": 6,
+      "render": 0,
+      "shaders": 6,
+      "buffers": 42,
+      "bufferKB": 22,
+      "readbacks": 6,
+      "readbackKinds": {
+       "jax": 6,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 52,
+      "fences": 11,
+      "readbackP50": 1,
+      "readbackP95": 2.5,
+      "readbackMax": 2.5,
+      "builds": 0,
+      "ms": 610,
+      "cpu": {
+       "jaxHash": 3,
+       "jaxOther": 9,
+       "three": 2,
+       "svelte": 5,
+       "app": 10,
+       "otherLibs": 0,
+       "gpuApi": 2,
+       "gc": 1,
+       "idle": 365,
+       "program": 63,
+       "other": 3
+      }
+     }
+    },
+    {
+     "name": "matrix scroll",
+     "load": {
+      "compute": 15,
+      "render": 80,
+      "shaders": 143,
+      "readbacks": 48,
+      "bufferMB": 443,
+      "ms": 3425
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 0,
+      "fences": 48,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 2979,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 6,
+       "svelte": 14,
+       "app": 16,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 7,
+       "idle": 2415,
+       "program": 376,
+       "other": 4
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 0,
+      "fences": 48,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 2755,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 16,
+       "svelte": 37,
+       "app": 30,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 0,
+       "idle": 2335,
+       "program": 174,
+       "other": 7
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 0,
+      "bufferKB": 0,
+      "readbacks": 0,
+      "readbackKinds": {
+       "jax": 0,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 0,
+      "fences": 48,
+      "readbackP50": null,
+      "readbackP95": null,
+      "readbackMax": null,
+      "builds": 0,
+      "ms": 2761,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 0,
+       "three": 12,
+       "svelte": 32,
+       "app": 32,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 0,
+       "idle": 2350,
+       "program": 171,
+       "other": 8
+      }
+     }
+    },
+    {
+     "name": "mona brush",
+     "load": {
+      "compute": 38,
+      "render": 7,
+      "shaders": 48,
+      "readbacks": 2,
+      "bufferMB": 124,
+      "ms": 2486
+     },
+     "cold": {
+      "compute": 5,
+      "render": 0,
+      "shaders": 5,
+      "buffers": 59,
+      "bufferKB": 4378,
+      "readbacks": 25,
+      "readbackKinds": {
+       "jax": 21,
+       "picking": 4,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 406,
+      "fences": 62,
+      "readbackP50": 1.9,
+      "readbackP95": 3.7,
+      "readbackMax": 5,
+      "builds": 0,
+      "ms": 1138,
+      "cpu": {
+       "jaxHash": 3,
+       "jaxOther": 21,
+       "three": 9,
+       "svelte": 32,
+       "app": 67,
+       "otherLibs": 0,
+       "gpuApi": 6,
+       "gc": 3,
+       "idle": 508,
+       "program": 305,
+       "other": 7
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 21,
+      "bufferKB": 1,
+      "readbacks": 21,
+      "readbackKinds": {
+       "jax": 21,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 402,
+      "fences": 62,
+      "readbackP50": 1.6,
+      "readbackP95": 3.6,
+      "readbackMax": 4.9,
+      "builds": 0,
+      "ms": 898,
+      "cpu": {
+       "jaxHash": 2,
+       "jaxOther": 14,
+       "three": 6,
+       "svelte": 31,
+       "app": 58,
+       "otherLibs": 0,
+       "gpuApi": 6,
+       "gc": 3,
+       "idle": 511,
+       "program": 115,
+       "other": 7
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 21,
+      "bufferKB": 1,
+      "readbacks": 21,
+      "readbackKinds": {
+       "jax": 21,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 402,
+      "fences": 62,
+      "readbackP50": 1.6,
+      "readbackP95": 2.7,
+      "readbackMax": 4.2,
+      "builds": 0,
+      "ms": 933,
+      "cpu": {
+       "jaxHash": 2,
+       "jaxOther": 14,
+       "three": 8,
+       "svelte": 27,
+       "app": 51,
+       "otherLibs": 1,
+       "gpuApi": 6,
+       "gc": 5,
+       "idle": 520,
+       "program": 126,
+       "other": 10
+      }
+     }
+    },
+    {
+     "name": "label-hover hover",
+     "load": {
+      "compute": 11,
+      "render": 6,
+      "shaders": 21,
+      "readbacks": 1,
+      "bufferMB": 46,
+      "ms": 2304
+     },
+     "cold": {
+      "compute": 2,
+      "render": 0,
+      "shaders": 2,
+      "buffers": 73,
+      "bufferKB": 13,
+      "readbacks": 70,
+      "readbackKinds": {
+       "jax": 8,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 142,
+      "fences": 10,
+      "readbackP50": 0.6,
+      "readbackP95": 1.2,
+      "readbackMax": 4,
+      "builds": 0,
+      "ms": 1237,
+      "cpu": {
+       "jaxHash": 1,
+       "jaxOther": 4,
+       "three": 5,
+       "svelte": 4,
+       "app": 11,
+       "otherLibs": 0,
+       "gpuApi": 3,
+       "gc": 0,
+       "idle": 786,
+       "program": 289,
+       "other": 2
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 70,
+      "bufferKB": 1,
+      "readbacks": 70,
+      "readbackKinds": {
+       "jax": 8,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 142,
+      "fences": 10,
+      "readbackP50": 0.6,
+      "readbackP95": 1.1,
+      "readbackMax": 4,
+      "builds": 0,
+      "ms": 993,
+      "cpu": {
+       "jaxHash": 2,
+       "jaxOther": 3,
+       "three": 4,
+       "svelte": 5,
+       "app": 9,
+       "otherLibs": 0,
+       "gpuApi": 4,
+       "gc": 1,
+       "idle": 779,
+       "program": 55,
+       "other": 4
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 76,
+      "bufferKB": 1,
+      "readbacks": 76,
+      "readbackKinds": {
+       "jax": 14,
+       "picking": 62,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 202,
+      "fences": 16,
+      "readbackP50": 0.6,
+      "readbackP95": 0.9,
+      "readbackMax": 4.5,
+      "builds": 0,
+      "ms": 1009,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 4,
+       "three": 4,
+       "svelte": 7,
+       "app": 11,
+       "otherLibs": 0,
+       "gpuApi": 3,
+       "gc": 0,
+       "idle": 782,
+       "program": 52,
+       "other": 4
+      }
+     }
+    },
+    {
+     "name": "filter-chain brush",
+     "load": {
+      "compute": 85,
+      "render": 30,
+      "shaders": 129,
+      "readbacks": 13,
+      "bufferMB": 199,
+      "ms": 2719
+     },
+     "cold": {
+      "compute": 6,
+      "render": 0,
+      "shaders": 6,
+      "buffers": 277,
+      "bufferKB": 7626,
+      "readbacks": 225,
+      "readbackKinds": {
+       "jax": 221,
+       "picking": 4,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1268,
+      "fences": 113,
+      "readbackP50": 2.5,
+      "readbackP95": 11.6,
+      "readbackMax": 49.3,
+      "builds": 0,
+      "ms": 1217,
+      "cpu": {
+       "jaxHash": 10,
+       "jaxOther": 47,
+       "three": 19,
+       "svelte": 75,
+       "app": 157,
+       "otherLibs": 1,
+       "gpuApi": 17,
+       "gc": 10,
+       "idle": 338,
+       "program": 355,
+       "other": 17
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 239,
+      "bufferKB": 5081,
+      "readbacks": 210,
+      "readbackKinds": {
+       "jax": 210,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1214,
+      "fences": 108,
+      "readbackP50": 3.8,
+      "readbackP95": 17.1,
+      "readbackMax": 42.1,
+      "builds": 0,
+      "ms": 985,
+      "cpu": {
+       "jaxHash": 6,
+       "jaxOther": 32,
+       "three": 16,
+       "svelte": 72,
+       "app": 122,
+       "otherLibs": 1,
+       "gpuApi": 14,
+       "gc": 19,
+       "idle": 351,
+       "program": 157,
+       "other": 15
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 221,
+      "bufferKB": 3,
+      "readbacks": 221,
+      "readbackKinds": {
+       "jax": 221,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1294,
+      "fences": 113,
+      "readbackP50": 1.5,
+      "readbackP95": 11.1,
+      "readbackMax": 17.1,
+      "builds": 0,
+      "ms": 934,
+      "cpu": {
+       "jaxHash": 8,
+       "jaxOther": 34,
+       "three": 13,
+       "svelte": 71,
+       "app": 131,
+       "otherLibs": 2,
+       "gpuApi": 17,
+       "gc": 6,
+       "idle": 353,
+       "program": 123,
+       "other": 12
+      }
+     }
+    },
+    {
+     "name": "filter-chain brush 500k",
+     "load": {
+      "compute": 90,
+      "render": 30,
+      "shaders": 134,
+      "readbacks": 14,
+      "bufferMB": 1012,
+      "ms": 2888
+     },
+     "cold": {
+      "compute": 16,
+      "render": 0,
+      "shaders": 16,
+      "buffers": 807,
+      "bufferKB": 240248,
+      "readbacks": 214,
+      "readbackKinds": {
+       "jax": 210,
+       "picking": 4,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1176,
+      "fences": 108,
+      "readbackP50": 8.9,
+      "readbackP95": 25.4,
+      "readbackMax": 58.6,
+      "builds": 0,
+      "ms": 1402,
+      "cpu": {
+       "jaxHash": 13,
+       "jaxOther": 69,
+       "three": 24,
+       "svelte": 73,
+       "app": 151,
+       "otherLibs": 2,
+       "gpuApi": 23,
+       "gc": 12,
+       "idle": 402,
+       "program": 421,
+       "other": 24
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 312,
+      "bufferKB": 72575,
+      "readbacks": 199,
+      "readbackKinds": {
+       "jax": 199,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1146,
+      "fences": 103,
+      "readbackP50": 9.4,
+      "readbackP95": 29.1,
+      "readbackMax": 32.5,
+      "builds": 0,
+      "ms": 1024,
+      "cpu": {
+       "jaxHash": 9,
+       "jaxOther": 38,
+       "three": 17,
+       "svelte": 69,
+       "app": 109,
+       "otherLibs": 0,
+       "gpuApi": 18,
+       "gc": 6,
+       "idle": 415,
+       "program": 151,
+       "other": 21
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 261,
+      "bufferKB": 21061,
+      "readbacks": 199,
+      "readbackKinds": {
+       "jax": 199,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1130,
+      "fences": 103,
+      "readbackP50": 7.9,
+      "readbackP95": 33.5,
+      "readbackMax": 48.6,
+      "builds": 0,
+      "ms": 1050,
+      "cpu": {
+       "jaxHash": 8,
+       "jaxOther": 34,
+       "three": 19,
+       "svelte": 65,
+       "app": 117,
+       "otherLibs": 1,
+       "gpuApi": 16,
+       "gc": 9,
+       "idle": 410,
+       "program": 191,
+       "other": 17
+      }
+     }
+    },
+    {
+     "name": "filter-chain narrow brush 500k",
+     "load": {
+      "compute": 90,
+      "render": 30,
+      "shaders": 134,
+      "readbacks": 14,
+      "bufferMB": 1008,
+      "ms": 2886
+     },
+     "cold": {
+      "compute": 12,
+      "render": 0,
+      "shaders": 12,
+      "buffers": 443,
+      "bufferKB": 105533,
+      "readbacks": 205,
+      "readbackKinds": {
+       "jax": 197,
+       "picking": 8,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1111,
+      "fences": 102,
+      "readbackP50": 8.7,
+      "readbackP95": 21.6,
+      "readbackMax": 47.2,
+      "builds": 0,
+      "ms": 1284,
+      "cpu": {
+       "jaxHash": 13,
+       "jaxOther": 48,
+       "three": 22,
+       "svelte": 78,
+       "app": 142,
+       "otherLibs": 1,
+       "gpuApi": 16,
+       "gc": 10,
+       "idle": 382,
+       "program": 378,
+       "other": 22
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 207,
+      "bufferKB": 514,
+      "readbacks": 199,
+      "readbackKinds": {
+       "jax": 199,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1142,
+      "fences": 103,
+      "readbackP50": 7.1,
+      "readbackP95": 13.2,
+      "readbackMax": 17.8,
+      "builds": 0,
+      "ms": 986,
+      "cpu": {
+       "jaxHash": 9,
+       "jaxOther": 32,
+       "three": 17,
+       "svelte": 75,
+       "app": 110,
+       "otherLibs": 1,
+       "gpuApi": 17,
+       "gc": 11,
+       "idle": 386,
+       "program": 137,
+       "other": 15
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 235,
+      "bufferKB": 2243,
+      "readbacks": 198,
+      "readbackKinds": {
+       "jax": 188,
+       "picking": 10,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 1077,
+      "fences": 98,
+      "readbackP50": 7.4,
+      "readbackP95": 17.3,
+      "readbackMax": 30.3,
+      "builds": 0,
+      "ms": 995,
+      "cpu": {
+       "jaxHash": 5,
+       "jaxOther": 26,
+       "three": 11,
+       "svelte": 55,
+       "app": 101,
+       "otherLibs": 2,
+       "gpuApi": 19,
+       "gc": 8,
+       "idle": 417,
+       "program": 162,
+       "other": 15
+      }
+     }
+    },
+    {
+     "name": "filter-chain slider (same count)",
+     "load": {
+      "compute": 85,
+      "render": 30,
+      "shaders": 129,
+      "readbacks": 13,
+      "bufferMB": 199,
+      "ms": 2702
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 9,
+      "bufferKB": 0,
+      "readbacks": 9,
+      "readbackKinds": {
+       "jax": 9,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 37,
+      "fences": 32,
+      "readbackP50": 0.9,
+      "readbackP95": 13.5,
+      "readbackMax": 13.5,
+      "builds": 0,
+      "ms": 784,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 0,
+       "svelte": 2,
+       "app": 6,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 353,
+       "program": 323,
+       "other": 2
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 9,
+      "bufferKB": 0,
+      "readbacks": 9,
+      "readbackKinds": {
+       "jax": 9,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 37,
+      "fences": 32,
+      "readbackP50": 0.9,
+      "readbackP95": 1,
+      "readbackMax": 1,
+      "builds": 0,
+      "ms": 530,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 1,
+       "svelte": 3,
+       "app": 4,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 1,
+       "idle": 340,
+       "program": 81,
+       "other": 1
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 9,
+      "bufferKB": 0,
+      "readbacks": 9,
+      "readbackKinds": {
+       "jax": 9,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 39,
+      "fences": 32,
+      "readbackP50": 0.9,
+      "readbackP95": 9.7,
+      "readbackMax": 9.7,
+      "builds": 0,
+      "ms": 520,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 1,
+       "svelte": 2,
+       "app": 4,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 356,
+       "program": 68,
+       "other": 1
+      }
+     }
+    },
+    {
+     "name": "filter-chain slider (new counts)",
+     "load": {
+      "compute": 85,
+      "render": 30,
+      "shaders": 129,
+      "readbacks": 13,
+      "bufferMB": 199,
+      "ms": 2639
+     },
+     "cold": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 9,
+      "bufferKB": 0,
+      "readbacks": 9,
+      "readbackKinds": {
+       "jax": 9,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 39,
+      "fences": 32,
+      "readbackP50": 0.9,
+      "readbackP95": 9.2,
+      "readbackMax": 9.2,
+      "builds": 0,
+      "ms": 773,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 1,
+       "three": 0,
+       "svelte": 3,
+       "app": 10,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 345,
+       "program": 307,
+       "other": 2
+      }
+     },
+     "warm": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 9,
+      "bufferKB": 0,
+      "readbacks": 9,
+      "readbackKinds": {
+       "jax": 9,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 37,
+      "fences": 32,
+      "readbackP50": 0.8,
+      "readbackP95": 8.2,
+      "readbackMax": 8.2,
+      "builds": 0,
+      "ms": 517,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 2,
+       "three": 1,
+       "svelte": 3,
+       "app": 8,
+       "otherLibs": 0,
+       "gpuApi": 0,
+       "gc": 10,
+       "idle": 331,
+       "program": 72,
+       "other": 2
+      }
+     },
+     "fresh": {
+      "compute": 0,
+      "render": 0,
+      "shaders": 0,
+      "buffers": 9,
+      "bufferKB": 0,
+      "readbacks": 9,
+      "readbackKinds": {
+       "jax": 9,
+       "picking": 0,
+       "three": 0,
+       "app": 0,
+       "other": 0
+      },
+      "submits": 39,
+      "fences": 32,
+      "readbackP50": 0.7,
+      "readbackP95": 1.1,
+      "readbackMax": 1.1,
+      "builds": 0,
+      "ms": 510,
+      "cpu": {
+       "jaxHash": 0,
+       "jaxOther": 2,
+       "three": 1,
+       "svelte": 4,
+       "app": 7,
+       "otherLibs": 0,
+       "gpuApi": 1,
+       "gc": 0,
+       "idle": 346,
+       "program": 59,
+       "other": 1
+      }
+     }
+    }
+   ]
+  },
+  "transformChurn": {
+   "server": "dev",
+   "runs": 1,
+   "harness": "transform-churn.spec.js",
+   "results": [
+    {
+     "name": "Filter gt",
+     "cold n": "7k/1r/18ms",
+     "warm n": "0k/1r/22ms",
+     "values n": "0k/1r/9ms",
+     "n+1": "0k/1r/9ms",
+     "2n": "2k/1r/17ms",
+     "2n again": "0k/1r/13ms"
+    },
+    {
+     "name": "Filter eq (category)",
+     "cold n": "6k/1r/14ms",
+     "warm n": "0k/1r/10ms",
+     "values n": "0k/1r/11ms",
+     "n+1": "0k/1r/12ms",
+     "2n": "0k/1r/18ms",
+     "2n again": "0k/1r/17ms"
+    },
+    {
+     "name": "Filter in (one value)",
+     "cold n": "1k/1r/30ms",
+     "warm n": "0k/1r/10ms",
+     "values n": "0k/1r/10ms",
+     "n+1": "0k/1r/11ms",
+     "2n": "0k/1r/18ms",
+     "2n again": "0k/1r/16ms"
+    },
+    {
+     "name": "Calculate multiply",
+     "cold n": "1k/0r/5ms",
+     "warm n": "0k/0r/2ms",
+     "values n": "0k/0r/2ms",
+     "n+1": "0k/0r/1ms",
+     "2n": "0k/0r/3ms",
+     "2n again": "0k/0r/2ms"
+    },
+    {
+     "name": "Calculate literal",
+     "cold n": "1k/0r/7ms",
+     "warm n": "0k/0r/1ms",
+     "values n": "0k/0r/1ms",
+     "n+1": "0k/0r/1ms",
+     "2n": "0k/0r/2ms",
+     "2n again": "0k/0r/1ms"
+    },
+    {
+     "name": "Calculate literal left",
+     "cold n": "1k/0r/4ms",
+     "warm n": "0k/0r/1ms",
+     "values n": "0k/0r/2ms",
+     "n+1": "0k/0r/1ms",
+     "2n": "0k/0r/2ms",
+     "2n again": "0k/0r/2ms"
+    },
+    {
+     "name": "Calculate clip",
+     "cold n": "1k/0r/15ms",
+     "warm n": "0k/0r/2ms",
+     "values n": "0k/0r/1ms",
+     "n+1": "0k/0r/1ms",
+     "2n": "0k/0r/1ms",
+     "2n again": "0k/0r/1ms"
+    },
+    {
+     "name": "Calculate reduction",
+     "cold n": "5k/0r/5ms",
+     "warm n": "0k/0r/2ms",
+     "values n": "0k/0r/2ms",
+     "n+1": "0k/0r/2ms",
+     "2n": "4k/0r/4ms",
+     "2n again": "0k/0r/2ms"
+    },
+    {
+     "name": "Bin 30 auto edges",
+     "cold n": "16k/1r/12ms",
+     "warm n": "0k/1r/4ms",
+     "values n": "0k/1r/4ms",
+     "n+1": "0k/1r/7ms",
+     "2n": "4k/1r/9ms",
+     "2n again": "0k/1r/4ms"
+    },
+    {
+     "name": "Bin 64 edges + weight",
+     "cold n": "1k/0r/28ms",
+     "warm n": "0k/0r/2ms",
+     "values n": "0k/0r/4ms",
+     "n+1": "0k/0r/5ms",
+     "2n": "0k/0r/5ms",
+     "2n again": "0k/0r/5ms"
+    },
+    {
+     "name": "Bin 2D 30x30",
+     "cold n": "10k/1r/60ms",
+     "warm n": "0k/1r/8ms",
+     "values n": "0k/1r/6ms",
+     "n+1": "1k/1r/27ms",
+     "2n": "3k/1r/46ms",
+     "2n again": "0k/1r/8ms"
+    },
+    {
+     "name": "Bin assign",
+     "cold n": "1k/1r/21ms",
+     "warm n": "0k/1r/3ms",
+     "values n": "0k/1r/4ms",
+     "n+1": "0k/1r/5ms",
+     "2n": "2k/1r/7ms",
+     "2n again": "0k/1r/5ms"
+    },
+    {
+     "name": "Group mean",
+     "cold n": "16k/1r/21ms",
+     "warm n": "0k/1r/10ms",
+     "values n": "0k/1r/9ms",
+     "n+1": "0k/1r/11ms",
+     "2n": "2k/1r/23ms",
+     "2n again": "0k/1r/19ms"
+    },
+    {
+     "name": "JoinAggregate",
+     "cold n": "1k/1r/11ms",
+     "warm n": "0k/1r/7ms",
+     "values n": "0k/1r/8ms",
+     "n+1": "0k/1r/9ms",
+     "2n": "0k/1r/19ms",
+     "2n again": "0k/1r/14ms"
+    },
+    {
+     "name": "Sort",
+     "cold n": "3k/0r/11ms",
+     "warm n": "0k/0r/7ms",
+     "values n": "0k/0r/8ms",
+     "n+1": "0k/0r/8ms",
+     "2n": "0k/0r/12ms",
+     "2n again": "0k/0r/12ms"
+    },
+    {
+     "name": "Stack",
+     "cold n": "10k/0r/17ms",
+     "warm n": "0k/0r/6ms",
+     "values n": "0k/0r/6ms",
+     "n+1": "0k/0r/13ms",
+     "2n": "0k/0r/15ms",
+     "2n again": "0k/0r/10ms"
+    },
+    {
+     "name": "Normalize",
+     "cold n": "3k/0r/6ms",
+     "warm n": "0k/0r/5ms",
+     "values n": "0k/0r/3ms",
+     "n+1": "0k/0r/6ms",
+     "2n": "3k/0r/29ms",
+     "2n again": "0k/0r/2ms"
+    },
+    {
+     "name": "Window 7",
+     "cold n": "10k/0r/11ms",
+     "warm n": "0k/0r/2ms",
+     "values n": "0k/0r/2ms",
+     "n+1": "0k/0r/4ms",
+     "2n": "1k/0r/47ms",
+     "2n again": "0k/0r/3ms"
+    },
+    {
+     "name": "Quantile by",
+     "cold n": "7k/1r/45ms",
+     "warm n": "0k/1r/11ms",
+     "values n": "0k/1r/10ms",
+     "n+1": "0k/1r/12ms",
+     "2n": "0k/1r/20ms",
+     "2n again": "0k/1r/18ms"
+    },
+    {
+     "name": "Hexbin 8",
+     "cold n": "16k/3r/20ms",
+     "warm n": "0k/3r/11ms",
+     "values n": "0k/3r/12ms",
+     "n+1": "0k/3r/16ms",
+     "2n": "4k/3r/37ms",
+     "2n again": "0k/3r/21ms"
+    },
+    {
+     "name": "Density 1D",
+     "cold n": "11k/1r/35ms",
+     "warm n": "0k/1r/5ms",
+     "values n": "0k/1r/4ms",
+     "n+1": "0k/1r/6ms",
+     "2n": "0k/2r/14ms",
+     "2n again": "0k/2r/6ms"
+    },
+    {
+     "name": "Sample",
+     "cold n": "6k/0r/13ms",
+     "warm n": "0k/0r/7ms",
+     "values n": "0k/0r/7ms",
+     "n+1": "0k/0r/8ms",
+     "2n": "0k/0r/14ms",
+     "2n again": "0k/0r/13ms"
+    },
+    {
+     "name": "Shuffle",
+     "cold n": "0k/0r/8ms",
+     "warm n": "0k/0r/7ms",
+     "values n": "0k/0r/7ms",
+     "n+1": "0k/0r/8ms",
+     "2n": "0k/0r/11ms",
+     "2n again": "0k/0r/13ms"
+    }
+   ]
+  },
+  "forceDrag": {
+   "server": "dev",
+   "runs": 1,
+   "harness": "force-drag.spec.js",
+   "results": [
+    {
+     "mode": "paused-60",
+     "round": 0,
+     "label": "",
+     "example": "transform-force",
+     "running": false,
+     "rate": 60,
+     "ms": 2506,
+     "moves": 150,
+     "animationFrames": 150,
+     "completedFrames": 148,
+     "completedGap": {
+      "mean": 16.8,
+      "p95": 17.6,
+      "max": 42.1
+     },
+     "animationGap": {
+      "mean": 16.6,
+      "p95": 17.4,
+      "max": 17.6
+     },
+     "latency": {
+      "median": 17.3,
+      "p95": 18,
+      "max": 19.2
+     },
+     "iterations": 0,
+     "iterationsAfter": 0,
+     "updates": 149,
+     "perFrame": 0.99,
+     "preparations": 302,
+     "heldMs": 0,
+     "heldShare": 0,
+     "gpu": {
+      "maps": 0,
+      "jaxMaps": 0,
+      "submits": 1800,
+      "fences": 451,
+      "fenceSources": {
+       "lifecycle.js": 451
+      },
+      "mapsPerUpdate": 0,
+      "fencesPerUpdate": 3.01,
+      "submitsPerUpdate": 12
+     },
+     "selected": 3,
+     "origin": [
+      -27.84262466430664,
+      22.9351863861084
+     ],
+     "lastPublished": [
+      -11.456065373460774,
+      22.93517652074975
+     ],
+     "grab": -2.4795532027610534e-06,
+     "lastTarget": [
+      -11.45606537346076,
+      22.9351863861084
+     ]
+    },
+    {
+     "mode": "paused-120",
+     "round": 0,
+     "label": "",
+     "example": "transform-force",
+     "running": false,
+     "rate": 120,
+     "ms": 2510,
+     "moves": 293,
+     "animationFrames": 150,
+     "completedFrames": 149,
+     "completedGap": {
+      "mean": 16.7,
+      "p95": 17.5,
+      "max": 27.8
+     },
+     "animationGap": {
+      "mean": 16.6,
+      "p95": 17.5,
+      "max": 17.7
+     },
+     "latency": {
+      "median": 17.1,
+      "p95": 18.1,
+      "max": 19.4
+     },
+     "iterations": 0,
+     "iterationsAfter": 0,
+     "updates": 150,
+     "perFrame": 1,
+     "preparations": 304,
+     "heldMs": 0,
+     "heldShare": 0,
+     "gpu": {
+      "maps": 0,
+      "jaxMaps": 0,
+      "submits": 1812,
+      "fences": 454,
+      "fenceSources": {
+       "lifecycle.js": 454
+      },
+      "mapsPerUpdate": 0,
+      "fencesPerUpdate": 3.01,
+      "submitsPerUpdate": 12
+     },
+     "selected": 3,
+     "origin": [
+      -27.84262466430664,
+      22.9351863861084
+     ],
+     "lastPublished": [
+      -11.456065373460774,
+      22.93517652074975
+     ],
+     "grab": -2.4795532098664808e-06,
+     "lastTarget": [
+      -11.456065373460767,
+      22.9351863861084
+     ]
+    },
+    {
+     "mode": "running-60",
+     "round": 0,
+     "label": "",
+     "example": "transform-force",
+     "running": true,
+     "rate": 60,
+     "ms": 2510,
+     "moves": 150,
+     "animationFrames": 150,
+     "completedFrames": 150,
+     "completedGap": {
+      "mean": 16.6,
+      "p95": 17.2,
+      "max": 17.7
+     },
+     "animationGap": {
+      "mean": 16.6,
+      "p95": 17,
+      "max": 17.6
+     },
+     "latency": {
+      "median": 17.1,
+      "p95": 17.6,
+      "max": 18.1
+     },
+     "iterations": 150,
+     "iterationsAfter": 170,
+     "updates": 150,
+     "perFrame": 1,
+     "preparations": 354,
+     "heldMs": 0,
+     "heldShare": 0,
+     "gpu": {
+      "maps": 169,
+      "jaxMaps": 169,
+      "submits": 2312,
+      "fences": 507,
+      "fenceSources": {
+       "lifecycle.js": 507
+      },
+      "mapsPerUpdate": 1,
+      "fencesPerUpdate": 3,
+      "submitsPerUpdate": 13.7
+     },
+     "selected": 3,
+     "origin": [
+      -38.021053314208984,
+      21.422454833984375
+     ],
+     "lastPublished": [
+      -21.634497365230267,
+      21.422456819465353
+     ],
+     "grab": -1.525878889907517e-06,
+     "lastTarget": [
+      -21.63449736523025,
+      21.422454833984375
+     ]
+    },
+    {
+     "mode": "running-120",
+     "round": 0,
+     "label": "",
+     "example": "transform-force",
+     "running": true,
+     "rate": 120,
+     "ms": 2509,
+     "moves": 286,
+     "animationFrames": 150,
+     "completedFrames": 150,
+     "completedGap": {
+      "mean": 16.6,
+      "p95": 17.5,
+      "max": 17.8
+     },
+     "animationGap": {
+      "mean": 16.6,
+      "p95": 17.5,
+      "max": 17.7
+     },
+     "latency": {
+      "median": 17.2,
+      "p95": 19.4,
+      "max": 20.4
+     },
+     "iterations": 150,
+     "iterationsAfter": 170,
+     "updates": 150,
+     "perFrame": 1,
+     "preparations": 354,
+     "heldMs": 0,
+     "heldShare": 0,
+     "gpu": {
+      "maps": 170,
+      "jaxMaps": 170,
+      "submits": 2323,
+      "fences": 510,
+      "fenceSources": {
+       "lifecycle.js": 510
+      },
+      "mapsPerUpdate": 1.01,
+      "fencesPerUpdate": 3.02,
+      "submitsPerUpdate": 13.7
+     },
+     "selected": 3,
+     "origin": [
+      -38.021053314208984,
+      21.422454833984375
+     ],
+     "lastPublished": [
+      -21.634497365230267,
+      21.422456819465353
+     ],
+     "grab": -1.5258788934602308e-06,
+     "lastTarget": [
+      -21.634497365230253,
+      21.422454833984375
+     ]
+    }
+   ]
+  },
+  "docsBudget": {
+   "server": "production (its own static host on 5602)",
+   "harness": "npm run check:docs-budget",
+   "results": [
+    "localhost intro after #1: fcp 52 preview NaN live NaN js 84 KB runtime 0 KB",
+    "localhost points after #1: fcp 76 preview 51 live 644 js 1234 KB runtime 747 KB",
+    "localhost home after #1: fcp 60 preview 63 live 492 js 1228 KB runtime 747 KB",
+    "localhost   intro   after    n=1 fcp 52, lcp 52, cls 0.000, longTotal 0, longMax 0, requests 30, bytes 87 KB, js 84 KB, jsBeforeRuntime 84 KB, runtime 0 KB, previewBytes 0 KB, payloadBytes 0 KB, thumbnails 0, thumbnailBytes 0 KB",
+    "localhost   points  after    n=1 fcp 76, lcp 76, preview 51, previewRequest 9, frame 445, live 644, gpu 0, fontEnd 104, cls 0.000, longTotal 131, longMax 70, requests 96, bytes 1645 KB, js 1234 KB, jsBeforeRuntime 122 KB, runtime 747 KB, previewBytes 1 KB, payloadBytes 1 KB, thumbnails 0, thumbnailBytes 0 KB",
+    "localhost   home    after    n=1 fcp 60, lcp 76, preview 63, previewRequest 7, frame 292, live 492, gpu 1, fontEnd 67, cls 0.000, longTotal 135, longMax 71, requests 100, bytes 1765 KB, js 1228 KB, jsBeforeRuntime 115 KB, runtime 747 KB, previewBytes 6 KB, payloadBytes 5 KB, thumbnails 8, thumbnailBytes 117 KB",
+    "Thumbnails: 285, typical 4 KB, largest 31 KB; the home page loaded 8 for 117 KB",
+    "Budget: passed"
+   ]
+  }
+ },
+ "gaps": [
+  "Sunburst GPU pass time: sunburst-profile.mjs has no timestamp-query option yet (gpu-timing.mjs is ready to wire in).",
+  "Lorenz GPU ms (4.0) times the union of timed passes; 2026-10-08's 2.75 ms used a different scratch method, so compare only within this file.",
+  "plotMarkPreparations and plotLiveFieldUpdates per gesture are not reported by these harnesses (force-drag reports preparations); add them before Stage 118.",
+  "Peak and settled retained GPU bytes are reported only by gesture-churn (bufferMB at load).",
+  "Churn and Force-drag specs ran once, on a dev server: their timings carry dev overhead; use their counts."
+ ]
+}

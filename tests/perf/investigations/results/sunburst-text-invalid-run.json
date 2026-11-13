@@ -1,0 +1,10 @@
+{
+  "status": "discarded",
+  "runs": [
+    "hmplot-sunburst-before-labels-plain",
+    "hmplot-sunburst-before-labels-instrumented"
+  ],
+  "reason": "Port 5495 was still owned by an earlier ablation server. The intended control server failed strict-port startup, so the local source fingerprint did not describe the server receiving these requests.",
+  "timingUse": "Excluded from all Text before/after comparisons; raw files remain in the temporary investigation directory for diagnosis.",
+  "prevention": "When SUNBURST_SOURCE_ROOT is set, the replay driver now imports namedMark.svelte, labels.svelte and sunburst.svelte with ?raw and compares served SHA256 values against local bytes before profiling."
+}

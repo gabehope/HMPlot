@@ -1,0 +1,338 @@
+{
+ "baseline": "9e0830f3",
+ "head": "e95c208d",
+ "date": "2026-10-10",
+ "note": "Stage 121.3 final performance comparison against refactor-baseline.json. Same machine, browser and DPR as the baseline; on mains power. The baseline build carried Stage 112's VITE_HMPLOT_PERF_HOOKS switch in Example.svelte, patched in for the build.",
+ "method": "Production builds (npm run build, then VITE_HMPLOT_PERF_HOOKS=1 npx vite build), each copied to its own directory and served side by side by a static server; runs alternate between the builds after one discarded warm-up run each. Sequential A/B sessions were misleading: the build measured first read about 0.6 ms/frame lower on Sunburst in three sessions, and two bisections attributed that drift to Stages 116.3 and 116.4, where an interleaved run of 9535f07c, ca9d937e, 4f00f0ef and e95c208d measured 4.30, 4.28, 4.31 and 4.26 ms.",
+ "scenarios": {
+  "sunburst": {
+   "harness": "tests/perf/investigations/sunburst-profile.mjs (SUNBURST_PRODUCTION=1 SUNBURST_CPU=1), 8 interleaved runs per build of 6 zoom/reset flights; per-frame means over flights 2-6",
+   "baseline": {
+    "cpuMsPerFrame": {
+     "median": 3.91,
+     "min": 3.615,
+     "max": 4.268,
+     "spread": 0.653,
+     "runs": [
+      3.615,
+      3.68,
+      3.659,
+      3.647,
+      4.191,
+      4.268,
+      4.139,
+      4.213
+     ]
+    },
+    "frameP95": {
+     "median": 17.76,
+     "min": 17.42,
+     "max": 18.62,
+     "spread": 1.2,
+     "runs": [
+      18.28,
+      17.56,
+      17.64,
+      18.54,
+      18.62,
+      17.52,
+      17.42,
+      17.88
+     ]
+    },
+    "framesPerFlight": {
+     "median": 78.8,
+     "min": 78.8,
+     "max": 79,
+     "spread": 0.2,
+     "runs": [
+      78.8,
+      79,
+      78.8,
+      78.8,
+      79,
+      79,
+      78.8,
+      78.8
+     ]
+    }
+   },
+   "head": {
+    "cpuMsPerFrame": {
+     "median": 3.885,
+     "min": 3.585,
+     "max": 4.571,
+     "spread": 0.986,
+     "runs": [
+      3.62,
+      3.707,
+      3.636,
+      3.585,
+      4.571,
+      4.063,
+      4.31,
+      4.168
+     ]
+    },
+    "frameP95": {
+     "median": 18.67,
+     "min": 17.34,
+     "max": 21.12,
+     "spread": 3.78,
+     "runs": [
+      18.52,
+      18.52,
+      18.88,
+      18.56,
+      21.12,
+      19.5,
+      17.34,
+      18.78
+     ]
+    },
+    "framesPerFlight": {
+     "median": 78.8,
+     "min": 77.8,
+     "max": 79,
+     "spread": 1.2,
+     "runs": [
+      79,
+      78.8,
+      78.8,
+      78.8,
+      77.8,
+      78,
+      78.8,
+      78.8
+     ]
+    }
+   },
+   "pairedCpuDifference": {
+    "note": "head minus baseline, per interleaved round; both builds moved from about 3.65 to about 4.2 ms between rounds 4 and 5",
+    "median": -0.009,
+    "runs": [
+     0.004,
+     0.027,
+     -0.023,
+     -0.061,
+     0.381,
+     -0.205,
+     0.17,
+     -0.045
+    ]
+   },
+   "counters": {
+    "note": "GPU counter runs (SUNBURST_PROFILE=1) from the earlier sequential session, 3 runs each, flights 2-6. Readbacks are 97 per flight on both builds (99 on a flight that completes 80 frames), so the per-frame rate differs only by completed frames.",
+    "submitsPerFrame": {
+     "baseline": [
+      13.788,
+      13.714,
+      13.722
+     ],
+     "head": [
+      13.835,
+      13.827,
+      13.78
+     ]
+    },
+    "readbacksPerFrame": {
+     "baseline": [
+      1.235,
+      1.229,
+      1.23
+     ],
+     "head": [
+      1.236,
+      1.236,
+      1.233
+     ]
+    },
+    "readbacksPerFlight": {
+     "baseline": 97,
+     "head": 97
+    }
+   },
+   "pairedFrameP95Difference": {
+    "note": "head minus baseline, per interleaved round",
+    "median": 0.93,
+    "runs": [
+     0.24,
+     0.96,
+     1.24,
+     0.02,
+     2.5,
+     1.98,
+     -0.08,
+     0.9
+    ]
+   }
+  },
+  "lorenz": {
+   "harness": "tests/perf/investigations/lorenz-profile.mjs on /examples/lorenz-attractor, 3 runs (4 s warm-up, 6 s samples), builds measured back to back",
+   "baseline": {
+    "fps": {
+     "median": 59.971,
+     "min": 59.961,
+     "max": 59.975,
+     "spread": 0.014,
+     "runs": [
+      59.961,
+      59.971,
+      59.975
+     ]
+    },
+    "frameP95": {
+     "median": 16.7,
+     "min": 16.7,
+     "max": 16.7,
+     "spread": 0,
+     "runs": [
+      16.7,
+      16.7,
+      16.7
+     ]
+    },
+    "cpuMsPerFrame": {
+     "median": 6.07,
+     "min": 5.922,
+     "max": 6.185,
+     "spread": 0.263,
+     "runs": [
+      6.07,
+      5.922,
+      6.185
+     ]
+    },
+    "gpuMsPerFrame": {
+     "median": 3.942,
+     "min": 3.49,
+     "max": 4.031,
+     "spread": 0.541,
+     "runs": [
+      3.942,
+      3.49,
+      4.031
+     ]
+    },
+    "submitsPerFrame": {
+     "median": 30.85,
+     "min": 30.7,
+     "max": 30.903,
+     "spread": 0.203,
+     "runs": [
+      30.7,
+      30.903,
+      30.85
+     ]
+    },
+    "readbacksPerFrame": {
+     "median": 0.994,
+     "min": 0.989,
+     "max": 0.997,
+     "spread": 0.008,
+     "runs": [
+      0.989,
+      0.997,
+      0.994
+     ]
+    },
+    "builds": {
+     "median": 0,
+     "min": 0,
+     "max": 0,
+     "spread": 0,
+     "runs": [
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   "head": {
+    "fps": {
+     "median": 59.969,
+     "min": 59.968,
+     "max": 59.971,
+     "spread": 0.003,
+     "runs": [
+      59.971,
+      59.969,
+      59.968
+     ]
+    },
+    "frameP95": {
+     "median": 16.8,
+     "min": 16.7,
+     "max": 16.8,
+     "spread": 0.1,
+     "runs": [
+      16.8,
+      16.7,
+      16.8
+     ]
+    },
+    "cpuMsPerFrame": {
+     "median": 5.635,
+     "min": 5.308,
+     "max": 6.443,
+     "spread": 1.135,
+     "runs": [
+      5.308,
+      5.635,
+      6.443
+     ]
+    },
+    "gpuMsPerFrame": {
+     "median": 4.032,
+     "min": 4.019,
+     "max": 4.067,
+     "spread": 0.048,
+     "runs": [
+      4.032,
+      4.067,
+      4.019
+     ]
+    },
+    "submitsPerFrame": {
+     "median": 31,
+     "min": 30.533,
+     "max": 31.058,
+     "spread": 0.525,
+     "runs": [
+      31,
+      31.058,
+      30.533
+     ]
+    },
+    "readbacksPerFrame": {
+     "median": 1,
+     "min": 0.983,
+     "max": 1.003,
+     "spread": 0.02,
+     "runs": [
+      1,
+      1.003,
+      0.983
+     ]
+    },
+    "builds": {
+     "median": 0,
+     "min": 0,
+     "max": 0,
+     "spread": 0,
+     "runs": [
+      0,
+      0,
+      0
+     ]
+    }
+   }
+  }
+ },
+ "verdict": "Within tolerance. Sunburst: CPU per frame equals the baseline (paired median difference -0.01 ms); frames per flight 78.8 on both; readbacks per flight unchanged; frame p95 17.76 -> 18.67 ms (+5%, paired median +0.93 ms), under the 10% limit, with completed frames unchanged, so the extra p95 is jitter within a vsync interval. Lorenz: 60 fps on every canvas with 0 builds, unchanged submits and readbacks; CPU 6.07 -> 5.64 ms and GPU 3.94 -> 4.03 ms, both within run spread.",
+ "gaps": [
+  "Lorenz was measured sequentially, not interleaved; its CPU spread (up to 1.1 ms) exceeds the difference.",
+  "Sunburst GPU pass time is still not reported (refactor-baseline.json's first gap).",
+  "gestureChurn and forceDrag (dev-only counts) were not re-run for the final comparison; Stages 114-115 and 118.1 recorded them unchanged."
+ ]
+}

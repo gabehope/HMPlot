@@ -1,0 +1,7 @@
+## Usage
+
+Outputs one interpolated row per entity with keys and requested fields. Numeric values interpolate linearly; categories choose the nearer endpoint. Key/time pairs must be unique. Entities without a bracket are omitted; exact endpoint observations remain.
+
+Over a grid table (see Data, "Grid tables") sliced through one of its dimensions, with `by` omitted or naming the others, Slice blends the two slabs around `at` on the GPU and outputs a grid table of the other dimensions: slicing time gives a map, slicing a latitude a Hovmöller diagram. A Playback on `at` reads nothing back. Outside the coordinates every cell is hidden.
+
+To let the viewer change a setting, read an input in it: `at={input("time")}` (Python `at=hm.input.time`), where `time` is a [Playback](playback) from `min("time")` to `max("time")`.

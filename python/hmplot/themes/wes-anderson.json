@@ -1,0 +1,143 @@
+{
+  "name": "Wes Anderson",
+  "view": {
+    "background": "#fff7e6"
+  },
+  "typography": {
+    "fontFamily": "Georgia, Times New Roman, serif",
+    "fontSize": 14,
+    "color": "#4b2925"
+  },
+  "axes": {
+    "color": "#8b5e57",
+    "lineWidth": 0.75,
+    "tickSize": 3,
+    "grid": "off",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 700,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#67443e",
+    "fontFamily": "Georgia, Times New Roman, serif"
+  },
+  "marks": {
+    "Line": {
+      "color": "#d1495b",
+      "width": 1.75
+    },
+    "Points": {
+      "fill": "#d1495b",
+      "size": 8,
+      "outlineWidth": 0,
+      "outlineColor": "#4b2925",
+      "shape": "circle"
+    },
+    "Area": {
+      "fill": "#f1bb7b",
+      "opacity": 0.4
+    },
+    "ErrorBars": {
+      "color": "#67443e",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#4b2925",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#8b5e57",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#d1495b",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#d1495b",
+    "#edae49",
+    "#00798c",
+    "#30638e",
+    "#7a5195",
+    "#ef798a",
+    "#6a994e",
+    "#bc6c25",
+    "#8b5e57"
+  ],
+  "vectorTile": {
+    "background": {
+      "fill": "#f9f0df"
+    },
+    "land": {
+      "fill": "#f2e8d8"
+    },
+    "green": {
+      "fill": "#ced6b4"
+    },
+    "water": {
+      "fill": "#a8b9c1"
+    },
+    "waterways": {
+      "color": "#98adba",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#e4d8c9"
+    },
+    "other": {
+      "fill": "#dbcebf",
+      "color": "#a59086",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fdfaf5",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#f5cf90",
+      "width": 3
+    },
+    "railways": {
+      "color": "#b7a599",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#b69cb9",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#4b2925",
+      "size": 13
+    }
+  },
+  "colormap": "Viridis"
+}

@@ -1,0 +1,57 @@
+From 3baaee16d5d9696e1403df868dd5ed06fa46e98f Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 11:04:57 -0400
+Subject: [PATCH 6/6] Unravel an index without a modulo on the outermost axis
+
+unravelAlu() split a flat offset into per-axis indices as
+(offset / stride) % size on every axis. On the outermost axis the modulo
+does nothing for an offset inside the array, and the simplifier removes
+it where the offset's range is known; where it is not (a gathered index,
+read from memory) it stayed, and with it the axis length as a divisor,
+written into the shader: every source length compiled a new gather.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.test.ts | 11 +++++++++++
+ src/shape.ts               |  6 +++++-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/src/backend/webgpu.test.ts b/src/backend/webgpu.test.ts
+index 436ded3..5e7e5b9 100644
+--- a/src/backend/webgpu.test.ts
++++ b/src/backend/webgpu.test.ts
+@@ -142,6 +142,17 @@ suite("webgpu kernels are generic in sizes and values", () => {
+       });
+   });
+ 
++  test("gathers: sources of any length", async () => {
++    await expectOneCompile([1000, 1003, 4097], async (n) => {
++      const order = np.array([n - 1, 0, 5], {
++        dtype: np.int32,
++        device: "webgpu",
++      });
++      const picked = await np.take(ramp(n).mul(2), order, 0).data();
++      expect(Array.from(picked)).toEqual([2 * (n - 1), 0, 10]);
++    });
++  });
++
+   test("NaN and infinite constants survive the uniform buffer", async () => {
+     const x = np.array([1, 2, 3], { device: "webgpu" });
+     expect(Array.from(await x.ref.add(NaN).data()).every(Number.isNaN)).toBe(
+diff --git a/src/shape.ts b/src/shape.ts
+index f4d96e7..281134a 100644
+--- a/src/shape.ts
++++ b/src/shape.ts
+@@ -644,7 +644,11 @@ export function unravelAlu(shape: number[], offset: AluExp): AluExp[] {
+   const idxs: AluExp[] = [];
+   for (let i = shape.length - 1; i >= 0; i--) {
+     const d = shape[i];
+-    idxs.push(AluExp.mod(AluExp.idiv(offset, AluExp.i32(acc)), AluExp.i32(d)));
++    const quotient = AluExp.idiv(offset, AluExp.i32(acc));
++    // The outermost index needs no modulo: an offset inside the array is below
++    // its size. (Kept, it would stay wherever the offset's range is unknown, a
++    // gathered index say, and write the axis length into the kernel's source.)
++    idxs.push(i === 0 ? quotient : AluExp.mod(quotient, AluExp.i32(d)));
+     acc *= d;
+   }
+   return idxs.reverse();

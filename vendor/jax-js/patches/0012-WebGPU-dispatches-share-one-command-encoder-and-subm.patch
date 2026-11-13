@@ -1,0 +1,346 @@
+From c33ef2de09cbc5d3700a816b0e341160cf5cba4e Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Sat, 26 Sep 2026 00:27:22 -0400
+Subject: [PATCH] WebGPU dispatches share one command encoder and submit per
+ task
+
+Every dispatch created a command encoder, ~2 bind groups, a uniform
+write and a queue submit: about 715 submits for one brush move over
+heatmaptest's brushed distributions. Dispatches are now encoded into a
+batch submitted at the end of the task that opened it, after 256
+dispatches, or before anything that must see their results: a read,
+gpuBuffer(), or a wait. A batch's uniforms sit at distinct offsets of the
+shared uniform buffer, written once before its submit, and each
+pipeline's uniform bind group is cached while that buffer stays. Buffers
+released while a batch is open are held until it is submitted, so an
+upload into a reused buffer cannot land before commands that still read
+it, and nothing it references is destroyed early. While tracing, a
+dispatch is still submitted on its own (its timestamps resolve per
+dispatch).
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.ts | 210 +++++++++++++++++++++++++++++++++++++-----
+ src/frontend/array.ts |   3 +
+ 2 files changed, 192 insertions(+), 21 deletions(-)
+
+diff --git a/src/backend/webgpu.ts b/src/backend/webgpu.ts
+index 52fc536..d22ca3b 100644
+--- a/src/backend/webgpu.ts
++++ b/src/backend/webgpu.ts
+@@ -18,6 +18,7 @@ import { mapAsyncRead } from "./webgpu/firefoxPoll";
+ import { SyncReader } from "./webgpu/reader";
+ import { createRoutineShader } from "./webgpu/routines";
+ import { maybeAcquireTracingSlot, recordTrace } from "./webgpu/tracing";
++import { isTracing } from "../tracing";
+ 
+ interface ShaderDispatch extends ShaderInfo {
+   pipeline: GPUComputePipeline; // Compiled pipeline for the shader.
+@@ -31,6 +32,20 @@ const MAX_REUSABLE_BUFFERS_PER_SIZE = 64;
+  * uniform data); the compiled pipelines they share are cached by source.
+  */
+ const MAX_CACHED_SHADERS = 4096;
++/** Dispatches encoded before a batch is submitted even if the task goes on. */
++const MAX_BATCH_DISPATCHES = 256;
++
++/**
++ * Dispatches encoded together, submitted at once: one command encoder and one queue submit for
++ * the dispatches a task issues, instead of an encoder and a submit per dispatch. Their uniforms
++ * sit at distinct offsets of one buffer, written once before the submit.
++ */
++type Batch = {
++  encoder: GPUCommandEncoder;
++  uniforms: [number, Uint8Array<ArrayBuffer>][];
++  uniformBytes: number;
++  dispatches: number;
++};
+ 
+ /** Implementation of `Backend` that uses WebGPU in browsers. */
+ export class WebGPUBackend implements Backend {
+@@ -54,6 +69,12 @@ export class WebGPUBackend implements Backend {
+   #uniformPool: UniformPool;
+   #reusableZsb: GPUBuffer;
+   #bufferPool = new Map<number, GPUBuffer[]>();
++  #batch: Batch | null = null;
++  #flushQueued = false;
++  // Buffers released while a batch is open: its encoded commands may still read or write them,
++  // so they are neither reused (a write from queue.writeBuffer would land before the batch
++  // runs) nor destroyed until it is submitted.
++  #held: [GPUBuffer, number][] = [];
+ 
+   constructor(readonly device: GPUDevice) {
+     if (DEBUG >= 3 && device.adapterInfo) {
+@@ -127,16 +148,46 @@ export class WebGPUBackend implements Backend {
+     if (buffer.ref === 0) {
+       this.buffers.delete(slot);
+       if (buffer.buffer !== this.#reusableZsb) {
+-        this.#releaseBuffer(buffer.buffer, buffer.allocatedSize);
++        if (this.#batch) this.#held.push([buffer.buffer, buffer.allocatedSize]);
++        else this.#releaseBuffer(buffer.buffer, buffer.allocatedSize);
+       }
+     }
+   }
+ 
++  /**
++   * Submit the dispatches encoded so far. Reads, `gpuBuffer()` and waits call it first, so
++   * their commands follow the work they depend on; otherwise a batch is submitted at the end of
++   * the task that opened it, or after MAX_BATCH_DISPATCHES.
++   */
++  flush(): void {
++    const batch = this.#batch;
++    if (!batch) return;
++    this.#batch = null;
++    if (batch.uniformBytes) this.#uniformPool.upload(batch.uniforms, batch.uniformBytes);
++    this.device.queue.submit([batch.encoder.finish()]);
++    for (const [buffer, size] of this.#held.splice(0)) this.#releaseBuffer(buffer, size);
++  }
++
++  #openBatch(): Batch {
++    if (!this.#batch) {
++      this.#batch = { encoder: this.device.createCommandEncoder(), uniforms: [], uniformBytes: 0, dispatches: 0 };
++      if (!this.#flushQueued) {
++        this.#flushQueued = true;
++        queueMicrotask(() => {
++          this.#flushQueued = false;
++          this.flush();
++        });
++      }
++    }
++    return this.#batch;
++  }
++
+   async read(
+     slot: Slot,
+     start?: number,
+     count?: number,
+   ): Promise<Uint8Array<ArrayBuffer>> {
++    this.flush();
+     const { buffer, size } = this.#getBuffer(slot);
+     if (buffer === this.#reusableZsb) return new Uint8Array();
+     if (start === undefined) start = 0;
+@@ -163,6 +214,7 @@ export class WebGPUBackend implements Backend {
+     start?: number,
+     count?: number,
+   ): Uint8Array<ArrayBuffer> {
++    this.flush();
+     const { buffer, size } = this.#getBuffer(slot);
+     if (buffer === this.#reusableZsb) return new Uint8Array();
+     if (start === undefined) start = 0;
+@@ -228,13 +280,20 @@ export class WebGPUBackend implements Backend {
+   ): void {
+     const inputBuffers = inputs.map((slot) => this.#getBuffer(slot).buffer);
+     const outputBuffers = outputs.map((slot) => this.#getBuffer(slot).buffer);
+-    pipelineSubmit(
+-      this.device,
+-      this.#uniformPool,
+-      exe,
+-      inputBuffers,
+-      outputBuffers,
+-    );
++    if (isTracing()) {
++      // Timestamps resolve with their own submit: keep a submit per dispatch.
++      this.flush();
++      pipelineSubmit(this.device, this.#uniformPool, exe, inputBuffers, outputBuffers);
++      return;
++    }
++    // A batch whose uniforms would outgrow the buffer is submitted first: its bind groups
++    // point at the buffer as it is.
++    const needed = this.#uniformPool.bytesFor(exe);
++    if (this.#batch && this.#batch.uniformBytes + needed > this.#uniformPool.capacity) this.flush();
++    this.#uniformPool.reserve(needed);
++    const batch = this.#openBatch();
++    pipelineEncode(this.device, this.#uniformPool, batch, exe, inputBuffers, outputBuffers);
++    if (++batch.dispatches >= MAX_BATCH_DISPATCHES) this.flush();
+   }
+ 
+   #getBuffer(slot: Slot): { buffer: GPUBuffer; size: number } {
+@@ -568,6 +627,61 @@ export function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+   };
+ }
+ 
++/**
++ * Encode `exe`'s passes into `batch`: its uniforms go at the batch's next offsets (written when
++ * the batch is submitted), bound through a bind group cached per pipeline.
++ */
++function pipelineEncode(
++  device: GPUDevice,
++  uniformPool: UniformPool,
++  batch: Batch,
++  exe: Executable<ShaderDispatch[]>,
++  inputs: GPUBuffer[],
++  outputs: GPUBuffer[],
++) {
++  const commandEncoder = batch.encoder;
++  for (const { pipeline, ...shader } of exe.data) {
++    if (inputs.length !== shader.numInputs || outputs.length !== shader.numOutputs) {
++      throw new Error(
++        `webgpu: expected ${shader.numInputs} inputs and ${shader.numOutputs} outputs, ` +
++          `got ${inputs.length} inputs and ${outputs.length} outputs`,
++      );
++    }
++    if (shader.clearOutputs) {
++      for (const output of outputs) commandEncoder.clearBuffer(output);
++    }
++    const filteredPasses = shader.passes.filter(({ grid }) => prod(grid) > 0);
++    if (filteredPasses.length === 0) continue; // No work to do.
++    const bindGroup = device.createBindGroup({
++      layout: pipeline.getBindGroupLayout(0),
++      entries: [
++        ...inputs.map((buffer, i) => ({ binding: i, resource: { buffer } })),
++        ...outputs.map((buffer, i) => ({ binding: inputs.length + i, resource: { buffer } })),
++      ],
++    });
++    let uniformBindGroup: GPUBindGroup | null = null;
++    let uniformAlignment = 0;
++    let base = 0;
++    if (shader.hasUniform) {
++      const uniforms = filteredPasses.map(({ uniform }) => uniform!);
++      uniformAlignment = uniformPool.alignmentOf(uniforms);
++      base = uniformPool.alignUp(batch.uniformBytes);
++      uniforms.forEach((u, i) => batch.uniforms.push([base + i * uniformAlignment, u]));
++      batch.uniformBytes = base + uniforms.length * uniformAlignment;
++      uniformBindGroup = uniformPool.bindGroup(pipeline, uniformAlignment);
++    }
++    for (let i = 0; i < filteredPasses.length; i++) {
++      const passEncoder = commandEncoder.beginComputePass();
++      passEncoder.setPipeline(pipeline);
++      passEncoder.setBindGroup(0, bindGroup);
++      if (uniformBindGroup) passEncoder.setBindGroup(1, uniformBindGroup, [base + i * uniformAlignment]);
++      passEncoder.dispatchWorkgroups(filteredPasses[i].grid[0], filteredPasses[i].grid[1]);
++      passEncoder.end();
++    }
++  }
++}
++
++/** A dispatch submitted on its own (while tracing, whose timestamps resolve per dispatch). */
+ function pipelineSubmit(
+   device: GPUDevice,
+   uniformPool: UniformPool,
+@@ -661,14 +775,75 @@ function pipelineSubmit(
+  * One uniform buffer shared by every dispatch. Each submit writes its passes'
+  * uniforms at the start of the buffer: queue.writeBuffer() is ordered after
+  * the submits issued before it, so a write never changes what an earlier
+- * submit reads. Replaces a new uniform buffer per dispatch.
++ * submit reads. Replaces a new uniform buffer per dispatch. A batch of
++ * dispatches puts each pass's uniforms at its own offset and writes them all
++ * before its submit (upload); each pipeline's uniform bind group is kept
++ * while the buffer stays the same.
+  */
+ class UniformPool {
+   #buffer: GPUBuffer | null = null;
+   #size = 0;
++  #groups = new WeakMap<GPUComputePipeline, { buffer: GPUBuffer; alignment: number; group: GPUBindGroup }>();
+ 
+   constructor(readonly device: GPUDevice) {}
+ 
++  get capacity(): number {
++    return this.#size;
++  }
++
++  alignUp(bytes: number): number {
++    const minAlign = this.device.limits.minUniformBufferOffsetAlignment;
++    return Math.ceil(bytes / minAlign) * minAlign;
++  }
++
++  alignmentOf(uniforms: Uint8Array<ArrayBuffer>[]): number {
++    for (const buf of uniforms) {
++      if (!buf || buf.byteLength === 0 || buf.byteLength !== uniforms[0].byteLength)
++        throw new Error("webgpu: Uniform mismatch between shader passes");
++    }
++    return this.alignUp(uniforms[0].byteLength);
++  }
++
++  /** The uniform bytes `exe` takes in a batch, with alignment slack. */
++  bytesFor(exe: Executable<ShaderDispatch[]>): number {
++    let bytes = 0;
++    for (const shader of exe.data) {
++      if (!shader.hasUniform) continue;
++      const passes = shader.passes.filter(({ grid }) => prod(grid) > 0);
++      if (passes.length) bytes += this.alignUp(passes[0].uniform!.byteLength) * passes.length + this.alignUp(1);
++    }
++    return bytes;
++  }
++
++  /** Room for `bytes` in the buffer (no open batch may point at a buffer this replaces). */
++  reserve(bytes: number): void {
++    if (this.#buffer && this.#size >= bytes) return;
++    this.#buffer?.destroy();
++    this.#size = Math.max(bytes, this.#size * 2, 256 * 1024);
++    this.#buffer = this.device.createBuffer({
++      size: this.#size,
++      usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
++    });
++  }
++
++  bindGroup(pipeline: GPUComputePipeline, alignment: number): GPUBindGroup {
++    const cached = this.#groups.get(pipeline);
++    if (cached && cached.buffer === this.#buffer && cached.alignment === alignment) return cached.group;
++    const group = this.device.createBindGroup({
++      layout: pipeline.getBindGroupLayout(1),
++      entries: [{ binding: 0, resource: { buffer: this.#buffer!, size: alignment } }],
++    });
++    this.#groups.set(pipeline, { buffer: this.#buffer!, alignment, group });
++    return group;
++  }
++
++  /** Write a batch's uniforms, each at its offset, in one write. */
++  upload(chunks: [number, Uint8Array<ArrayBuffer>][], bytes: number): void {
++    const data = new Uint8Array(bytes);
++    for (const [offset, chunk] of chunks) data.set(chunk, offset);
++    this.device.queue.writeBuffer(this.#buffer!, 0, data);
++  }
++
+   /** Write each pass's uniforms; returns the buffer and the offset stride. */
+   write(uniforms: Uint8Array<ArrayBuffer>[]): [GPUBuffer, number] {
+     for (const buf of uniforms) {
+@@ -683,21 +858,14 @@ class UniformPool {
+     const minAlign = this.device.limits.minUniformBufferOffsetAlignment;
+     const alignment = Math.ceil(uniforms[0].byteLength / minAlign) * minAlign;
+     const size = alignment * uniforms.length;
+-    if (!this.#buffer || this.#size < size) {
+-      // Destroying a buffer that submitted work still reads is allowed: the
+-      // implementation frees it once that work completes.
+-      this.#buffer?.destroy();
+-      this.#size = Math.max(size, 64 * 1024);
+-      this.#buffer = this.device.createBuffer({
+-        size: this.#size,
+-        usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
+-      });
+-    }
++    // Destroying a buffer that submitted work still reads is allowed: the
++    // implementation frees it once that work completes.
++    this.reserve(size);
+     const data = new Uint8Array(size);
+     for (let i = 0; i < uniforms.length; i++)
+       data.set(uniforms[i], i * alignment);
+-    this.device.queue.writeBuffer(this.#buffer, 0, data);
+-    return [this.#buffer, alignment];
++    this.device.queue.writeBuffer(this.#buffer!, 0, data);
++    return [this.#buffer!, alignment];
+   }
+ }
+ 
+diff --git a/src/frontend/array.ts b/src/frontend/array.ts
+index ba1f73c..eb4b21c 100644
+--- a/src/frontend/array.ts
++++ b/src/frontend/array.ts
+@@ -876,6 +876,8 @@ export class Array extends Tracer {
+       for (const p of pending) p.submit();
+     }
+     const backend = this.#backend as import("../backend/webgpu").WebGPUBackend;
++    // The buffer is read outside jax-js: submit what writes it first.
++    backend.flush();
+     const { buffer } = backend.buffers.get(this.#source as Slot)!;
+     this.dispose();
+     return buffer;
+@@ -891,6 +893,7 @@ export class Array extends Tracer {
+       p.submit();
+     }
+     const backend = this.#backend as import("../backend/webgpu").WebGPUBackend;
++    backend.flush();
+     const { buffer } = backend.buffers.get(this.#source as Slot)!;
+     this.dispose();
+     return buffer;
+-- 
+2.46.1
+

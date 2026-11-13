@@ -1,0 +1,11 @@
+## Usage
+
+Each group's rows in value order, each at the share of its group at or below it, drawn as a step Line per group, colored by it. A Legend with `channel="color"` lists the groups.
+
+Ecdf is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the lines are vectors too, drawn back to front by depth (approximate where marks cross closely). With `by`, each group's line keeps its color. See [what is not exported as vector](/docs/export).
+
+</Note>

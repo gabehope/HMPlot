@@ -1,0 +1,7 @@
+## Usage
+
+Nodes selects the node relation from graph data. It works before or after a layout and supplies an ordinary table to its children. Apply Calculate, Filter, Sort or Join inside it to transform nodes; use a nested Edges to switch back to the corresponding edge relation. Filtering nodes induces edges with both endpoints still present.
+
+GraphData owns the node table and its `nodeKey`. To add attributes, supply them there, aggregate them from the edges with its `reduce`, or use the ordinary Join transform inside Nodes. Nodes has no separate data/key join API.
+
+Layout columns include `id`, `position`, `x`/`y`/`z` and degree. Tree, Pack and Treemap also provide parent and depth; Pack adds `r`, and Treemap adds rectangle bounds. Tree exposes parent coordinates and partition bounds for animation. `drag=true` opts into Force dragging; static layouts do not simulate.

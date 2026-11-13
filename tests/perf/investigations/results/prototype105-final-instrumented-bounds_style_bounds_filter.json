@@ -1,0 +1,462 @@
+[
+  {
+    "label": "prototype105-final",
+    "instrument": true,
+    "name": "bounds-style-50k",
+    "url": "/test/investigation-scales?bounds=auto&rows=50000&marks=4",
+    "samples": [
+      {
+        "repetition": 1,
+        "wallMs": 134,
+        "completedFrames": 6,
+        "frameP50": 19.400000005960464,
+        "frameP95": 26.299999982118607,
+        "feedbackP50": 18.19999998807907,
+        "feedbackP95": 24.599999994039536,
+        "state": [
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 0,
+        "bufferBytes": 0,
+        "readbacks": 0,
+        "submits": 60,
+        "fences": 31,
+        "builds": 0,
+        "liveBytes": 83469340,
+        "peakBytes": 83469340,
+        "readbackKinds": {
+          "jax": 0,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "wallMs": 130.59999999403954,
+        "completedFrames": 6,
+        "frameP50": 19.69999998807907,
+        "frameP95": 22.700000017881393,
+        "feedbackP50": 18.19999998807907,
+        "feedbackP95": 18.400000005960464,
+        "state": [
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 0,
+        "bufferBytes": 0,
+        "readbacks": 0,
+        "submits": 60,
+        "fences": 31,
+        "builds": 0,
+        "liveBytes": 83469340,
+        "peakBytes": 83469340,
+        "readbackKinds": {
+          "jax": 0,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "wallMs": 124.7999999821186,
+        "completedFrames": 6,
+        "frameP50": 18.80000001192093,
+        "frameP95": 22.80000001192093,
+        "feedbackP50": 17.599999994039536,
+        "feedbackP95": 17.799999982118607,
+        "state": [
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          }
+        ],
+        "errors": [],
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 0,
+        "bufferBytes": 0,
+        "readbacks": 0,
+        "submits": 60,
+        "fences": 31,
+        "builds": 0,
+        "liveBytes": 83469340,
+        "peakBytes": 83469340,
+        "readbackKinds": {
+          "jax": 0,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        }
+      }
+    ]
+  },
+  {
+    "label": "prototype105-final",
+    "instrument": true,
+    "name": "bounds-filter-50k",
+    "url": "/test/investigation-scales?bounds=auto&filter=1&rows=50000&marks=4",
+    "samples": [
+      {
+        "repetition": 1,
+        "wallMs": 727,
+        "completedFrames": 6,
+        "frameP50": 34.099999994039536,
+        "frameP95": 417.09999999403954,
+        "feedbackP50": 37.10000002384186,
+        "feedbackP95": 418.90000000596046,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": [],
+        "compute": 0,
+        "render": 2,
+        "shaders": 4,
+        "buffers": 14,
+        "bufferBytes": 616,
+        "readbacks": 12,
+        "submits": 138,
+        "fences": 32,
+        "builds": 0,
+        "liveBytes": 94669976,
+        "peakBytes": 94669976,
+        "readbackKinds": {
+          "jax": 12,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "wallMs": 988.1999999880791,
+        "completedFrames": 6,
+        "frameP50": 38.69999998807907,
+        "frameP95": 603.0999999940395,
+        "feedbackP50": 37.70000001788139,
+        "feedbackP95": 590.2000000178814,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": [],
+        "compute": 0,
+        "render": 2,
+        "shaders": 4,
+        "buffers": 14,
+        "bufferBytes": 616,
+        "readbacks": 12,
+        "submits": 138,
+        "fences": 32,
+        "builds": 0,
+        "liveBytes": 94670136,
+        "peakBytes": 94670208,
+        "readbackKinds": {
+          "jax": 12,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "wallMs": 933.5,
+        "completedFrames": 6,
+        "frameP50": 50.70000001788139,
+        "frameP95": 583.1999999880791,
+        "feedbackP50": 43.79999998211861,
+        "feedbackP95": 578.3000000119209,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": [],
+        "compute": 0,
+        "render": 2,
+        "shaders": 4,
+        "buffers": 14,
+        "bufferBytes": 616,
+        "readbacks": 12,
+        "submits": 138,
+        "fences": 32,
+        "builds": 0,
+        "liveBytes": 94670296,
+        "peakBytes": 94670296,
+        "readbackKinds": {
+          "jax": 12,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        }
+      }
+    ]
+  }
+]

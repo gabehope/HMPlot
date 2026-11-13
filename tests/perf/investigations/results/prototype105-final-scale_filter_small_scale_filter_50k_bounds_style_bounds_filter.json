@@ -1,0 +1,706 @@
+[
+  {
+    "label": "prototype105-final",
+    "instrument": false,
+    "name": "scale-filter-small",
+    "url": "/test/investigation-scales?filter=1&rows=5000&marks=4",
+    "samples": [
+      {
+        "repetition": 1,
+        "wallMs": 212.59999999403954,
+        "completedFrames": 6,
+        "frameP50": 32.599999994039536,
+        "frameP95": 69.59999999403954,
+        "feedbackP50": 33.5,
+        "feedbackP95": 70.40000000596046,
+        "state": [
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 2,
+        "wallMs": 148.39999997615814,
+        "completedFrames": 6,
+        "frameP50": 16.80000001192093,
+        "frameP95": 53.70000001788139,
+        "feedbackP50": 18.5,
+        "feedbackP95": 53.80000001192093,
+        "state": [
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 3,
+        "wallMs": 148.59999999403954,
+        "completedFrames": 6,
+        "frameP50": 17.400000005960464,
+        "frameP95": 53.400000005960464,
+        "feedbackP50": 17.599999994039536,
+        "feedbackP95": 53.400000005960464,
+        "state": [
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 4020,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  {
+    "label": "prototype105-final",
+    "instrument": false,
+    "name": "scale-filter-50k",
+    "url": "/test/investigation-scales?filter=1&rows=50000&marks=4",
+    "samples": [
+      {
+        "repetition": 1,
+        "wallMs": 792,
+        "completedFrames": 6,
+        "frameP50": 34,
+        "frameP95": 517.2000000178814,
+        "feedbackP50": 39.70000001788139,
+        "feedbackP95": 508.09999999403954,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 2,
+        "wallMs": 736.7000000178814,
+        "completedFrames": 6,
+        "frameP50": 33,
+        "frameP95": 480.80000001192093,
+        "feedbackP50": 26.799999982118607,
+        "feedbackP95": 469.69999998807907,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 3,
+        "wallMs": 764.0999999940395,
+        "completedFrames": 6,
+        "frameP50": 33.30000001192093,
+        "frameP95": 487.90000000596046,
+        "feedbackP50": 39.89999997615814,
+        "feedbackP95": 480,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  {
+    "label": "prototype105-final",
+    "instrument": false,
+    "name": "bounds-style-50k",
+    "url": "/test/investigation-scales?bounds=auto&rows=50000&marks=4",
+    "samples": [
+      {
+        "repetition": 1,
+        "wallMs": 126.09999999403954,
+        "completedFrames": 6,
+        "frameP50": 18.599999994039536,
+        "frameP95": 23,
+        "feedbackP50": 18,
+        "feedbackP95": 22.30000001192093,
+        "state": [
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 2,
+        "wallMs": 123.30000001192093,
+        "completedFrames": 6,
+        "frameP50": 18.299999982118607,
+        "frameP95": 22.19999998807907,
+        "feedbackP50": 17.5,
+        "feedbackP95": 18.599999994039536,
+        "state": [
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 3,
+        "wallMs": 124.7999999821186,
+        "completedFrames": 6,
+        "frameP50": 17.69999998807907,
+        "frameP95": 23.099999994039536,
+        "feedbackP50": 20.900000005960464,
+        "feedbackP95": 23.19999998807907,
+        "state": [
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          },
+          {
+            "count": 50000,
+            "color": [
+              0,
+              996
+            ],
+            "size": [
+              0,
+              1
+            ]
+          }
+        ],
+        "errors": []
+      }
+    ]
+  },
+  {
+    "label": "prototype105-final",
+    "instrument": false,
+    "name": "bounds-filter-50k",
+    "url": "/test/investigation-scales?bounds=auto&filter=1&rows=50000&marks=4",
+    "samples": [
+      {
+        "repetition": 1,
+        "wallMs": 817.2000000178814,
+        "completedFrames": 6,
+        "frameP50": 37.70000001788139,
+        "frameP95": 533.7999999821186,
+        "feedbackP50": 44.099999994039536,
+        "feedbackP95": 531.0999999940395,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 2,
+        "wallMs": 765.7000000178814,
+        "completedFrames": 6,
+        "frameP50": 34.099999994039536,
+        "frameP95": 485.10000002384186,
+        "feedbackP50": 38,
+        "feedbackP95": 481.59999999403954,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      },
+      {
+        "repetition": 3,
+        "wallMs": 780.0999999940395,
+        "completedFrames": 6,
+        "frameP50": 35.79999998211861,
+        "frameP95": 478,
+        "feedbackP50": 36.39999997615814,
+        "feedbackP95": 472.10000002384186,
+        "state": [
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          },
+          {
+            "count": 40200,
+            "color": [
+              0,
+              800
+            ],
+            "size": [
+              0,
+              800
+            ]
+          }
+        ],
+        "errors": []
+      }
+    ]
+  }
+]

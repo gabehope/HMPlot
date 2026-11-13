@@ -1,0 +1,65 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.5 / R4: expression cache ownership contract and checked seeded-random producer",
+  "baseline": "3ddd9e7e",
+  "scope": "Correct cache key/value types and optional evaluator capabilities; strictly check random seed/options/row validation, cache insertion and returned references. Add a mixed-cache lifetime regression.",
+  "checkedCoreImplementations": {
+    "completed": 5,
+    "total": 9,
+    "remaining": [
+      "expressions",
+      "interaction",
+      "proputils",
+      "namedData"
+    ]
+  },
+  "strictModuleFloor": 61,
+  "contract": {
+    "keys": "Expression identity for reductions; string keys for immutable random constants.",
+    "ownership": "Each cache entry owns one JAX array reference. Runtime ports borrow it. A cached random read returns an acquired reference owned by the evaluation.",
+    "release": "A released cache is disabled; retained evaluations stay valid until their own disposal."
+  },
+  "verification": {
+    "focusedUnits": {
+      "passed": 57,
+      "failed": 0,
+      "files": [
+        "random-expression",
+        "reductions",
+        "refactor-ratchet"
+      ]
+    },
+    "leakGate": {
+      "passed": 6,
+      "failed": 0,
+      "file": "random-expression"
+    },
+    "strictSvelte": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "format": "passed",
+    "api": "current; no public API change",
+    "pythonSignatures": "passed; 112 components"
+  },
+  "runtimeEquivalence": {
+    "method": "esbuild.transform with loader js, minify true, target esnext, compared against 3ddd9e7e.",
+    "records": [
+      {
+        "path": "src/lib/plot/utils/randomExpression.js",
+        "comparison": "identical",
+        "sourceSHA256": "62847205f95d20046d02362160cf5794814a99b5da84accddf35d7931591a9bc",
+        "minifiedSHA256": "a51d90e23db16cba80e11b6f2386beaaad66080e66ccaae443e51d5756dd50df"
+      },
+      {
+        "path": "src/lib/plot/utils/expressions.js",
+        "comparison": "identical",
+        "sourceSHA256": "0be1f895084a9d8ad3c93a3d9251fd9eaf0fcead3dc8a14bb4457d25f7f52b17",
+        "minifiedSHA256": "ac49feedfbde3377ce00c66743de0daef770f94b503f965138d6f1a2eedaf6eb"
+      }
+    ],
+    "meaning": "Both modified JS modules emit identical executable code. No new browser/production timing or speedup claim; prior checkpoint evidence carries forward."
+  },
+  "remaining": "The full eager evaluator still requires operand/result/operation-family and recursive evaluation contracts; the initial checking audit found 236 diagnostics, predominantly implicit parameters. This supporting producer does not complete that core implementation target."
+}

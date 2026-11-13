@@ -1,0 +1,3 @@
+## Usage
+
+Place `Flow` inside Sankey's `Edges` scope and bind its four attachment channels. Each original edge draws as one filled band that retains its source row for picking and export.

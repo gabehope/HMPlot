@@ -1,0 +1,3 @@
+## Usage
+
+An explicit domain fixes category order. A band x axis lists it from the left and a band y axis from the top, as a table reads; `y={"invert": True}` lists it from the bottom. Otherwise inferred domains append newly seen values. Finite ranges repeat deterministically. Shared scale identity shares the mapping, not selection state. Numeric values can be treated as categories by explicitly using this resource.

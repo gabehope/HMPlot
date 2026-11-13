@@ -1,0 +1,29 @@
+{
+  "left": {
+    "align": "left"
+  },
+  "centered": {
+    "align": "center"
+  },
+  "editorial": {
+    "fontSize": 24,
+    "fontWeight": 700,
+    "subtitleFontSize": 15,
+    "captionFontSize": 12,
+    "spacing": 14
+  },
+  "panel": {
+    "fontSize": 16,
+    "fontWeight": 600,
+    "subtitleFontSize": 12,
+    "captionFontSize": 11,
+    "spacing": 6
+  },
+  "presentation": {
+    "fontSize": 32,
+    "fontWeight": 700,
+    "subtitleFontSize": 21,
+    "captionFontSize": 16,
+    "spacing": 18
+  }
+}

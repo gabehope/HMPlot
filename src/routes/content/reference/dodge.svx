@@ -1,0 +1,5 @@
+## Usage
+
+Adds pixel offsets consumed by one flat point mark, which takes them itself: no dy (or dx) is needed. With axis="auto" (the default) the points move across a categorical x, or along x for a lone y, otherwise along y. Deterministic seed defaults to 42. Layout accounts for glyph sizes and changes with zoom or dimensions, but not pure pan. Supported for Cartesian 2D only.
+
+To let the viewer change a setting, read an input in it: `padding={input("padding")}` (Python `padding=hm.input.padding`), where `padding` is a [Slider](slider).

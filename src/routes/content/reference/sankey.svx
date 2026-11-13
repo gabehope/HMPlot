@@ -1,0 +1,3 @@
+## Usage
+
+Sankey consumes GraphData and lays out nonnegative flows in an acyclic directed graph. Nodes expose `x0`, `x1`, `y0`, `y1`, `x`, `y`, `position`, `depth`, and `throughput`. Edges expose four attachment corners for `Flow`, plus the original edge columns. Explicit GraphData node tables can include isolated nodes.

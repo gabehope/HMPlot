@@ -1,0 +1,13 @@
+## Usage
+
+Density, Contour, then Polygon filled by each band's lower level, as d3's contourDensity draws its filled bands. The first band (from the least density up) covers the whole grid, so it is left out. For contour lines use [DensityContour](/reference/svelte/density-contour); to show both, draw both.
+
+DensityBands is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the bands are vectors too, drawn back to front by depth (approximate where marks cross closely). Filled by level (the default) they stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+Band outlines follow the level boundaries, excluding internal cell and triangulation edges.

@@ -1,0 +1,20 @@
+# The translation-guide skill (skills/hmplot/translation.md, 2026-10-22): fifteen hard tasks,
+# one model per config so the two queues run concurrently in separate roots, under HMPlot Python
+# (standard docs and skill), HMPlot Svelte (web docs and skill), free Python and free JavaScript.
+# 60 trials per model, one repetition, two corrections. No model judge.
+[benchmark]
+sources = ["complex", "d3-hard"]
+repetitions = 1
+corrections = 2
+seed = 20261022
+
+[agents.luna]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[tracks.python]
+libraries = ["hmplot-standard", "free"]
+
+[tracks.javascript]
+libraries = ["hmplot-js-web-docs", "free-js"]

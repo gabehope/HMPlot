@@ -1,0 +1,17 @@
+# Full configured comparison suite: 124 trials, at most 248 Codex sessions.
+[benchmark]
+tasks = ["scatter", "linked-brush", "million-slider", "map-points", "points-3d", "real-penguins", "real-nyc-trips", "real-earthquakes", "matplotbench-76", "matplotbench-78", "matplotbench-83", "matplotbench-87", "matplotbench-89", "matplotbench-99"]
+repetitions = 1
+corrections = 1
+
+# Replace tasks above with sources = ["hmplot", "real", "matplotbench"] to select a full source.
+[agents.codex]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[tracks.python]
+libraries = ["hmplot", "hmplot-cold", "plotly", "altair", "free-baselines", "free-all"]
+
+[tracks.javascript]
+libraries = ["hmplot-js", "deckgl", "observable-plot", "free-js-baselines", "free-js-all"]

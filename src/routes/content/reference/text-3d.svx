@@ -1,0 +1,9 @@
+## Usage
+
+For text as geometry in data units (in the plot plane unless billboard; tex draws TeX). Use Text for a data-driven text channel or many screen-sized labels. Text3D keeps its existing sizing and geometry semantics. Without a `color`, it takes the theme's Text color.
+
+<Note title="SVG and PDF export">
+
+**Image.** SVG and PDF exports draw Text3D, TeX included, as an image at the export's raster DPI (in a 3D view with all of that view's marks), so its text is not searchable, and `mode="vector"` refuses it. Text exports as text. See [what is not exported as vector](/docs/export).
+
+</Note>

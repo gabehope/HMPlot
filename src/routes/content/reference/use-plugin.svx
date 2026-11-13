@@ -1,0 +1,22 @@
+## Usage
+
+`hm.use_plugin(name)` uses an installed plugin package: Python reads its manifest, checks the parameters of `hm.effect`, `hm.shade` and `hm.Transform` against it, and a scene that names one of its kinds lists the plugin in its state by name, version and hash. Python never sends code of its own: notebooks get the plugin's file from its installed package, exported HTML pages embed it, and headless exports serve it. The browser checks the file against the hash before running it; a file that does not match is not run (a `plugin.failed` warning), and a plugin a page has no file for is a `plugin.missing` warning. Either way the plot draws without it. A portable template records the plugins it names, and loading it uses them.
+
+```python
+import hmplot as hm
+
+hm.use_plugin("acme-hatch")
+with hm.Plot(data={"x": [1, 2, 3], "y": [2, 1, 3]}):
+    hm.Points(x="x", y="y", size=40, shade=hm.shade("hatch", spacing=6))
+```
+
+## Making a plugin package
+
+A plugin package carries the [plugin](/reference/svelte/plugins)'s file and a `manifest.json` beside it, and declares its Python package under the `hmplot.plugins` entry point, named for the plugin:
+
+```toml
+[project.entry-points."hmplot.plugins"]
+acme-hatch = "acme_hatch"
+```
+
+The file is an ES module that imports nothing (the page loads it on its own): its default export is the plugin, `export default { name: "acme-hatch", version: "1.0.0", apiVersion: 1, setup(hm) { ... } }`, and its setup takes three.js, TSL and jax from `hm`. `node scripts/plugin-manifest.mjs acme_hatch/hatch.js` (in an HMPlot checkout) runs its setup once and writes the manifest: its name, version, API version, file, hash and each effect's, shade's, transform's and layout's parameter schema. Write it again whenever the file changes.

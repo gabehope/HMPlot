@@ -1,0 +1,5 @@
+## Usage
+
+A [Plot handle](plot-handle)'s `exportVideo({ duration, fps, start, scale })` imports this module the first time it runs, so a page that never exports video does not carry the encoder; import it yourself to encode frames of your own, or to know the frames' times. The video has the plot's animation clock frozen at each frame's time, so `@time` channels, transitions, playing Playbacks and running Simulates all advance by exactly one frame per frame, however long the export takes.
+
+Encoding uses the browser's WebCodecs `VideoEncoder`: Chrome and Edge have it, and other browsers may not, in which case the export is an error. Odd frame sizes are padded to even ones, and frames are drawn over white, since MP4 video has no alpha. Python's `export_mp4(..., encoder="browser")` uses this encoder in the notebook view or the export browser; its default encoder is ffmpeg, which needs no WebCodecs. See docs/DOCUMENT-EXPORT.md, "Video in the browser".

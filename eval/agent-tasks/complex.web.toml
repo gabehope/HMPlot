@@ -1,0 +1,19 @@
+# Fifteen tasks × two models × three conditions; no model judge.
+[benchmark]
+sources = ["complex", "d3-hard"]
+repetitions = 1
+corrections = 2
+seed = 20261021
+
+[agents.luna]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[agents.sol]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6.1-sol"
+
+[tracks.javascript]
+libraries = ["hmplot-js-baseline-docs", "hmplot-js-web-docs", "free-js"]

@@ -1,0 +1,9 @@
+## Usage
+
+In a Python scene, `hm.Markdown(text)` sits in a Scene, Row, Column or Grid beside plots: CommonMark with GitHub's tables, strikethrough, task lists, autolinks and footnotes, and `$math$` or `$$math$$` typeset by MathJax. Raw HTML is not rendered, and links keep only http(s), mailto and tel URLs. The block takes the theme's font and text color; `width`, `fontSize`, `color`, `font` and `align` override them. `{$name}` shows an input's value as the input shows it (in an f-string, `{{$name}}`).
+
+<Note title="SVG and PDF export">
+
+**Image.** Scene exports place the block as an image of how it looks, captured at the export's raster DPI, and list it in the report as a raster layer: its text is not searchable, and `mode="vector"` refuses it. For text that must stay vector, use Title. See [what is not exported as vector](/docs/export).
+
+</Note>

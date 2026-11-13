@@ -1,0 +1,3067 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.16 / R6: strict Svelte preparation body and result lifetime",
+  "baseline": "6490b96b; candidate adds strict preparation contracts, captures the per-run result for async consumers, and rejects feedback writes without a writable field.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "serving": "Both frozen production builds served concurrently from separate directories; one discarded warm-up per build, then six alternating A/B and B/A rounds.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "cpu": "Active profile time includes all samples except (idle), using timeDeltas[i+1]. Sunburst takes the median across warmed flights before comparing each round.",
+    "counters": "Lorenz GPU counters are separate from plain CPU timing and retained as whole six-second windows. Sunburst uses plain timing; its separate instrumented captures retain readbacks per flight.",
+    "rawResults": "<tmp>/hmplot-preparation-paired",
+    "browser": "154.0.8037.98"
+  },
+  "scenarios": {
+    "sunburst-native": {
+      "frameP50Ms": {
+        "baseline": {
+          "median": 16.7,
+          "min": 16.6,
+          "max": 16.7,
+          "rounds": [
+            16.6,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7
+          ]
+        },
+        "candidate": {
+          "median": 16.7,
+          "min": 16.6,
+          "max": 16.7,
+          "rounds": [
+            16.7,
+            16.6,
+            16.7,
+            16.7,
+            16.7,
+            16.7
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": -0.1,
+          "max": 0.1,
+          "rounds": [
+            0.1,
+            -0.1,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "frameP95Ms": {
+        "baseline": {
+          "median": 18.6,
+          "min": 18.4,
+          "max": 19,
+          "rounds": [
+            18.4,
+            19,
+            18.8,
+            18.9,
+            18.4,
+            18.4
+          ]
+        },
+        "candidate": {
+          "median": 18.65,
+          "min": 18,
+          "max": 18.8,
+          "rounds": [
+            18.7,
+            18.8,
+            18.7,
+            18,
+            18.3,
+            18.6
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.1,
+          "min": -0.9,
+          "max": 0.3,
+          "rounds": [
+            0.3,
+            -0.2,
+            -0.1,
+            -0.9,
+            -0.1,
+            0.2
+          ]
+        }
+      },
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 3.8959,
+          "min": 3.8391,
+          "max": 3.9796,
+          "rounds": [
+            3.8741,
+            3.9647,
+            3.9796,
+            3.8533,
+            3.9177,
+            3.8391
+          ]
+        },
+        "candidate": {
+          "median": 3.9545,
+          "min": 3.8469,
+          "max": 4.0174,
+          "rounds": [
+            3.8986,
+            4.0168,
+            3.8469,
+            3.8993,
+            4.0097,
+            4.0174
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.049,
+          "min": -0.1326,
+          "max": 0.1783,
+          "rounds": [
+            0.0245,
+            0.0521,
+            -0.1326,
+            0.046,
+            0.0921,
+            0.1783
+          ],
+          "mean": 0.0434,
+          "sampleStandardDeviation": 0.102,
+          "medianPercentOfBaseline": 1.26
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "frameP95PerFlight": [
+              17.30000001192093,
+              18.400000005960464,
+              18.399999976158142,
+              18.099999994039536,
+              17.099999994039536,
+              18.69999998807907
+            ],
+            "maxGapPerFlight": [
+              254.40000000596046,
+              132.7999999821186,
+              130,
+              141.19999998807907,
+              164.30000001192093,
+              167.19999998807907
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              19,
+              20.200000017881393,
+              18.5,
+              18.80000001192093,
+              19,
+              19.200000017881393
+            ],
+            "maxGapPerFlight": [
+              254.40000000596046,
+              133.90000000596046,
+              130.09999999403954,
+              142.5,
+              176.80000001192093,
+              137.90000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              78,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.30000001192093,
+              18.799999982118607,
+              17.899999976158142,
+              18.799999982118607,
+              18.900000005960464,
+              18.700000017881393
+            ],
+            "maxGapPerFlight": [
+              254.5,
+              116.19999998807907,
+              146.2000000178814,
+              159.09999999403954,
+              165.90000000596046,
+              150.59999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              19.30000001192093,
+              18.899999976158142,
+              17.900000005960464,
+              18.799999982118607,
+              18.900000005960464,
+              19.099999994039536
+            ],
+            "maxGapPerFlight": [
+              271.40000000596046,
+              129.5,
+              118.2999999821186,
+              132,
+              166.80000001192093,
+              168.59999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.299999982118607,
+              18.899999976158142,
+              17.69999998807907,
+              18.400000005960464,
+              18.30000001192093,
+              18.5
+            ],
+            "maxGapPerFlight": [
+              254.90000000596046,
+              132.59999999403954,
+              131.59999999403954,
+              133.59999999403954,
+              173.30000001192093,
+              169.90000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.200000017881393,
+              18.599999994039536,
+              17.80000001192093,
+              18.400000005960464,
+              17.400000005960464,
+              18.599999994039536
+            ],
+            "maxGapPerFlight": [
+              254.59999999403954,
+              132.5,
+              133.19999998807907,
+              123.59999999403954,
+              168.2999999821186,
+              180.09999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.69999998807907,
+              18.5,
+              18.700000017881393,
+              18.5,
+              20.80000001192093,
+              18.80000001192093
+            ],
+            "maxGapPerFlight": [
+              254.09999999403954,
+              131.19999998807907,
+              131.90000000596046,
+              139.09999999403954,
+              174.39999997615814,
+              133
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "frameP95PerFlight": [
+              18.69999998807907,
+              18.80000001192093,
+              18.700000017881393,
+              19.19999998807907,
+              18.799999982118607,
+              19.200000017881393
+            ],
+            "maxGapPerFlight": [
+              269.7999999821186,
+              131.30000001192093,
+              118.39999997615814,
+              130.19999998807907,
+              182.10000002384186,
+              171.30000001192093
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.599999994039536,
+              18.700000017881393,
+              18.30000001192093,
+              18.299999982118607,
+              19.69999998807907,
+              19
+            ],
+            "maxGapPerFlight": [
+              272.19999998807907,
+              131.69999998807907,
+              118.7000000178814,
+              131.89999997615814,
+              163.5,
+              179
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.5,
+              18.700000017881393,
+              18,
+              18.19999998807907,
+              17.799999982118607,
+              17.69999998807907
+            ],
+            "maxGapPerFlight": [
+              254.90000000596046,
+              132.90000000596046,
+              129,
+              123.60000002384186,
+              165.5,
+              177.90000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              78,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.69999998807907,
+              17.5,
+              18.30000001192093,
+              18.30000001192093,
+              19.30000001192093,
+              18.299999982118607
+            ],
+            "maxGapPerFlight": [
+              254.69999998807907,
+              100.09999999403954,
+              110.2999999821186,
+              143.69999998807907,
+              187.09999999403954,
+              131.19999998807907
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.599999994039536,
+              18.899999976158142,
+              18.400000005960464,
+              18.30000001192093,
+              18.599999994039536,
+              18.900000005960464
+            ],
+            "maxGapPerFlight": [
+              256.40000000596046,
+              116.40000000596046,
+              119.80000001192093,
+              120.40000000596046,
+              163.90000000596046,
+              168.5
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "lorenz": {
+      "frameP50Ms": {
+        "baseline": {
+          "median": 16.7,
+          "min": 16.7,
+          "max": 16.7,
+          "rounds": [
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7
+          ]
+        },
+        "candidate": {
+          "median": 16.7,
+          "min": 16.7,
+          "max": 16.7,
+          "rounds": [
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "rounds": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "frameP95Ms": {
+        "baseline": {
+          "median": 16.7,
+          "min": 16.7,
+          "max": 16.8,
+          "rounds": [
+            16.8,
+            16.7,
+            16.8,
+            16.7,
+            16.7,
+            16.7
+          ]
+        },
+        "candidate": {
+          "median": 16.8,
+          "min": 16.7,
+          "max": 16.8,
+          "rounds": [
+            16.8,
+            16.8,
+            16.8,
+            16.8,
+            16.7,
+            16.7
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.1,
+          "rounds": [
+            0.0,
+            0.1,
+            0.0,
+            0.1,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 5.614,
+          "min": 5.335,
+          "max": 6.011,
+          "rounds": [
+            5.693,
+            5.555,
+            5.335,
+            6.011,
+            5.673,
+            5.534
+          ]
+        },
+        "candidate": {
+          "median": 5.5665,
+          "min": 5.38,
+          "max": 5.658,
+          "rounds": [
+            5.38,
+            5.522,
+            5.557,
+            5.658,
+            5.576,
+            5.658
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.065,
+          "min": -0.353,
+          "max": 0.222,
+          "rounds": [
+            -0.313,
+            -0.033,
+            0.222,
+            -0.353,
+            -0.097,
+            0.124
+          ],
+          "mean": -0.075,
+          "sampleStandardDeviation": 0.2298,
+          "medianPercentOfBaseline": -1.16
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 359,
+            "submitsPerFrame": 30.925,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6003.6,
+            "builds": 0,
+            "liveMB": 134.9,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              358,
+              358
+            ],
+            "frames": 360,
+            "windowMs": 6003.1,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              361,
+              361,
+              361
+            ],
+            "frames": 361,
+            "windowMs": 6006.3,
+            "builds": 0,
+            "liveMB": 138.8,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31.058,
+            "presentedFramesPerCanvas": [
+              360,
+              358,
+              358
+            ],
+            "frames": 360,
+            "windowMs": 6003.2,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 359,
+            "submitsPerFrame": 30.925,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.5,
+            "builds": 0,
+            "liveMB": 138.8,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6003.2,
+            "builds": 0,
+            "liveMB": 136,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31.058,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.5,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31.058,
+            "presentedFramesPerCanvas": [
+              360,
+              358,
+              358
+            ],
+            "frames": 360,
+            "windowMs": 6003,
+            "builds": 0,
+            "liveMB": 138.3,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 358,
+            "submitsPerFrame": 30.85,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "liveMB": 134.9,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31.058,
+            "presentedFramesPerCanvas": [
+              360,
+              357,
+              357
+            ],
+            "frames": 360,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "liveMB": 136,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.8,
+            "builds": 0,
+            "liveMB": 131.9,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 4.091,
+          "min": 4.036,
+          "max": 4.109,
+          "rounds": [
+            4.088,
+            4.036,
+            4.109,
+            4.089,
+            4.093,
+            4.098
+          ]
+        },
+        "candidate": {
+          "median": 4.091,
+          "min": 4.073,
+          "max": 4.098,
+          "rounds": [
+            4.087,
+            4.073,
+            4.083,
+            4.098,
+            4.095,
+            4.096
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0005,
+          "min": -0.026,
+          "max": 0.037,
+          "rounds": [
+            -0.001,
+            0.037,
+            -0.026,
+            0.009,
+            0.002,
+            -0.002
+          ],
+          "mean": 0.0032,
+          "sampleStandardDeviation": 0.0204,
+          "medianPercentOfBaseline": 0.01
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 59.9705,
+          "min": 59.96,
+          "max": 60.114,
+          "rounds": [
+            59.968,
+            59.964,
+            60.114,
+            59.973,
+            59.96,
+            59.976
+          ]
+        },
+        "candidate": {
+          "median": 59.9705,
+          "min": 59.961,
+          "max": 59.984,
+          "rounds": [
+            59.98,
+            59.971,
+            59.97,
+            59.961,
+            59.97,
+            59.984
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0075,
+          "min": -0.144,
+          "max": 0.012,
+          "rounds": [
+            0.012,
+            0.007,
+            -0.144,
+            -0.012,
+            0.01,
+            0.008
+          ]
+        }
+      }
+    }
+  },
+  "snapshots": {
+    "a": {
+      "root": "<tmp>/hmplot-preparation-base",
+      "changedSourceSHA256": {
+        "src/lib/plot/bound/namedMark.svelte": "bd248ce4a97227859b611860403bdf4103be1526ebdcacff57a63ac9323a9d2f",
+        "src/lib/plot/utils/markUpdatePlan.js": "adb782936690c1d539d8cf72125b4067897588f6ecebf2dd394636339478eae3",
+        "src/lib/plot/utils/markPlanTypes.ts": "e329a52cf5df6ea9f5bb9c94382ffe58b16839f02d4c4561ee7e62a52711768e",
+        "src/lib/plot/binding/preparationDependencies.js": "cf10adba702a838e3798da0dbdb87893bd9b493ab9e6d011e87e5bfbd2d628d1",
+        "src/lib/plot/binding/markInteractionEvents.ts": "dab8a7a7d5ab9814c27096c22ff74954de62b46dda84bfd66364c36dd25f8cd4"
+      },
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "fd921517b04b52c0eb530a3ad5828850e82b81170e5d291890d6fbe77e15077f",
+          "files": 614
+        }
+      },
+      "executedJavaScriptVerified": true
+    },
+    "b": {
+      "root": "<tmp>/hmplot-preparation-candidate",
+      "changedSourceSHA256": {
+        "src/lib/plot/bound/namedMark.svelte": "d05fdf40a54c3a8736ade4f10d13ad224dacfc6e8181abde7a685ed2116efce6",
+        "src/lib/plot/utils/markUpdatePlan.js": "67ecc3b7901a522c8d03370ce71fdcc668e3e6be22e17baf3fc89e2d39d13f99",
+        "src/lib/plot/utils/markPlanTypes.ts": "280485aacda12aa6935ff7d6ebc4f26f3555b345b1e6eb4926391a515f845128",
+        "src/lib/plot/binding/preparationDependencies.js": "8287a299d95fb5410186a3038a9431bd634f271130dcf66f09405d15df5f5026",
+        "src/lib/plot/binding/markInteractionEvents.ts": "c22e943cee4cf61b9e1c4ee1827d003d05e51f67c5a3a519427b4102ab92c3e8"
+      },
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "998c4d8c2d7aca50066402af409b7840b790d25b73e715b6511d2e2891f57a48",
+          "files": 616
+        }
+      },
+      "executedJavaScriptVerified": true
+    }
+  },
+  "limitations": [
+    "This is a correctness regression gate, not evidence of a speedup.",
+    "Sunburst uses the native gallery fixture; Lorenz uses the current three-canvas Simulate scene. Identical frozen scene payloads seed both builds, while each snapshot compiles its own scene runtime and mark preparation. Legacy Lorenz diagnostics animate only one canvas and are excluded from this gate, retained under lorenz-legacy-diagnostic.",
+    "Large profiles and builds remain local; this artifact retains round-level values and source fingerprints.",
+    "Upstream connection/layout/animation helper call signatures are typed, but their entire implementations are not newly strict-checked.",
+    "Only namedMark and markUpdatePlan change executable JavaScript; all other 21 source modules erase to identical output. The final worktree emits the same executable JS as the frozen measured candidate."
+  ],
+  "runtimeProof": {
+    "baseline": "6490b96b",
+    "method": "Production Svelte compile, then esbuild with minifySyntax/minifyWhitespace and erased types/comments; identifier minification disabled to exclude TS symbol-allocation differences.",
+    "toolVersions": {
+      "svelte": "5.54.0",
+      "esbuild": "0.25.12"
+    },
+    "files": [
+      {
+        "file": "src/lib/plot/bound/namedMark.svelte",
+        "sourceSHA256": [
+          "bd248ce4a97227859b611860403bdf4103be1526ebdcacff57a63ac9323a9d2f",
+          "da85f50c777c4cf2dd7dee4483575647a92df5fcbae9416ae11e4cce31ff097a"
+        ],
+        "executableSHA256": [
+          "c033a9001e04eefcbf61dc72aea9ec5c153016ec5525282405804fcc511f7f1d",
+          "3145b8ed410fc145e5f4eed3c32a1fdefc5a66fc847bfcb65e411c5df3422080"
+        ],
+        "identical": false
+      },
+      {
+        "file": "src/lib/plot/utils/markPlanTypes.ts",
+        "sourceSHA256": [
+          "e329a52cf5df6ea9f5bb9c94382ffe58b16839f02d4c4561ee7e62a52711768e",
+          "2aca1f5902293b66a87ad70f6e965212086bc0068af9fea348b9cf413353e5eb"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/internalTypes.ts",
+        "sourceSHA256": [
+          "ef6768f465c4aeceb95611f4f164a77bb990beb84617a24e27ae4ffc9b456400",
+          "e63602dfd1da4a852a19515f162c16b48f50ae254cd8fb83a69f03ad07f3e708"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/dataViewTypes.ts",
+        "sourceSHA256": [
+          "28276079039e76c292b3a14ecb2659f8deb69cebef27d2789478ba232897f44c",
+          "7b829241f04ec88f37fcdee957474373d5c4e6e055d6aed4de6b70bb2b548e6c"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/viewControllerTypes.ts",
+        "sourceSHA256": [
+          "b6ec52b73571e6d41ef67f418fd36b8ba6084fc54e1ef7e502eb8987cb614ec1",
+          "0a670cf74474a418116e514b787a50e63a034df277d553e6c8b8ad65e0e8fbd2"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/displayedFrames.ts",
+        "sourceSHA256": [
+          "4c9ea4a99cc80a61a78447b6ec297e888dd2dab08582df542768fbc13f156554",
+          "9f47a83bc539f2f9ce21cec56914cc585659ac5d5fe9e815ab267d600a8c7d32"
+        ],
+        "executableSHA256": [
+          "ee80114b5550684d004883c6113985f4667e694e239e0759dbf51e0a04e52b9e",
+          "ee80114b5550684d004883c6113985f4667e694e239e0759dbf51e0a04e52b9e"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/binding/markInteractionEvents.ts",
+        "sourceSHA256": [
+          "dab8a7a7d5ab9814c27096c22ff74954de62b46dda84bfd66364c36dd25f8cd4",
+          "c22e943cee4cf61b9e1c4ee1827d003d05e51f67c5a3a519427b4102ab92c3e8"
+        ],
+        "executableSHA256": [
+          "4796e1f37e381c92a3e87376f545cac144606d0952022eff0cd9824b44ea7487",
+          "4796e1f37e381c92a3e87376f545cac144606d0952022eff0cd9824b44ea7487"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/binding/preparationDependencies.js",
+        "sourceSHA256": [
+          "cf10adba702a838e3798da0dbdb87893bd9b493ab9e6d011e87e5bfbd2d628d1",
+          "aef119360548e7b57029d514b821f9bd2554fb362968b531349900326e799cf5"
+        ],
+        "executableSHA256": [
+          "33767d313f9f0e6b5454eb620b1425a8cf767b40447eff69eb8090fd43180aed",
+          "33767d313f9f0e6b5454eb620b1425a8cf767b40447eff69eb8090fd43180aed"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/markUpdatePlan.js",
+        "sourceSHA256": [
+          "adb782936690c1d539d8cf72125b4067897588f6ecebf2dd394636339478eae3",
+          "b476b41c6c5cb8f999f7777252ff1525e32c531a030ea63f9455f1c0477e0624"
+        ],
+        "executableSHA256": [
+          "31464c28f290875995da575f506b5be9fcb571aac0cd018dd62f6ba03d06cd83",
+          "4e69d54dcd07203b33166e9090b1f873e6a9acbb096279cc3a51c2d94684f487"
+        ],
+        "identical": false
+      },
+      {
+        "file": "src/lib/plot/utils/markTooltip.js",
+        "sourceSHA256": [
+          "e08698f22a7ac25fdd02a97d3b7cca21767c3d9c5c0b1af23a70a7add9d5ae2c",
+          "d5bc67c2d2426c24fd0eb1b6efa1fcaaee1fdd95d2f09fdf18437f187911b21c"
+        ],
+        "executableSHA256": [
+          "8f8574e3998836462aeb27bf7854af329038daa8758c45460a73eb17744f238e",
+          "8f8574e3998836462aeb27bf7854af329038daa8758c45460a73eb17744f238e"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/mapping.js",
+        "sourceSHA256": [
+          "86983e3892413431e2908e42c1c7e203462390c8e0c97161aa3fc926b54673b3",
+          "ed4558d2b94eb26c196e8257d61cd95c541f5eeff6aae57407d3b5f9703ca722"
+        ],
+        "executableSHA256": [
+          "ff6c4755bb16945d8d2ea3527c6a3147f7d2f5c82422b5a4068fc44f88202040",
+          "ff6c4755bb16945d8d2ea3527c6a3147f7d2f5c82422b5a4068fc44f88202040"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/foreignJax.js",
+        "sourceSHA256": [
+          "1efb7f1d41fd7e3290643e81e9a477d42572034f8795958530d6ed4f66c759fd",
+          "f1e26299f9def67db59090c41e5ae4eea6d21c6cb9dd80c83abc584339cbaa77"
+        ],
+        "executableSHA256": [
+          "0a98c3446978b0f7567f81c3f93b710dc0f2aa7b1208e1e2d0ad83454afbfb49",
+          "0a98c3446978b0f7567f81c3f93b710dc0f2aa7b1208e1e2d0ad83454afbfb49"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/channelAnimation.js",
+        "sourceSHA256": [
+          "decd983b536821ef80e444b0b5fecabf3484f32b76297db91bcb00bbbeda74a7",
+          "efffc342efd122dfdade34a8dd61fe99ceaf278367b28ab99b3efbc699cd7709"
+        ],
+        "executableSHA256": [
+          "ca6f7b7c8ca7b2dc4cfd830aa337692c83cb35fbb35b1328c486ea9b981c89df",
+          "ca6f7b7c8ca7b2dc4cfd830aa337692c83cb35fbb35b1328c486ea9b981c89df"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/animation.js",
+        "sourceSHA256": [
+          "ea743b2b0f5f2fe57d6b7709ae38b26cee285db7599e889ae04d1d7c7da07d63",
+          "e3fffd10ec0eca0ef1ddf2550759680318ef61caf8c769e0e4aed9093ffb9685"
+        ],
+        "executableSHA256": [
+          "b0b4e3119419865b4fcfbaa8898b3ef9cec2bb5f1a577850731b64a6b63deba3",
+          "b0b4e3119419865b4fcfbaa8898b3ef9cec2bb5f1a577850731b64a6b63deba3"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/frameMarks.js",
+        "sourceSHA256": [
+          "6761a1f926e1c8c36638bfce0297347cf6339519a9e557280da353bfc45e0b03",
+          "99b272c96afb73d38a9529f3248bc62beddf53b19b30d347c3d741c301a7c35d"
+        ],
+        "executableSHA256": [
+          "643c92e04e17fa96adc1a918a0c57215944f4f4d726a6be4b330cbbaf1fcef90",
+          "643c92e04e17fa96adc1a918a0c57215944f4f4d726a6be4b330cbbaf1fcef90"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/connectionPrepare.js",
+        "sourceSHA256": [
+          "d30eaa1e116f826ffdafeb8285105b9ec846e59a200878975707426de2fe865a",
+          "cc9544cb5619c38d02ff78ea725e5aabc27c8ecf7e4feb08da3fcb07f0062ad3"
+        ],
+        "executableSHA256": [
+          "401730512dd2cd6a02672957d092d3fcaf8f72ad4576469360679062da393593",
+          "401730512dd2cd6a02672957d092d3fcaf8f72ad4576469360679062da393593"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/series.js",
+        "sourceSHA256": [
+          "3cc7a4230a57568275f7b246e6ab4953d2b592df015c834d4749088ae4c597e5",
+          "fa1037b9259673388054f6a43cf7e3b9c279b0b99f46ff8441978ea6a6bb2aa3"
+        ],
+        "executableSHA256": [
+          "c03fd238dd1afdbc61df341a77972a3e7e8246b041fb926c6e908ba3bd0ad094",
+          "c03fd238dd1afdbc61df341a77972a3e7e8246b041fb926c6e908ba3bd0ad094"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/interaction.js",
+        "sourceSHA256": [
+          "82ac194872bdc61ee52b30907873c074f866d396b9dbc673838b65e5965034df",
+          "9138d70b55bd825dd2ab9163431175b616dbf7f6883d2956264b362551fee8a5"
+        ],
+        "executableSHA256": [
+          "8050baaf4725066445e4b121dc0df826cc73e1ef01d044e9100c0330a728e1f1",
+          "8050baaf4725066445e4b121dc0df826cc73e1ef01d044e9100c0330a728e1f1"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/tweenState.js",
+        "sourceSHA256": [
+          "8b6ef98e4bcba61f4a7fbc34e3b2e78434f0640b7fb0f789dcc271a41b8109d4",
+          "ee3597a73927e6533dc1a77f2d07d493397d9c2208ee365ffd54b12b33396c7d"
+        ],
+        "executableSHA256": [
+          "7d584ed3b8d893df5cf9c2933dece2a723b5c143c11d50ba5e31bd71b73a3d29",
+          "7d584ed3b8d893df5cf9c2933dece2a723b5c143c11d50ba5e31bd71b73a3d29"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/tooltip.js",
+        "sourceSHA256": [
+          "1d27204524806ab9f872ab282c64ad9d0b699b662fb5a8bbed7f335f639342c8",
+          "0b942d73557df4d42284cf30dfcba6fa4a6b2ae3cd5a3099491ae7483af5c9a2"
+        ],
+        "executableSHA256": [
+          "656c55b489d8c32801d526c4f03d40899be7e6481507c09ff7b0476faf5c1ee9",
+          "656c55b489d8c32801d526c4f03d40899be7e6481507c09ff7b0476faf5c1ee9"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/objects/base.js",
+        "sourceSHA256": [
+          "30c4970ec35d3a7996bb46338c1e4d1225326c084f3533be77667cd7463b1742",
+          "7b12fffd82c4a068ce1958afdacc660aa68c69231298e474a5f9803fdaaaa2e7"
+        ],
+        "executableSHA256": [
+          "b224406625e4d3ee3d4669802b16c04cbb3b29e033f2811ced5842873a79675b",
+          "b224406625e4d3ee3d4669802b16c04cbb3b29e033f2811ced5842873a79675b"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/dragSession.js",
+        "sourceSHA256": [
+          "c17b8e50c4b6e417e6d24cd4bc2772bf80c2d04965c9ab8d315d5771b99257c9",
+          "9ff52d1b509e517b030a745e9a54d965d766a37540d12fb95b6dce6b0d9aa2cc"
+        ],
+        "executableSHA256": [
+          "4ce5607a82ea878d417a039c8758a2f7ffddf55e3b056dfe7a88592869cbafec",
+          "4ce5607a82ea878d417a039c8758a2f7ffddf55e3b056dfe7a88592869cbafec"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/brushController.svelte.ts",
+        "sourceSHA256": [
+          "d3cb0782d028b48b69716ffac5ded8fef13cc835e2dc2fe7dea88dfa035fa5c0",
+          "dd2f8cca5c3c0336656fc690fd91f756427d6895c1634e6b3b1439aa60858a24"
+        ],
+        "executableSHA256": [
+          "2a35d0e8bb98b80e6f2900f7b7d8236ab62c456025c265ec8b9699e77d62bf3b",
+          "2a35d0e8bb98b80e6f2900f7b7d8236ab62c456025c265ec8b9699e77d62bf3b"
+        ],
+        "identical": true
+      }
+    ]
+  },
+  "measuredRuntimeProof": {
+    "roots": [
+      "<tmp>/hmplot-preparation-candidate",
+      "."
+    ],
+    "files": [
+      {
+        "file": "src/lib/plot/bound/namedMark.svelte",
+        "sha256": [
+          "3145b8ed410fc145e5f4eed3c32a1fdefc5a66fc847bfcb65e411c5df3422080",
+          "3145b8ed410fc145e5f4eed3c32a1fdefc5a66fc847bfcb65e411c5df3422080"
+        ]
+      },
+      {
+        "file": "src/lib/plot/utils/markUpdatePlan.js",
+        "sha256": [
+          "4e69d54dcd07203b33166e9090b1f873e6a9acbb096279cc3a51c2d94684f487",
+          "4e69d54dcd07203b33166e9090b1f873e6a9acbb096279cc3a51c2d94684f487"
+        ]
+      }
+    ]
+  },
+  "lorenzExecutedAssets": {
+    "browser": "154.0.8037.98",
+    "route": "/examples/lorenz-attractor",
+    "builds": {
+      "a": {
+        "verified": true,
+        "files": [
+          {
+            "path": "/_app/immutable/chunks/_z-322i-.js",
+            "sha256": "e08716dfd40b170a7cef3b738a550e6f6f91c7c10f5994158ccc2d349b686be8"
+          },
+          {
+            "path": "/_app/immutable/chunks/-UyI9lYi.js",
+            "sha256": "5874e2f5c157c91c0a6848ef2337d03bd58f01439bef69f186079c8a029690fc"
+          },
+          {
+            "path": "/_app/immutable/chunks/4iBPDqv0.js",
+            "sha256": "5ff1de64c927710e68108c0b82c22ff0d09e8aac24426af9d2621d3c22ed83f7"
+          },
+          {
+            "path": "/_app/immutable/chunks/7kpsnB1I.js",
+            "sha256": "2c76d6276012cc9eb2e9dd47c00dd12978d39eb6bb1f0914fd1bfbab8472afef"
+          },
+          {
+            "path": "/_app/immutable/chunks/AW8UiqOc.js",
+            "sha256": "2614c1c29eb4aa68767229755406967989ffec605a0d3592daedafd7b0d2176e"
+          },
+          {
+            "path": "/_app/immutable/chunks/B46nxf3l.js",
+            "sha256": "6ec175381740f0111cfc93e24b0600adda91d3bfe4fcddd22ebdbea27f201e6b"
+          },
+          {
+            "path": "/_app/immutable/chunks/B4b0YhyH.js",
+            "sha256": "8ff551459b972ebe7228a64e64626b68237174e9313b9e0c6f19cde4b68a685f"
+          },
+          {
+            "path": "/_app/immutable/chunks/B4yjNN_v.js",
+            "sha256": "e59274007709a0951113fa4178a38137f6670201a4deb4333dbe68448963837d"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bb29555E.js",
+            "sha256": "3139e5a4afffa467677138d997e79b9b35961bdec221f68496419cb44795a565"
+          },
+          {
+            "path": "/_app/immutable/chunks/BbOuKTd8.js",
+            "sha256": "ba7cf5c76b348d6665a85c62e06a8b64b90846983ee685e6bb3f456499251fcd"
+          },
+          {
+            "path": "/_app/immutable/chunks/BCFRiDpy.js",
+            "sha256": "3a356c692ccb59dd0571b201c6390a6dd2d073f1e8199aea96cae3cc464f2ce8"
+          },
+          {
+            "path": "/_app/immutable/chunks/BegQT6Gi.js",
+            "sha256": "1a16c00e300e9f12dc7fe30a1e23b39d6e209367afb08431fd2f187bff94096c"
+          },
+          {
+            "path": "/_app/immutable/chunks/BKXW8IOq.js",
+            "sha256": "23334737c470e5cee677339ba21b79f99a9c780cb8f3f9279246272d6e617271"
+          },
+          {
+            "path": "/_app/immutable/chunks/BppbqnUS.js",
+            "sha256": "ca3cf205f0664af9a54ef9cb2080798948e1a334fbbebdbced354e2e6e62cb4e"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bq6uKVPm.js",
+            "sha256": "ab25d5794b487ac9f52f773e8d9afe612ea4eede4ad70bd76a1f19447b9693ea"
+          },
+          {
+            "path": "/_app/immutable/chunks/BR2QJSNq.js",
+            "sha256": "b62c23b599822d42860af821575506b2dd65fd297c5df46f71c0b28b3c8d61f8"
+          },
+          {
+            "path": "/_app/immutable/chunks/Br5_AI7A.js",
+            "sha256": "069c0eb55dc3eeeaea4cbcae481aa72a297c8506f44ded1b085c0cf4e4dee421"
+          },
+          {
+            "path": "/_app/immutable/chunks/BshAgGXW.js",
+            "sha256": "19525b759a261344256b0b53da37cf1e0440259a7df590f2d5bb9a0c57c7f380"
+          },
+          {
+            "path": "/_app/immutable/chunks/BtFYUFDX.js",
+            "sha256": "3c2bcfe8e16ae2a1a5bb3cebfd8930770b696d214f580ad632c00a0e04a37ad7"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bvpy9eEl.js",
+            "sha256": "9cb7d73c463d7ac77cd4905145dc8f2a23fd26e8a51392e9d43de578fd970d33"
+          },
+          {
+            "path": "/_app/immutable/chunks/BWbpCnVz.js",
+            "sha256": "2cf13285f78cd5846cd93aa20132bbe1bc0c14074bcfc1d6ba21bcf59ee0aeb8"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bwpsc7L6.js",
+            "sha256": "1629c9a9a46509d97a710138ea659ea3497805a43c3ccd0d35e47f8d9850beaf"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bxg2Gizu.js",
+            "sha256": "c076f3686d2ea7acab17ee466eb9facda8c5ae6f30bc71265563f82a42631b8f"
+          },
+          {
+            "path": "/_app/immutable/chunks/BxtxnJBu.js",
+            "sha256": "33d26eea51584a216e8f5264ed90d6bf7041f14bfd852f2d79c61cffef0d49a4"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bz14XEr-.js",
+            "sha256": "a8a598ee27b641620e61808f4d78a96767cb0559609bb7f1988d464069730f16"
+          },
+          {
+            "path": "/_app/immutable/chunks/C_ic2muO.js",
+            "sha256": "73b1e1da59595d1c7c3b4e75e277ef86a8826f2ce04874b5db84b452c3dd449a"
+          },
+          {
+            "path": "/_app/immutable/chunks/C7GSX75B.js",
+            "sha256": "afc1719f95a982fefb90f0c706faca9548dda70c781f96ae74d09e6df3c511a0"
+          },
+          {
+            "path": "/_app/immutable/chunks/C7kfqIbl.js",
+            "sha256": "782dd712b46e6870b7ae0dd8c6f2f7d4d8fa18530651215cd74c99327cc15acb"
+          },
+          {
+            "path": "/_app/immutable/chunks/C8eFWSOL.js",
+            "sha256": "9c047957828101c00317ca66fcd3b3749599f4176cfe5e82f02ddccc59cc953a"
+          },
+          {
+            "path": "/_app/immutable/chunks/CAEI63Ch.js",
+            "sha256": "8ce91e977a15f2501e649c437eb2f03abfbe3d8bce0c1f014e240040f4691ba5"
+          },
+          {
+            "path": "/_app/immutable/chunks/cBd4Hw4P.js",
+            "sha256": "ea42f6ea023c2e2e6946866fa88ba513d7b633bd8baff9e4e65645e153183580"
+          },
+          {
+            "path": "/_app/immutable/chunks/CchdqYvx.js",
+            "sha256": "2661b038fc7daf9158b0e13531e3f769f9261f595003eff74ef627c12d9d07b3"
+          },
+          {
+            "path": "/_app/immutable/chunks/CdpCoaAZ.js",
+            "sha256": "0b6191d3c81874a946a4d5631c616b68ec3edf355399428ca7c88f98ec73f2db"
+          },
+          {
+            "path": "/_app/immutable/chunks/CeThgVTf.js",
+            "sha256": "633bee2b3aa3007b93acf533569d711962bd04e148ef5bdfcc85f894126bc491"
+          },
+          {
+            "path": "/_app/immutable/chunks/cGOHFO2E.js",
+            "sha256": "6b2e5fd5a0c6622a81a707ae92283a5815b718d86a562062a017b3b2f0f0788e"
+          },
+          {
+            "path": "/_app/immutable/chunks/CI7kYa78.js",
+            "sha256": "31f2ad533e1a2cfee0a150582970cfbdaf89a1448a84f48c002c640bf41b5a5b"
+          },
+          {
+            "path": "/_app/immutable/chunks/CilkaTB8.js",
+            "sha256": "d174e3eb70b0258fe6422071e09ff4d972dbf1135735b4b2d8f1a8575e25bc6b"
+          },
+          {
+            "path": "/_app/immutable/chunks/CJJejlLQ.js",
+            "sha256": "2528245bd3cd145d95f4fdd51ac1bf1a710f9ab9784e1a29627108a868e56f5b"
+          },
+          {
+            "path": "/_app/immutable/chunks/CJOpzL1Q.js",
+            "sha256": "6f9af1369f411e993a55398af330268a984df80323742ffb4ada9f8b01d55558"
+          },
+          {
+            "path": "/_app/immutable/chunks/CLHqjTcc.js",
+            "sha256": "75d6425a5371e1a7bd4d3cec27f63362997199c9b910234dab1e30289b596995"
+          },
+          {
+            "path": "/_app/immutable/chunks/ClpDCxU4.js",
+            "sha256": "9177b2a5bee6e9bfb6fe4149c7f0336f3a3ec7fe40893be82206889e92174984"
+          },
+          {
+            "path": "/_app/immutable/chunks/CMjsSBeo.js",
+            "sha256": "0e192d27ec671b6b61cc06a4b94e9226b0e27544213fc6b01bc1e09d339cea4a"
+          },
+          {
+            "path": "/_app/immutable/chunks/CMW43P81.js",
+            "sha256": "ba938a9e2e32fe72256c0da88bebf2de037e101f36212333f173ace074fcc69a"
+          },
+          {
+            "path": "/_app/immutable/chunks/CouqYNTE.js",
+            "sha256": "32e6d36c5d563fd8984c4f15d5ce6b60766a8c56dd5d42f698da37680dfc1271"
+          },
+          {
+            "path": "/_app/immutable/chunks/CPE06Ztf.js",
+            "sha256": "c3b8e8049e78d96414c85ead0f62b6e5e7b22de9757ab2a3701ff5ce76e3bc3e"
+          },
+          {
+            "path": "/_app/immutable/chunks/CpiLIm9j.js",
+            "sha256": "7c577eec6a5afa152dc8d397c5c7725e8f3c23e81927ddb643071b67219c3041"
+          },
+          {
+            "path": "/_app/immutable/chunks/CPzYfjV8.js",
+            "sha256": "1d139d424dd2d08019c41bfa937f701c594ae33866dcb849681e04dfff056f79"
+          },
+          {
+            "path": "/_app/immutable/chunks/CrxQuydu.js",
+            "sha256": "c5a1b60de2ad24f6444a8bf7265d53af1d837a74c04643a7e5610ca30e93b103"
+          },
+          {
+            "path": "/_app/immutable/chunks/CS_y8P0m.js",
+            "sha256": "6ec6249ce962c1e8fa015a086b817709434c9eedc00f4864d23a9abf17f4ba36"
+          },
+          {
+            "path": "/_app/immutable/chunks/Cs6pwNj3.js",
+            "sha256": "2cb51c2cd894378af68a00053f19830feb987cd7a3f43891b6b9e4cd6df5cbdd"
+          },
+          {
+            "path": "/_app/immutable/chunks/CSNBba4V.js",
+            "sha256": "6441a4894280e33e8c0ce37db90b9ee19b01931a7436bd18f7356cddb2b18657"
+          },
+          {
+            "path": "/_app/immutable/chunks/CsnEpe1s.js",
+            "sha256": "a20796f29f15722f3a6f8c0dd58c61251c14c1d80a16a5f102c38bb92bae6427"
+          },
+          {
+            "path": "/_app/immutable/chunks/CwQnRulI.js",
+            "sha256": "a98b20af88932af29e8ec33fdc80a79454b46efc468610329188623848adb332"
+          },
+          {
+            "path": "/_app/immutable/chunks/D2dHvjyU.js",
+            "sha256": "f770564a688a52664f093ab8744eb5d18ee16732a22b957afc95b033adeeed03"
+          },
+          {
+            "path": "/_app/immutable/chunks/D7U94KMv.js",
+            "sha256": "c5cd008e7ded1ae36710c73bb2badfb4864fdc6779f1900d70fa0d6d5a512a65"
+          },
+          {
+            "path": "/_app/immutable/chunks/D9ALwn7c.js",
+            "sha256": "4a48c7119ae53b8082845539ff1dce309cb338466a90a126000a6247d657c353"
+          },
+          {
+            "path": "/_app/immutable/chunks/DBbGyJ2r.js",
+            "sha256": "02d2d4199f46dc0f57e97280e78a1afb43ee17db357ccbb51f03ac7321688544"
+          },
+          {
+            "path": "/_app/immutable/chunks/DCEgb72S.js",
+            "sha256": "4b5f3777b6906c195d1c57dd0d9e2b53b6c0c815aadbd0218713187b38696fac"
+          },
+          {
+            "path": "/_app/immutable/chunks/DD2XFiHM.js",
+            "sha256": "b54c8ecfeb025939eb59ef8cc0292880632ca0ade384cee8142faa75504d235e"
+          },
+          {
+            "path": "/_app/immutable/chunks/DEUCXNQR.js",
+            "sha256": "b2108e99918fe2c41b5fe3f6287fb1d093b64cfe136732c9027b16ea61142590"
+          },
+          {
+            "path": "/_app/immutable/chunks/DeuVkLen.js",
+            "sha256": "5b1aab4dff054bd46b874fa8d83fa04e04c8bd4151de7c4d0098b22abe392cf4"
+          },
+          {
+            "path": "/_app/immutable/chunks/DfXtWM67.js",
+            "sha256": "2054890547f536017944d264baa4bae2f8c97e62c3a5fef90c67dfee92bf0ef2"
+          },
+          {
+            "path": "/_app/immutable/chunks/Dgxn-Gw_.js",
+            "sha256": "e9175a08e60a5a0b9e14264b1281b91646c62896cfb0a8b92f20672491299805"
+          },
+          {
+            "path": "/_app/immutable/chunks/DiIWIeoF.js",
+            "sha256": "66d0f6bbd1e514438e8f8bbf151dd0620c7a8383f59da369beefbdf4e28515fe"
+          },
+          {
+            "path": "/_app/immutable/chunks/DJoSuoSc.js",
+            "sha256": "c362a87eb3a3c5eea546b1061c4b12119fe7f42597a18a161e4654b6323c1170"
+          },
+          {
+            "path": "/_app/immutable/chunks/DmuCzmUq.js",
+            "sha256": "e767996c3189d7d326d3495b0cf25036b469c02b87c30d15d39e0e7902d081e6"
+          },
+          {
+            "path": "/_app/immutable/chunks/DRqcPSge.js",
+            "sha256": "b0b7ce5f0d120f1913291f0e791c05123cadc58152df4d5d3629ee3993b25513"
+          },
+          {
+            "path": "/_app/immutable/chunks/Dthz2A3a.js",
+            "sha256": "3014fc496c484394a5971bb2e96ef2eb6e5b78c053440be8fcc5073c38a5a450"
+          },
+          {
+            "path": "/_app/immutable/chunks/DuSeUYy1.js",
+            "sha256": "b28258e2a1eb3ca87aecee7b856485d4fae5f0b51f84132a6f16467c4b9dd3ad"
+          },
+          {
+            "path": "/_app/immutable/chunks/DvDp8sKM.js",
+            "sha256": "aeb3773c37791f9a55c4ce49482243669236f17dcec760772e9d750b44a41f19"
+          },
+          {
+            "path": "/_app/immutable/chunks/DwPsR0a1.js",
+            "sha256": "b677b469584c84baa737d584f3a170bceef71b4272fd1ffe402a037e6c49e6cc"
+          },
+          {
+            "path": "/_app/immutable/chunks/DxJnHS2J.js",
+            "sha256": "9afabd276fb3f9359af698f71aea75ebd03145f8b81a8f91ee497758f3f7964c"
+          },
+          {
+            "path": "/_app/immutable/chunks/fwKaIaJA.js",
+            "sha256": "656e0c83e8cab78a3f4a614a5779704e166987aeec8bd0a9685c2872b8dae53f"
+          },
+          {
+            "path": "/_app/immutable/chunks/GbJY1qkP.js",
+            "sha256": "a7f29305d679edf5ec805cc670e4d83500619d1cf691531d290c091d3393bb8c"
+          },
+          {
+            "path": "/_app/immutable/chunks/GeBqB3W2.js",
+            "sha256": "7b298a00264449512287a529061ea88584905b69551871e0ce3c55a64dff578e"
+          },
+          {
+            "path": "/_app/immutable/chunks/Gh7QPNvS.js",
+            "sha256": "91c0195d1600f797acc56c310f451a81d07bb6999dbf949f32185e2d6a723927"
+          },
+          {
+            "path": "/_app/immutable/chunks/h3Os89DZ.js",
+            "sha256": "928d10daa513d24f2f5a175725a5bfebc053614620474c0a8add10f8fe59d5d4"
+          },
+          {
+            "path": "/_app/immutable/chunks/IiyW8bBO.js",
+            "sha256": "4e324fa69854088d2c46839b993bd30e53f3bfd3ae8dd26af05b2d463cc0aac8"
+          },
+          {
+            "path": "/_app/immutable/chunks/irv2apMS.js",
+            "sha256": "f237fb52acd3f58362f29941fbeca3d0d546f8427255636cf0799f87f9862f2a"
+          },
+          {
+            "path": "/_app/immutable/chunks/JQE40HP2.js",
+            "sha256": "6e6cc9b5517c7abde129a586f1e6cd1a3dbe8f6d4229701119dc9c15720616b5"
+          },
+          {
+            "path": "/_app/immutable/chunks/JrHdRe2Z.js",
+            "sha256": "ce9cbbf6d5ffb7f00745bf49784837702e50c6f099f37f0c5b0a09a30f054d69"
+          },
+          {
+            "path": "/_app/immutable/chunks/ktgiANvO.js",
+            "sha256": "43ef6d15ca6da727d8b0da96325ff7fc95506625c4d1f75b702a671e11be3f10"
+          },
+          {
+            "path": "/_app/immutable/chunks/LTrvKbHI.js",
+            "sha256": "22124d2129501e22fb409c4e5caed4ecf23caf3896bd6c16ebc0245d9769dbf9"
+          },
+          {
+            "path": "/_app/immutable/chunks/MvxK-glI.js",
+            "sha256": "91708f7e8e42f1f03f26eb3e004ec7bdce9b53ad8d9cd0f69b249c38a122a43f"
+          },
+          {
+            "path": "/_app/immutable/chunks/oltsYP6j.js",
+            "sha256": "c9d5fdee3761879f8b986acff03d350edceeedfe4b207eb9c186ce51be52e88c"
+          },
+          {
+            "path": "/_app/immutable/chunks/OnirHUwT.js",
+            "sha256": "742910a36d147b6eb7420e57de526368788631d7532469467caacf0e00b7e41f"
+          },
+          {
+            "path": "/_app/immutable/chunks/t47LV3lh.js",
+            "sha256": "fa6a8389a386d2ecc2553d62a9d274b84956e108dc387e33dd11ec30d5816f91"
+          },
+          {
+            "path": "/_app/immutable/chunks/uKMP_Y1u.js",
+            "sha256": "be25d9e9ce634613b43ba11681283692a3ce2345c31f5aa51a58221da151387f"
+          },
+          {
+            "path": "/_app/immutable/chunks/VIzOcy40.js",
+            "sha256": "5c7b2cc1a2295c273ca9bf89019e67ed27b2dec72fa8a420d755303a3748b44b"
+          },
+          {
+            "path": "/_app/immutable/chunks/zaknql_-.js",
+            "sha256": "c41af63bde8159bdda674edcbb30a989d26adb5bc65f268369d73d4c6dbc5fb6"
+          },
+          {
+            "path": "/_app/immutable/chunks/ZwUaYeZY.js",
+            "sha256": "4226a394d0d168cfc64a08182d04cadff49ae2fc52947d240c4b2a313f200591"
+          },
+          {
+            "path": "/_app/immutable/entry/app.COoET3_h.js",
+            "sha256": "3b447d2e3b54e0c82070779aecc7150014984d57cc8a886b62ed04275655c7f0"
+          },
+          {
+            "path": "/_app/immutable/entry/start.BJJ6lIpl.js",
+            "sha256": "e921c4a5b4aafec130b66ec3e40c8a3e9f02a84d0c4e63069d541f8630ea6697"
+          },
+          {
+            "path": "/_app/immutable/nodes/0.DAxykwCW.js",
+            "sha256": "897fd4c563a50000148fd68e41d5ecb76d21229939540eff1e9ba87e9280c9a5"
+          },
+          {
+            "path": "/_app/immutable/nodes/1.DaEN_GuH.js",
+            "sha256": "0836d91f7552f200231179a32dfb6bfd292ea392862f71ce6b1c38b7ba2e7565"
+          },
+          {
+            "path": "/_app/immutable/nodes/6.DRZIi6O4.js",
+            "sha256": "9761038d9a5710f86b634e3ec5bd2bfe905e2366f8de206183959d9ec7526a32"
+          }
+        ]
+      },
+      "b": {
+        "verified": true,
+        "files": [
+          {
+            "path": "/_app/immutable/chunks/_z-322i-.js",
+            "sha256": "e08716dfd40b170a7cef3b738a550e6f6f91c7c10f5994158ccc2d349b686be8"
+          },
+          {
+            "path": "/_app/immutable/chunks/-UyI9lYi.js",
+            "sha256": "5874e2f5c157c91c0a6848ef2337d03bd58f01439bef69f186079c8a029690fc"
+          },
+          {
+            "path": "/_app/immutable/chunks/3cWkzoWQ.js",
+            "sha256": "072c16d0e48443e8d8a876a90065d6fc288a5795ca33c3c613f94dea1869084b"
+          },
+          {
+            "path": "/_app/immutable/chunks/4iBPDqv0.js",
+            "sha256": "5ff1de64c927710e68108c0b82c22ff0d09e8aac24426af9d2621d3c22ed83f7"
+          },
+          {
+            "path": "/_app/immutable/chunks/5DysWGmM.js",
+            "sha256": "8939dcd0c53f70817b5e7c80dcd905defa1bcffbd2296c38ddbb6d65c421c1c8"
+          },
+          {
+            "path": "/_app/immutable/chunks/7kpsnB1I.js",
+            "sha256": "2c76d6276012cc9eb2e9dd47c00dd12978d39eb6bb1f0914fd1bfbab8472afef"
+          },
+          {
+            "path": "/_app/immutable/chunks/AW8UiqOc.js",
+            "sha256": "2614c1c29eb4aa68767229755406967989ffec605a0d3592daedafd7b0d2176e"
+          },
+          {
+            "path": "/_app/immutable/chunks/B46nxf3l.js",
+            "sha256": "6ec175381740f0111cfc93e24b0600adda91d3bfe4fcddd22ebdbea27f201e6b"
+          },
+          {
+            "path": "/_app/immutable/chunks/B4b0YhyH.js",
+            "sha256": "8ff551459b972ebe7228a64e64626b68237174e9313b9e0c6f19cde4b68a685f"
+          },
+          {
+            "path": "/_app/immutable/chunks/B4yjNN_v.js",
+            "sha256": "e59274007709a0951113fa4178a38137f6670201a4deb4333dbe68448963837d"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bb29555E.js",
+            "sha256": "3139e5a4afffa467677138d997e79b9b35961bdec221f68496419cb44795a565"
+          },
+          {
+            "path": "/_app/immutable/chunks/BbOuKTd8.js",
+            "sha256": "ba7cf5c76b348d6665a85c62e06a8b64b90846983ee685e6bb3f456499251fcd"
+          },
+          {
+            "path": "/_app/immutable/chunks/BCFRiDpy.js",
+            "sha256": "3a356c692ccb59dd0571b201c6390a6dd2d073f1e8199aea96cae3cc464f2ce8"
+          },
+          {
+            "path": "/_app/immutable/chunks/BegQT6Gi.js",
+            "sha256": "1a16c00e300e9f12dc7fe30a1e23b39d6e209367afb08431fd2f187bff94096c"
+          },
+          {
+            "path": "/_app/immutable/chunks/BhMcg59G.js",
+            "sha256": "624c3d1d9e53e53a3efd0d0fe812cefc016b6aa5fa936dca5555893225969da5"
+          },
+          {
+            "path": "/_app/immutable/chunks/BKXW8IOq.js",
+            "sha256": "23334737c470e5cee677339ba21b79f99a9c780cb8f3f9279246272d6e617271"
+          },
+          {
+            "path": "/_app/immutable/chunks/BppbqnUS.js",
+            "sha256": "ca3cf205f0664af9a54ef9cb2080798948e1a334fbbebdbced354e2e6e62cb4e"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bq6uKVPm.js",
+            "sha256": "ab25d5794b487ac9f52f773e8d9afe612ea4eede4ad70bd76a1f19447b9693ea"
+          },
+          {
+            "path": "/_app/immutable/chunks/Br5_AI7A.js",
+            "sha256": "069c0eb55dc3eeeaea4cbcae481aa72a297c8506f44ded1b085c0cf4e4dee421"
+          },
+          {
+            "path": "/_app/immutable/chunks/BtFYUFDX.js",
+            "sha256": "3c2bcfe8e16ae2a1a5bb3cebfd8930770b696d214f580ad632c00a0e04a37ad7"
+          },
+          {
+            "path": "/_app/immutable/chunks/BWbpCnVz.js",
+            "sha256": "2cf13285f78cd5846cd93aa20132bbe1bc0c14074bcfc1d6ba21bcf59ee0aeb8"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bwpsc7L6.js",
+            "sha256": "1629c9a9a46509d97a710138ea659ea3497805a43c3ccd0d35e47f8d9850beaf"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bxg2Gizu.js",
+            "sha256": "c076f3686d2ea7acab17ee466eb9facda8c5ae6f30bc71265563f82a42631b8f"
+          },
+          {
+            "path": "/_app/immutable/chunks/BxtxnJBu.js",
+            "sha256": "33d26eea51584a216e8f5264ed90d6bf7041f14bfd852f2d79c61cffef0d49a4"
+          },
+          {
+            "path": "/_app/immutable/chunks/Bz14XEr-.js",
+            "sha256": "a8a598ee27b641620e61808f4d78a96767cb0559609bb7f1988d464069730f16"
+          },
+          {
+            "path": "/_app/immutable/chunks/C_ic2muO.js",
+            "sha256": "73b1e1da59595d1c7c3b4e75e277ef86a8826f2ce04874b5db84b452c3dd449a"
+          },
+          {
+            "path": "/_app/immutable/chunks/C7GSX75B.js",
+            "sha256": "afc1719f95a982fefb90f0c706faca9548dda70c781f96ae74d09e6df3c511a0"
+          },
+          {
+            "path": "/_app/immutable/chunks/C7kfqIbl.js",
+            "sha256": "782dd712b46e6870b7ae0dd8c6f2f7d4d8fa18530651215cd74c99327cc15acb"
+          },
+          {
+            "path": "/_app/immutable/chunks/C8eFWSOL.js",
+            "sha256": "9c047957828101c00317ca66fcd3b3749599f4176cfe5e82f02ddccc59cc953a"
+          },
+          {
+            "path": "/_app/immutable/chunks/cBd4Hw4P.js",
+            "sha256": "ea42f6ea023c2e2e6946866fa88ba513d7b633bd8baff9e4e65645e153183580"
+          },
+          {
+            "path": "/_app/immutable/chunks/CchdqYvx.js",
+            "sha256": "2661b038fc7daf9158b0e13531e3f769f9261f595003eff74ef627c12d9d07b3"
+          },
+          {
+            "path": "/_app/immutable/chunks/CdpCoaAZ.js",
+            "sha256": "0b6191d3c81874a946a4d5631c616b68ec3edf355399428ca7c88f98ec73f2db"
+          },
+          {
+            "path": "/_app/immutable/chunks/CeThgVTf.js",
+            "sha256": "633bee2b3aa3007b93acf533569d711962bd04e148ef5bdfcc85f894126bc491"
+          },
+          {
+            "path": "/_app/immutable/chunks/cGOHFO2E.js",
+            "sha256": "6b2e5fd5a0c6622a81a707ae92283a5815b718d86a562062a017b3b2f0f0788e"
+          },
+          {
+            "path": "/_app/immutable/chunks/CI7kYa78.js",
+            "sha256": "31f2ad533e1a2cfee0a150582970cfbdaf89a1448a84f48c002c640bf41b5a5b"
+          },
+          {
+            "path": "/_app/immutable/chunks/CilkaTB8.js",
+            "sha256": "d174e3eb70b0258fe6422071e09ff4d972dbf1135735b4b2d8f1a8575e25bc6b"
+          },
+          {
+            "path": "/_app/immutable/chunks/CiPN6-1M.js",
+            "sha256": "d7bd2aeb109f5200dbeded9a5ac01a2160d91b76530dcd6c0512bda19912599c"
+          },
+          {
+            "path": "/_app/immutable/chunks/CJJejlLQ.js",
+            "sha256": "2528245bd3cd145d95f4fdd51ac1bf1a710f9ab9784e1a29627108a868e56f5b"
+          },
+          {
+            "path": "/_app/immutable/chunks/CJOpzL1Q.js",
+            "sha256": "6f9af1369f411e993a55398af330268a984df80323742ffb4ada9f8b01d55558"
+          },
+          {
+            "path": "/_app/immutable/chunks/CLHqjTcc.js",
+            "sha256": "75d6425a5371e1a7bd4d3cec27f63362997199c9b910234dab1e30289b596995"
+          },
+          {
+            "path": "/_app/immutable/chunks/ClpDCxU4.js",
+            "sha256": "9177b2a5bee6e9bfb6fe4149c7f0336f3a3ec7fe40893be82206889e92174984"
+          },
+          {
+            "path": "/_app/immutable/chunks/CMjsSBeo.js",
+            "sha256": "0e192d27ec671b6b61cc06a4b94e9226b0e27544213fc6b01bc1e09d339cea4a"
+          },
+          {
+            "path": "/_app/immutable/chunks/CMW43P81.js",
+            "sha256": "ba938a9e2e32fe72256c0da88bebf2de037e101f36212333f173ace074fcc69a"
+          },
+          {
+            "path": "/_app/immutable/chunks/CouqYNTE.js",
+            "sha256": "32e6d36c5d563fd8984c4f15d5ce6b60766a8c56dd5d42f698da37680dfc1271"
+          },
+          {
+            "path": "/_app/immutable/chunks/CPE06Ztf.js",
+            "sha256": "c3b8e8049e78d96414c85ead0f62b6e5e7b22de9757ab2a3701ff5ce76e3bc3e"
+          },
+          {
+            "path": "/_app/immutable/chunks/CpiLIm9j.js",
+            "sha256": "7c577eec6a5afa152dc8d397c5c7725e8f3c23e81927ddb643071b67219c3041"
+          },
+          {
+            "path": "/_app/immutable/chunks/CPzYfjV8.js",
+            "sha256": "1d139d424dd2d08019c41bfa937f701c594ae33866dcb849681e04dfff056f79"
+          },
+          {
+            "path": "/_app/immutable/chunks/CrpZIpTf.js",
+            "sha256": "d2224d4ca92494f42976b46402d8f3579a42e81afbba7763d3c2fa3f7c700cce"
+          },
+          {
+            "path": "/_app/immutable/chunks/CrxQuydu.js",
+            "sha256": "c5a1b60de2ad24f6444a8bf7265d53af1d837a74c04643a7e5610ca30e93b103"
+          },
+          {
+            "path": "/_app/immutable/chunks/CS_y8P0m.js",
+            "sha256": "6ec6249ce962c1e8fa015a086b817709434c9eedc00f4864d23a9abf17f4ba36"
+          },
+          {
+            "path": "/_app/immutable/chunks/Cs6pwNj3.js",
+            "sha256": "2cb51c2cd894378af68a00053f19830feb987cd7a3f43891b6b9e4cd6df5cbdd"
+          },
+          {
+            "path": "/_app/immutable/chunks/CSNBba4V.js",
+            "sha256": "6441a4894280e33e8c0ce37db90b9ee19b01931a7436bd18f7356cddb2b18657"
+          },
+          {
+            "path": "/_app/immutable/chunks/CsnEpe1s.js",
+            "sha256": "a20796f29f15722f3a6f8c0dd58c61251c14c1d80a16a5f102c38bb92bae6427"
+          },
+          {
+            "path": "/_app/immutable/chunks/CwQnRulI.js",
+            "sha256": "a98b20af88932af29e8ec33fdc80a79454b46efc468610329188623848adb332"
+          },
+          {
+            "path": "/_app/immutable/chunks/D0zBzz03.js",
+            "sha256": "be22f28c44a0e2f3a383626c6ca26676fcd7756483bdb2d80e233436178cf09d"
+          },
+          {
+            "path": "/_app/immutable/chunks/D2dHvjyU.js",
+            "sha256": "f770564a688a52664f093ab8744eb5d18ee16732a22b957afc95b033adeeed03"
+          },
+          {
+            "path": "/_app/immutable/chunks/D7U94KMv.js",
+            "sha256": "c5cd008e7ded1ae36710c73bb2badfb4864fdc6779f1900d70fa0d6d5a512a65"
+          },
+          {
+            "path": "/_app/immutable/chunks/D9ALwn7c.js",
+            "sha256": "4a48c7119ae53b8082845539ff1dce309cb338466a90a126000a6247d657c353"
+          },
+          {
+            "path": "/_app/immutable/chunks/DBbGyJ2r.js",
+            "sha256": "02d2d4199f46dc0f57e97280e78a1afb43ee17db357ccbb51f03ac7321688544"
+          },
+          {
+            "path": "/_app/immutable/chunks/DCEgb72S.js",
+            "sha256": "4b5f3777b6906c195d1c57dd0d9e2b53b6c0c815aadbd0218713187b38696fac"
+          },
+          {
+            "path": "/_app/immutable/chunks/DD2XFiHM.js",
+            "sha256": "b54c8ecfeb025939eb59ef8cc0292880632ca0ade384cee8142faa75504d235e"
+          },
+          {
+            "path": "/_app/immutable/chunks/DEUCXNQR.js",
+            "sha256": "b2108e99918fe2c41b5fe3f6287fb1d093b64cfe136732c9027b16ea61142590"
+          },
+          {
+            "path": "/_app/immutable/chunks/DeuVkLen.js",
+            "sha256": "5b1aab4dff054bd46b874fa8d83fa04e04c8bd4151de7c4d0098b22abe392cf4"
+          },
+          {
+            "path": "/_app/immutable/chunks/DfXtWM67.js",
+            "sha256": "2054890547f536017944d264baa4bae2f8c97e62c3a5fef90c67dfee92bf0ef2"
+          },
+          {
+            "path": "/_app/immutable/chunks/Dgxn-Gw_.js",
+            "sha256": "e9175a08e60a5a0b9e14264b1281b91646c62896cfb0a8b92f20672491299805"
+          },
+          {
+            "path": "/_app/immutable/chunks/DiIWIeoF.js",
+            "sha256": "66d0f6bbd1e514438e8f8bbf151dd0620c7a8383f59da369beefbdf4e28515fe"
+          },
+          {
+            "path": "/_app/immutable/chunks/DijN0MnE.js",
+            "sha256": "a3e53140702547c60b22f5510d70e77c7199d5494e70320c0651d58b2fd7bf69"
+          },
+          {
+            "path": "/_app/immutable/chunks/DmuCzmUq.js",
+            "sha256": "e767996c3189d7d326d3495b0cf25036b469c02b87c30d15d39e0e7902d081e6"
+          },
+          {
+            "path": "/_app/immutable/chunks/Dthz2A3a.js",
+            "sha256": "3014fc496c484394a5971bb2e96ef2eb6e5b78c053440be8fcc5073c38a5a450"
+          },
+          {
+            "path": "/_app/immutable/chunks/DuSeUYy1.js",
+            "sha256": "b28258e2a1eb3ca87aecee7b856485d4fae5f0b51f84132a6f16467c4b9dd3ad"
+          },
+          {
+            "path": "/_app/immutable/chunks/DvDp8sKM.js",
+            "sha256": "aeb3773c37791f9a55c4ce49482243669236f17dcec760772e9d750b44a41f19"
+          },
+          {
+            "path": "/_app/immutable/chunks/DvjncZeY.js",
+            "sha256": "cfbccd2121ca9dbfc2ef25a6725990d687b7273cc18b46220276a3afe0883ce1"
+          },
+          {
+            "path": "/_app/immutable/chunks/DwPsR0a1.js",
+            "sha256": "b677b469584c84baa737d584f3a170bceef71b4272fd1ffe402a037e6c49e6cc"
+          },
+          {
+            "path": "/_app/immutable/chunks/DxJnHS2J.js",
+            "sha256": "9afabd276fb3f9359af698f71aea75ebd03145f8b81a8f91ee497758f3f7964c"
+          },
+          {
+            "path": "/_app/immutable/chunks/fwKaIaJA.js",
+            "sha256": "656e0c83e8cab78a3f4a614a5779704e166987aeec8bd0a9685c2872b8dae53f"
+          },
+          {
+            "path": "/_app/immutable/chunks/GeBqB3W2.js",
+            "sha256": "7b298a00264449512287a529061ea88584905b69551871e0ce3c55a64dff578e"
+          },
+          {
+            "path": "/_app/immutable/chunks/Gh7QPNvS.js",
+            "sha256": "91c0195d1600f797acc56c310f451a81d07bb6999dbf949f32185e2d6a723927"
+          },
+          {
+            "path": "/_app/immutable/chunks/h3Os89DZ.js",
+            "sha256": "928d10daa513d24f2f5a175725a5bfebc053614620474c0a8add10f8fe59d5d4"
+          },
+          {
+            "path": "/_app/immutable/chunks/irv2apMS.js",
+            "sha256": "f237fb52acd3f58362f29941fbeca3d0d546f8427255636cf0799f87f9862f2a"
+          },
+          {
+            "path": "/_app/immutable/chunks/JQE40HP2.js",
+            "sha256": "6e6cc9b5517c7abde129a586f1e6cd1a3dbe8f6d4229701119dc9c15720616b5"
+          },
+          {
+            "path": "/_app/immutable/chunks/JrHdRe2Z.js",
+            "sha256": "ce9cbbf6d5ffb7f00745bf49784837702e50c6f099f37f0c5b0a09a30f054d69"
+          },
+          {
+            "path": "/_app/immutable/chunks/ktgiANvO.js",
+            "sha256": "43ef6d15ca6da727d8b0da96325ff7fc95506625c4d1f75b702a671e11be3f10"
+          },
+          {
+            "path": "/_app/immutable/chunks/LTrvKbHI.js",
+            "sha256": "22124d2129501e22fb409c4e5caed4ecf23caf3896bd6c16ebc0245d9769dbf9"
+          },
+          {
+            "path": "/_app/immutable/chunks/MvxK-glI.js",
+            "sha256": "91708f7e8e42f1f03f26eb3e004ec7bdce9b53ad8d9cd0f69b249c38a122a43f"
+          },
+          {
+            "path": "/_app/immutable/chunks/oltsYP6j.js",
+            "sha256": "c9d5fdee3761879f8b986acff03d350edceeedfe4b207eb9c186ce51be52e88c"
+          },
+          {
+            "path": "/_app/immutable/chunks/OnirHUwT.js",
+            "sha256": "742910a36d147b6eb7420e57de526368788631d7532469467caacf0e00b7e41f"
+          },
+          {
+            "path": "/_app/immutable/chunks/t47LV3lh.js",
+            "sha256": "fa6a8389a386d2ecc2553d62a9d274b84956e108dc387e33dd11ec30d5816f91"
+          },
+          {
+            "path": "/_app/immutable/chunks/uKMP_Y1u.js",
+            "sha256": "be25d9e9ce634613b43ba11681283692a3ce2345c31f5aa51a58221da151387f"
+          },
+          {
+            "path": "/_app/immutable/chunks/VIzOcy40.js",
+            "sha256": "5c7b2cc1a2295c273ca9bf89019e67ed27b2dec72fa8a420d755303a3748b44b"
+          },
+          {
+            "path": "/_app/immutable/chunks/zaknql_-.js",
+            "sha256": "c41af63bde8159bdda674edcbb30a989d26adb5bc65f268369d73d4c6dbc5fb6"
+          },
+          {
+            "path": "/_app/immutable/chunks/ZwUaYeZY.js",
+            "sha256": "4226a394d0d168cfc64a08182d04cadff49ae2fc52947d240c4b2a313f200591"
+          },
+          {
+            "path": "/_app/immutable/entry/app.C9tLTjwU.js",
+            "sha256": "dc5ef12174251d24731dac036e725aadce7bc1f2765eaa99c946175848cd5987"
+          },
+          {
+            "path": "/_app/immutable/entry/start.BJJ6lIpl.js",
+            "sha256": "e921c4a5b4aafec130b66ec3e40c8a3e9f02a84d0c4e63069d541f8630ea6697"
+          },
+          {
+            "path": "/_app/immutable/nodes/0.DAxykwCW.js",
+            "sha256": "897fd4c563a50000148fd68e41d5ecb76d21229939540eff1e9ba87e9280c9a5"
+          },
+          {
+            "path": "/_app/immutable/nodes/1.DaEN_GuH.js",
+            "sha256": "0836d91f7552f200231179a32dfb6bfd292ea392862f71ce6b1c38b7ba2e7565"
+          },
+          {
+            "path": "/_app/immutable/nodes/6.DUz405KL.js",
+            "sha256": "ddcdb409635b375e29e63227446682b70389a2e497d827cb83047a58552f9de4"
+          }
+        ]
+      }
+    }
+  },
+  "sunburstCounterCaptures": {
+    "a": {
+      "executedSourceVerified": true,
+      "flights": [
+        {
+          "flight": 1,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 81,
+            "staticMarkReuses": 41,
+            "preparationRequests": 127,
+            "numericExpressionsCompiled": 3,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 29,
+            "render": 1,
+            "shaders": 28,
+            "buffers": 404,
+            "bufferKB": 1092,
+            "readbacks": 98,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 98
+            },
+            "submits": 1041,
+            "fences": 100,
+            "readbackP50": 1.1,
+            "readbackP95": 8.1,
+            "readbackMax": 13.1,
+            "builds": 0,
+            "ms": 1429
+          },
+          "gpuLiveBytes": {
+            "before": 75297092,
+            "after": 76326200
+          }
+        },
+        {
+          "flight": 2,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 2,
+            "render": 0,
+            "shaders": 2,
+            "buffers": 226,
+            "bufferKB": 100,
+            "readbacks": 97,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 97
+            },
+            "submits": 1097,
+            "fences": 104,
+            "readbackP50": 1,
+            "readbackP95": 3,
+            "readbackMax": 10.8,
+            "builds": 0,
+            "ms": 1372
+          },
+          "gpuLiveBytes": {
+            "before": 76326200,
+            "after": 76328480
+          }
+        },
+        {
+          "flight": 3,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 183,
+            "bufferKB": 93,
+            "readbacks": 99,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 99
+            },
+            "submits": 1092,
+            "fences": 103,
+            "readbackP50": 1,
+            "readbackP95": 4.1,
+            "readbackMax": 9.2,
+            "builds": 0,
+            "ms": 1373
+          },
+          "gpuLiveBytes": {
+            "before": 76328480,
+            "after": 76328888
+          }
+        },
+        {
+          "flight": 4,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 173,
+            "bufferKB": 93,
+            "readbacks": 97,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 97
+            },
+            "submits": 1099,
+            "fences": 104,
+            "readbackP50": 1,
+            "readbackP95": 4.1,
+            "readbackMax": 10,
+            "builds": 0,
+            "ms": 1367
+          },
+          "gpuLiveBytes": {
+            "before": 76328888,
+            "after": 76328912
+          }
+        },
+        {
+          "flight": 5,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 182,
+            "bufferKB": 93,
+            "readbacks": 99,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 99
+            },
+            "submits": 1092,
+            "fences": 103,
+            "readbackP50": 1.1,
+            "readbackP95": 4.5,
+            "readbackMax": 10.2,
+            "builds": 0,
+            "ms": 1374
+          },
+          "gpuLiveBytes": {
+            "before": 76328912,
+            "after": 76328984
+          }
+        },
+        {
+          "flight": 6,
+          "completedFrames": 78,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 174,
+            "bufferKB": 93,
+            "readbacks": 95,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 95
+            },
+            "submits": 1070,
+            "fences": 101,
+            "readbackP50": 1.1,
+            "readbackP95": 5.3,
+            "readbackMax": 10.8,
+            "builds": 0,
+            "ms": 1379
+          },
+          "gpuLiveBytes": {
+            "before": 76328984,
+            "after": 76329032
+          }
+        }
+      ]
+    },
+    "b": {
+      "executedSourceVerified": true,
+      "flights": [
+        {
+          "flight": 1,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 81,
+            "staticMarkReuses": 41,
+            "preparationRequests": 127,
+            "numericExpressionsCompiled": 3,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 29,
+            "render": 1,
+            "shaders": 28,
+            "buffers": 404,
+            "bufferKB": 1092,
+            "readbacks": 98,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 98
+            },
+            "submits": 1041,
+            "fences": 100,
+            "readbackP50": 1.1,
+            "readbackP95": 10.4,
+            "readbackMax": 12.2,
+            "builds": 0,
+            "ms": 1428
+          },
+          "gpuLiveBytes": {
+            "before": 75297092,
+            "after": 76326200
+          }
+        },
+        {
+          "flight": 2,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 2,
+            "render": 0,
+            "shaders": 2,
+            "buffers": 226,
+            "bufferKB": 100,
+            "readbacks": 97,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 97
+            },
+            "submits": 1100,
+            "fences": 104,
+            "readbackP50": 1,
+            "readbackP95": 2.9,
+            "readbackMax": 7.5,
+            "builds": 0,
+            "ms": 1380
+          },
+          "gpuLiveBytes": {
+            "before": 76326200,
+            "after": 76328480
+          }
+        },
+        {
+          "flight": 3,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 180,
+            "bufferKB": 93,
+            "readbacks": 99,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 99
+            },
+            "submits": 1103,
+            "fences": 104,
+            "readbackP50": 1,
+            "readbackP95": 4.3,
+            "readbackMax": 10.9,
+            "builds": 0,
+            "ms": 1370
+          },
+          "gpuLiveBytes": {
+            "before": 76328480,
+            "after": 76328864
+          }
+        },
+        {
+          "flight": 4,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 179,
+            "bufferKB": 93,
+            "readbacks": 97,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 97
+            },
+            "submits": 1088,
+            "fences": 103,
+            "readbackP50": 1.1,
+            "readbackP95": 5.2,
+            "readbackMax": 11.5,
+            "builds": 0,
+            "ms": 1374
+          },
+          "gpuLiveBytes": {
+            "before": 76328864,
+            "after": 76328936
+          }
+        },
+        {
+          "flight": 5,
+          "completedFrames": 79,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 179,
+            "bufferKB": 93,
+            "readbacks": 99,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 99
+            },
+            "submits": 1092,
+            "fences": 103,
+            "readbackP50": 1,
+            "readbackP95": 4.2,
+            "readbackMax": 10.1,
+            "builds": 0,
+            "ms": 1368
+          },
+          "gpuLiveBytes": {
+            "before": 76328936,
+            "after": 76328984
+          }
+        },
+        {
+          "flight": 6,
+          "completedFrames": 78,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "gpu": {
+            "compute": 0,
+            "render": 0,
+            "shaders": 0,
+            "buffers": 174,
+            "bufferKB": 93,
+            "readbacks": 95,
+            "readbackKinds": {
+              "jax": 0,
+              "picking": 0,
+              "three": 0,
+              "app": 0,
+              "other": 95
+            },
+            "submits": 1070,
+            "fences": 101,
+            "readbackP50": 1,
+            "readbackP95": 5.5,
+            "readbackMax": 13.4,
+            "builds": 0,
+            "ms": 1379
+          },
+          "gpuLiveBytes": {
+            "before": 76328984,
+            "after": 76329032
+          }
+        }
+      ]
+    }
+  },
+  "validation": {
+    "fullUnitSuite": {
+      "passed": 1384,
+      "failed": 1,
+      "failure": "namedMark line ceiling before raising the annotation budget; the final ratchet/planner rerun passes all 19 cases."
+    },
+    "finalFocusedRatchetAndPlanner": {
+      "passed": 19,
+      "failed": 0
+    },
+    "leakHarness": {
+      "passed": 94,
+      "failed": 0,
+      "preload": "tests/unit/helpers/leakHarness.js"
+    },
+    "affectedBrowserCases": {
+      "passed": 11,
+      "failed": 0,
+      "devicePixelRatio": 2,
+      "connectionCases": 6,
+      "freshDevPipelineCases": 5
+    },
+    "apiReport": "unchanged; check passes",
+    "pythonSignatures": {
+      "components": 112,
+      "check": "passes"
+    },
+    "installedPackage": "types, SSR, DPR-2 production rendering, fonts/settings/remounts and JAX inputs pass",
+    "strictSvelte": "default Svelte, strict internal TypeScript, and focused strict Svelte preparation: zero errors and warnings",
+    "formatting": "full format allowlist passes"
+  },
+  "conclusion": "Paired CPU differences change sign across rounds. Median changes (+0.049 ms/frame Sunburst, -0.065 ms/frame Lorenz) are within the observed paired variation; these captures do not establish a repeatable slowdown or prove exact equivalence."
+}

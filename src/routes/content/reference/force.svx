@@ -1,0 +1,5 @@
+## Usage
+
+Provides Nodes and Edges scopes. Initializes paused. `running` plays and pauses it, and each change of `step`, `reset`, `reheat` or `release` runs that action once, so a [Checkbox](checkbox) and [Buttons](button) can drive it: `running={input("run")}`, `reset={input("reset")}`. The handle's action(id) does the same from code. Defaults include seed 42, link distance 30, repulsion 30, and velocity decay 0.4. Supports 2D/3D and node dragging; topology changes reset the layout.
+
+Requires graph data from GraphData. Outputs are visible to children only. Transforms retain the previous complete result while an update prepares. To let the viewer change a setting, read an input in it: `repulsion={input("repulsion")}` (Python `repulsion=hm.input.repulsion`), where `repulsion` is a [Slider](slider).

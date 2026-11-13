@@ -1,0 +1,1317 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.5 / R4: eager result lifetime after cache retirement",
+  "baseline": "7b65e87f; candidate changes only eager expression publication to retain its device result.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "serving": "Both frozen production builds served concurrently from separate directories; one discarded warm-up per build, then six alternating A/B and B/A rounds.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "cpu": "Active profile time includes all samples except (idle), using timeDeltas[i+1]. Sunburst takes the median across warmed flights before comparing each round.",
+    "counters": "Lorenz and moving-particles GPU counters are separate from plain CPU timing and retained as whole six-second windows. Separate Sunburst captures retain readbacks per flight.",
+    "rawResults": "<tmp>/hmplot-expression-lifetime-paired",
+    "browser": "154.0.8037.98"
+  },
+  "scenarios": {
+    "sunburst-native": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.0516,
+          "min": 3.7014,
+          "max": 4.3599,
+          "rounds": [
+            4.1329,
+            3.7014,
+            3.9703,
+            3.9619,
+            4.2722,
+            4.3599
+          ]
+        },
+        "candidate": {
+          "median": 4.0917,
+          "min": 3.8483,
+          "max": 4.276,
+          "rounds": [
+            4.0516,
+            3.8483,
+            4.1912,
+            3.8746,
+            4.1318,
+            4.276
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0827,
+          "min": -0.1404,
+          "max": 0.2209,
+          "rounds": [
+            -0.0814,
+            0.1468,
+            0.2209,
+            -0.0873,
+            -0.1404,
+            -0.0839
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              77,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "sunburst-scene": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.0431,
+          "min": 3.8476,
+          "max": 4.2681,
+          "rounds": [
+            4.1214,
+            3.8476,
+            3.8517,
+            4.0698,
+            4.2681,
+            4.0165
+          ]
+        },
+        "candidate": {
+          "median": 4.0031,
+          "min": 3.8876,
+          "max": 4.3035,
+          "rounds": [
+            4.3035,
+            3.9875,
+            4.0302,
+            3.9266,
+            3.8876,
+            4.0187
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0711,
+          "min": -0.3806,
+          "max": 0.1821,
+          "rounds": [
+            0.1821,
+            0.1399,
+            0.1785,
+            -0.1432,
+            -0.3806,
+            0.0023
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              77,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "lorenz": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 5.7705,
+          "min": 5.492,
+          "max": 6.281,
+          "rounds": [
+            6.281,
+            6.18,
+            5.95,
+            5.492,
+            5.584,
+            5.591
+          ]
+        },
+        "candidate": {
+          "median": 5.8105,
+          "min": 5.575,
+          "max": 6.223,
+          "rounds": [
+            6.155,
+            5.975,
+            6.223,
+            5.584,
+            5.575,
+            5.646
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.023,
+          "min": -0.205,
+          "max": 0.273,
+          "rounds": [
+            -0.126,
+            -0.205,
+            0.273,
+            0.092,
+            -0.009,
+            0.055
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 359,
+            "frames": 360,
+            "windowMs": 6001.7,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 359,
+            "frames": 360,
+            "windowMs": 6002.3,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.8,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.3,
+            "builds": 0,
+            "liveMB": 134.9,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 359,
+            "frames": 360,
+            "windowMs": 6002.4,
+            "builds": 0,
+            "liveMB": 136,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.6,
+            "builds": 0,
+            "liveMB": 138.3,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 359,
+            "frames": 360,
+            "windowMs": 6001.4,
+            "builds": 0,
+            "liveMB": 132.6,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.7,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.6,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.7,
+            "builds": 0,
+            "liveMB": 131.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.5,
+            "builds": 0,
+            "liveMB": 132.6,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 4.0045,
+          "min": 3.911,
+          "max": 4.067,
+          "rounds": [
+            3.911,
+            4.055,
+            3.991,
+            3.99,
+            4.018,
+            4.067
+          ]
+        },
+        "candidate": {
+          "median": 3.921,
+          "min": 3.136,
+          "max": 3.996,
+          "rounds": [
+            3.668,
+            3.973,
+            3.958,
+            3.884,
+            3.136,
+            3.996
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.094,
+          "min": -0.882,
+          "max": -0.033,
+          "rounds": [
+            -0.243,
+            -0.082,
+            -0.033,
+            -0.106,
+            -0.882,
+            -0.071
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 59.9785,
+          "min": 59.974,
+          "max": 59.98,
+          "rounds": [
+            59.98,
+            59.978,
+            59.974,
+            59.975,
+            59.979,
+            59.979
+          ]
+        },
+        "candidate": {
+          "median": 59.978,
+          "min": 59.973,
+          "max": 59.98,
+          "rounds": [
+            59.977,
+            59.979,
+            59.979,
+            59.974,
+            59.98,
+            59.973
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0,
+          "min": -0.006,
+          "max": 0.005,
+          "rounds": [
+            -0.003,
+            0.001,
+            0.005,
+            -0.001,
+            0.001,
+            -0.006
+          ]
+        }
+      }
+    }
+  },
+  "snapshots": {
+    "a": {
+      "sourceManifestSHA256": "4168df32a7c08b57bc18a2fd634c79490c66b0750c37d4fce2b7cfc8a2d180b3",
+      "root": "<tmp>/hmplot-expression-lifetime-a",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "1c1c8179f0b9722a8314acad349eaf2bd5a6b45ae78fcbc1536071cd8b5359b5",
+          "files": 613
+        },
+        "sunburst-scene": {
+          "sha256": "1c1c8179f0b9722a8314acad349eaf2bd5a6b45ae78fcbc1536071cd8b5359b5",
+          "files": 613
+        }
+      },
+      "executedJavaScriptVerified": true
+    },
+    "b": {
+      "sourceManifestSHA256": "8b8c024fad174a7db45a20b0254a9a6e9ed6912d49c8bc8c8fddd780616479d1",
+      "root": "<tmp>/hmplot-expression-lifetime-b",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "23471342f934645ae5df13d18d450e9e67a9fa4546af9c1244629dd54522698d",
+          "files": 613
+        },
+        "sunburst-scene": {
+          "sha256": "23471342f934645ae5df13d18d450e9e67a9fa4546af9c1244629dd54522698d",
+          "files": 613
+        }
+      },
+      "executedJavaScriptVerified": true
+    }
+  },
+  "limitations": [
+    "This is a correctness regression gate, not evidence of a speedup.",
+    "Both example sets were rebuilt with each snapshot. Scene resource IDs vary; scene payloads are identical after normalizing the generated 32-character hexadecimal resource IDs.",
+    "Large profiles and builds remain local; this artifact retains round-level values and source fingerprints.",
+    "Lorenz GPU pass timings and sampled live buffer bytes vary across runs; retain them without attributing a GPU speedup or a fixed memory difference to this CPU reference-lifetime change."
+  ],
+  "scope": "Eager publication retains its returned device value (dictionary codes when present) until evaluation disposal, including cached unbroadcast reductions and input-preserving aliases. No copies, numerical operations or node protocol changes.",
+  "buildEvidence": {
+    "hardware": {
+      "model": "Mac14,5",
+      "cpu": "Apple M2 Max"
+    },
+    "changedRuntimeSources": [
+      "src/lib/plot/utils/expressions.js"
+    ],
+    "sourcesRemainFrozen": true,
+    "buildOptions": {
+      "production": "VITE_HMPLOT_PERF_HOOKS=1 npx vite build",
+      "pythonBundles": "npm run build:python",
+      "examples": "sunburst and lorenz-attractor rebuilt per snapshot",
+      "measurementOnlyConfig": "Disable automatic examples plugin; resolve @hmplot/jax to the snapshot-local vendor artifacts."
+    },
+    "snapshots": {
+      "a": {
+        "packageLockSHA256": "39fc5aae24ef7034388505bfa5d97090374cebb2c2cea5ca82ee8d5dc45d3558",
+        "jaxArtifacts": {
+          "webgpu-BJwlieBg.js": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "rolldown-runtime-D7D4PA-g.js": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "index.d.cts": "5af79a42e4aac4cb008936e482ad3ffdc6cfc49c9492eb26ce07d398c9629fac",
+          "index.js": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "backend-D1fYACha.cjs": "d9ba988731053722db945b3d214a8c4033c819dfd6bc5d465a7074d4842c6425",
+          "webgpu-xdzwB8u2.cjs": "3dec6ea1ca21cebef6d41f72f1cd17d8e768614527759f6c16066431734f30e1",
+          "webgl-Cayj9zrJ.cjs": "78f7a94e2401a77a0f237d6a171ba629f38aecbd09f99dcf864e04e6233cf8a7",
+          "index.cjs": "a1ca3159c4a5fc0ab942079964cba352ea39a65257f75a19efa53519b0d0e699",
+          "webgl-CnNgJUF2.js": "8302d64be86c4935858dc42d22be0441a3b0ab775832a81cc6c2a0a4bf2784e2",
+          "backend-DYcOJOqU.js": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "index.d.ts": "cd1906eba1d0bfe9521c569f5054ecc9b8e14daea731e3314f716cea4f16423a"
+        },
+        "expressionSourceSHA256": "a49122d2450d7a1a2a8709ec0af8651cf51aa782340a83b40139da6f7cc19eda",
+        "sourceCount": 614
+      },
+      "b": {
+        "packageLockSHA256": "39fc5aae24ef7034388505bfa5d97090374cebb2c2cea5ca82ee8d5dc45d3558",
+        "jaxArtifacts": {
+          "webgpu-BJwlieBg.js": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "rolldown-runtime-D7D4PA-g.js": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "index.d.cts": "5af79a42e4aac4cb008936e482ad3ffdc6cfc49c9492eb26ce07d398c9629fac",
+          "index.js": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "backend-D1fYACha.cjs": "d9ba988731053722db945b3d214a8c4033c819dfd6bc5d465a7074d4842c6425",
+          "webgpu-xdzwB8u2.cjs": "3dec6ea1ca21cebef6d41f72f1cd17d8e768614527759f6c16066431734f30e1",
+          "webgl-Cayj9zrJ.cjs": "78f7a94e2401a77a0f237d6a171ba629f38aecbd09f99dcf864e04e6233cf8a7",
+          "index.cjs": "a1ca3159c4a5fc0ab942079964cba352ea39a65257f75a19efa53519b0d0e699",
+          "webgl-CnNgJUF2.js": "8302d64be86c4935858dc42d22be0441a3b0ab775832a81cc6c2a0a4bf2784e2",
+          "backend-DYcOJOqU.js": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "index.d.ts": "cd1906eba1d0bfe9521c569f5054ecc9b8e14daea731e3314f716cea4f16423a"
+        },
+        "expressionSourceSHA256": "1ccb2cfc03ff77460e4c06f62ed10949fd5125f951f127f3d13b2cbf873341ab",
+        "sourceCount": 614
+      }
+    }
+  },
+  "fixtureEvidence": {
+    "sunburst": {
+      "normalization": "Replace only the scene-generated resource ID prefix with stable-scene-id before canonical JSON hashing.",
+      "identicalExceptResourceIDs": true,
+      "snapshots": {
+        "a": {
+          "path": "<tmp>/hmplot-expression-lifetime-a/static/example-builds/sunburst/payload.4307f716d9.json",
+          "SHA256": "4307f716d9add90eaa3507f56c67c26bad344b571b7880142a508e3e3994c6f6",
+          "normalizedSHA256": "f13f99bfbf13851a165b005dc328dff2aede92120546e57fc2cdd710e1fbd894"
+        },
+        "b": {
+          "path": "<tmp>/hmplot-expression-lifetime-b/static/example-builds/sunburst/payload.6decb4c352.json",
+          "SHA256": "6decb4c352de6b23fb068e515ae8a8440c76d5732a02976c12ad863adfcf114c",
+          "normalizedSHA256": "f13f99bfbf13851a165b005dc328dff2aede92120546e57fc2cdd710e1fbd894"
+        }
+      }
+    },
+    "lorenz-attractor": {
+      "normalization": "Replace only the scene-generated resource ID prefix with stable-scene-id before canonical JSON hashing.",
+      "identicalExceptResourceIDs": true,
+      "snapshots": {
+        "a": {
+          "path": "<tmp>/hmplot-expression-lifetime-a/static/example-builds/lorenz-attractor/payload.93318db7ec.json",
+          "SHA256": "93318db7ec76612f777cab4ceef99a0d14ef72fc0e97ba90bc80b8e1d4e06641",
+          "normalizedSHA256": "818254a589e4b9a8b9e3c83120780580f93578a47fa7ec7bb3ee0ebfa3a3222e"
+        },
+        "b": {
+          "path": "<tmp>/hmplot-expression-lifetime-b/static/example-builds/lorenz-attractor/payload.888001eb63.json",
+          "SHA256": "888001eb63cf571045dcaf441d585cb3f4ceb416619ecc41e3426d06824544d7",
+          "normalizedSHA256": "818254a589e4b9a8b9e3c83120780580f93578a47fa7ec7bb3ee0ebfa3a3222e"
+        }
+      }
+    }
+  },
+  "regression": {
+    "test": "tests/unit/reductions.test.js: cached scalar reductions stay valid until each evaluation is disposed",
+    "before": "Cache retirement freed the returned rank-0 array while evaluations were held. The regression failed with ReferenceError on the baseline.",
+    "after": "Both miss and hit evaluations survive retirement; interval/as_numeric aliases retain the same array without copies. Disposing one evaluation leaves the other valid; disposing both leaves zero references."
+  },
+  "verification": {
+    "fullUnits": {
+      "passed": 1379,
+      "failed": 0
+    },
+    "focusedUnits": {
+      "passed": 149,
+      "failed": 0,
+      "files": [
+        "reductions",
+        "random-expression",
+        "data",
+        "view-state",
+        "tween-state",
+        "animation"
+      ]
+    },
+    "leakGate": {
+      "passed": 43,
+      "failed": 0,
+      "files": [
+        "reductions",
+        "random-expression"
+      ]
+    },
+    "strictSvelte": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "format": "passed",
+    "api": "current; no generated API change in this fix",
+    "pythonBundles": "rebuilt for candidate and baseline",
+    "browser": {
+      "passed": 14,
+      "failed": 0,
+      "build": "frozen candidate production",
+      "devicePixelRatio": 2,
+      "files": [
+        "tween-pipeline.spec.js",
+        "animation-engine.spec.js"
+      ],
+      "scope": "Production-compatible rendered tween/animation cases; three cases importing development source modules directly were excluded, not claimed as passing.",
+      "retainedMarkFrameCheck": {
+        "completedFrames": 61,
+        "shaders": 0,
+        "readbacks": 0,
+        "errors": []
+      }
+    }
+  },
+  "sunburstCounterCaptures": {
+    "scope": "One separate instrumented capture per build per route, six flights each. Retain flights 2\u20136 as warmed. These are not the six timing pairs.",
+    "rawResults": "<tmp>/hmplot-expression-lifetime-counters",
+    "scenarios": {
+      "sunburst-native": {
+        "a": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76326236,
+              "after": 76328512
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328512,
+              "after": 76328520
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328520,
+              "after": 76328904
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328904,
+              "after": 76328952
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 95,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328952,
+              "after": 76329000
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ],
+        "b": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76326200,
+              "after": 76328480
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328480,
+              "after": 76328552
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328552,
+              "after": 76328936
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328936,
+              "after": 76328984
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 95,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328984,
+              "after": 76329032
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ]
+      },
+      "sunburst-scene": {
+        "a": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76325492,
+              "after": 76328524
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328524,
+              "after": 76328860
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328860,
+              "after": 76328884
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328884,
+              "after": 76328932
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328932,
+              "after": 76328980
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ],
+        "b": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76325260,
+              "after": 76328316
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328316,
+              "after": 76328700
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328700,
+              "after": 76328772
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328772,
+              "after": 76328820
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328820,
+              "after": 76328868
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ]
+      }
+    }
+  },
+  "lorenzPresentationEvidence": {
+    "a": [
+      {
+        "round": 1,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.98
+          },
+          {
+            "presented": 360,
+            "fps": 59.98
+          },
+          {
+            "presented": 360,
+            "fps": 59.98
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 2,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.978
+          },
+          {
+            "presented": 360,
+            "fps": 59.978
+          },
+          {
+            "presented": 360,
+            "fps": 59.978
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 3,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.974
+          },
+          {
+            "presented": 360,
+            "fps": 59.974
+          },
+          {
+            "presented": 360,
+            "fps": 59.974
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 4,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.975
+          },
+          {
+            "presented": 359,
+            "fps": 59.808
+          },
+          {
+            "presented": 359,
+            "fps": 59.808
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 5,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 359,
+            "fps": 59.812
+          },
+          {
+            "presented": 359,
+            "fps": 59.812
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 6,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      }
+    ],
+    "b": [
+      {
+        "round": 1,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.977
+          },
+          {
+            "presented": 359,
+            "fps": 59.81
+          },
+          {
+            "presented": 359,
+            "fps": 59.81
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 2,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 359,
+            "fps": 59.812
+          },
+          {
+            "presented": 359,
+            "fps": 59.812
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 3,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 4,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.974
+          },
+          {
+            "presented": 360,
+            "fps": 59.974
+          },
+          {
+            "presented": 360,
+            "fps": 59.974
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 5,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.98
+          },
+          {
+            "presented": 360,
+            "fps": 59.98
+          },
+          {
+            "presented": 360,
+            "fps": 59.98
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 6,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.973
+          },
+          {
+            "presented": 360,
+            "fps": 59.973
+          },
+          {
+            "presented": 360,
+            "fps": 59.973
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      }
+    ]
+  },
+  "conclusion": "No consistent measured CPU/frame regression in six interleaved pairs per scenario. Lorenz remains near 60 FPS with zero warmed builds, dropped timed passes or readback errors. No speedup claim.",
+  "remaining": [
+    "Core implementation strict checking remains open for interaction, proputils and namedData, plus the Svelte mark-preparation boundary.",
+    "The broader readability/performance/WebGL stages are not complete.",
+    "Two broader view-state-kernel leak checks remain documented baseline failures in stages122-eager-expression-contract.json. This fix neither suppresses nor claims to fix them."
+  ]
+}

@@ -1,0 +1,112 @@
+From 5b028c3cf75acce67c066a1d3d849a8eb9c8c108 Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 23:56:12 -0400
+Subject: [PATCH] Add profiler.setOpHook: a callback for every primitive bound
+
+For profiling who issues operations: the callback sees each primitive
+as it is bound, eager or traced, so a caller can record a stack per call
+and attribute work to its own code (eager arrays dispatch lazily, so a
+stack at dispatch time shows where work was flushed, not who asked for
+it). Unset, it costs one check per bind. heatmaptest counts operations
+per interaction with it (TODO 33.1).
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/frontend/core.ts |  2 ++
+ src/index.ts         |  3 ++-
+ src/tracing.ts       | 11 +++++++++++
+ test/lax.test.ts     | 16 ++++++++++++++++
+ 4 files changed, 31 insertions(+), 1 deletion(-)
+
+diff --git a/src/frontend/core.ts b/src/frontend/core.ts
+index 01f9d0f..3a958bb 100644
+--- a/src/frontend/core.ts
++++ b/src/frontend/core.ts
+@@ -1,5 +1,6 @@
+ /** @file Core library internals and interpreter stack, based on Autodidax. */
+ 
++import { opHook } from "../tracing";
+ import { AluGroup, AluOp, DType, isFloatDtype, promoteTypes } from "../alu";
+ import { type CellPairsParams, Routines, type ScatterParams } from "../routine";
+ import { type Pair } from "../shape";
+@@ -1316,6 +1317,7 @@ export function bind<P extends Primitive>(
+   args: TracerValue[],
+   params: PrimitiveParams<P> = {} as any,
+ ) {
++  if (opHook) opHook(prim);
+   const topTrace = findTopTrace(args);
+   const tracers = args.map((arg) => fullRaise(topTrace, arg));
+   const outs = topTrace.processPrimitive(prim, tracers, params);
+diff --git a/src/index.ts b/src/index.ts
+index ee0764a..19cbff3 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -18,7 +18,7 @@ import * as nn from "./library/nn";
+ import * as numpy from "./library/numpy";
+ import * as random from "./library/random";
+ import * as scipySpecial from "./library/scipy-special";
+-import { startTrace, stopTrace } from "./tracing";
++import { setOpHook, startTrace, stopTrace } from "./tracing";
+ import * as tree from "./tree";
+ import type { JsTree, JsTreeDef, MapJsTree } from "./tree";
+ import { setDebug } from "./utils";
+@@ -51,6 +51,7 @@ export {
+ export const profiler = {
+   startTrace,
+   stopTrace,
++  setOpHook,
+ };
+ 
+ /**
+diff --git a/src/tracing.ts b/src/tracing.ts
+index ce35191..7d7c30d 100644
+--- a/src/tracing.ts
++++ b/src/tracing.ts
+@@ -4,6 +4,17 @@ import { Kernel } from "./alu";
+ import { Routine } from "./routine";
+ 
+ let traceEnabled = false;
++
++/**
++ * A callback for every primitive bound, eager or traced (profiling who issues operations: a
++ * caller can record a stack per call), or null. Unset, it costs one check per bind.
++ */
++export let opHook: ((primitive: string) => void) | null = null;
++
++/** Set (or clear, with null) the callback for every primitive bound. */
++export function setOpHook(hook: ((primitive: string) => void) | null): void {
++  opHook = hook;
++}
+ const flushCallbacks: (() => void)[] = [];
+ 
+ /**
+diff --git a/test/lax.test.ts b/test/lax.test.ts
+index 3e6ac30..0cca393 100644
+--- a/test/lax.test.ts
++++ b/test/lax.test.ts
+@@ -89,6 +89,22 @@ suite.each(devices)("device:%s", (device) => {
+     expect(got.js()).toEqual([false, false, true]);
+   });
+ 
++  test("profiler.setOpHook sees every primitive bound, and nothing once cleared", async () => {
++    const { profiler } = await import("@jax-js/jax");
++    const seen: string[] = [];
++    profiler.setOpHook((primitive) => seen.push(primitive));
++    try {
++      np.array([1, 2, 3]).add(1).mul(2).dispose();
++    } finally {
++      profiler.setOpHook(null);
++    }
++    expect(seen).toContain("add");
++    expect(seen).toContain("mul");
++    const count = seen.length;
++    np.array([1, 2]).add(1).dispose();
++    expect(seen.length).toBe(count);
++  });
++
+   // Scatter is a routine on cpu, wasm and webgpu (as sort is); webgl has none.
+   if (deviceHasSort) suite("jax.lax.scatter()", () => {
+     test("puts rows back where take() found them, zeros elsewhere", () => {
+-- 
+2.46.1
+

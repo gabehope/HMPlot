@@ -1,0 +1,54 @@
+From 2c18ee1a6598575c84b06d57b50c8e1bfe73ef14 Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 2 Oct 2026 13:45:34 -0400
+Subject: [PATCH] Run where there is no global navigator (Node 20)
+
+The WebGPU tuner read navigator.userAgent to skip unrolling on mobile
+browsers, and init("webgpu") read navigator.gpu, unguarded. Node 20 has
+no global navigator, so webgpuShaderSource(), and with it any kernel
+tuned for WebGPU, threw "ReferenceError: navigator is not defined" there
+(Node 21 and later define one). Without a navigator the tuner unrolls as
+in a desktop browser, and the webgpu backend is unavailable, as it is
+without navigator.gpu.
+---
+ src/backend.ts | 3 ++-
+ src/tuner.ts   | 8 ++++++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/src/backend.ts b/src/backend.ts
+index 2900e42..b62e5fa 100644
+--- a/src/backend.ts
++++ b/src/backend.ts
+@@ -76,7 +76,8 @@ async function createBackend(device: Device): Promise<Backend | null> {
+     if (typeof WebAssembly === "undefined") return null; // WebAssembly is not available.
+     return new WasmBackend();
+   } else if (device === "webgpu") {
+-    if (!navigator.gpu) return null; // WebGPU is not available.
++    // WebGPU is not available (Node 20 has no global navigator at all).
++    if (typeof navigator === "undefined" || !navigator.gpu) return null;
+     const adapter = await navigator.gpu.requestAdapter({
+       powerPreference: "high-performance",
+     });
+diff --git a/src/tuner.ts b/src/tuner.ts
+index ef4b7ec..3a286e6 100644
+--- a/src/tuner.ts
++++ b/src/tuner.ts
+@@ -384,9 +384,13 @@ export function tuneWebgpu(kernel: Kernel): TuneResult {
+   }
+ 
+   // Try to do loop unrolling on the reduce axis, with an upcast limit.
+-  // Skip doing this on mobile browsers, as it may reduce performance.
++  // Skip doing this on mobile browsers, as it may reduce performance. (Node 20
++  // has no global navigator: there, as in a desktop browser, unroll.)
+   if (
+-    !/Mobi|Android/i.test(navigator.userAgent) &&
++    !(
++      typeof navigator !== "undefined" &&
++      /Mobi|Android/i.test(navigator.userAgent)
++    ) &&
+     dim.reduce < dim.unroll &&
+     (prod(dim.st.shape.slice(dim.unroll)) <= 4 ||
+       (dim.unroll === dim.upcast && prod(dim.st.shape.slice(dim.upcast)) < 64))
+-- 
+2.46.1
+

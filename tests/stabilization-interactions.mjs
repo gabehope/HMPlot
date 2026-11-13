@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {chromium} from '@playwright/test';
+const b=await chromium.launch({channel:'chrome',args:['--enable-unsafe-webgpu']}),base=process.env.HEATMAP_TEST_URL??'http://[::1]:5184';
+try{
+ const p=await b.newPage({viewport:{width:1300,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
+ await p.goto(base+'/test/gallery-example?id=large-graph');await p.waitForFunction(()=>window.__largeGraph?.points?.getMark());await p.evaluate(()=>window.__largeGraph.force.whenSettled());
+ const hits=await p.evaluate(async()=>{const {force,points}=window.__largeGraph,m=points.getMark(),r=m.renderer,box=r.domElement.getBoundingClientRect(),cam=m.view.picking.context.current.scenePass.camera,found=[];for(const id of [0,1]){await force.update({selected:id});let status;const off=force.subscribe(v=>status=v);off();const world=status.selectedPosition.map((v,i)=>{const axis='xyz'[i],b=m.options.get(axis+'bounds'),range=m.options.get(axis+'range');return range[0]+(v-b[0])/(b[1]-b[0])*(range[1]-range[0]);});const v=m.position.clone().set(world[0],world[1],world[2]??0).project(cam);found.push({id,x:box.left+(v.x+1)*box.width/2,y:box.top+(1-v.y)*box.height/2});}return found;});
+ console.log('node positions',hits);
+ assert.equal(hits.length,2,'two distinct nodes are available to drag');
+ for(const hit of hits){hit.id=await p.evaluate(async hit=>(await window.__largeGraph.points.getMark().view.picking.context.current.pickAt(hit.x,hit.y))?.instanceId,hit);assert.ok(Number.isInteger(hit.id));await p.mouse.move(hit.x,hit.y);await p.mouse.down();await p.waitForTimeout(60);await p.mouse.move(hit.x+25,hit.y+20,{steps:8});await p.mouse.up();await p.evaluate(()=>window.__largeGraph.force.whenSettled());const state=await p.evaluate(()=>{let s;const off=window.__largeGraph.force.subscribe(v=>s=v);off();return s;});assert.equal(state.selection.index,hit.id);assert.equal(state.iteration,0);assert.equal(state.error,'');}
+ await p.goto(base+'/test/stabilization');await p.waitForFunction(()=>window.__stabilization?.read()?.completedFrame>0);await p.evaluate(()=>window.__stabilization.set({kind:'line',count:1000}));
+ const writes=await p.evaluate(async()=>{const s=window.__stabilization;s.enable();const before=s.read();s.mark().getMark().options.set('opacity',.4);await s.settled();return {before:before.instrumentation.gpu.writeBytes,after:s.read().instrumentation.gpu.writeBytes,fields:s.read().marks.map(m=>m.fields)};});
+ console.log('Appearance update writes',writes.after-writes.before);
+ await p.evaluate(()=>window.__stabilization.plot().openSettings());const dialog=p.getByRole('dialog');await dialog.waitFor();await dialog.getByRole('button',{name:/search/i}).click();const search=dialog.getByRole('searchbox');await search.fill('overview');await p.screenshot({path:'/tmp/heatmap-stabilization/settings-overview.png'});assert.ok(await dialog.getByText('Show overview',{exact:true}).count());await search.press('Escape');await p.keyboard.press('Escape');
+ assert.deepEqual(errors,[]);console.log('Real node dragging, appearance edit, and settings search passed');
+}finally{await b.close();}

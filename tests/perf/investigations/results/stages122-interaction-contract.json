@@ -1,0 +1,1608 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.7 / R6: checked interaction owners, masks and constraints",
+  "baseline": "bb299e2f; candidate checks interaction implementation and consumers, normalizing optional owner defaults without changing their behavior.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "serving": "Both frozen production builds served concurrently from separate directories; one discarded warm-up per build, then six alternating A/B and B/A rounds.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "cpu": "Active profile time includes all samples except (idle), using timeDeltas[i+1]. Sunburst takes the median across warmed flights before comparing each round.",
+    "counters": "Lorenz GPU counters use separate whole six-second windows; separate Sunburst captures retain readbacks per flight. No moving-particles work is changed or measured in this slice.",
+    "rawResults": "<tmp>/hmplot-interaction-paired",
+    "browser": "154.0.8037.98"
+  },
+  "scenarios": {
+    "sunburst-native": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 3.6723,
+          "min": 3.4812,
+          "max": 4.0769,
+          "rounds": [
+            3.4812,
+            3.6254,
+            4.0341,
+            4.0769,
+            3.7063,
+            3.6384
+          ]
+        },
+        "candidate": {
+          "median": 3.7151,
+          "min": 3.6196,
+          "max": 3.9209,
+          "rounds": [
+            3.6312,
+            3.7064,
+            3.9081,
+            3.9209,
+            3.6196,
+            3.7237
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0028,
+          "min": -0.156,
+          "max": 0.15,
+          "rounds": [
+            0.15,
+            0.081,
+            -0.126,
+            -0.156,
+            -0.0866,
+            0.0853
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "sunburst-scene": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.1129,
+          "min": 3.943,
+          "max": 4.2575,
+          "rounds": [
+            3.943,
+            3.9448,
+            4.2575,
+            4.1682,
+            4.1811,
+            4.0575
+          ]
+        },
+        "candidate": {
+          "median": 3.976,
+          "min": 3.9126,
+          "max": 4.3955,
+          "rounds": [
+            4.3955,
+            3.9605,
+            3.9126,
+            4.2101,
+            3.9743,
+            3.9777
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0321,
+          "min": -0.345,
+          "max": 0.4526,
+          "rounds": [
+            0.4526,
+            0.0156,
+            -0.345,
+            0.0419,
+            -0.2068,
+            -0.0799
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              77,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              77,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "lorenz": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 5.6015,
+          "min": 5.521,
+          "max": 5.962,
+          "rounds": [
+            5.688,
+            5.521,
+            5.604,
+            5.599,
+            5.599,
+            5.962
+          ]
+        },
+        "candidate": {
+          "median": 5.5525,
+          "min": 5.496,
+          "max": 6.509,
+          "rounds": [
+            5.559,
+            5.496,
+            5.535,
+            5.658,
+            5.546,
+            6.509
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.039,
+          "min": -0.129,
+          "max": 0.547,
+          "rounds": [
+            -0.129,
+            -0.025,
+            -0.069,
+            0.059,
+            -0.053,
+            0.547
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "liveMB": 131.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "liveMB": 133.3,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.7,
+            "builds": 0,
+            "liveMB": 131.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.5,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.3,
+            "builds": 0,
+            "liveMB": 134.9,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "liveMB": 136,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.3,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.4,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 358,
+            "frames": 360,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "liveMB": 132.6,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6002.4,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6000.6,
+            "builds": 0,
+            "liveMB": 133.3,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 360,
+            "frames": 360,
+            "windowMs": 6001.5,
+            "builds": 0,
+            "liveMB": 134.9,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 3.884,
+          "min": 3.012,
+          "max": 3.979,
+          "rounds": [
+            3.873,
+            3.438,
+            3.979,
+            3.012,
+            3.895,
+            3.908
+          ]
+        },
+        "candidate": {
+          "median": 3.9865,
+          "min": 3.684,
+          "max": 4.038,
+          "rounds": [
+            4.038,
+            3.684,
+            4.008,
+            4.006,
+            3.878,
+            3.967
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.112,
+          "min": -0.017,
+          "max": 0.994,
+          "rounds": [
+            0.165,
+            0.246,
+            0.029,
+            0.994,
+            -0.017,
+            0.059
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 59.9805,
+          "min": 59.974,
+          "max": 59.984,
+          "rounds": [
+            59.976,
+            59.984,
+            59.978,
+            59.983,
+            59.984,
+            59.974
+          ]
+        },
+        "candidate": {
+          "median": 59.9785,
+          "min": 59.975,
+          "max": 59.982,
+          "rounds": [
+            59.979,
+            59.978,
+            59.976,
+            59.982,
+            59.979,
+            59.975
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0015,
+          "min": -0.006,
+          "max": 0.003,
+          "rounds": [
+            0.003,
+            -0.006,
+            -0.002,
+            -0.001,
+            -0.005,
+            0.001
+          ]
+        }
+      }
+    }
+  },
+  "snapshots": {
+    "a": {
+      "sourceManifestSHA256": "2f508a565be00af74db15ca0da17b89dcf3538e638de56a314f77afc71a6ac40",
+      "root": "<tmp>/hmplot-interaction-a",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "23471342f934645ae5df13d18d450e9e67a9fa4546af9c1244629dd54522698d",
+          "files": 613
+        },
+        "sunburst-scene": {
+          "sha256": "23471342f934645ae5df13d18d450e9e67a9fa4546af9c1244629dd54522698d",
+          "files": 613
+        }
+      },
+      "executedJavaScriptVerified": true
+    },
+    "b": {
+      "sourceManifestSHA256": "c1ce791905e9cc4aa0eeec8b844319d1875222b63efcc3f116868d3d6e9d7961",
+      "root": "<tmp>/hmplot-interaction-b",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "4dc8e99a5b1572a6555a8c428288ebe0f7713922c22e86edde0bd6f9ae8ffa1d",
+          "files": 613
+        },
+        "sunburst-scene": {
+          "sha256": "4dc8e99a5b1572a6555a8c428288ebe0f7713922c22e86edde0bd6f9ae8ffa1d",
+          "files": 613
+        }
+      },
+      "executedJavaScriptVerified": true
+    }
+  },
+  "limitations": [
+    "Lorenz retains a +0.547 ms/frame CPU outlier in round 6.",
+    "Lorenz GPU pass timings are generally higher in the candidate (median paired +0.112 ms/frame, five of six positive pairs, spread -0.017 to +0.994); these data do not establish GPU timing equivalence. No GPU shader or numerical operation changes are intended; FPS is unchanged. A separate diagnostic created 60 shader modules in each build and found identical distinct exact WGSL byte hashes. This is shader-program parity, not proof of GPU timing equivalence or identical animation state.",
+    "Sampled live-buffer bytes vary; no fixed memory improvement is claimed.",
+    "The broad owner/phase-map consolidation and picking lifetimes remain open, along with proputils, namedData and strict Svelte mark-preparation checking.",
+    "Large profiles and frozen builds remain local; round-level results, hashes and asset verification are retained in this report."
+  ],
+  "buildEvidence": {
+    "author": "Codex-generated",
+    "date": "2026-10-11",
+    "baseline": "bb299e2f",
+    "hardware": {
+      "model": "Mac14,5",
+      "cpu": "Apple M2 Max"
+    },
+    "sourcesRemainFrozen": true,
+    "buildOptions": {
+      "production": "VITE_HMPLOT_PERF_HOOKS=1 npx vite build",
+      "pythonBundles": "npm run build:python",
+      "examples": "sunburst and lorenz-attractor rebuilt per snapshot",
+      "measurementOnlyConfig": "Disable automatic examples plugin; resolve @hmplot/jax to the snapshot-local vendor artifacts."
+    },
+    "snapshots": {
+      "a": {
+        "root": "<tmp>/hmplot-interaction-a",
+        "sourceCount": 614,
+        "sourceManifestSHA256": "2f508a565be00af74db15ca0da17b89dcf3538e638de56a314f77afc71a6ac40",
+        "packageLockSHA256": "39fc5aae24ef7034388505bfa5d97090374cebb2c2cea5ca82ee8d5dc45d3558",
+        "jaxArtifacts": {
+          "backend-D1fYACha.cjs": "d9ba988731053722db945b3d214a8c4033c819dfd6bc5d465a7074d4842c6425",
+          "backend-DYcOJOqU.js": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "index.cjs": "a1ca3159c4a5fc0ab942079964cba352ea39a65257f75a19efa53519b0d0e699",
+          "index.d.cts": "5af79a42e4aac4cb008936e482ad3ffdc6cfc49c9492eb26ce07d398c9629fac",
+          "index.d.ts": "cd1906eba1d0bfe9521c569f5054ecc9b8e14daea731e3314f716cea4f16423a",
+          "index.js": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "rolldown-runtime-D7D4PA-g.js": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "webgl-Cayj9zrJ.cjs": "78f7a94e2401a77a0f237d6a171ba629f38aecbd09f99dcf864e04e6233cf8a7",
+          "webgl-CnNgJUF2.js": "8302d64be86c4935858dc42d22be0441a3b0ab775832a81cc6c2a0a4bf2784e2",
+          "webgpu-BJwlieBg.js": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "webgpu-xdzwB8u2.cjs": "3dec6ea1ca21cebef6d41f72f1cd17d8e768614527759f6c16066431734f30e1"
+        }
+      },
+      "b": {
+        "root": "<tmp>/hmplot-interaction-b",
+        "sourceCount": 614,
+        "sourceManifestSHA256": "c1ce791905e9cc4aa0eeec8b844319d1875222b63efcc3f116868d3d6e9d7961",
+        "packageLockSHA256": "39fc5aae24ef7034388505bfa5d97090374cebb2c2cea5ca82ee8d5dc45d3558",
+        "jaxArtifacts": {
+          "backend-D1fYACha.cjs": "d9ba988731053722db945b3d214a8c4033c819dfd6bc5d465a7074d4842c6425",
+          "backend-DYcOJOqU.js": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "index.cjs": "a1ca3159c4a5fc0ab942079964cba352ea39a65257f75a19efa53519b0d0e699",
+          "index.d.cts": "5af79a42e4aac4cb008936e482ad3ffdc6cfc49c9492eb26ce07d398c9629fac",
+          "index.d.ts": "cd1906eba1d0bfe9521c569f5054ecc9b8e14daea731e3314f716cea4f16423a",
+          "index.js": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "rolldown-runtime-D7D4PA-g.js": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "webgl-Cayj9zrJ.cjs": "78f7a94e2401a77a0f237d6a171ba629f38aecbd09f99dcf864e04e6233cf8a7",
+          "webgl-CnNgJUF2.js": "8302d64be86c4935858dc42d22be0441a3b0ab775832a81cc6c2a0a4bf2784e2",
+          "webgpu-BJwlieBg.js": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "webgpu-xdzwB8u2.cjs": "3dec6ea1ca21cebef6d41f72f1cd17d8e768614527759f6c16066431734f30e1"
+        }
+      }
+    },
+    "fixtures": {
+      "sunburst": {
+        "a": {
+          "payload": "static/example-builds/sunburst/payload.b53b08da7e.json",
+          "sha256": "b53b08da7e5a067362e721d6f318bca792b6db0ebae0e8f91e9f95d0239d2368",
+          "normalizedSHA256": "f13f99bfbf13851a165b005dc328dff2aede92120546e57fc2cdd710e1fbd894"
+        },
+        "b": {
+          "payload": "static/example-builds/sunburst/payload.3b31860406.json",
+          "sha256": "3b31860406d25af0f0f31de75dafc9bf02bff3237abba38cddc2abf9091eaa1b",
+          "normalizedSHA256": "f13f99bfbf13851a165b005dc328dff2aede92120546e57fc2cdd710e1fbd894"
+        }
+      },
+      "lorenz-attractor": {
+        "a": {
+          "payload": "static/example-builds/lorenz-attractor/payload.3b6e4d5b23.json",
+          "sha256": "3b6e4d5b23e1102c3184f28b592dc4d44c7b73e6d45dcc3b7ad36aadf89b4c4e",
+          "normalizedSHA256": "818254a589e4b9a8b9e3c83120780580f93578a47fa7ec7bb3ee0ebfa3a3222e"
+        },
+        "b": {
+          "payload": "static/example-builds/lorenz-attractor/payload.c98fb19601.json",
+          "sha256": "c98fb1960158f7ccc3143af393e8a919a7034ba559d96bebc7d53733ca35fea3",
+          "normalizedSHA256": "818254a589e4b9a8b9e3c83120780580f93578a47fa7ec7bb3ee0ebfa3a3222e"
+        }
+      }
+    },
+    "runtimeComparison": {
+      "src/lib/index.ts": {
+        "a": "c5829b2fdec44167a646d16e4808326f9041d371b6208c96bc85ec60fa8cebe2",
+        "b": "c5829b2fdec44167a646d16e4808326f9041d371b6208c96bc85ec60fa8cebe2",
+        "identical": true
+      },
+      "src/lib/plot/utils/interaction.js": {
+        "a": "e5c61fafb1f961401d39a4db06101d2f19d29ebc8cfe1c183319fc53424ab3dd",
+        "b": "2b34ba51cd7876f2422424b21f25c9f4c4ae3d1f8c8dbfd6e5cc326f95d997fc",
+        "identical": false
+      },
+      "src/lib/plot/utils/brushController.svelte.ts": {
+        "a": "602db236fb2c4d7085d1a3a302aeba4e026688de6f842c30df53eff6e00b7f57",
+        "b": "7dbf2cd524f0f20cf5088d2b86b9c4243f14b84b01079c954f8ffb2e326b6549",
+        "identical": false,
+        "unminifiedTranspilationIdentical": true
+      },
+      "src/lib/plot/utils/feedbackOpacity.js": {
+        "a": "6f24ce69d6cd22c128f00aa783df38dcba40294856b30f554e2af81b3fb3b563",
+        "b": "6f24ce69d6cd22c128f00aa783df38dcba40294856b30f554e2af81b3fb3b563",
+        "identical": true
+      },
+      "src/lib/plot/utils/markTooltip.js": {
+        "a": "42928f68164b04c18e369b4b74a87e9da593cb5a9559dc9a16869556c90785d7",
+        "b": "42928f68164b04c18e369b4b74a87e9da593cb5a9559dc9a16869556c90785d7",
+        "identical": true
+      },
+      "src/lib/plot/utils/offsets.js": {
+        "a": "30b9d07a9b2b58e66d102c7f13b576791dcfff2504fd0ef8286140a7d99c7bf7",
+        "b": "30b9d07a9b2b58e66d102c7f13b576791dcfff2504fd0ef8286140a7d99c7bf7",
+        "identical": true
+      }
+    }
+  },
+  "lorenzExecutedAssetVerification": {
+    "a": {
+      "verified": true,
+      "profiledExecutedAssets": {
+        "/_app/immutable/chunks/BfSLedxG.js": "7b260cee146a54548f1e05668ae04ba3bc43eded837c0df54897245871ee2ea8",
+        "/_app/immutable/chunks/Elhz37rT.js": "034a859979d1b015521bba9b1954909b3898a9b76e5ea17201edf27101913966",
+        "/_app/immutable/chunks/CBXBstIZ.js": "427f744e6e6231494edb3d33993ff3f575c28616e32a12a70403cb05615d0cb4",
+        "/_app/immutable/chunks/CMpKCVL-.js": "d2c45ba5f766158a6edae4714732581f149c6098b79d329136d6b30ea4631b0a",
+        "/_app/immutable/chunks/DKMc4ce-.js": "45c12a0431c12ecc93639aeb6d545eeab64439fc87a777f042c5b81b52e40298",
+        "/_app/immutable/chunks/DfXtWM67.js": "44442d6d127faf274043b086febfbef35c253e1cf2aa4b9851d8392c6997cdab",
+        "/_app/immutable/chunks/Dj0192xP.js": "d711b19fe90e0563798d4aa48bf74dd3fc749d52c172f65eb7fce81be6aa1d7b",
+        "/_app/immutable/chunks/Deit2sHW.js": "1f9bac6320c576ee248e5fbaca0afdc097fb9b72bf846bcd36e5263c2b03b951",
+        "/_app/immutable/chunks/3mnLDdIF.js": "d226c9bb575444f17429495d98e5c9499e207864a0d2b6ae878b1f513f78e966",
+        "/_app/immutable/chunks/Dou8k3Ok.js": "6490af725ccf54de42b1a23a9a5bc7dc312ae2ec3c0e67bebd63ab483b8397d8",
+        "/_app/immutable/chunks/CwQnRulI.js": "6a3d87563b23823983b7db97baa82790b0cacce56589626038cd7e59be52a164",
+        "/_app/immutable/chunks/R63-BU9x.js": "803d259317c8e823c69cca1583734c49665bb226d9c220f3e8d78aacd2438033",
+        "/_app/immutable/chunks/DgQEqbp8.js": "2b7a4cd477b2c884e0963eddaa8cfd0b76e3ce6716113d2a4d93db4cfcef48d1",
+        "/_app/immutable/chunks/oYJCgwfH.js": "a7b3ffa8fb20bd7eeff5d093ca7bd226baadcb69e4833b16d20b8a3447ae7e3f",
+        "/_app/immutable/chunks/DlTqzSoF.js": "2bf57e9292859f3735259388f4607d9b126aa1a83e9c85d39a83b4f895261b09",
+        "/_app/immutable/chunks/Bu_0tJ8i.js": "f24f45fff957d89a44ab5a03123adba8d8d2037c97de16a6bfba7aa57c48893a",
+        "/_app/immutable/chunks/2tcMyN4t.js": "bf66299803a1ba20a97af009b3d931d0144b2ab5e439c162a8503fbf86584d22",
+        "/_app/immutable/chunks/LTrvKbHI.js": "30238a045437f4795bc0488213d7ffdfd49522fb9dc9afddfe842009aff23452",
+        "/_app/immutable/chunks/DRp2eO1w.js": "a02833aed7feb1587c0af9d1aeff3911cf1845cf2919f4a7bb0529338d03a657",
+        "/_app/immutable/chunks/BMS7kSJF.js": "820d111ff1197a311e23049692cb946c5210ae65aeb75524758953670211c5ac",
+        "/_app/immutable/chunks/DPbfTO2x.js": "d05504ede5cbf5abacc2d436713a56dd8ab8074a996e09d0dba3a80784e8639c",
+        "/_app/immutable/chunks/CLuLEGbG.js": "fee51738de8e0f00164f7997642b6f6f60f296afcb6e9ef85227ee7ac3bfa1bc",
+        "/_app/immutable/chunks/ClpDCxU4.js": "964b193ebf81e8082eb61306fa7e67d7ade0446a13a1f442326f7c2785c2f7ca",
+        "/_app/immutable/chunks/DktQFkYl.js": "a6ae7d16ba181e103944fb0800213107f58c25036cb82307db6a916cbf302acc",
+        "/_app/immutable/chunks/cBd4Hw4P.js": "6e6540f629c41f779e0a2d0b1373a6149904b8ccb801c8281e7fe7e8fe50cc55",
+        "/_app/immutable/chunks/Dgxn-Gw_.js": "dddc902996de90a373d982e5ddfb36518da03f059ce1685f1b894ce9e752d23b",
+        "/_app/immutable/chunks/CGUjwYkN.js": "a3bc47a324607cac42137624b6f73486a868a61069b10dec6ffe2831b52f4295",
+        "/_app/immutable/chunks/B_m4FD91.js": "dbc15c537bc94476f7d94ab89fbef2b40ee6db4e7fe7c2bead20ba5db6d87f50",
+        "/_app/immutable/chunks/BEW8-tFT.js": "5bd129b466beaf86744dbd79e4d4eb470dc1c5dab608d74baa06007ca863eca8",
+        "/_app/immutable/chunks/IxFAt1kw.js": "310b044c8ef6a46efd09fbaa7a6b11bcd5662ed1f26933872720e11961b03595",
+        "/_app/immutable/chunks/BVaJdVWN.js": "24f8c3c04da18c727d22e578d58c14d2784fa9af26eb2853302a9437e6e30295",
+        "/_app/immutable/chunks/DOJP8fX0.js": "d1ec4b8f3514e6f83849de95c90b349063bed09756c1a63f2ad50f08c3160a2a",
+        "/_app/immutable/chunks/BfghEonJ.js": "94566e2b7643c38570971853b4ff1e1166cdab9f2fa345b73512a9404927d1ce",
+        "/_app/immutable/chunks/uayu5g3P.js": "ad50ada43d1f83458d10bf5572a4abfeea7b87b9784bb377fee45ab0b1b0ef09",
+        "/_app/immutable/chunks/l3wJtU-Q.js": "28c5dfcdaef4925e426e61ab7ec36b4e173df9a36c879786074e48057d06a37e",
+        "/_app/immutable/chunks/Bq6uKVPm.js": "c0c497ad742b7a54d3de0d40eec926483847d987abf90889e1fe3c8638a59c2b",
+        "/_app/immutable/chunks/Ba0LNRxJ.js": "5309595d3d675726234eae73258bad7e4e53ebdddedfda5aa7072204e022a035",
+        "/_app/immutable/chunks/DCUNNenj.js": "33b0f0c10778ed44fd0dabcfbf619ad394a0a4471b511510472f35c70e887124",
+        "/_app/immutable/chunks/fwKaIaJA.js": "6ea6eb86b0fca7a89137bbf0454c7c5d4dc4f1d3bc964b0eca702a8c4ada9cea",
+        "/_app/immutable/chunks/BnDpg_A4.js": "c7e4b7e92c6ad9febd60ad2831db3deba955d5b7fdf276ff86c567646a215610",
+        "/_app/immutable/chunks/C1FfJnfs.js": "c01b46f79046f39f7bb1ce9a7617c5f5dff5ce6a4033029510d92334fe7a8579",
+        "/_app/immutable/chunks/BZrxa7B8.js": "8cca0a77afde1d50bf85d44af7b8124610c6eeff65091b61aa8dfd89a0f4cbb7",
+        "/_app/immutable/chunks/BbgFNp7e.js": "b8bd9d14f9d5b8270b46cc1dfb42705be01fce4fda5deb2753c4582f2981302f",
+        "/_app/immutable/chunks/DSjsOzSs.js": "3dbcd20325e899665fcc760723b24ca68a92e9ed9df28729ffbc10f304f0b564",
+        "/_app/immutable/chunks/JrHdRe2Z.js": "b1c969392705a419ea13b2708fe6571a6750fd1c688117ff4a8cbcf96d432295",
+        "/_app/immutable/chunks/CktqMH2n.js": "4595b8471ebebed848076b143a543de3d3ffb4542a11b6329f8805b2da2a3d8e",
+        "/_app/immutable/chunks/CpeDzCGi.js": "274a96f3a676eb79831f2dd9652a753b7b2d2619ebf40046e30c65131270073c"
+      },
+      "verification": "Every local JavaScript URL in the seven CPU profiles is fetched from the unchanged production server and compared with the snapshot build bytes."
+    },
+    "b": {
+      "verified": true,
+      "profiledExecutedAssets": {
+        "/_app/immutable/chunks/phlspTlb.js": "624f90e57cd61dea331e3e3e03db0fbafd7cae004af3e81223bf4ee6c262979f",
+        "/_app/immutable/chunks/msKdsDZo.js": "413d6b53d6ab10c963a89b7f3b79b05f9de02b4fed05429d22c3cd249946cb0b",
+        "/_app/immutable/chunks/BnSVNA7N.js": "86990d3967ad830168ad10dd52bbdd26eddc2559f6114d598363a30addab1631",
+        "/_app/immutable/chunks/CYomaTw9.js": "22201020a6c4acd79b501d2409bf499874d98cef0dcdefa5b91dadcac2013ad0",
+        "/_app/immutable/chunks/DRtTYwFj.js": "477f80781b491e3ca8b781110b8f0c0964df2bfaee8e88deaa4c7177929ba8f4",
+        "/_app/immutable/chunks/DfXtWM67.js": "44442d6d127faf274043b086febfbef35c253e1cf2aa4b9851d8392c6997cdab",
+        "/_app/immutable/chunks/7m2ph4Re.js": "3dd98c4c9ba4165f1315ede67d077af27f1a3068374ef6f8145d420d48fd1ea5",
+        "/_app/immutable/chunks/Dm9UBrnQ.js": "227bd3087c5ceab51d6dd1a5cf2ee656228512353902ef0caa83686063fa32ff",
+        "/_app/immutable/chunks/Cw9CQdsl.js": "b331ce539d75eae215e7aa9ebaadd576aa7545ad53fe7f77fae3881386d77e99",
+        "/_app/immutable/chunks/CTKcM2L6.js": "e53f6481a798d965a9592a621ee6d55b18c7df6626fe986c93158fcc784dd04c",
+        "/_app/immutable/chunks/CEzhha0i.js": "93028e28f89027b7458e24805c9e630d2bd952a6b8dc772d91308e989663a180",
+        "/_app/immutable/chunks/C7s_WZvp.js": "14786dc4f60af4451b34b7f2e3be902b46a3d8977dfe70115459b9a78e077360",
+        "/_app/immutable/chunks/SYCerjEN.js": "2225c50b2894b2ace3966ab59a40da52a107ae16ce4628555e37603e9d553e6c",
+        "/_app/immutable/chunks/RRTEoHIm.js": "067674c6e0a311536810011dd5d8a734a1048900afd6f97622781d4859502c69",
+        "/_app/immutable/chunks/DRj6nowr.js": "44642b5eadfee0dd4d37d4bfe84fd4fa540bfeea1c4685497505cfe57f1a6a7f",
+        "/_app/immutable/chunks/tc56EjDJ.js": "5e376a210550c0b35eb26c2afb6061a9bbd1c996a8bcaee9fa97e3c4d50b8c50",
+        "/_app/immutable/chunks/DeQHTfvU.js": "efa2842a894d675522aede01c6fdfb8341a0402ac2df9d145110b4bb691a2bb0",
+        "/_app/immutable/chunks/BvcLNXRC.js": "c38476fd8da8ace719c55333f2219b3487eb80b49815b9034da9179f6ccad275",
+        "/_app/immutable/chunks/P2k0JOCv.js": "ebbb82bd59bd0b56ceed2b142234021bf624be617cb6fbe5dfcd8b2a19e51856",
+        "/_app/immutable/chunks/DFLwL8d_.js": "fc7824c5f0bddbfa53265406e304e4c7d3d696c3f2bd2084e21fafd57b6f1492",
+        "/_app/immutable/chunks/D2LAv8rv.js": "3f02bb0ae258ee0c502f1b57cdc0182f6bb6069923f7902aabce58890ad80b5b",
+        "/_app/immutable/chunks/D8ZUXRwZ.js": "2db6b5f4da178cd2e36d3c574ffb6572c6b08a90f26315328914db780efc4d3b",
+        "/_app/immutable/chunks/CwQnRulI.js": "6a3d87563b23823983b7db97baa82790b0cacce56589626038cd7e59be52a164",
+        "/_app/immutable/chunks/OLnwYNbA.js": "eab127078e15f5400c5f24d912363f4b3c682a1f8bd6896e2afb3540593096f8",
+        "/_app/immutable/chunks/D4XmbVwO.js": "61bfc745e14ce5337d8e50bd81e7d572af0567ad6500359c8df65972721fa644",
+        "/_app/immutable/chunks/ClpDCxU4.js": "964b193ebf81e8082eb61306fa7e67d7ade0446a13a1f442326f7c2785c2f7ca",
+        "/_app/immutable/chunks/cBd4Hw4P.js": "6e6540f629c41f779e0a2d0b1373a6149904b8ccb801c8281e7fe7e8fe50cc55",
+        "/_app/immutable/chunks/DEiZZv4U.js": "421657e0586a0182000571465eda00cd0c4673a19c346733595d78369918364d",
+        "/_app/immutable/chunks/Cm-Pf6bk.js": "ff9007e444c534976d6fc76ccf38fc2c38ab85c3c33e35e5d9fbcd8be8f581e7",
+        "/_app/immutable/chunks/g98k4YOt.js": "0f97fc8290651462454c49bc52768c0ca88a0f02caeb17386581302cd7b6a197",
+        "/_app/immutable/chunks/DaAnJ3pA.js": "982066d6a32613d4d14242a6574c21667b0e9011fdc63c1cc696415858397a5d",
+        "/_app/immutable/chunks/Dljzn7gF.js": "0199d878e0d3f821655204944cdfb0e4a70ed66dcd2a546c92b124912f9bc16b",
+        "/_app/immutable/chunks/ClLTIasV.js": "4137d5f9cb9eb6ecc423a5d8179433afcda5c888bc5df1bb1a6ee76aefa736ac",
+        "/_app/immutable/chunks/Bm9YOW9b.js": "059b92049195b397dd79a4e6df488cf06adf9099abbbe5bc68c8a4d74d2b0d8e",
+        "/_app/immutable/chunks/DryebLAD.js": "8763a5037438a5651c227167a9efd020a4759028446d8b1af1eb013ba190bb16",
+        "/_app/immutable/chunks/LTrvKbHI.js": "30238a045437f4795bc0488213d7ffdfd49522fb9dc9afddfe842009aff23452",
+        "/_app/immutable/chunks/Bq6uKVPm.js": "c0c497ad742b7a54d3de0d40eec926483847d987abf90889e1fe3c8638a59c2b",
+        "/_app/immutable/chunks/KyrSdyDU.js": "7cdfe7980ffde1342bb66455e685ad8ad11e359f8f08f44ccfb9c669b004c720",
+        "/_app/immutable/chunks/Dgxn-Gw_.js": "dddc902996de90a373d982e5ddfb36518da03f059ce1685f1b894ce9e752d23b",
+        "/_app/immutable/chunks/fwKaIaJA.js": "6ea6eb86b0fca7a89137bbf0454c7c5d4dc4f1d3bc964b0eca702a8c4ada9cea",
+        "/_app/immutable/chunks/Bs3yrHVf.js": "610ad52208d19cdcb89312fecf8f70040c66d6add9dc7e98027311bc551686b1",
+        "/_app/immutable/chunks/WpKMoRgQ.js": "cc6d9bf2006190397b423243fe60bcaa32369b08b3450ac92be0b7fa9f5acdbd",
+        "/_app/immutable/chunks/CcuSn2_7.js": "bd4f51cdd5cb78f668ddc72d90000f3c22ceb5dd9823f728f0fe952a4a800176",
+        "/_app/immutable/chunks/BSV5lhbc.js": "2008316aa0dd80cf29029cd8795b0577e1586214ab5ec96486ef8ee5e57a958f",
+        "/_app/immutable/chunks/505gOotb.js": "f7bfb278649f2ffc888a94ec0393caa39fe9966763e55dfd364b5db438dd101d",
+        "/_app/immutable/chunks/JrHdRe2Z.js": "b1c969392705a419ea13b2708fe6571a6750fd1c688117ff4a8cbcf96d432295"
+      },
+      "verification": "Every local JavaScript URL in the seven CPU profiles is fetched from the unchanged production server and compared with the snapshot build bytes."
+    }
+  },
+  "verification": {
+    "fullUnits": {
+      "passed": 1380,
+      "failed": 0
+    },
+    "strictSvelte": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "format": "passed",
+    "api": "regenerated and current; type-only helper signatures and exported SelectionConstraint; one equivalent Stack offset union reorder",
+    "pythonSignatures": "112 components current; only getConstraints type metadata changed",
+    "pythonCore": {
+      "passed": 178,
+      "failed": 0
+    },
+    "pythonBundles": "both rebuilt for baseline and candidate",
+    "broaderLeaks": {
+      "candidate": {
+        "passed": 49,
+        "failed": 4
+      },
+      "baseline": {
+        "passed": 48,
+        "failed": 4
+      },
+      "newImplicitOwnerRegression": "passed under leak harness",
+      "unchangedFailures": [
+        "nearby: pixel radii are view-local: never committed, so never published",
+        "nearby: a mark in a facet cell matches only its cell rows; marks sharing an owner take the union",
+        "offsets: views carry offsets through Filter and Sort, follow facet aliases, and refuse aggregates",
+        "offsets: applyOffsets replaces each dragged column by its moved values and leaves the table alone"
+      ],
+      "note": "The four failures reproduce in the untouched bb299e2f snapshot with the same retained array shapes/reference counts. This slice does not suppress or claim to fix them."
+    },
+    "browser": {
+      "passed": 37,
+      "failed": 0,
+      "devicePixelRatio": 2,
+      "server": "Fresh frozen-source dev server, separate from immutable production timing servers; linked installed dependencies allowed explicitly.",
+      "files": [
+        "tests/browser/nearby.spec.js",
+        "tests/browser/frame-brush.spec.js",
+        "tests/browser/interaction-regressions.spec.js",
+        "tests/browser/examples.spec.js"
+      ],
+      "scope": "All nearby and frame-brush cases; dashboard wheel rollback/preview throttling; native/scene Sunburst; 60,000-point Lorenz simulation/pixel output and linked brushing with Python edit."
+    },
+    "focusedUnits": {
+      "passed": 68,
+      "failed": 0,
+      "files": [
+        "interaction",
+        "nearby",
+        "offsets",
+        "refactor-ratchet"
+      ]
+    },
+    "package": {
+      "exitCode": 0,
+      "touchedDeclarations": "emitted successfully with explicit nullable returns",
+      "baselineNotices": [
+        "threeExtensions/materials/lines.js cannot name private Vec3Function in declaration emission",
+        "existing import.meta.env and SvelteKit dependency notices"
+      ],
+      "baselineReproduced": true
+    }
+  },
+  "sunburstCounterCaptures": {
+    "scope": "One separate instrumented capture per build per route, six flights each; flights 2\u20136 retained as warmed. These are not six timing pairs.",
+    "rawResults": "<tmp>/hmplot-interaction-counters",
+    "scenarios": {
+      "sunburst-native": {
+        "a": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76326200,
+              "after": 76328816
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328816,
+              "after": 76328888
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328888,
+              "after": 76328936
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328936,
+              "after": 76328960
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328960,
+              "after": 76329032
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ],
+        "b": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76326200,
+              "after": 76328816
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328816,
+              "after": 76328888
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328888,
+              "after": 76328912
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328912,
+              "after": 76328984
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 95,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328984,
+              "after": 76329032
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ]
+      },
+      "sunburst-scene": {
+        "a": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76325260,
+              "after": 76328628
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328628,
+              "after": 76328676
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328676,
+              "after": 76328724
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328724,
+              "after": 76328772
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328772,
+              "after": 76328820
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ],
+        "b": [
+          {
+            "flight": 2,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76325260,
+              "after": 76328676
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328676,
+              "after": 76328724
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328724,
+              "after": 76328772
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "readbacksPerFlight": 99,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328772,
+              "after": 76328820
+            },
+            "errors": [],
+            "renderError": ""
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "readbacksPerFlight": 97,
+            "builds": 0,
+            "liveBytes": {
+              "before": 76328820,
+              "after": 76328868
+            },
+            "errors": [],
+            "renderError": ""
+          }
+        ]
+      }
+    }
+  },
+  "lorenzPresentationEvidence": {
+    "a": [
+      {
+        "round": 1,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.976
+          },
+          {
+            "presented": 360,
+            "fps": 59.976
+          },
+          {
+            "presented": 360,
+            "fps": 59.976
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 2,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.984
+          },
+          {
+            "presented": 360,
+            "fps": 59.984
+          },
+          {
+            "presented": 360,
+            "fps": 59.984
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 3,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.978
+          },
+          {
+            "presented": 360,
+            "fps": 59.978
+          },
+          {
+            "presented": 360,
+            "fps": 59.978
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 4,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.983
+          },
+          {
+            "presented": 360,
+            "fps": 59.983
+          },
+          {
+            "presented": 360,
+            "fps": 59.983
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 5,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.984
+          },
+          {
+            "presented": 360,
+            "fps": 59.984
+          },
+          {
+            "presented": 360,
+            "fps": 59.984
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 6,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.974
+          },
+          {
+            "presented": 360,
+            "fps": 59.974
+          },
+          {
+            "presented": 360,
+            "fps": 59.974
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      }
+    ],
+    "b": [
+      {
+        "round": 1,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 2,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.978
+          },
+          {
+            "presented": 360,
+            "fps": 59.978
+          },
+          {
+            "presented": 360,
+            "fps": 59.978
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 3,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.976
+          },
+          {
+            "presented": 359,
+            "fps": 59.809
+          },
+          {
+            "presented": 359,
+            "fps": 59.809
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      },
+      {
+        "round": 4,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.982
+          },
+          {
+            "presented": 360,
+            "fps": 59.982
+          },
+          {
+            "presented": 360,
+            "fps": 59.982
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 5,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          },
+          {
+            "presented": 360,
+            "fps": 59.979
+          }
+        ],
+        "frameP95": 16.8,
+        "sampleMs": 6000
+      },
+      {
+        "round": 6,
+        "canvases": [
+          {
+            "presented": 360,
+            "fps": 59.975
+          },
+          {
+            "presented": 360,
+            "fps": 59.975
+          },
+          {
+            "presented": 360,
+            "fps": 59.975
+          }
+        ],
+        "frameP95": 16.7,
+        "sampleMs": 6000
+      }
+    ]
+  },
+  "scope": "Strictly check the actual interaction resource implementation and brush/feedback/tooltip consumers using the existing controller type module. Normalize six undefined-owner defaults into method-body checks with unchanged null behavior; no new runtime helper, resource registry, node field or numerical operation.",
+  "conclusion": "No consistent measured CPU/frame slowdown in six interleaved pairs per workload; all three Lorenz canvases stay near 60 FPS with zero warmed builds, dropped timed passes or readback errors. Native Sunburst has two fewer final-flight readbacks in the candidate; scene counts match flight-for-flight. No speedup or exact equivalence claim.",
+  "validationSetupFailures": [
+    "Initial snapshot example generation and two Python core export cases lacked sandbox localhost/Chrome permissions; reruns with access passed.",
+    "First dev browser attempt blocked the linked SvelteKit dependency directory; one test timed out, one was interrupted, and 35 did not run. The snapshot-only Vite allowlist was corrected before the complete 37-case passing rerun."
+  ],
+  "shaderProgramDiagnostic": {
+    "method": "Separate diagnostic, not timing: collect each shader module created during initialization and five warmed seconds on the immutable Lorenz production route, DPR 2, 1500x1100. Compare exact WGSL byte hashes without normalizing names or instructions.",
+    "snapshots": {
+      "a": {
+        "created": 60,
+        "distinctExactWGSLHashes": [
+          "05be37dc36a4394eabcaeec2aef7e1eb3f6e91f56c60e8b75a84d0448703de14",
+          "07e377a6069f357198be956e797cf6c2e23e327a48ca87f99c2f92100f3e107e",
+          "0d8f6550cc964fdf9792764613602bbf076958fe636adfd580583995dd6ecd66",
+          "1063a65c72363ac5091d105ce79f020a278dfd49ee7c9f705db77a854df79605",
+          "114d64b6dcf6e59b7cb03965b9ce7921e7009696b209f4ad3522b2be1f4afddf",
+          "1bc70ad4f49ebcef3206216b7159ea3739a45693a8c8a2255d2b71fdffaf422e",
+          "1be275395467c88b1de2900102107bd4dc8db30e32706878e5a9ce266a5ea418",
+          "218c35d5fe1427b75307fcd82427ff0d27517d7ab1ddf5ee36884f2610fbc708",
+          "26a3f433201ecb196f5f5a74eb7e47e3b60f0fda070fd14a6b922a59ac9b57cf",
+          "2ab834cf8ad3ea9471d1de12e68c00e7c49697ff76634583bb8aefd705de38fb",
+          "2c6cbde872353ace97abfd24a8adb615222fb11cd30fd4a9790951bfcc49bb39",
+          "2df0d43640aa51c9957f69025501130408f62d08c8c35e29a5a07fabe25e3371",
+          "3337cbfa4bd6db57b13ed97c08e84b56a1c2fa6bf83850dd24f2ab13e37d2e18",
+          "35b0a2c73ada391929fbc00cb2f0338f2fc096297184399978e184f083f52287",
+          "38811b40b59462034aa84adec79441fa1a0ee667f49e1249556ddd8a6d8c6782",
+          "3a2017a16a103d15330d2a42e6c1ef5fc6ca6b9febc1f2f7784683b7df8cb369",
+          "3c2f8b7002eef86f1551cdc9d239cce51cacd615d4482d4d331a816520035d69",
+          "469f06c4bff1bec3a6ff9a6cfeb47cac8aa065ab4c7b91b4d6ce48773a7e74c9",
+          "4ceb0619252fc8ee231c2591d7854dc37f8bfa9e23ab260b68bcec8e2b6d4e3b",
+          "5f523b84423679882cb66654714c5c2e00cbba97c43509a2683790027c7441ce",
+          "64f59d3990b8390d3818c9705dd182c7e1ef80d76dc25e8017aee0ecb79ec315",
+          "6f525f43ad3ff3702caeebbec19ff695d11cbfc594ca13860dd71316a439126c",
+          "716260b2f19af7550217ca05cf770429ef1d27b44bf61c6eda57fbeb4cb83321",
+          "758eead3a9b19eae29f081780c294ea4240d9108282163a83dbbaa91bdc51e38",
+          "7a56f2300f1d9e697a7162759e99570e5e9a102676b5ffa0a66841b9b333d961",
+          "7cab4325c258293fc629986ce4f5c7763cedfd86a171dcd7d45a90260f2ab747",
+          "85dcb465cffa59cccb15baab8b505081e0ae4164740545e0b19fc624bc27b27c",
+          "8c76c17a0b337d6220d0908fdf095dd637d40d964b0012ff48b4711029e0b632",
+          "8cad3fe1a9c45247de72b3f4d3848f9773769e7e07c9f95d88ec2d9706e10e73",
+          "8e06d652b31b3cf4c3fabc387b3db7e5fe375dc1ce7432ff83a91be7a5cbbf85",
+          "921fa3935428bdb470898bf8ce58eb6d85073f78f709ff0b292c89eae5aa2869",
+          "94570c5d98df3cd58de70271e6edeefd0f9da133ac1017a87c9b01c2f4c3a758",
+          "9b22196a29a6484a79a2b8f1756ca7ac63d8eb992fc8a6416782b5d7c93f545c",
+          "9d46d899f8e3f7ad3c4ff33d1c0781964196530e03f10cff17840ab53f8e98f4",
+          "a09311d08b7856e65c71e9d9dbb7d9aeb7b28ee2b1bfc3b7279f512b77cde213",
+          "a338e0da526a336e6ba4a3682fdbe5a8c0d44177da2ed35d80037f427f375129",
+          "a33b3a857834a40a7c18ab34798b09e94c6b6ad3924ec03712b866ad25b2c17d",
+          "a68ef330968f9631768cee8aa67b50f01f4bc515b7a74c8c0dddaf6d9bef671a",
+          "a9013df51d42eaff8b60150c3532e714db82f9ee2326769fa55cc05a5762e46e",
+          "a935aea0625a9e6cd8ad968d3a887a7432c5dcc7f50275f9965ec645800ec8e4",
+          "afa0dd6b8e0b1755020aa26be25adf7e328dfa51e3717baddccdf8d35de205d0",
+          "b058c9db511bc25555a214273657d312e311912878a509ff8a471860743afb46",
+          "baba275b606c3fe173402f99303d4221fbe8c6e1c4c827c5d541ad810f4e74f2",
+          "bcfc25596706d18dfbdccd9b2b71655ca42117303880881373ae985bf38b9798",
+          "be741a36894852e1d54e01d47d4d99528623f30d14a9e1cf635c15e51843f1c7",
+          "be9a1b7f4417fceaf10e7165cd0fe32ffa0bebba645db1f1b52a2769d404ea69",
+          "c3547f1cd59a121e7688cf2c15b8fa2d81377c9fd7f8e44d2f8a277acf4a2351",
+          "ce13753b627f6543750d10e9d72c9cac5476372507518b49da9a32046a5b56de",
+          "d74638f9f639891cd77b4f86fde150254950477045a695d9f9972f5d99ebbcec",
+          "db8ba736db82626a6fb411bd3c2c03e283c4632247b61c0295c9bb792cba91f0",
+          "db8f8d00fd4c3c90c18b114ba8fd42b6a85af0e3af0656dd6ae2536d81b9e018",
+          "e7f39b3031060b5c317f07a01cb4cc8967f17ca0047a98fbebbc8191205064d5",
+          "f079371d88a6dae5549816ee14b958ce421ace301695b1372b0f1d57c8a2cb52",
+          "f27dad8cafeeee82bb59f53a0881fe04065fe93e40d4b2c2ee0ef0e014b7bf52",
+          "fa1eccfba9817ebbdf57bcbcb5f3ce224d6bcc53670aa2d9ad5359d488d35c3e",
+          "fba754e2bec3bf67da09d48b044824b267f18ea6a2e3de73a42d59f5620caa6c"
+        ],
+        "errors": []
+      },
+      "b": {
+        "created": 60,
+        "distinctExactWGSLHashes": [
+          "05be37dc36a4394eabcaeec2aef7e1eb3f6e91f56c60e8b75a84d0448703de14",
+          "07e377a6069f357198be956e797cf6c2e23e327a48ca87f99c2f92100f3e107e",
+          "0d8f6550cc964fdf9792764613602bbf076958fe636adfd580583995dd6ecd66",
+          "1063a65c72363ac5091d105ce79f020a278dfd49ee7c9f705db77a854df79605",
+          "114d64b6dcf6e59b7cb03965b9ce7921e7009696b209f4ad3522b2be1f4afddf",
+          "1bc70ad4f49ebcef3206216b7159ea3739a45693a8c8a2255d2b71fdffaf422e",
+          "1be275395467c88b1de2900102107bd4dc8db30e32706878e5a9ce266a5ea418",
+          "218c35d5fe1427b75307fcd82427ff0d27517d7ab1ddf5ee36884f2610fbc708",
+          "26a3f433201ecb196f5f5a74eb7e47e3b60f0fda070fd14a6b922a59ac9b57cf",
+          "2ab834cf8ad3ea9471d1de12e68c00e7c49697ff76634583bb8aefd705de38fb",
+          "2c6cbde872353ace97abfd24a8adb615222fb11cd30fd4a9790951bfcc49bb39",
+          "2df0d43640aa51c9957f69025501130408f62d08c8c35e29a5a07fabe25e3371",
+          "3337cbfa4bd6db57b13ed97c08e84b56a1c2fa6bf83850dd24f2ab13e37d2e18",
+          "35b0a2c73ada391929fbc00cb2f0338f2fc096297184399978e184f083f52287",
+          "38811b40b59462034aa84adec79441fa1a0ee667f49e1249556ddd8a6d8c6782",
+          "3a2017a16a103d15330d2a42e6c1ef5fc6ca6b9febc1f2f7784683b7df8cb369",
+          "3c2f8b7002eef86f1551cdc9d239cce51cacd615d4482d4d331a816520035d69",
+          "469f06c4bff1bec3a6ff9a6cfeb47cac8aa065ab4c7b91b4d6ce48773a7e74c9",
+          "4ceb0619252fc8ee231c2591d7854dc37f8bfa9e23ab260b68bcec8e2b6d4e3b",
+          "5f523b84423679882cb66654714c5c2e00cbba97c43509a2683790027c7441ce",
+          "64f59d3990b8390d3818c9705dd182c7e1ef80d76dc25e8017aee0ecb79ec315",
+          "6f525f43ad3ff3702caeebbec19ff695d11cbfc594ca13860dd71316a439126c",
+          "716260b2f19af7550217ca05cf770429ef1d27b44bf61c6eda57fbeb4cb83321",
+          "758eead3a9b19eae29f081780c294ea4240d9108282163a83dbbaa91bdc51e38",
+          "7a56f2300f1d9e697a7162759e99570e5e9a102676b5ffa0a66841b9b333d961",
+          "7cab4325c258293fc629986ce4f5c7763cedfd86a171dcd7d45a90260f2ab747",
+          "85dcb465cffa59cccb15baab8b505081e0ae4164740545e0b19fc624bc27b27c",
+          "8c76c17a0b337d6220d0908fdf095dd637d40d964b0012ff48b4711029e0b632",
+          "8cad3fe1a9c45247de72b3f4d3848f9773769e7e07c9f95d88ec2d9706e10e73",
+          "8e06d652b31b3cf4c3fabc387b3db7e5fe375dc1ce7432ff83a91be7a5cbbf85",
+          "921fa3935428bdb470898bf8ce58eb6d85073f78f709ff0b292c89eae5aa2869",
+          "94570c5d98df3cd58de70271e6edeefd0f9da133ac1017a87c9b01c2f4c3a758",
+          "9b22196a29a6484a79a2b8f1756ca7ac63d8eb992fc8a6416782b5d7c93f545c",
+          "9d46d899f8e3f7ad3c4ff33d1c0781964196530e03f10cff17840ab53f8e98f4",
+          "a09311d08b7856e65c71e9d9dbb7d9aeb7b28ee2b1bfc3b7279f512b77cde213",
+          "a338e0da526a336e6ba4a3682fdbe5a8c0d44177da2ed35d80037f427f375129",
+          "a33b3a857834a40a7c18ab34798b09e94c6b6ad3924ec03712b866ad25b2c17d",
+          "a68ef330968f9631768cee8aa67b50f01f4bc515b7a74c8c0dddaf6d9bef671a",
+          "a9013df51d42eaff8b60150c3532e714db82f9ee2326769fa55cc05a5762e46e",
+          "a935aea0625a9e6cd8ad968d3a887a7432c5dcc7f50275f9965ec645800ec8e4",
+          "afa0dd6b8e0b1755020aa26be25adf7e328dfa51e3717baddccdf8d35de205d0",
+          "b058c9db511bc25555a214273657d312e311912878a509ff8a471860743afb46",
+          "baba275b606c3fe173402f99303d4221fbe8c6e1c4c827c5d541ad810f4e74f2",
+          "bcfc25596706d18dfbdccd9b2b71655ca42117303880881373ae985bf38b9798",
+          "be741a36894852e1d54e01d47d4d99528623f30d14a9e1cf635c15e51843f1c7",
+          "be9a1b7f4417fceaf10e7165cd0fe32ffa0bebba645db1f1b52a2769d404ea69",
+          "c3547f1cd59a121e7688cf2c15b8fa2d81377c9fd7f8e44d2f8a277acf4a2351",
+          "ce13753b627f6543750d10e9d72c9cac5476372507518b49da9a32046a5b56de",
+          "d74638f9f639891cd77b4f86fde150254950477045a695d9f9972f5d99ebbcec",
+          "db8ba736db82626a6fb411bd3c2c03e283c4632247b61c0295c9bb792cba91f0",
+          "db8f8d00fd4c3c90c18b114ba8fd42b6a85af0e3af0656dd6ae2536d81b9e018",
+          "e7f39b3031060b5c317f07a01cb4cc8967f17ca0047a98fbebbc8191205064d5",
+          "f079371d88a6dae5549816ee14b958ce421ace301695b1372b0f1d57c8a2cb52",
+          "f27dad8cafeeee82bb59f53a0881fe04065fe93e40d4b2c2ee0ef0e014b7bf52",
+          "fa1eccfba9817ebbdf57bcbcb5f3ce224d6bcc53670aa2d9ad5359d488d35c3e",
+          "fba754e2bec3bf67da09d48b044824b267f18ea6a2e3de73a42d59f5620caa6c"
+        ],
+        "errors": []
+      }
+    },
+    "identicalDistinctWGSLPrograms": true
+  },
+  "finalTypeOnlyContinuation": {
+    "src/lib/plot/utils/interaction.js": {
+      "measured": {
+        "sourceSHA256": "4fcc23269aca6a312e9132ef521a8eb719ae494ac7e2114738b274b298ada997",
+        "minifiedSHA256": "2b34ba51cd7876f2422424b21f25c9f4c4ae3d1f8c8dbfd6e5cc326f95d997fc"
+      },
+      "final": {
+        "sourceSHA256": "82ac194872bdc61ee52b30907873c074f866d396b9dbc673838b65e5965034df",
+        "minifiedSHA256": "2b34ba51cd7876f2422424b21f25c9f4c4ae3d1f8c8dbfd6e5cc326f95d997fc"
+      },
+      "runtimeIdentical": true,
+      "scope": "Explicit nullable return annotations preserve declaration output when emitted with the repository-wide strict:false configuration."
+    }
+  }
+}

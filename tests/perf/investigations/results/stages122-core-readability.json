@@ -1,0 +1,3061 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.3\u2013122.5 / 122.14\u2013122.17: core contract checking, host preparation and owner boundaries",
+  "baseline": "Exact pre-turn runtime operations reconstructed on top of the previous completed R18 slice; all earlier Stage 122/123 changes remain in both snapshots.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "serving": "Both frozen production builds served concurrently from separate directories; one discarded warm-up per build, then six alternating A/B and B/A rounds.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "cpu": "Active profile time includes all samples except (idle), using timeDeltas[i+1]. Sunburst takes the median across warmed flights before comparing each round.",
+    "counters": "Lorenz and moving-particles GPU counters are separate from plain CPU timing and retained as whole six-second windows. Separate Sunburst captures retain readbacks per flight.",
+    "rawResults": "<tmp>/hmplot-readability-core-paired",
+    "browser": "154.0.8037.98",
+    "counterRawResults": "<tmp>/hmplot-readability-core-counters"
+  },
+  "scenarios": {
+    "sunburst-native": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 3.9274,
+          "min": 3.5207,
+          "max": 4.2111,
+          "rounds": [
+            3.5207,
+            3.7516,
+            4.1031,
+            3.7451,
+            4.2111,
+            4.1972
+          ]
+        },
+        "candidate": {
+          "median": 3.7843,
+          "min": 3.5316,
+          "max": 4.0472,
+          "rounds": [
+            3.747,
+            3.5316,
+            3.667,
+            3.9298,
+            3.8215,
+            4.0472
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.185,
+          "min": -0.4361,
+          "max": 0.2264,
+          "rounds": [
+            0.2264,
+            -0.22,
+            -0.4361,
+            0.1847,
+            -0.3896,
+            -0.15
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              78,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              78,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          }
+        ]
+      },
+      "errors": [],
+      "gpuCounters": {
+        "captures": {
+          "a": [
+            {
+              "round": 1,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75297156,
+              "liveBytesAfter": 76326200
+            },
+            {
+              "round": 1,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326200,
+              "liveBytesAfter": 76328840
+            },
+            {
+              "round": 1,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328840,
+              "liveBytesAfter": 76328864
+            },
+            {
+              "round": 1,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328864,
+              "liveBytesAfter": 76328936
+            },
+            {
+              "round": 1,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328936,
+              "liveBytesAfter": 76328984
+            },
+            {
+              "round": 1,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328984,
+              "liveBytesAfter": 76329032
+            },
+            {
+              "round": 2,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1051,
+              "completedFrames": 79,
+              "liveBytesBefore": 75297092,
+              "liveBytesAfter": 76326432
+            },
+            {
+              "round": 2,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1074,
+              "completedFrames": 79,
+              "liveBytesBefore": 76326432,
+              "liveBytesAfter": 76329024
+            },
+            {
+              "round": 2,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329024,
+              "liveBytesAfter": 76329024
+            },
+            {
+              "round": 2,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329024,
+              "liveBytesAfter": 76329048
+            },
+            {
+              "round": 2,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329048,
+              "liveBytesAfter": 76329096
+            },
+            {
+              "round": 2,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1070,
+              "completedFrames": 78,
+              "liveBytesBefore": 76329096,
+              "liveBytesAfter": 76329144
+            },
+            {
+              "round": 3,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75296812,
+              "liveBytesAfter": 76326200
+            },
+            {
+              "round": 3,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326200,
+              "liveBytesAfter": 76328480
+            },
+            {
+              "round": 3,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328480,
+              "liveBytesAfter": 76328888
+            },
+            {
+              "round": 3,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328888,
+              "liveBytesAfter": 76328936
+            },
+            {
+              "round": 3,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328936,
+              "liveBytesAfter": 76328984
+            },
+            {
+              "round": 3,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1078,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328984,
+              "liveBytesAfter": 76329008
+            },
+            {
+              "round": 4,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75296812,
+              "liveBytesAfter": 76326200
+            },
+            {
+              "round": 4,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1097,
+              "completedFrames": 79,
+              "liveBytesBefore": 76326200,
+              "liveBytesAfter": 76328480
+            },
+            {
+              "round": 4,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328480,
+              "liveBytesAfter": 76328888
+            },
+            {
+              "round": 4,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1099,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328888,
+              "liveBytesAfter": 76328912
+            },
+            {
+              "round": 4,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328912,
+              "liveBytesAfter": 76328984
+            },
+            {
+              "round": 4,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1070,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328984,
+              "liveBytesAfter": 76329032
+            },
+            {
+              "round": 5,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1051,
+              "completedFrames": 79,
+              "liveBytesBefore": 75297156,
+              "liveBytesAfter": 76326432
+            },
+            {
+              "round": 5,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326432,
+              "liveBytesAfter": 76328688
+            },
+            {
+              "round": 5,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328688,
+              "liveBytesAfter": 76329024
+            },
+            {
+              "round": 5,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1099,
+              "completedFrames": 80,
+              "liveBytesBefore": 76329024,
+              "liveBytesAfter": 76329024
+            },
+            {
+              "round": 5,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329024,
+              "liveBytesAfter": 76329096
+            },
+            {
+              "round": 5,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329096,
+              "liveBytesAfter": 76329144
+            },
+            {
+              "round": 6,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1031,
+              "completedFrames": 78,
+              "liveBytesBefore": 75296812,
+              "liveBytesAfter": 76326432
+            },
+            {
+              "round": 6,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326432,
+              "liveBytesAfter": 76328736
+            },
+            {
+              "round": 6,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328736,
+              "liveBytesAfter": 76329072
+            },
+            {
+              "round": 6,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329072,
+              "liveBytesAfter": 76329072
+            },
+            {
+              "round": 6,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329072,
+              "liveBytesAfter": 76329096
+            },
+            {
+              "round": 6,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1067,
+              "completedFrames": 78,
+              "liveBytesBefore": 76329096,
+              "liveBytesAfter": 76329144
+            }
+          ],
+          "b": [
+            {
+              "round": 1,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1059,
+              "completedFrames": 79,
+              "liveBytesBefore": 75296804,
+              "liveBytesAfter": 76326552
+            },
+            {
+              "round": 1,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326552,
+              "liveBytesAfter": 76328352
+            },
+            {
+              "round": 1,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328352,
+              "liveBytesAfter": 76329024
+            },
+            {
+              "round": 1,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329024,
+              "liveBytesAfter": 76329048
+            },
+            {
+              "round": 1,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1098,
+              "completedFrames": 80,
+              "liveBytesBefore": 76329048,
+              "liveBytesAfter": 76329096
+            },
+            {
+              "round": 1,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1070,
+              "completedFrames": 78,
+              "liveBytesBefore": 76329096,
+              "liveBytesAfter": 76329144
+            },
+            {
+              "round": 2,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1059,
+              "completedFrames": 79,
+              "liveBytesBefore": 75296804,
+              "liveBytesAfter": 76326552
+            },
+            {
+              "round": 2,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76326552,
+              "liveBytesAfter": 76328688
+            },
+            {
+              "round": 2,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328688,
+              "liveBytesAfter": 76328688
+            },
+            {
+              "round": 2,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328688,
+              "liveBytesAfter": 76329048
+            },
+            {
+              "round": 2,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329048,
+              "liveBytesAfter": 76329096
+            },
+            {
+              "round": 2,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1067,
+              "completedFrames": 78,
+              "liveBytesBefore": 76329096,
+              "liveBytesAfter": 76329144
+            },
+            {
+              "round": 3,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75297092,
+              "liveBytesAfter": 76326200
+            },
+            {
+              "round": 3,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1097,
+              "completedFrames": 79,
+              "liveBytesBefore": 76326200,
+              "liveBytesAfter": 76328480
+            },
+            {
+              "round": 3,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328480,
+              "liveBytesAfter": 76328888
+            },
+            {
+              "round": 3,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328888,
+              "liveBytesAfter": 76328936
+            },
+            {
+              "round": 3,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328936,
+              "liveBytesAfter": 76328984
+            },
+            {
+              "round": 3,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1067,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328984,
+              "liveBytesAfter": 76329032
+            },
+            {
+              "round": 4,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75297092,
+              "liveBytesAfter": 76326180
+            },
+            {
+              "round": 4,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326180,
+              "liveBytesAfter": 76328456
+            },
+            {
+              "round": 4,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328456,
+              "liveBytesAfter": 76328840
+            },
+            {
+              "round": 4,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328840,
+              "liveBytesAfter": 76328888
+            },
+            {
+              "round": 4,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328888,
+              "liveBytesAfter": 76328936
+            },
+            {
+              "round": 4,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1070,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328936,
+              "liveBytesAfter": 76328984
+            },
+            {
+              "round": 5,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75296812,
+              "liveBytesAfter": 76326180
+            },
+            {
+              "round": 5,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1097,
+              "completedFrames": 79,
+              "liveBytesBefore": 76326180,
+              "liveBytesAfter": 76328456
+            },
+            {
+              "round": 5,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328456,
+              "liveBytesAfter": 76328840
+            },
+            {
+              "round": 5,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328840,
+              "liveBytesAfter": 76328888
+            },
+            {
+              "round": 5,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328888,
+              "liveBytesAfter": 76328936
+            },
+            {
+              "round": 5,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1070,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328936,
+              "liveBytesAfter": 76328984
+            },
+            {
+              "round": 6,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1059,
+              "completedFrames": 79,
+              "liveBytesBefore": 75297156,
+              "liveBytesAfter": 76326552
+            },
+            {
+              "round": 6,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 80,
+              "liveBytesBefore": 76326552,
+              "liveBytesAfter": 76328688
+            },
+            {
+              "round": 6,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328688,
+              "liveBytesAfter": 76329024
+            },
+            {
+              "round": 6,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329024,
+              "liveBytesAfter": 76329048
+            },
+            {
+              "round": 6,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329048,
+              "liveBytesAfter": 76329096
+            },
+            {
+              "round": 6,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329096,
+              "liveBytesAfter": 76329144
+            }
+          ]
+        },
+        "medianWarmedReadbacksPerFlight": {
+          "a": {
+            "zoom": 99.0,
+            "reset": 97.0
+          },
+          "b": {
+            "zoom": 99.0,
+            "reset": 97.0
+          }
+        },
+        "errors": []
+      }
+    },
+    "sunburst-scene": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.1718,
+          "min": 3.784,
+          "max": 6.2978,
+          "rounds": [
+            4.1429,
+            4.2007,
+            3.784,
+            3.9018,
+            5.879,
+            6.2978
+          ]
+        },
+        "candidate": {
+          "median": 4.9477,
+          "min": 3.9524,
+          "max": 5.867,
+          "rounds": [
+            4.1827,
+            4.0328,
+            3.9524,
+            5.8503,
+            5.7127,
+            5.867
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0633,
+          "min": -0.4308,
+          "max": 1.9485,
+          "rounds": [
+            0.0398,
+            -0.1679,
+            0.1684,
+            1.9485,
+            -0.1663,
+            -0.4308
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              41,
+              41,
+              40,
+              40
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              39,
+              41,
+              41,
+              40,
+              40,
+              41
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              40,
+              41,
+              41,
+              41
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              41,
+              41,
+              41,
+              41
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              41,
+              41,
+              40,
+              41
+            ]
+          }
+        ]
+      },
+      "errors": [],
+      "gpuCounters": {
+        "captures": {
+          "a": [
+            {
+              "round": 1,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299448,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 1,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 80,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328340
+            },
+            {
+              "round": 1,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1074,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328340,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 1,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 1,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328796
+            },
+            {
+              "round": 1,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1099,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328796,
+              "liveBytesAfter": 76328844
+            },
+            {
+              "round": 2,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1024,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299376,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 2,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328340
+            },
+            {
+              "round": 2,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1071,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328340,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 2,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 2,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328796
+            },
+            {
+              "round": 2,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328796,
+              "liveBytesAfter": 76328868
+            },
+            {
+              "round": 3,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299384,
+              "liveBytesAfter": 76325316
+            },
+            {
+              "round": 3,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 80,
+              "liveBytesBefore": 76325316,
+              "liveBytesAfter": 76328684
+            },
+            {
+              "round": 3,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328684,
+              "liveBytesAfter": 76328692
+            },
+            {
+              "round": 3,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328692,
+              "liveBytesAfter": 76328740
+            },
+            {
+              "round": 3,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328740,
+              "liveBytesAfter": 76328764
+            },
+            {
+              "round": 3,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328764,
+              "liveBytesAfter": 76328836
+            },
+            {
+              "round": 4,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299384,
+              "liveBytesAfter": 76325316
+            },
+            {
+              "round": 4,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 80,
+              "liveBytesBefore": 76325316,
+              "liveBytesAfter": 76328348
+            },
+            {
+              "round": 4,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1071,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328348,
+              "liveBytesAfter": 76328692
+            },
+            {
+              "round": 4,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328692,
+              "liveBytesAfter": 76328740
+            },
+            {
+              "round": 4,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328740,
+              "liveBytesAfter": 76328788
+            },
+            {
+              "round": 4,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1096,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328788,
+              "liveBytesAfter": 76328812
+            },
+            {
+              "round": 5,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299384,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 5,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 80,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328628
+            },
+            {
+              "round": 5,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328628,
+              "liveBytesAfter": 76328676
+            },
+            {
+              "round": 5,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328676,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 5,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 5,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328820
+            },
+            {
+              "round": 6,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 98,
+              "builds": 0,
+              "submitsPerFlight": 1041,
+              "completedFrames": 79,
+              "liveBytesBefore": 75299104,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 6,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 80,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328676
+            },
+            {
+              "round": 6,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1071,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328676,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 6,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 6,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328820
+            },
+            {
+              "round": 6,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1094,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328820,
+              "liveBytesAfter": 76328868
+            }
+          ],
+          "b": [
+            {
+              "round": 1,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299104,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 1,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 79,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328652
+            },
+            {
+              "round": 1,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1071,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328652,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 1,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 1,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328796
+            },
+            {
+              "round": 1,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1091,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328796,
+              "liveBytesAfter": 76328868
+            },
+            {
+              "round": 2,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 95,
+              "builds": 0,
+              "submitsPerFlight": 1022,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299384,
+              "liveBytesAfter": 76325564
+            },
+            {
+              "round": 2,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1085,
+              "completedFrames": 76,
+              "liveBytesBefore": 76325564,
+              "liveBytesAfter": 76328524
+            },
+            {
+              "round": 2,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1071,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328524,
+              "liveBytesAfter": 76328860
+            },
+            {
+              "round": 2,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1083,
+              "completedFrames": 78,
+              "liveBytesBefore": 76328860,
+              "liveBytesAfter": 76328860
+            },
+            {
+              "round": 2,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328860,
+              "liveBytesAfter": 76328908
+            },
+            {
+              "round": 2,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1080,
+              "completedFrames": 77,
+              "liveBytesBefore": 76328908,
+              "liveBytesAfter": 76328956
+            },
+            {
+              "round": 3,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299104,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 3,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328676
+            },
+            {
+              "round": 3,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1074,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328676,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 3,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 3,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328820
+            },
+            {
+              "round": 3,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1096,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328820,
+              "liveBytesAfter": 76328844
+            },
+            {
+              "round": 4,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299104,
+              "liveBytesAfter": 76325316
+            },
+            {
+              "round": 4,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76325316,
+              "liveBytesAfter": 76328684
+            },
+            {
+              "round": 4,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328684,
+              "liveBytesAfter": 76328692
+            },
+            {
+              "round": 4,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328692,
+              "liveBytesAfter": 76328740
+            },
+            {
+              "round": 4,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1111,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328740,
+              "liveBytesAfter": 76329892
+            },
+            {
+              "round": 4,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1094,
+              "completedFrames": 79,
+              "liveBytesBefore": 76329892,
+              "liveBytesAfter": 76329956
+            },
+            {
+              "round": 5,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299448,
+              "liveBytesAfter": 76325260
+            },
+            {
+              "round": 5,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 79,
+              "liveBytesBefore": 76325260,
+              "liveBytesAfter": 76328316
+            },
+            {
+              "round": 5,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1074,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328316,
+              "liveBytesAfter": 76328724
+            },
+            {
+              "round": 5,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1094,
+              "completedFrames": 80,
+              "liveBytesBefore": 76328724,
+              "liveBytesAfter": 76328772
+            },
+            {
+              "round": 5,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1095,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328772,
+              "liveBytesAfter": 76328820
+            },
+            {
+              "round": 5,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1096,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328820,
+              "liveBytesAfter": 76328844
+            },
+            {
+              "round": 6,
+              "flight": 1,
+              "warmed": false,
+              "direction": "zoom",
+              "readbacksPerFlight": 96,
+              "builds": 0,
+              "submitsPerFlight": 1021,
+              "completedFrames": 78,
+              "liveBytesBefore": 75299104,
+              "liveBytesAfter": 76325316
+            },
+            {
+              "round": 6,
+              "flight": 2,
+              "warmed": false,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1103,
+              "completedFrames": 79,
+              "liveBytesBefore": 76325316,
+              "liveBytesAfter": 76328684
+            },
+            {
+              "round": 6,
+              "flight": 3,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1092,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328684,
+              "liveBytesAfter": 76328692
+            },
+            {
+              "round": 6,
+              "flight": 4,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328692,
+              "liveBytesAfter": 76328740
+            },
+            {
+              "round": 6,
+              "flight": 5,
+              "warmed": true,
+              "direction": "zoom",
+              "readbacksPerFlight": 99,
+              "builds": 0,
+              "submitsPerFlight": 1100,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328740,
+              "liveBytesAfter": 76328764
+            },
+            {
+              "round": 6,
+              "flight": 6,
+              "warmed": true,
+              "direction": "reset",
+              "readbacksPerFlight": 97,
+              "builds": 0,
+              "submitsPerFlight": 1088,
+              "completedFrames": 79,
+              "liveBytesBefore": 76328764,
+              "liveBytesAfter": 76328836
+            }
+          ]
+        },
+        "medianWarmedReadbacksPerFlight": {
+          "a": {
+            "zoom": 99.0,
+            "reset": 97.0
+          },
+          "b": {
+            "zoom": 99.0,
+            "reset": 97.0
+          }
+        },
+        "errors": []
+      }
+    },
+    "lorenz": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 7.301,
+          "min": 7.05,
+          "max": 7.595,
+          "rounds": [
+            7.05,
+            7.346,
+            7.152,
+            7.595,
+            7.256,
+            7.458
+          ]
+        },
+        "candidate": {
+          "median": 7.4075,
+          "min": 7.006,
+          "max": 7.632,
+          "rounds": [
+            7.632,
+            7.297,
+            7.006,
+            7.545,
+            7.292,
+            7.518
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0065,
+          "min": -0.146,
+          "max": 0.582,
+          "rounds": [
+            0.582,
+            -0.049,
+            -0.146,
+            -0.05,
+            0.036,
+            0.06
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6003.3,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6001.8,
+            "builds": 0,
+            "liveMB": 134.4,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6002.6,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "liveMB": 135.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6002,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6002.7,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6004.2,
+            "builds": 0,
+            "liveMB": 138.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6003,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6002,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6001.6,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "liveMB": 135.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 180,
+            "frames": 180,
+            "windowMs": 6001.5,
+            "builds": 0,
+            "liveMB": 135.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 4.0495,
+          "min": 2.759,
+          "max": 4.188,
+          "rounds": [
+            4.063,
+            4.036,
+            4.07,
+            3.264,
+            2.759,
+            4.188
+          ]
+        },
+        "candidate": {
+          "median": 4.004,
+          "min": 3.788,
+          "max": 4.218,
+          "rounds": [
+            4.106,
+            4.218,
+            3.902,
+            3.892,
+            4.153,
+            3.788
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.1125,
+          "min": -0.4,
+          "max": 1.394,
+          "rounds": [
+            0.043,
+            0.182,
+            -0.168,
+            0.628,
+            1.394,
+            -0.4
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 29.988,
+          "min": 29.987,
+          "max": 29.997,
+          "rounds": [
+            29.988,
+            29.987,
+            29.997,
+            29.987,
+            29.988,
+            29.99
+          ]
+        },
+        "candidate": {
+          "median": 29.9875,
+          "min": 29.984,
+          "max": 29.993,
+          "rounds": [
+            29.992,
+            29.988,
+            29.987,
+            29.984,
+            29.987,
+            29.993
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": -0.01,
+          "max": 0.004,
+          "rounds": [
+            0.004,
+            0.001,
+            -0.01,
+            -0.003,
+            -0.001,
+            0.003
+          ]
+        }
+      }
+    },
+    "moving-particles": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 3.399,
+          "min": 3.256,
+          "max": 3.588,
+          "rounds": [
+            3.256,
+            3.316,
+            3.588,
+            3.381,
+            3.42,
+            3.417
+          ]
+        },
+        "candidate": {
+          "median": 3.4025,
+          "min": 3.274,
+          "max": 3.501,
+          "rounds": [
+            3.348,
+            3.5,
+            3.274,
+            3.283,
+            3.501,
+            3.457
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0605,
+          "min": -0.314,
+          "max": 0.184,
+          "rounds": [
+            0.092,
+            0.184,
+            -0.314,
+            -0.098,
+            0.081,
+            0.04
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002,
+            "builds": 0,
+            "liveMB": 73,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6003.3,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002.8,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002.3,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6001.1,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6001.8,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002,
+            "builds": 0,
+            "liveMB": 73,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002.8,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6003.1,
+            "builds": 0,
+            "liveMB": 73,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 0,
+            "frames": 180,
+            "windowMs": 6002.3,
+            "builds": 0,
+            "liveMB": 73.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 2.282,
+          "min": 2.086,
+          "max": 2.419,
+          "rounds": [
+            2.215,
+            2.278,
+            2.286,
+            2.419,
+            2.4,
+            2.086
+          ]
+        },
+        "candidate": {
+          "median": 2.2675,
+          "min": 2.017,
+          "max": 2.441,
+          "rounds": [
+            2.441,
+            2.082,
+            2.168,
+            2.367,
+            2.017,
+            2.432
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.085,
+          "min": -0.383,
+          "max": 0.346,
+          "rounds": [
+            0.226,
+            -0.196,
+            -0.118,
+            -0.052,
+            -0.383,
+            0.346
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 29.9865,
+          "min": 29.983,
+          "max": 29.988,
+          "rounds": [
+            29.988,
+            29.987,
+            29.983,
+            29.985,
+            29.986,
+            29.987
+          ]
+        },
+        "candidate": {
+          "median": 29.986,
+          "min": 29.981,
+          "max": 29.99,
+          "rounds": [
+            29.99,
+            29.981,
+            29.981,
+            29.986,
+            29.986,
+            29.987
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": -0.006,
+          "max": 0.002,
+          "rounds": [
+            0.002,
+            -0.006,
+            -0.002,
+            0.001,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    }
+  },
+  "snapshots": {
+    "a": {
+      "sourceManifestSHA256": "aa4967f3ba4030f599e2dbc70f419fff547156f45b00196e138c38ef397567aa",
+      "root": "<tmp>/hmplot-r18-deps-b",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "0a22214dec98c335ba4cb73ad507d91d6be31583d9c89bef4b5c23102038b098",
+          "files": 604
+        },
+        "sunburst-scene": {
+          "sha256": "0a22214dec98c335ba4cb73ad507d91d6be31583d9c89bef4b5c23102038b098",
+          "files": 604
+        }
+      },
+      "executedJavaScriptVerified": true
+    },
+    "b": {
+      "sourceManifestSHA256": "df1803635ec60be7142d2801010b10b79c7162f4c5e96d300e21f249173999ed",
+      "root": "<tmp>/hmplot-readability-core-b",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "dd5ac652c8d3d1eea93c93bc943ea728523866a06af723ccaa4514f8a92bec4f",
+          "files": 614
+        },
+        "sunburst-scene": {
+          "sha256": "dd5ac652c8d3d1eea93c93bc943ea728523866a06af723ccaa4514f8a92bec4f",
+          "files": 614
+        }
+      },
+      "executedJavaScriptVerified": true
+    }
+  },
+  "limitations": [
+    "The frozen candidate includes actual coordinate/data-view/expression-planner/Slice checking, category identity, explicit path scan planning, shared binary encoding, Bin edge preparation, clock typing, module cleanup and the shared Python node initializer. Subsequent column/cache annotations and interaction/tween/field formatting have byte-identical minified runtime; their hashes are retained below. The whole readability, performance and WebGL plans are not complete.",
+    "This comparison is a readability regression gate, not evidence of a performance optimization.",
+    "Large profiles/builds remain local; retained JSON contains round-level values and source fingerprints.",
+    "Python-scene Sunburst round 4 has a +1.9485 ms/frame CPU outlier. All rounds are retained; its cause is unassigned. Mixed paired variation limits confidence in very small effects; these results are a regression check, not proof of exact performance equivalence."
+  ],
+  "runtimeEquivalence": [
+    {
+      "path": "src/lib/plot/utils/columnReads.js",
+      "comparison": "identical",
+      "minifiedSHA256": "415fba14359eca5c8e946f87cc2e2652876c0d73a9cb0117c9640ccffd7d8410"
+    },
+    {
+      "path": "src/lib/plot/utils/gatherCache.js",
+      "comparison": "identical",
+      "minifiedSHA256": "3e6ae875830ca40440fb5fe3897af35528dab216f9cac5256290bff7b3675391"
+    },
+    {
+      "path": "src/lib/plot/utils/interaction.js",
+      "comparison": "identical",
+      "minifiedSHA256": "e5c61fafb1f961401d39a4db06101d2f19d29ebc8cfe1c183319fc53424ab3dd"
+    },
+    {
+      "path": "src/lib/plot/utils/tweenState.js",
+      "comparison": "identical",
+      "minifiedSHA256": "a62b30ba6d5f9547fb9e1a3a5c16ddb6dcf583bfe8afbf26b42d8714333ea9db"
+    },
+    {
+      "path": "src/lib/plot/utils/proputils.js",
+      "comparison": "identical",
+      "minifiedSHA256": "33deb85f277a971677b4dcf43c035202878d0c7d06f7f26c16155637888d76b3"
+    }
+  ],
+  "movingParticlePixelParity": {
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "method": "Same production snapshots; fixed initial time 0 under reduced motion; visible Minimum speed control updates; exported PNG pixel parity. Playback timing measured separately.",
+    "results": [
+      {
+        "condition": "a",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.81,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.15,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.85,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "b",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 44417
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.81,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 4327
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.15,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 64341
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.85,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 3180
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 44417
+        }
+      }
+    ]
+  },
+  "lorenzTeardown": [
+    {
+      "port": 5721,
+      "before": {
+        "compute": 44,
+        "render": 9,
+        "shaders": 60,
+        "buffers": 704,
+        "bufferBytes": 145063708,
+        "liveBytes": 145050092,
+        "readbacks": 427,
+        "readbackKinds": {
+          "jax": 0,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 427
+        },
+        "readbackMs": 426,
+        "renderKeys": 9,
+        "computeKeys": 44,
+        "submits": 13193,
+        "fences": 3422,
+        "fenceSources": {
+          "other": 3422
+        },
+        "builds": 0,
+        "time": 7708.800000011921
+      },
+      "samples": [
+        {
+          "compute": 48,
+          "render": 13,
+          "shaders": 70,
+          "buffers": 738,
+          "bufferBytes": 165068660,
+          "liveBytes": 49574200,
+          "readbacks": 431,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 431
+          },
+          "readbackMs": 431,
+          "renderKeys": 13,
+          "computeKeys": 48,
+          "submits": 13279,
+          "fences": 3453,
+          "fenceSources": {
+            "other": 3453
+          },
+          "builds": 0,
+          "time": 9776.800000011921
+        },
+        {
+          "compute": 48,
+          "render": 13,
+          "shaders": 70,
+          "buffers": 738,
+          "bufferBytes": 165068660,
+          "liveBytes": 49574200,
+          "readbacks": 431,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 431
+          },
+          "readbackMs": 431,
+          "renderKeys": 13,
+          "computeKeys": 48,
+          "submits": 13279,
+          "fences": 3453,
+          "fenceSources": {
+            "other": 3453
+          },
+          "builds": 0,
+          "time": 11779.200000017881
+        },
+        {
+          "compute": 48,
+          "render": 13,
+          "shaders": 70,
+          "buffers": 738,
+          "bufferBytes": 165068660,
+          "liveBytes": 49574200,
+          "readbacks": 431,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 431
+          },
+          "readbackMs": 431,
+          "renderKeys": 13,
+          "computeKeys": 48,
+          "submits": 13279,
+          "fences": 3453,
+          "fenceSources": {
+            "other": 3453
+          },
+          "builds": 0,
+          "time": 13781.5
+        }
+      ],
+      "kept": {
+        "sameDocument": true,
+        "gpuErrors": []
+      },
+      "errors": []
+    },
+    {
+      "port": 5723,
+      "before": {
+        "compute": 44,
+        "render": 9,
+        "shaders": 60,
+        "buffers": 681,
+        "bufferBytes": 139783660,
+        "liveBytes": 139770012,
+        "readbacks": 428,
+        "readbackKinds": {
+          "jax": 0,
+          "picking": 0,
+          "three": 0,
+          "app": 0,
+          "other": 428
+        },
+        "readbackMs": 427,
+        "renderKeys": 9,
+        "computeKeys": 44,
+        "submits": 13222,
+        "fences": 3430,
+        "fenceSources": {
+          "other": 3430
+        },
+        "builds": 0,
+        "time": 7678.9000000059605
+      },
+      "samples": [
+        {
+          "compute": 48,
+          "render": 13,
+          "shaders": 70,
+          "buffers": 715,
+          "bufferBytes": 159788612,
+          "liveBytes": 44774120,
+          "readbacks": 432,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 432
+          },
+          "readbackMs": 432,
+          "renderKeys": 13,
+          "computeKeys": 48,
+          "submits": 13308,
+          "fences": 3461,
+          "fenceSources": {
+            "other": 3461
+          },
+          "builds": 0,
+          "time": 9754.700000017881
+        },
+        {
+          "compute": 48,
+          "render": 13,
+          "shaders": 70,
+          "buffers": 715,
+          "bufferBytes": 159788612,
+          "liveBytes": 44774120,
+          "readbacks": 432,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 432
+          },
+          "readbackMs": 432,
+          "renderKeys": 13,
+          "computeKeys": 48,
+          "submits": 13308,
+          "fences": 3461,
+          "fenceSources": {
+            "other": 3461
+          },
+          "builds": 0,
+          "time": 11759.59999999404
+        },
+        {
+          "compute": 48,
+          "render": 13,
+          "shaders": 70,
+          "buffers": 715,
+          "bufferBytes": 159788612,
+          "liveBytes": 44774120,
+          "readbacks": 432,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 432
+          },
+          "readbackMs": 432,
+          "renderKeys": 13,
+          "computeKeys": 48,
+          "submits": 13308,
+          "fences": 3461,
+          "fenceSources": {
+            "other": 3461
+          },
+          "builds": 0,
+          "time": 13764.90000000596
+        }
+      ],
+      "kept": {
+        "sameDocument": true,
+        "gpuErrors": []
+      },
+      "errors": []
+    }
+  ],
+  "validation": {
+    "unit": "1377 / 1377; before final runtime-equivalent comments/formatting",
+    "strictAndSvelte": "0 errors / 0 warnings; 58 checked modules, 4/9 named core implementations",
+    "browser": "22 targeted DPR-2 rendering guards plus 8 targeted live export/template guards",
+    "leaks": "40 padded view, 14 Grid, 8 focused Slice and transform-order cleanup",
+    "python": "Both notebook and standalone bundles rebuilt; 204 core/template cases pass",
+    "api": "Current, no public API change; generated signatures match all 112 components",
+    "formatting": "Extended explicit format allowlist; runtime-equivalent formatting is distinct from contract refactoring"
+  },
+  "conclusion": "No consistent slowdown is established by these six paired rounds; zero warmed rebuilds/device errors and the retained pixel/teardown gates support these bounded readability changes. The outstanding core packages, larger performance optimizations and WebGL feasibility/delivery remain open."
+}

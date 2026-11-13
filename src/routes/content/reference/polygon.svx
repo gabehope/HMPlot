@@ -1,0 +1,13 @@
+## Usage
+
+Polygon fills polygons given as vertex rows: each group of `series` is a polygon, its rows its vertices in order, triangulated on the host with earcut. Inside Contour (bands), Voronoi or Hull, leave out `x` and `y`: it draws the triangles they make. `outlineColor` and `outlineWidth` outline the polygons' own edges.
+
+Each polygon's triangles carry its first row, so a column fills it, and hovering or selecting it takes the whole polygon. For holes and multipolygons, use GeoJSON.
+
+Polygon is a core primitive: import it from the package root. Chart templates such as DensityBands draw their filled shapes with it.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the polygons are vectors too, drawn back to front by depth (approximate where marks cross closely). A `fill` column of numbers or categories stays vector. See [what is not exported as vector](/docs/export).
+
+</Note>

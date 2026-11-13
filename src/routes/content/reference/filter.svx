@@ -1,0 +1,7 @@
+## Usage
+
+Retains source columns and observation identities in their original order. Supports eq, ne, lt, lte, gt, gte, in, and finite, as well as selection resources and virtual fields. Filtering reconnects retained line rows; category hiding instead leaves breaks.
+
+`where` also takes an expression with one value per row, which may use reductions: `where={greater("x", mean("x"))}` keeps the rows above the mean, and `where={logical_and(view.brushed, greater("x", mean("x")))}` keeps the brushed ones among them and re-runs as the brush changes. A condition that is a single value (a bare reduction) is an error.
+
+To let the viewer change a setting, read an input in it: `where={greater(col("x"), input("threshold"))}` (Python `where=hm.col.x > hm.input.threshold`), where `threshold` is a [Slider](slider).

@@ -1,0 +1,24 @@
+# How to cite HMPlot (R2.10). GitHub shows it as "Cite this repository". Add the Zenodo DOI once
+# archiving is on.
+cff-version: 1.2.0
+message: "If you use HMPlot in your work, please cite it as below."
+type: software
+title: HMPlot
+abstract: >-
+  Interactive charts, maps and 3D scenes drawn with WebGPU, from Svelte and from Python
+  notebooks: data, transforms and rendering share one GPU device.
+authors:
+  - family-names: Hope
+    given-names: Gabe
+version: 0.1.0-alpha.1
+date-released: "2026-11-13"
+license: MIT
+repository-code: "https://github.com/gabehope/HMPlot"
+url: "https://gabehope.github.io/HMPlot/"
+keywords:
+  - visualization
+  - plotting
+  - WebGPU
+  - Svelte
+  - Python
+  - Jupyter

@@ -1,0 +1,11 @@
+## Usage
+
+Without z bounds, renders XY rectangles with optional inside borders. Borders apply to flat rectangles; extruded boxes have no border stroke. Paired z0/z1 produces solid boxes in 3D. Reversed or nonfinite intervals are skipped. Orthographic polar rectangles require zero latitude and valid angular/radial intervals.
+
+On a Plot with `antialias="off"` or `"smaa"`, a 2D Rect computes its edges' coverage in its shader, so its edges stay smooth without MSAA, Rects side by side leave no seam, and a Rect thinner than a pixel still shows. A turned Rect on a log, sqrt or symlog axis, and a Rect in a polar or spherical frame, keep plain edges there.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** on a map whose seam crosses a rectangle more than once or whose latitude limit (Mercator) cuts it, extruded in a 3D view (`z0` and `z1` differ), or in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw the rectangles (in a 3D view all of that view's marks) as an image, and `mode="vector"` refuses it. Flat rectangles in other 3D views are vectors too, drawn back to front by depth (approximate where marks cross closely). A `fill` column of numbers or categories stays vector, in a polar frame too. See [what is not exported as vector](/docs/export).
+
+</Note>

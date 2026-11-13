@@ -1,0 +1,17 @@
+## Usage
+
+Import Arrows from `hmplot/charts` in Svelte; use `hm.charts.Arrows` in Python.
+
+Default width is 2px; head length 10px and head width 8px. Each row is one arrow from its start to its end: the shaft stops where the head begins, and the head ends at the end point. Heads follow the displayed endpoint tangent on curved paths. Zero-length arrows are omitted; short paths clamp head length.
+
+Arrows is a chart template over `Segments(cap="arrow")`, sharing its curves, filtering and interaction. Use Segments directly when you also need dashed shafts, a width scale or another cap style. Arrows keeps widths in CSS pixels, including width columns. Screen-sized arrows are unlit; use Arrows3D for lit solid geometry.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the arrows are vectors too, drawn back to front by depth (approximate where marks cross closely). A `color` column and a `curve` stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+### Connections
+
+With `connections={connect(before, after, {key})}` Arrows draw one screen-sized arrow per matched key from the earlier endpoint to the later one, as in the before/after gallery example. See [connect()](connect).

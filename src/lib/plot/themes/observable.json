@@ -1,0 +1,162 @@
+{
+  "name": "Observable",
+  "view": {
+    "background": "#ffffff"
+  },
+  "typography": {
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    "fontSize": 13,
+    "color": "#1b1e23"
+  },
+  "axes": {
+    "color": "#59636e",
+    "lineWidth": 0.75,
+    "tickSize": 4,
+    "grid": "off",
+    "fontSize": 13,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 8,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 4,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 400,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 13,
+    "textColor": "#1b1e23",
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    "position": "bottom",
+    "layout": "inline",
+    "swatchSize": 11,
+    "swatchShape": "auto",
+    "titleFontSize": 13,
+    "titleFontWeight": 400
+  },
+  "marks": {
+    "Line": {
+      "color": "#4269d0",
+      "width": 1.5
+    },
+    "Points": {
+      "fill": "#4269d0",
+      "size": 6,
+      "outlineWidth": 0,
+      "outlineColor": "#1b1e23",
+      "shape": "circle",
+      "opacity": 0.75
+    },
+    "Area": {
+      "fill": "#4269d0",
+      "opacity": 0.22
+    },
+    "ErrorBars": {
+      "color": "#59636e",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#1b1e23",
+      "size": 13
+    },
+    "Segments": {
+      "color": "#59636e",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#4269d0",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#4269d0",
+    "#efb118",
+    "#ff725c",
+    "#6cc5b0",
+    "#3ca951",
+    "#ff8ab7",
+    "#a463f2",
+    "#97bbf5",
+    "#9c6b4e",
+    "#9498a0"
+  ],
+  "vectorTile": {
+    "background": {
+      "fill": "#f7f7f7"
+    },
+    "land": {
+      "fill": "#eeeeef"
+    },
+    "green": {
+      "fill": "#bfe0c5"
+    },
+    "water": {
+      "fill": "#d3e2fb"
+    },
+    "waterways": {
+      "color": "#cbddfa",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#ddddde"
+    },
+    "other": {
+      "fill": "#d1d2d3",
+      "color": "#8d8f91",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fdfdfd",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#f6d480",
+      "width": 3
+    },
+    "railways": {
+      "color": "#a4a5a7",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#cda9f8",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#1b1e23",
+      "size": 13
+    }
+  },
+  "colormap": "Viridis",
+  "title": {
+    "align": "left",
+    "fontSize": 18,
+    "fontWeight": 600,
+    "subtitleFontSize": 13,
+    "captionFontSize": 11,
+    "spacing": 8
+  },
+  "controls": {
+    "fontSize": 13
+  }
+}

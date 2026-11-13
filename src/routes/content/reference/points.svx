@@ -1,0 +1,19 @@
+## Usage
+
+`size` is the point's diameter in CSS pixels, a literal one (the default is 6) as a column mapped through `sizeScale`'s range is; `sizeUnits="data"` makes it a width in x units. position is an alternative to x/y/z. shape is a symbol name for every point, a column mapped to symbols (shapeScale sets which ones), or one shape name per row; a column wins over a shape name spelled the same, so use literal("circle") to force the name. Symbol sizes remain stable during zoom. `fill="transparent"` draws a hollow point, its outline alone (`outlineColor`, `outlineWidth`), over whatever is behind it: a ring around a highlighted point. A color with an alpha is an error (colors are drawn opaque): use `opacity` for see-through points.
+
+`depthWrite` (`depth_write` in Python) defaults to true with normal blending. Set it to false to draw points without updating the depth buffer: later points can cover earlier, nearer points in a 3D view. Depth testing against other objects and nearest-point picking remain enabled. Additive, screen and other blend modes already disable depth writes. Flat 2D plots retain their usual declaration order.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, Points with `depthWrite=false`, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the points are vectors too, drawn back to front by depth (approximate where marks cross closely). A `fill` column (numbers through a colormap, or categories), shapes, sizes and outlines stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+## Python display shortcut
+
+An unparented Python mark with `data=` can be the output of a notebook cell. Display creates one implicit Plot with the ordinary defaults. Use an explicit Plot when you need multiple marks or camera settings.
+
+```python
+hm.Points(data=observations, x="length", y="width")
+```

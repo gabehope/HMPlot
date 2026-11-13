@@ -1,0 +1,9 @@
+## Usage
+
+Uses numerical surface values rather than GeoJSON polygon topology. Heatmap surfaceMode is the convenient choice when the same scalar data should also drive a colormap.
+
+<Note title="SVG and PDF export">
+
+**Image.** SVG and PDF exports draw a Surface as an image at the export's raster DPI, with all of its 3D view's marks, and `mode="vector"` refuses it. See [what is not exported as vector](/docs/export).
+
+</Note>

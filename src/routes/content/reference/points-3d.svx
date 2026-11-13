@@ -1,0 +1,13 @@
+## Usage
+
+Use a 3D Plot to see solid depth and optional lighting. Solid symbol shapes differ from the flat symbol choices on Points.
+
+Without a `fill`, the points take the theme's Points color. A sphere is an icosahedron divided `detail` times: 3 by default (320 triangles), round at the sizes a plot shows; with hundreds of thousands of points, a `detail` of 1 (80 triangles) draws faster. A cube is always flat.
+
+`depthWrite` (`depth_write` in Python) defaults to true with normal blending. False draws the visible points without updating the depth buffer, so later points can cover nearer ones. Depth testing against other objects and nearest-point picking remain enabled. Additive, screen and other blend modes already disable depth writes.
+
+<Note title="SVG and PDF export">
+
+**Image.** SVG and PDF exports draw Points3D as an image at the export's raster DPI, in a 2D view too (in a 3D view with all of that view's marks), and `mode="vector"` refuses it. See [what is not exported as vector](/docs/export).
+
+</Note>

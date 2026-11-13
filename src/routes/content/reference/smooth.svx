@@ -1,0 +1,9 @@
+## Usage
+
+This mark has no separate outline channel. Use `color` and `width` for its line stroke.
+
+Regression, then an Area for the band and a Line for the fit, as a Violin is a Density and an Area. `color` and `width` style the line, `fill` and `opacity` the band. Under `<Filter where="@brushed" inactive="all">` it fits the brushed rows, and all of them with no brush.
+
+Place under Plot or a Frame with the scatter it summarizes. Fix the axes' domains when the fit may be refitted to few rows: its band widens, and automatic domains would follow it.
+
+Smooth is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.

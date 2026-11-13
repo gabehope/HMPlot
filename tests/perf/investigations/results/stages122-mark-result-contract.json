@@ -1,0 +1,170 @@
+{
+  "generated_by": "Codex",
+  "date": "2026-10-11",
+  "stage": "122.16",
+  "scope": "Shared prepared-result types and checked prepareNamed producer; full strict Svelte producer/consumer migration remains open.",
+  "changes": [
+    "NamedPreparedResult is the explicit strict prepareNamed return type.",
+    "PreparedMark adds optional publication, membership, opacity, domain and live-write state without runtime defaults.",
+    "Planner/domain/feedback/endpoint projections share the result record.",
+    "namedMark target/display/publication annotations prepare its future strict migration; its JavaScript script is not strictly checked.",
+    "ChannelResult preserves optional descriptions supported by custom expression evaluators."
+  ],
+  "runtime_proof": {
+    "baseline": "a4f6533adb1af28034fd2ec375143ebeec697be2",
+    "method": "Production Svelte compile, then esbuild with minifySyntax/minifyWhitespace and erased types/comments; identifier minification disabled to exclude TS symbol-allocation differences.",
+    "toolVersions": {
+      "svelte": "5.54.0",
+      "esbuild": "0.25.12"
+    },
+    "files": [
+      {
+        "file": "src/lib/plot/utils/internalTypes.ts",
+        "sourceSHA256": [
+          "6d9ad06d45805db8b15d81f054e707d2dc5528de8a59841a934c066d1761ed28",
+          "ef6768f465c4aeceb95611f4f164a77bb990beb84617a24e27ae4ffc9b456400"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/markPlanTypes.ts",
+        "sourceSHA256": [
+          "098b2abc1cbeeced656e0a9f5514aec583b3efe11e489401cd9ecb33b7bb31a4",
+          "d33de825ba69d0c69c594b6bdcf60c19b56934753cc7ecf892787cd1c97f3b72"
+        ],
+        "executableSHA256": [
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/markUpdatePlan.js",
+        "sourceSHA256": [
+          "df5d75daffb7733823007fa22c339e5d26bbd3241948d894e7350a79a7300385",
+          "adb782936690c1d539d8cf72125b4067897588f6ecebf2dd394636339478eae3"
+        ],
+        "executableSHA256": [
+          "31464c28f290875995da575f506b5be9fcb571aac0cd018dd62f6ba03d06cd83",
+          "31464c28f290875995da575f506b5be9fcb571aac0cd018dd62f6ba03d06cd83"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/namedData.js",
+        "sourceSHA256": [
+          "f41119e8cbfc62192a24df279dce00597b2f1142aa026592c5aced46d87dd13d",
+          "76252b0ae38e9cebb7f9bd1e88f05f2970553b9852d7aae27ea8467963db8c24"
+        ],
+        "executableSHA256": [
+          "797f3e44f4be50b299e7f2a78e2349b623fec4679f3c026d88efd62d6ed44459",
+          "797f3e44f4be50b299e7f2a78e2349b623fec4679f3c026d88efd62d6ed44459"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/feedbackOpacity.js",
+        "sourceSHA256": [
+          "3a617ee0510ea31da2499efdfbd5e88c5c6d42257509b259603b40c59065a870",
+          "59317cebf050bd2cadb1ab44583ad284aec5734c4309c8bd9b70504f1d41b6be"
+        ],
+        "executableSHA256": [
+          "5908b162c417531b82abec3ffc99445c5550a2db2ca56f0c37099f6d53e09e8a",
+          "5908b162c417531b82abec3ffc99445c5550a2db2ca56f0c37099f6d53e09e8a"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/markDomainPublisher.js",
+        "sourceSHA256": [
+          "2e6826adde7404bb1978ce4aaa68ea30ad468ae067de3aed6255a82918d71e47",
+          "bbaf5d6f810d1f8d9de2613b784db50b9175b2d60f4f6ad36e5c66102ead5191"
+        ],
+        "executableSHA256": [
+          "2d11961b8525a280155022b1953a02247d5c88249b102a74d5690061ff2c8629",
+          "2d11961b8525a280155022b1953a02247d5c88249b102a74d5690061ff2c8629"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/endpointController.js",
+        "sourceSHA256": [
+          "5967e3a8f298b98f7b8860430f542bb3e7a21e0b6ffa9f84de8fd2e1f1defec6",
+          "2b814805a1b899a43d825acbb4c89792abd8e33e5d987c4329822533938627ee"
+        ],
+        "executableSHA256": [
+          "dec6aff2559d93d2333b87e52ecffe19993b86628f79a240830c3eae809087a3",
+          "dec6aff2559d93d2333b87e52ecffe19993b86628f79a240830c3eae809087a3"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/displayedFrames.ts",
+        "sourceSHA256": [
+          "d0cbd23cd85692d62b6b9b1c6c5146f43dfeb33db37ccb9cab2dea2b9b0f4ed1",
+          "4c9ea4a99cc80a61a78447b6ec297e888dd2dab08582df542768fbc13f156554"
+        ],
+        "executableSHA256": [
+          "ee80114b5550684d004883c6113985f4667e694e239e0759dbf51e0a04e52b9e",
+          "ee80114b5550684d004883c6113985f4667e694e239e0759dbf51e0a04e52b9e"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/bound/namedMark.svelte",
+        "sourceSHA256": [
+          "6253fa2c3be71ec3c3767efbb2a8884f6bb3d21942eb639177692440a973268b",
+          "bd248ce4a97227859b611860403bdf4103be1526ebdcacff57a63ac9323a9d2f"
+        ],
+        "executableSHA256": [
+          "c033a9001e04eefcbf61dc72aea9ec5c153016ec5525282405804fcc511f7f1d",
+          "c033a9001e04eefcbf61dc72aea9ec5c153016ec5525282405804fcc511f7f1d"
+        ],
+        "identical": true
+      }
+    ]
+  },
+  "validation": {
+    "unit_tests": {
+      "command": "npm test",
+      "passed": 1385,
+      "failed": 0,
+      "scope": "Full suite before the isolated test-fixture cleanup; all affected cases then pass on the final tree under the leak harness."
+    },
+    "strict_and_svelte": {
+      "command": "npm run check",
+      "errors": 0,
+      "warnings": 0
+    },
+    "focused_leak_tests": {
+      "command": "LEAK_CHECK=1 node --import ./tests/unit/helpers/leakHarness.js --test tests/unit/mark-update-plan.test.js tests/unit/named-data.test.js tests/unit/view-state.test.js tests/unit/view-services.test.js tests/unit/settle.test.js",
+      "passed": 60,
+      "failed": 0
+    },
+    "format_check": "passed",
+    "python_signatures": {
+      "passed": true,
+      "components": 112
+    },
+    "api_check": "passed; no public API change",
+    "installed_package_smoke": "passed: types, SSR, production rendering, settings, fonts, remounts and JAX inputs"
+  },
+  "fixture_cleanup": {
+    "commit": "5faa2e42",
+    "test": "names in a column's place: col, input and view, and their strings",
+    "baseline_snapshot": "<tmp>/hmplot-mark-events-events-only",
+    "baseline_reproduced": true,
+    "failure": "The test read an evaluator result without disposing it and did not dispose its scope.",
+    "fix": "Release both successful evaluator results and the scope in finally blocks. Assertions unchanged; no production ownership changes."
+  },
+  "limitations": [
+    "Executable comparison uses production Svelte compilation plus esbuild type/comment erasure, with identifier minification disabled to exclude TypeScript-only symbol-allocation effects.",
+    "This is a code-equivalence proof, not a new performance measurement or a claim of identical readback/flight counts.",
+    "Full strict Svelte request/action/result checking is still pending; checked records and helpers do not complete Stage 122.16.",
+    "No new generated public API inputs, worker/assets, props or node capabilities."
+  ]
+}

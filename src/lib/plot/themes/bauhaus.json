@@ -1,0 +1,142 @@
+{
+  "name": "Bauhaus",
+  "view": {
+    "background": "#f3ede0"
+  },
+  "typography": {
+    "fontFamily": "Futura, \"Century Gothic\", \"Avenir Next\", sans-serif",
+    "fontSize": 14,
+    "color": "#111111"
+  },
+  "axes": {
+    "color": "#111111",
+    "lineWidth": 2.5,
+    "tickSize": 6,
+    "grid": "off",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 700,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#111111",
+    "fontFamily": "Futura, \"Century Gothic\", \"Avenir Next\", sans-serif"
+  },
+  "marks": {
+    "Line": {
+      "color": "#111111",
+      "width": 3.5
+    },
+    "Points": {
+      "fill": "#d7261e",
+      "size": 11,
+      "outlineColor": "#ffffff",
+      "outlineWidth": 0,
+      "shape": "square"
+    },
+    "Area": {
+      "fill": "#1d4e9e",
+      "opacity": 0.85
+    },
+    "ErrorBars": {
+      "color": "#111111",
+      "width": 1,
+      "capSize": 5
+    },
+    "Text": {
+      "color": "#111111",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#111111",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#d7261e",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#d7261e",
+    "#1d4e9e",
+    "#f5c518",
+    "#111111",
+    "#e8722a",
+    "#2a8c7a",
+    "#8a8a8a",
+    "#7a3b8f"
+  ],
+  "colormap": "Viridis",
+  "vectorTile": {
+    "background": {
+      "fill": "#ebe5d9"
+    },
+    "land": {
+      "fill": "#e2ddd0"
+    },
+    "green": {
+      "fill": "#c1d1b2"
+    },
+    "water": {
+      "fill": "#99aac4"
+    },
+    "waterways": {
+      "color": "#889ebf",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#d1ccc1"
+    },
+    "other": {
+      "fill": "#c6c1b7",
+      "color": "#827f79",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#f9f7f4",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#f4d772",
+      "width": 3
+    },
+    "railways": {
+      "color": "#99958d",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#b08bb3",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#111111",
+      "size": 13
+    }
+  }
+}

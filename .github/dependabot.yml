@@ -1,0 +1,21 @@
+# Dependency updates (R2.3). Pyodide, three and the jax-js fork stay pinned: their updates are
+# deliberate, with the full browser suite on a real GPU.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: three
+      - dependency-name: "@types/three"
+      - dependency-name: pyodide
+      - dependency-name: "@hmplot/jax"
+  - package-ecosystem: pip
+    directory: /python
+    schedule:
+      interval: weekly

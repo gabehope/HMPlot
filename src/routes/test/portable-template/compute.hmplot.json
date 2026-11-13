@@ -1,0 +1,93 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "template": {
+    "version": 1,
+    "parameters": {
+      "scale": {
+        "default": 1
+      }
+    },
+    "slot": null
+  },
+  "root": {
+    "id": "0c2dc0fa60734a2f8aa8ca241ecd587e-template-1",
+    "kind": "Template",
+    "props": {},
+    "events": [],
+    "children": [
+      {
+        "id": "0c2dc0fa60734a2f8aa8ca241ecd587e-template-3",
+        "kind": "Template",
+        "props": {},
+        "events": [],
+        "children": [
+          {
+            "id": "0c2dc0fa60734a2f8aa8ca241ecd587e-calculate-7",
+            "kind": "Calculate",
+            "props": {
+              "columns": {
+                "computed": {
+                  "$expression": {
+                    "op": "multiply",
+                    "args": [
+                      {
+                        "$expression": {
+                          "op": "column",
+                          "args": [
+                            "value"
+                          ]
+                        }
+                      },
+                      {
+                        "$param": "scale"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "events": [],
+            "children": [
+              {
+                "id": "0c2dc0fa60734a2f8aa8ca241ecd587e-simulate-9",
+                "kind": "Simulate",
+                "props": {
+                  "initial": {
+                    "position": "day"
+                  },
+                  "update": {
+                    "position": {
+                      "$expression": {
+                        "op": "column",
+                        "args": [
+                          "@prev:position"
+                        ]
+                      }
+                    }
+                  },
+                  "running": false
+                },
+                "events": [],
+                "children": [
+                  {
+                    "id": "0c2dc0fa60734a2f8aa8ca241ecd587e-points-11",
+                    "kind": "Points",
+                    "props": {
+                      "x": "position",
+                      "y": "computed",
+                      "fill": "#904fb3",
+                      "size": 9
+                    },
+                    "events": [],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

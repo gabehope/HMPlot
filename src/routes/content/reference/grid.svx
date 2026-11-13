@@ -1,0 +1,3 @@
+## Usage
+
+Python's hm.Grid(columns=2) is a layout grid, beside Row and Column; the scene adapter names that node LayoutGrid. Interpolation is Interpolate. Svelte uses CSS grid.

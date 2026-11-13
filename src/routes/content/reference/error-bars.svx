@@ -1,0 +1,13 @@
+## Usage
+
+This mark has no separate outline channel. Use `color` and `width` for its line stroke.
+
+Bars run along y (orientation="horizontal": along x) and caps default to 6px. lower and upper are absolute coordinates, not distances from the observation; a bar whose upper is below its lower, or with a bound missing, is not drawn and does not widen the axis. Each complete bar retains its source identity. Supports Cartesian 2D/3D, polar frames and 2D maps.
+
+ErrorBars is a built-in template over [Segments](/reference/svelte/segments) with bar caps: import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the error bars are vectors too, drawn back to front by depth (approximate where marks cross closely). A `color` column of numbers or categories stays vector. See [what is not exported as vector](/docs/export).
+
+</Note>

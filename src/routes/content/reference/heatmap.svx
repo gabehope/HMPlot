@@ -1,0 +1,19 @@
+## Usage
+
+fill accepts a shaped tensor or a named shaped column. surfaceMode and zScale control numeric relief; texture resolution is independent of mesh detail. Child marks paint an interactive texture.
+
+A plain 2-D array places its cells on their indices: the cell in row i and column j is centered at x = j and y = i, row 0 at the bottom, so a 4 x 4 matrix's axes span -0.5 to 3.5 with no padding, and its cells stay there beside other marks. The axis's domain, set on the Plot or Frame, or `xbounds`/`ybounds` place the grid over another extent instead, and a Plot that fits no domains (`autoBounds={false}`, a JavaScript Plot without data) keeps its default one.
+
+For a labeled matrix, pass categorical position scales on the Plot: `x={"scale": hm.categorical(domain=column_labels)}` and `y={"scale": hm.categorical(domain=row_labels)}` in Python. The labels name the matrix indices in that order; categorical y puts row 0 at the top, and `invert=True` reverses it. Axis labels reserve their own margins, unlike manually positioned Text marks near the canvas edge.
+
+For ordered or clustered genes, see the [ordered gene heatmap recipe](/recipes.md#ordered-gene-heatmap-with-a-condition-strip). Supply a leaf order or compute one with SciPy before plotting; index both the matrix rows and gene labels with the same order, leaving the original matrix unchanged. The recipe includes a diverging colorbar, a column condition strip and its legend, with room for 40 gene labels.
+
+`pixelated` draws each cell as a flat square of its value. Unset, a 2-D array of at most 64 cells along each side draws sharp cells, and a finer one (a sampled field) and a grid table's field blend neighboring cells smoothly; surfaceMode, contours and a 3D plot's relief, which read the field between cell centres, blend unless `pixelated` is set. `pixelated={false}` blends a small grid; `pixelated` sharpens a large one.
+
+Over a grid table (a `gridTable()`, a Grid's or a 2-D Density's output; see Data, "Grid tables"), `fill` names a variable and the Heatmap draws the grid's last two dimensions, or the ones `x` and `y` name, placed by their coordinates: uneven, descending and wrapped coordinates in every mode, a curvilinear grid on its own cells. Missing values and cells a Filter hides draw nothing. Slice away any other dimension first.
+
+<Note title="SVG and PDF export">
+
+**Image.** SVG and PDF exports draw a Heatmap, with any marks drawn into it, as an image at the export's raster DPI (in a 3D view with all of that view's marks), and `mode="vector"` refuses it. See [what is not exported as vector](/docs/export).
+
+</Note>

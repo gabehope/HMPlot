@@ -1,0 +1,20 @@
+# Complex tasks (2026-10-13): ten charts with more data, interaction and animation than the full
+# eval's, to find what else HMPlot gets wrong (tasks/complex). HMPlot with its docs and skill
+# only, Opus-reviewed; add "free" to the libraries for a baseline.
+[benchmark]
+sources = ["complex"]
+repetitions = 1
+corrections = 1
+
+[agents.codex]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6.1-sol"
+
+[judge]
+backend = "claude"
+binary = "${CLAUDE_BIN}"
+model = "claude-opus-5-5"
+
+[tracks.python]
+libraries = ["hmplot"]

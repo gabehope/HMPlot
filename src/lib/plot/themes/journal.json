@@ -1,0 +1,159 @@
+{
+  "name": "Journal",
+  "view": {
+    "background": "#ffffff"
+  },
+  "typography": {
+    "fontFamily": "Arial, Helvetica, sans-serif",
+    "fontSize": 14,
+    "color": "#000000"
+  },
+  "axes": {
+    "color": "#000000",
+    "lineWidth": 0.8,
+    "tickSize": 4,
+    "grid": "off",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 9,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 4,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "inside",
+    "titleFontWeight": 400,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": true,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 13,
+    "textColor": "#000000",
+    "fontFamily": "Arial, Helvetica, sans-serif",
+    "position": "right",
+    "layout": "stacked",
+    "swatchSize": 10,
+    "swatchShape": "auto",
+    "titleFontSize": 13,
+    "titleFontWeight": 500
+  },
+  "marks": {
+    "Line": {
+      "color": "#000000",
+      "width": 1
+    },
+    "Points": {
+      "fill": "transparent",
+      "size": 7,
+      "outlineColor": "#333333",
+      "outlineWidth": 1.25,
+      "shape": "circle"
+    },
+    "Area": {
+      "fill": "#3b4992",
+      "opacity": 0.18
+    },
+    "ErrorBars": {
+      "color": "#000000",
+      "width": 1,
+      "capSize": 5
+    },
+    "Text": {
+      "color": "#000000",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#4d4d4d",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#000000",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#3b4992",
+    "#ee0000",
+    "#008b45",
+    "#631879",
+    "#008280",
+    "#bb0021",
+    "#5f559b",
+    "#a20056"
+  ],
+  "colormap": "Cividis",
+  "vectorTile": {
+    "background": {
+      "fill": "#f6f6f6"
+    },
+    "land": {
+      "fill": "#ececec"
+    },
+    "green": {
+      "fill": "#acd6c1"
+    },
+    "water": {
+      "fill": "#adb3d1"
+    },
+    "waterways": {
+      "color": "#9da4c9",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#d9d9d9"
+    },
+    "other": {
+      "fill": "#cccccc",
+      "color": "#808080",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fcfcfc",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#f67373",
+      "width": 3
+    },
+    "railways": {
+      "color": "#999999",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#a980b5",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#000000",
+      "size": 13
+    }
+  },
+  "title": {
+    "align": "center",
+    "fontSize": 18,
+    "fontWeight": 500,
+    "subtitleFontSize": 13,
+    "captionFontSize": 12,
+    "spacing": 10
+  },
+  "controls": {
+    "fontSize": 14
+  }
+}

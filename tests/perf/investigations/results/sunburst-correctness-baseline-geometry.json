@@ -1,0 +1,4977 @@
+{
+  "label": "correctness-baseline-geometry",
+  "route": "/test/gallery-example?id=sunburst",
+  "instrument": false,
+  "browser": "154.0.8037.98",
+  "summarySHA256": "0582461b40ae76d08d2b1570bb8d6a0390c2e43fe3f27e7058496f6775e3a45e",
+  "sourceFingerprint": {
+    "sha256": "af3dce9a958ad64a7d7919b6514ff3ffd089fc06856f1e09669e48756c5158cc",
+    "files": 560
+  },
+  "sourceMapFingerprints": {},
+  "limitations": [
+    "CPU samples and CPU conservative pending deadlines do not measure GPU execution or GPU row start times.",
+    "Async read waits overlap; their sums are not a critical-path total. Callers lost across async boundaries stay unresolved.",
+    "Historical diagnostic runs without sourceFingerprint must not be assigned later snapshot hashes.",
+    "The historical a3667d1d baseline lacks mark lifecycle fades; comparisons with it are behavior-confounded. A later correctness baseline must retain the same fade targets and durations."
+  ],
+  "flights": [
+    {
+      "flight": 1,
+      "direction": "zoom",
+      "wallMs": 1541.1,
+      "completedFrames": 47,
+      "frameP50": 16.9,
+      "frameP95": 74.7,
+      "maxGap": 251.5,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 0,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 0,
+          "duration": 0,
+          "deadline": 0,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 62.7,
+          "lastWallMs": 828.4,
+          "firstClockTime": 0,
+          "lastClockTime": 618.8,
+          "deadlineResets": 0,
+          "initialDeadline": 0
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 62.7,
+          "lastWallMs": 828.4,
+          "firstClockTime": 0,
+          "lastClockTime": 618.8,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 117.9,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 0,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 10,
+          "initialDeadline": 650
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 117.9,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 0,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 10,
+          "initialDeadline": 650
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 144.4,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 0,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 10,
+          "initialDeadline": 650
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 160.9,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 0,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 10,
+          "initialDeadline": 650
+        },
+        {
+          "id": 7,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 895.1,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 685.2,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 0,
+          "initialDeadline": 1335.2
+        },
+        {
+          "id": 8,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 895.1,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 685.2,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 0,
+          "initialDeadline": 1335.2
+        },
+        {
+          "id": 9,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 895.1,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 685.2,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 0,
+          "initialDeadline": 1335.2
+        },
+        {
+          "id": 10,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 911.6,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 685.2,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 0,
+          "initialDeadline": 1335.2
+        },
+        {
+          "id": 11,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 911.6,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 685.2,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 0,
+          "initialDeadline": 1335.2
+        },
+        {
+          "id": 12,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 685.2000000119206,
+          "duration": 650,
+          "deadline": 1335.2000000119206,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 911.6,
+          "lastWallMs": 1462.1,
+          "firstClockTime": 685.2,
+          "lastClockTime": 1283.3,
+          "deadlineResets": 0,
+          "initialDeadline": 1335.2
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 251.5,
+          "frame": 6,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 324.5,
+          "frame": 7,
+          "xbounds": [
+            0,
+            184.06329345703125
+          ],
+          "ybounds": [
+            -0.1597224521636963,
+            4.152783756256103
+          ]
+        },
+        {
+          "wallMs": 393.19999998807907,
+          "frame": 8,
+          "xbounds": [
+            0,
+            178.0262908935547
+          ],
+          "ybounds": [
+            -0.1579337215423584,
+            4.106276760101318
+          ]
+        },
+        {
+          "wallMs": 459.7999999821186,
+          "frame": 9,
+          "xbounds": [
+            0,
+            164.205078125
+          ],
+          "ybounds": [
+            -0.15383853912353515,
+            3.999802017211914
+          ]
+        },
+        {
+          "wallMs": 525.7999999821186,
+          "frame": 10,
+          "xbounds": [
+            0,
+            138.80735778808594
+          ],
+          "ybounds": [
+            -0.1463132953643799,
+            3.804145679473877
+          ]
+        },
+        {
+          "wallMs": 602.5,
+          "frame": 11,
+          "xbounds": [
+            0,
+            101.87881469726562
+          ],
+          "ybounds": [
+            -0.13537150382995605,
+            3.5196590995788575
+          ]
+        },
+        {
+          "wallMs": 659.3999999761581,
+          "frame": 12,
+          "xbounds": [
+            0,
+            74.14328002929688
+          ],
+          "ybounds": [
+            -0.12715356826782226,
+            3.305992774963379
+          ]
+        },
+        {
+          "wallMs": 728.2999999821186,
+          "frame": 13,
+          "xbounds": [
+            0,
+            58.78485870361328
+          ],
+          "ybounds": [
+            -0.12260292053222656,
+            3.1876759338378906
+          ]
+        },
+        {
+          "wallMs": 803,
+          "frame": 14,
+          "xbounds": [
+            0,
+            51.79460525512695
+          ],
+          "ybounds": [
+            -0.12053173065185548,
+            3.1338249969482423
+          ]
+        },
+        {
+          "wallMs": 857.3999999761581,
+          "frame": 15,
+          "xbounds": [
+            0,
+            50.059730529785156
+          ],
+          "ybounds": [
+            -0.12001770019531251,
+            3.120460205078125
+          ]
+        },
+        {
+          "wallMs": 929.5999999940395,
+          "frame": 16,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 945.2999999821186,
+          "frame": 17,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 961.5,
+          "frame": 18,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 978.1999999880791,
+          "frame": 19,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 994.7999999821186,
+          "frame": 20,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1011.8999999761581,
+          "frame": 21,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1028.5999999940395,
+          "frame": 22,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1044.8999999761581,
+          "frame": 23,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1061.8999999761581,
+          "frame": 24,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1078.699999988079,
+          "frame": 25,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1096.3999999761581,
+          "frame": 26,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1112.5,
+          "frame": 27,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1129.2999999821186,
+          "frame": 28,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1145.5999999940395,
+          "frame": 29,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1162.2999999821186,
+          "frame": 30,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1179.199999988079,
+          "frame": 31,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1195.8999999761581,
+          "frame": 32,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1212.5,
+          "frame": 33,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1228.7999999821186,
+          "frame": 34,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1245.699999988079,
+          "frame": 35,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1262.199999988079,
+          "frame": 36,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1278.699999988079,
+          "frame": 37,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1295.699999988079,
+          "frame": 38,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1312.199999988079,
+          "frame": 39,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1329.0999999940395,
+          "frame": 40,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1345,
+          "frame": 41,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1361.699999988079,
+          "frame": 42,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1377.8999999761581,
+          "frame": 43,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1394.7999999821186,
+          "frame": 44,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1412,
+          "frame": 45,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1428.0999999940395,
+          "frame": 46,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1445.199999988079,
+          "frame": 47,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1462.199999988079,
+          "frame": 48,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1478.0999999940395,
+          "frame": 49,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1495,
+          "frame": 50,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1511.5999999940395,
+          "frame": 51,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1538.8999999761581,
+          "frame": 52,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 2,
+      "direction": "reset",
+      "wallMs": 1435.8,
+      "completedFrames": 47,
+      "frameP50": 16.8,
+      "frameP95": 85.3,
+      "maxGap": 155,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 1349.8999999999996,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 1349.8999999999996,
+          "duration": 0,
+          "deadline": 1349.8999999999996,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 36.6,
+          "lastWallMs": 707.3,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 1935,
+          "deadlineResets": 0,
+          "initialDeadline": 1349.9
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1349.8999999999996,
+          "duration": 650,
+          "deadline": 1999.8999999999996,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 36.6,
+          "lastWallMs": 707.3,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 1935,
+          "deadlineResets": 0,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 1349.8999999999996,
+          "duration": 650,
+          "deadline": 1999.8999999999996,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 45,
+          "lastWallMs": 64.7,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 1349.9,
+          "deadlineResets": 0,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 1349.8999999999996,
+          "duration": 650,
+          "deadline": 1999.8999999999996,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 45,
+          "lastWallMs": 64.7,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 1349.9,
+          "deadlineResets": 0,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 1349.8999999999996,
+          "duration": 650,
+          "deadline": 1999.8999999999996,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 45,
+          "lastWallMs": 64.7,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 1349.9,
+          "deadlineResets": 0,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 45,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 9,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 7,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 45,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 9,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 8,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 45,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 9,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 9,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 64.7,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 1349.9,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 9,
+          "initialDeadline": 1999.9
+        },
+        {
+          "id": 10,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 763.8,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 2002.5,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 0,
+          "initialDeadline": 2652.5
+        },
+        {
+          "id": 11,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 763.8,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 2002.5,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 0,
+          "initialDeadline": 2652.5
+        },
+        {
+          "id": 12,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 2002.50000000596,
+          "duration": 650,
+          "deadline": 2652.50000000596,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 763.8,
+          "lastWallMs": 1325.4,
+          "firstClockTime": 2002.5,
+          "lastClockTime": 2583.2,
+          "deadlineResets": 0,
+          "initialDeadline": 2652.5
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 155,
+          "frame": 53,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 240.30000001192093,
+          "frame": 54,
+          "xbounds": [
+            0,
+            50.637550354003906
+          ],
+          "ybounds": [
+            -0.12018890380859375,
+            3.1249114990234377
+          ]
+        },
+        {
+          "wallMs": 310.40000000596046,
+          "frame": 55,
+          "xbounds": [
+            0,
+            57.01492691040039
+          ],
+          "ybounds": [
+            -0.12207849502563477,
+            3.174040870666504
+          ]
+        },
+        {
+          "wallMs": 409.5,
+          "frame": 56,
+          "xbounds": [
+            0,
+            70.76653289794922
+          ],
+          "ybounds": [
+            -0.12615303993225097,
+            3.279979038238525
+          ]
+        },
+        {
+          "wallMs": 472.60000002384186,
+          "frame": 57,
+          "xbounds": [
+            0,
+            104.59099578857422
+          ],
+          "ybounds": [
+            -0.13617510795593263,
+            3.5405528068542482
+          ]
+        },
+        {
+          "wallMs": 538.1000000238419,
+          "frame": 58,
+          "xbounds": [
+            0,
+            148.86135864257812
+          ],
+          "ybounds": [
+            -0.14929224967956542,
+            3.881598491668701
+          ]
+        },
+        {
+          "wallMs": 605.7000000178814,
+          "frame": 59,
+          "xbounds": [
+            0,
+            169.759765625
+          ],
+          "ybounds": [
+            -0.1554843807220459,
+            4.042593898773194
+          ]
+        },
+        {
+          "wallMs": 671.2000000178814,
+          "frame": 60,
+          "xbounds": [
+            0,
+            180.56939697265625
+          ],
+          "ybounds": [
+            -0.15868722915649414,
+            4.125867958068848
+          ]
+        },
+        {
+          "wallMs": 740.2000000178814,
+          "frame": 61,
+          "xbounds": [
+            0,
+            184.4624786376953
+          ],
+          "ybounds": [
+            -0.15984073638916016,
+            4.155859146118164
+          ]
+        },
+        {
+          "wallMs": 792.1000000238419,
+          "frame": 62,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 808.5,
+          "frame": 63,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 825,
+          "frame": 64,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 841.7000000178814,
+          "frame": 65,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 858.3000000119209,
+          "frame": 66,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 875,
+          "frame": 67,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 891.6000000238419,
+          "frame": 68,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 908.2000000178814,
+          "frame": 69,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 925,
+          "frame": 70,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 941.2000000178814,
+          "frame": 71,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 958.4000000059605,
+          "frame": 72,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 974.1000000238419,
+          "frame": 73,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 991.9000000059605,
+          "frame": 74,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1007.9000000059605,
+          "frame": 75,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1024.5,
+          "frame": 76,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1041.1000000238419,
+          "frame": 77,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1057.9000000059605,
+          "frame": 78,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1075,
+          "frame": 79,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1091.2000000178814,
+          "frame": 80,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1108.300000011921,
+          "frame": 81,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1124.800000011921,
+          "frame": 82,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1141.300000011921,
+          "frame": 83,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1158.4000000059605,
+          "frame": 84,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1174.7000000178814,
+          "frame": 85,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1191.5,
+          "frame": 86,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1208,
+          "frame": 87,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1225.1000000238419,
+          "frame": 88,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1241.1000000238419,
+          "frame": 89,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1259.300000011921,
+          "frame": 90,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1274.5,
+          "frame": 91,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1292.800000011921,
+          "frame": 92,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1309.1000000238419,
+          "frame": 93,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1325.5,
+          "frame": 94,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1341.6000000238419,
+          "frame": 95,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1358.7000000178814,
+          "frame": 96,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1374.800000011921,
+          "frame": 97,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1391.6000000238419,
+          "frame": 98,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1433.9000000059605,
+          "frame": 99,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 3,
+      "direction": "zoom",
+      "wallMs": 1457.3,
+      "completedFrames": 48,
+      "frameP50": 16.8,
+      "frameP95": 83.1,
+      "maxGap": 142.9,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 2666.499999999999,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 2666.499999999999,
+          "duration": 0,
+          "deadline": 2666.499999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 37.9,
+          "lastWallMs": 751.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3284.6,
+          "deadlineResets": 0,
+          "initialDeadline": 2666.5
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2666.499999999999,
+          "duration": 650,
+          "deadline": 3316.499999999999,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 37.9,
+          "lastWallMs": 751.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3284.6,
+          "deadlineResets": 0,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 52.6,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 1,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 52.6,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 1,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 52.6,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 1,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 52.6,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 11,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 7,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 52.6,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 11,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 8,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 64.5,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 11,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 9,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 79.6,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 2666.5,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 11,
+          "initialDeadline": 3316.5
+        },
+        {
+          "id": 10,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 820.8,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 3368.7,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 0,
+          "initialDeadline": 4018.7
+        },
+        {
+          "id": 11,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 820.8,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 3368.7,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 0,
+          "initialDeadline": 4018.7
+        },
+        {
+          "id": 12,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 3368.699999994039,
+          "duration": 650,
+          "deadline": 4018.699999994039,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 820.8,
+          "lastWallMs": 1396.8,
+          "firstClockTime": 3368.7,
+          "lastClockTime": 3966.5,
+          "deadlineResets": 0,
+          "initialDeadline": 4018.7
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 142.90000000596046,
+          "frame": 100,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 209.90000000596046,
+          "frame": 101,
+          "xbounds": [
+            0,
+            184.72511291503906
+          ],
+          "ybounds": [
+            -0.15991855621337892,
+            4.157882461547851
+          ]
+        },
+        {
+          "wallMs": 276.5,
+          "frame": 102,
+          "xbounds": [
+            0,
+            181.70310974121094
+          ],
+          "ybounds": [
+            -0.1590231513977051,
+            4.134601936340332
+          ]
+        },
+        {
+          "wallMs": 342.30000001192093,
+          "frame": 103,
+          "xbounds": [
+            0,
+            172.46913146972656
+          ],
+          "ybounds": [
+            -0.15628713607788086,
+            4.063465538024903
+          ]
+        },
+        {
+          "wallMs": 441.59999999403954,
+          "frame": 104,
+          "xbounds": [
+            0,
+            153.75726318359375
+          ],
+          "ybounds": [
+            -0.15074289321899415,
+            3.9193152236938475
+          ]
+        },
+        {
+          "wallMs": 490.90000000596046,
+          "frame": 105,
+          "xbounds": [
+            0,
+            121.40962982177734
+          ],
+          "ybounds": [
+            -0.14115840911865235,
+            3.6701186370849608
+          ]
+        },
+        {
+          "wallMs": 542,
+          "frame": 106,
+          "xbounds": [
+            0,
+            80.13755798339844
+          ],
+          "ybounds": [
+            -0.12892964363098144,
+            3.3521707344055174
+          ]
+        },
+        {
+          "wallMs": 609,
+          "frame": 107,
+          "xbounds": [
+            0,
+            65.24018096923828
+          ],
+          "ybounds": [
+            -0.12451560974121094,
+            3.2374058532714844
+          ]
+        },
+        {
+          "wallMs": 658,
+          "frame": 108,
+          "xbounds": [
+            0,
+            54.450904846191406
+          ],
+          "ybounds": [
+            -0.12131878852844238,
+            3.154288501739502
+          ]
+        },
+        {
+          "wallMs": 711.0999999940395,
+          "frame": 109,
+          "xbounds": [
+            0,
+            51.0644645690918
+          ],
+          "ybounds": [
+            -0.12031539916992187,
+            3.1282003784179686
+          ]
+        },
+        {
+          "wallMs": 794.1999999880791,
+          "frame": 110,
+          "xbounds": [
+            0,
+            50.06382369995117
+          ],
+          "ybounds": [
+            -0.12001891136169433,
+            3.120491695404053
+          ]
+        },
+        {
+          "wallMs": 847.6999999880791,
+          "frame": 111,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 863.5999999940395,
+          "frame": 112,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 880.0999999940395,
+          "frame": 113,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 896.1999999880791,
+          "frame": 114,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 913.4000000059605,
+          "frame": 115,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 929.5,
+          "frame": 116,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 946.6999999880791,
+          "frame": 117,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 962.9000000059605,
+          "frame": 118,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 980.0999999940395,
+          "frame": 119,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 996.6999999880791,
+          "frame": 120,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1013.3000000119209,
+          "frame": 121,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1030,
+          "frame": 122,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1046.800000011921,
+          "frame": 123,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1063.4000000059605,
+          "frame": 124,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1080.199999988079,
+          "frame": 125,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1097.5999999940395,
+          "frame": 126,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1113.5999999940395,
+          "frame": 127,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1130.5,
+          "frame": 128,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1146.5999999940395,
+          "frame": 129,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1163.800000011921,
+          "frame": 130,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1180.5,
+          "frame": 131,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1197.199999988079,
+          "frame": 132,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1213.699999988079,
+          "frame": 133,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1230.9000000059605,
+          "frame": 134,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1247.300000011921,
+          "frame": 135,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1263.4000000059605,
+          "frame": 136,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1280.699999988079,
+          "frame": 137,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1297.199999988079,
+          "frame": 138,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1314.4000000059605,
+          "frame": 139,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1330.4000000059605,
+          "frame": 140,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1346.800000011921,
+          "frame": 141,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1364,
+          "frame": 142,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1380.0999999940395,
+          "frame": 143,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1396.800000011921,
+          "frame": 144,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1413.699999988079,
+          "frame": 145,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1430.199999988079,
+          "frame": 146,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1446.800000011921,
+          "frame": 147,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 4,
+      "direction": "reset",
+      "wallMs": 1419.6,
+      "completedFrames": 47,
+      "frameP50": 16.8,
+      "frameP95": 67.9,
+      "maxGap": 141.4,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 4033.0999999999995,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 4033.0999999999995,
+          "duration": 0,
+          "deadline": 4033.0999999999995,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 40.7,
+          "lastWallMs": 713.4,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 4635.1,
+          "deadlineResets": 0,
+          "initialDeadline": 4033.1
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4033.0999999999995,
+          "duration": 650,
+          "deadline": 4683.099999999999,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 40.7,
+          "lastWallMs": 713.4,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 4635.1,
+          "deadlineResets": 0,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 4033.0999999999995,
+          "duration": 650,
+          "deadline": 4683.099999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 54.7,
+          "lastWallMs": 54.7,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 4033.1,
+          "deadlineResets": 0,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 4033.0999999999995,
+          "duration": 650,
+          "deadline": 4683.099999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 54.7,
+          "lastWallMs": 54.7,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 4033.1,
+          "deadlineResets": 0,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 4033.0999999999995,
+          "duration": 650,
+          "deadline": 4683.099999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 54.7,
+          "lastWallMs": 54.7,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 4033.1,
+          "deadlineResets": 0,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 54.7,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 10,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 7,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 54.7,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 10,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 8,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 54.7,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 10,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 9,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 79.4,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4033.1,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 10,
+          "initialDeadline": 4683.1
+        },
+        {
+          "id": 10,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 782,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4702,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 0,
+          "initialDeadline": 5352
+        },
+        {
+          "id": 11,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 782,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4702,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 0,
+          "initialDeadline": 5352
+        },
+        {
+          "id": 12,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 4701.999999994038,
+          "duration": 650,
+          "deadline": 5351.999999994038,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 782,
+          "lastWallMs": 1363.8,
+          "firstClockTime": 4702,
+          "lastClockTime": 5299.7,
+          "deadlineResets": 0,
+          "initialDeadline": 5352
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 141.40000000596046,
+          "frame": 149,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 208.80000001192093,
+          "frame": 150,
+          "xbounds": [
+            0,
+            50.27172088623047
+          ],
+          "ybounds": [
+            -0.12008050918579102,
+            3.1220932388305664
+          ]
+        },
+        {
+          "wallMs": 311.09999999403954,
+          "frame": 151,
+          "xbounds": [
+            0,
+            53.288536071777344
+          ],
+          "ybounds": [
+            -0.12097437858581543,
+            3.1453338432312012
+          ]
+        },
+        {
+          "wallMs": 375,
+          "frame": 152,
+          "xbounds": [
+            0,
+            62.40961837768555
+          ],
+          "ybounds": [
+            -0.1236769199371338,
+            3.2155999183654784
+          ]
+        },
+        {
+          "wallMs": 425.2000000178814,
+          "frame": 153,
+          "xbounds": [
+            0,
+            95.61430358886719
+          ],
+          "ybounds": [
+            -0.13351534843444823,
+            3.4713990592956545
+          ]
+        },
+        {
+          "wallMs": 492.59999999403954,
+          "frame": 154,
+          "xbounds": [
+            0,
+            123.65784454345703
+          ],
+          "ybounds": [
+            -0.14182455062866212,
+            3.6874383163452147
+          ]
+        },
+        {
+          "wallMs": 560.2000000178814,
+          "frame": 155,
+          "xbounds": [
+            0,
+            155.00778198242188
+          ],
+          "ybounds": [
+            -0.1511134147644043,
+            3.9289487838745116
+          ]
+        },
+        {
+          "wallMs": 625.8000000119209,
+          "frame": 156,
+          "xbounds": [
+            0,
+            173.2821044921875
+          ],
+          "ybounds": [
+            -0.15652803421020509,
+            4.069728889465332
+          ]
+        },
+        {
+          "wallMs": 692.8000000119209,
+          "frame": 157,
+          "xbounds": [
+            0,
+            182.02503967285156
+          ],
+          "ybounds": [
+            -0.15911852836608886,
+            4.137081737518311
+          ]
+        },
+        {
+          "wallMs": 760.7000000178814,
+          "frame": 158,
+          "xbounds": [
+            0,
+            184.78253173828125
+          ],
+          "ybounds": [
+            -0.1599355697631836,
+            4.158324813842773
+          ]
+        },
+        {
+          "wallMs": 814.0999999940395,
+          "frame": 159,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 830.3000000119209,
+          "frame": 160,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 846.5,
+          "frame": 161,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 863.3000000119209,
+          "frame": 162,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 879.7000000178814,
+          "frame": 163,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 896.3000000119209,
+          "frame": 164,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 913.2000000178814,
+          "frame": 165,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 930.0999999940395,
+          "frame": 166,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 946.9000000059605,
+          "frame": 167,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 963.4000000059605,
+          "frame": 168,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 980.0999999940395,
+          "frame": 169,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 997.0999999940395,
+          "frame": 170,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1013.0999999940395,
+          "frame": 171,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1030.5,
+          "frame": 172,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1046.9000000059605,
+          "frame": 173,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1063.800000011921,
+          "frame": 174,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1079.5999999940395,
+          "frame": 175,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1097,
+          "frame": 176,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1113.9000000059605,
+          "frame": 177,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1130.300000011921,
+          "frame": 178,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1146.5999999940395,
+          "frame": 179,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1163.800000011921,
+          "frame": 180,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1180.4000000059605,
+          "frame": 181,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1196.9000000059605,
+          "frame": 182,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1213.7000000178814,
+          "frame": 183,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1229.5999999940395,
+          "frame": 184,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1247,
+          "frame": 185,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1263.7000000178814,
+          "frame": 186,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1280.4000000059605,
+          "frame": 187,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1296.2000000178814,
+          "frame": 188,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1313.5999999940395,
+          "frame": 189,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1330.300000011921,
+          "frame": 190,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1346.9000000059605,
+          "frame": 191,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1363.800000011921,
+          "frame": 192,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1380.4000000059605,
+          "frame": 193,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1396.9000000059605,
+          "frame": 194,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1413.5999999940395,
+          "frame": 195,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 5,
+      "direction": "zoom",
+      "wallMs": 1504.9,
+      "completedFrames": 48,
+      "frameP50": 16.7,
+      "frameP95": 66.8,
+      "maxGap": 293.9,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 5366.399999999999,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 5366.399999999999,
+          "duration": 0,
+          "deadline": 5366.399999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 43.4,
+          "lastWallMs": 804.7,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6001.8,
+          "deadlineResets": 0,
+          "initialDeadline": 5366.4
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5366.399999999999,
+          "duration": 650,
+          "deadline": 6016.399999999999,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 43.4,
+          "lastWallMs": 804.7,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6001.8,
+          "deadlineResets": 0,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 57.1,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 1,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 57.1,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 1,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 57.1,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 1,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 57.1,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 10,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 7,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 57.1,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 10,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 8,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 73.1,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 10,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 9,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 130.9,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 5366.4,
+          "lastClockTime": 6633,
+          "deadlineResets": 10,
+          "initialDeadline": 6016.4
+        },
+        {
+          "id": 10,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 861.6,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 6052,
+          "lastClockTime": 6633,
+          "deadlineResets": 0,
+          "initialDeadline": 6702
+        },
+        {
+          "id": 11,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 861.6,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 6052,
+          "lastClockTime": 6633,
+          "deadlineResets": 0,
+          "initialDeadline": 6702
+        },
+        {
+          "id": 12,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6052.00000001788,
+          "duration": 650,
+          "deadline": 6702.00000001788,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 861.6,
+          "lastWallMs": 1421.2,
+          "firstClockTime": 6052,
+          "lastClockTime": 6633,
+          "deadlineResets": 0,
+          "initialDeadline": 6702
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 293.90000000596046,
+          "frame": 197,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 351.7000000178814,
+          "frame": 198,
+          "xbounds": [
+            0,
+            180.15133666992188
+          ],
+          "ybounds": [
+            -0.1585633659362793,
+            4.122647514343262
+          ]
+        },
+        {
+          "wallMs": 417.09999999403954,
+          "frame": 199,
+          "xbounds": [
+            0,
+            168.6721649169922
+          ],
+          "ybounds": [
+            -0.15516212463378906,
+            4.034215240478516
+          ]
+        },
+        {
+          "wallMs": 483.2000000178814,
+          "frame": 200,
+          "xbounds": [
+            0,
+            146.93846130371094
+          ],
+          "ybounds": [
+            -0.14872249603271484,
+            3.866784896850586
+          ]
+        },
+        {
+          "wallMs": 550,
+          "frame": 201,
+          "xbounds": [
+            0,
+            111.16677856445312
+          ],
+          "ybounds": [
+            -0.1381234931945801,
+            3.591210823059082
+          ]
+        },
+        {
+          "wallMs": 599.4000000059605,
+          "frame": 202,
+          "xbounds": [
+            0,
+            79.9559326171875
+          ],
+          "ybounds": [
+            -0.12887582778930665,
+            3.3507715225219727
+          ]
+        },
+        {
+          "wallMs": 649.4000000059605,
+          "frame": 203,
+          "xbounds": [
+            0,
+            65.35599517822266
+          ],
+          "ybounds": [
+            -0.12454992294311523,
+            3.238297996520996
+          ]
+        },
+        {
+          "wallMs": 724.0999999940395,
+          "frame": 204,
+          "xbounds": [
+            0,
+            56.374393463134766
+          ],
+          "ybounds": [
+            -0.12188871383666992,
+            3.169106559753418
+          ]
+        },
+        {
+          "wallMs": 782.9000000059605,
+          "frame": 205,
+          "xbounds": [
+            0,
+            51.04498291015625
+          ],
+          "ybounds": [
+            -0.12030961990356445,
+            3.1280501174926756
+          ]
+        },
+        {
+          "wallMs": 834.0999999940395,
+          "frame": 206,
+          "xbounds": [
+            0,
+            50.00612258911133
+          ],
+          "ybounds": [
+            -0.12000181198120118,
+            3.1200471115112305
+          ]
+        },
+        {
+          "wallMs": 888.8000000119209,
+          "frame": 207,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 904.5,
+          "frame": 208,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 921,
+          "frame": 209,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 938.2000000178814,
+          "frame": 210,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 954.5999999940395,
+          "frame": 211,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 971.0999999940395,
+          "frame": 212,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 987.8000000119209,
+          "frame": 213,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1004.5,
+          "frame": 214,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1021.0999999940395,
+          "frame": 215,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1037,
+          "frame": 216,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1053.800000011921,
+          "frame": 217,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1070.800000011921,
+          "frame": 218,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1087.9000000059605,
+          "frame": 219,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1104.800000011921,
+          "frame": 220,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1121.2000000178814,
+          "frame": 221,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1137.9000000059605,
+          "frame": 222,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1154.5,
+          "frame": 223,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1171.0999999940395,
+          "frame": 224,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1188.0999999940395,
+          "frame": 225,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1204.7000000178814,
+          "frame": 226,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1220.800000011921,
+          "frame": 227,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1237.9000000059605,
+          "frame": 228,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1254,
+          "frame": 229,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1271.4000000059605,
+          "frame": 230,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1287.5999999940395,
+          "frame": 231,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1304.800000011921,
+          "frame": 232,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1321.300000011921,
+          "frame": 233,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1338.300000011921,
+          "frame": 234,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1355.0999999940395,
+          "frame": 235,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1371.7000000178814,
+          "frame": 236,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1388.2000000178814,
+          "frame": 237,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1404.9000000059605,
+          "frame": 238,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1421.300000011921,
+          "frame": 239,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1438.300000011921,
+          "frame": 240,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1454.5999999940395,
+          "frame": 241,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1471.2000000178814,
+          "frame": 242,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1487.800000011921,
+          "frame": 243,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1504.5999999940395,
+          "frame": 244,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 6,
+      "direction": "reset",
+      "wallMs": 1400.7,
+      "completedFrames": 47,
+      "frameP50": 16.8,
+      "frameP95": 75.8,
+      "maxGap": 140.4,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 6716.399999999999,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 6716.399999999999,
+          "duration": 0,
+          "deadline": 6716.399999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 35.1,
+          "lastWallMs": 694.2,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 7301.8,
+          "deadlineResets": 0,
+          "initialDeadline": 6716.4
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6716.399999999999,
+          "duration": 650,
+          "deadline": 7366.399999999999,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 35.1,
+          "lastWallMs": 694.2,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 7301.8,
+          "deadlineResets": 0,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6716.399999999999,
+          "duration": 650,
+          "deadline": 7366.399999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 49.4,
+          "lastWallMs": 49.4,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 6716.4,
+          "deadlineResets": 0,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6716.399999999999,
+          "duration": 650,
+          "deadline": 7366.399999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 49.4,
+          "lastWallMs": 49.4,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 6716.4,
+          "deadlineResets": 0,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 6716.399999999999,
+          "duration": 650,
+          "deadline": 7366.399999999999,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 49.4,
+          "lastWallMs": 49.4,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 6716.4,
+          "deadlineResets": 0,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 49.4,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 10,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 7,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 49.4,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 10,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 8,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 49.4,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 10,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 9,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 74.8,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 6716.4,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 10,
+          "initialDeadline": 7366.4
+        },
+        {
+          "id": 10,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 775.4,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 7368.5,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 0,
+          "initialDeadline": 8018.5
+        },
+        {
+          "id": 11,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 775.4,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 7368.5,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 0,
+          "initialDeadline": 8018.5
+        },
+        {
+          "id": 12,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": false,
+          "start": 7368.500000011919,
+          "duration": 650,
+          "deadline": 8018.500000011919,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 775.4,
+          "lastWallMs": 1325.7,
+          "firstClockTime": 7368.5,
+          "lastClockTime": 7949.7,
+          "deadlineResets": 0,
+          "initialDeadline": 8018.5
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 140.40000000596046,
+          "frame": 245,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 206.19999998807907,
+          "frame": 246,
+          "xbounds": [
+            0,
+            50.273311614990234
+          ],
+          "ybounds": [
+            -0.12008097648620605,
+            3.1221053886413572
+          ]
+        },
+        {
+          "wallMs": 273,
+          "frame": 247,
+          "xbounds": [
+            0,
+            53.32192611694336
+          ],
+          "ybounds": [
+            -0.12098427772521973,
+            3.145591220855713
+          ]
+        },
+        {
+          "wallMs": 348.80000001192093,
+          "frame": 248,
+          "xbounds": [
+            0,
+            62.59187698364258
+          ],
+          "ybounds": [
+            -0.12373092651367187,
+            3.2170040893554686
+          ]
+        },
+        {
+          "wallMs": 404.80000001192093,
+          "frame": 249,
+          "xbounds": [
+            0,
+            81.50450897216797
+          ],
+          "ybounds": [
+            -0.1293346691131592,
+            3.3627013969421387
+          ]
+        },
+        {
+          "wallMs": 471.80000001192093,
+          "frame": 250,
+          "xbounds": [
+            0,
+            113.3512191772461
+          ],
+          "ybounds": [
+            -0.13877073287963868,
+            3.6080390548706056
+          ]
+        },
+        {
+          "wallMs": 539.6999999880791,
+          "frame": 251,
+          "xbounds": [
+            0,
+            148.57298278808594
+          ],
+          "ybounds": [
+            -0.1492068099975586,
+            3.8793770599365236
+          ]
+        },
+        {
+          "wallMs": 605.5,
+          "frame": 252,
+          "xbounds": [
+            0,
+            169.8520050048828
+          ],
+          "ybounds": [
+            -0.15551170349121093,
+            4.043304290771484
+          ]
+        },
+        {
+          "wallMs": 672,
+          "frame": 253,
+          "xbounds": [
+            0,
+            180.56939697265625
+          ],
+          "ybounds": [
+            -0.15868722915649414,
+            4.125867958068848
+          ]
+        },
+        {
+          "wallMs": 753.0999999940395,
+          "frame": 254,
+          "xbounds": [
+            0,
+            184.46990966796875
+          ],
+          "ybounds": [
+            -0.15984292984008788,
+            4.155916175842285
+          ]
+        },
+        {
+          "wallMs": 792.9000000059605,
+          "frame": 255,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 808.5999999940395,
+          "frame": 256,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 825.5,
+          "frame": 257,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 842.6999999880791,
+          "frame": 258,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 859.3000000119209,
+          "frame": 259,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 874.9000000059605,
+          "frame": 260,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 892.4000000059605,
+          "frame": 261,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 908.5999999940395,
+          "frame": 262,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 925.5999999940395,
+          "frame": 263,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 942.6999999880791,
+          "frame": 264,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 959.0999999940395,
+          "frame": 265,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 975.5999999940395,
+          "frame": 266,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 992.4000000059605,
+          "frame": 267,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1008.9000000059605,
+          "frame": 268,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1025.800000011921,
+          "frame": 269,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1042.5,
+          "frame": 270,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1059.0999999940395,
+          "frame": 271,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1075.699999988079,
+          "frame": 272,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1092.5,
+          "frame": 273,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1109.0999999940395,
+          "frame": 274,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1125.800000011921,
+          "frame": 275,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1142.300000011921,
+          "frame": 276,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1158.300000011921,
+          "frame": 277,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1175,
+          "frame": 278,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1192.199999988079,
+          "frame": 279,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1208.0999999940395,
+          "frame": 280,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1225.5,
+          "frame": 281,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1242.300000011921,
+          "frame": 282,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1259.0999999940395,
+          "frame": 283,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1274.9000000059605,
+          "frame": 284,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1292.4000000059605,
+          "frame": 285,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1308.800000011921,
+          "frame": 286,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1325.699999988079,
+          "frame": 287,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1342.199999988079,
+          "frame": 288,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1358.9000000059605,
+          "frame": 289,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1375.5,
+          "frame": 290,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1392.4000000059605,
+          "frame": 291,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "errors": [],
+      "renderError": ""
+    }
+  ],
+  "errors": []
+}

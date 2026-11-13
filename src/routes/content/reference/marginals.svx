@@ -1,0 +1,11 @@
+## Usage
+
+Marginals draws a scatter of `x` against `y` with a histogram of `x` above it and one of `y` to its right, as seaborn's jointplot draws it: three Plots whose plot areas line up, each histogram sharing the scatter's domain on its axis and following it as the scatter pans and zooms. The histograms take a fifth of `height` (at least 48 px) and have no axes of their own; `bins` sets both.
+
+Its other props go to the scatter's Points: `fill="species"` colors the points by a column (with the scatter's legend), `size`, `opacity`, `tooltip` and `brush` work as on Points. Its children are drawn in the scatter's Plot, over the points (a Smooth, rules, labels). Give the rows with `data`, or put the Marginals in a Data. It sits where a Plot does: in a Scene, Row, Column or Grid, not inside a Plot. Its PNG, SVG and PDF exports compose its three views; bound in Svelte, `view("top")`, `view("main")` and `view("right")` give each view's Plot handle.
+
+Marginals is a chart template, built from Plots, Points and Histograms: import it from `hmplot/charts` in JavaScript or use `hm.charts.Marginals` in Python. Its panels fill their grid cells in both live views and image exports.
+
+See the executable [marginal distributions recipe](/recipes.md#scatter-with-marginal-distributions) for human-readable axis labels and category colors. The histogram count axes fit their counts automatically. Do not pin a count domain to `[0, 1]` unless the histogram is normalized to that range; raw counts would clip into solid blocks. Use Marginals rather than manually aligning a Row and Column of plots.
+
+`hm.check(chart)` reports the scatter and both histograms together, including their diagnostics and the composed figure PNG.

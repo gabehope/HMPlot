@@ -1,0 +1,35 @@
+name: Reproduce vendored jax-js
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'vendor/jax-js/**'
+      - 'scripts/build-jax-fork.sh'
+      - '.github/workflows/jax-fork.yml'
+  push:
+    paths:
+      - 'vendor/jax-js/**'
+      - 'scripts/build-jax-fork.sh'
+      - '.github/workflows/jax-fork.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read the pinned toolchain
+        run: sed -n '/^JAX_/p' vendor/jax-js/build.env >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.JAX_NODE_VERSION }}
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.JAX_PNPM_VERSION }}
+      - name: Rebuild and compare every artifact and LICENSE
+        run: sh scripts/build-jax-fork.sh --check
+      - name: Check that verification did not modify the checkout
+        run: git diff --exit-code

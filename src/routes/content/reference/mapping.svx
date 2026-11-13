@@ -1,0 +1,3 @@
+## Usage
+
+Explicit mark properties win, then nearest Mapping, outer Mapping, and defaults. Mapped field names resolve in the consuming mark’s Data scope. Event handlers, names, and structural references are not inherited.

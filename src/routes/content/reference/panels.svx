@@ -1,0 +1,14 @@
+## Usage
+
+Panels stacks Plots over one shared x, as matplotlib's `sharex` does: its Plots show one x domain (the union of their data, or the domain given in `x`), pan and zoom together along x, and line up their plot areas, so the panels' data share one time line however wide each one's y labels are. Only the last Plot draws the x axis and its title; `x` holds that axis's settings (label, format, domain, ...), under each Plot's own `x`. Each Plot keeps its own y axis, height, title and marks.
+
+```python
+with hm.Data(prices):
+    with hm.Panels(x={"label": "Trading day"}):
+        with hm.Plot(height=240, y={"label": "Price"}):
+            hm.Line(x="day", y="price")
+        with hm.Plot(height=140, y={"label": "Volume"}):
+            hm.charts.Bar(x="day", y="volume", orientation="vertical")
+```
+
+A rule at the same x in each panel ([RuleX](rule-x)) marks one moment across them. Use Panels rather than separate Plots in a Column with LinkViews: those link navigation but repeat the axis and leave the plot areas to their own gutters. For a brush on an overview strip that zooms a chart, use [FocusContext](focus-context).

@@ -1,0 +1,5 @@
+## Usage
+
+Retains selected rows in original order and preserves source identities. Specify size or proportion. Default seed is 42. With `order="random"` the kept rows come in the seed's random order instead, and without a size or proportion every row is kept: `<Sample order="random">` (Python `hm.Sample(order="random")`) shuffles the table, as the removed Shuffle did. This changes the data scope; mark-level rendering sampling is a separate performance setting.
+
+To let the viewer change a setting, read an input in it: `size={input("size")}` (Python `size=hm.input.size`), where `size` is a [Slider](slider).

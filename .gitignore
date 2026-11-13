@@ -1,0 +1,41 @@
+node_modules/
+.DS_Store
+build/
+# The eval's two doc sets (npm run build:llm-docs, TODO 144).
+build-llm/
+dist/
+# The bundled jax-js fork's build is part of the package (TODO Stage 23; rebuild with
+# npm run build:jax-fork).
+!/vendor/jax-js/dist/
+.svelte-kit/
+.env
+.env.local
+test-results/
+playwright-report/
+
+artifacts/
+*.tgz
+
+# The Python package's notebook and export bundles, the font license and THIRD_PARTY_NOTICES.md
+# beside them: npm run build:python writes them, and python/hatch_build.py when a wheel is built
+# without them (R1.4).
+python/hmplot/static/
+
+# Python build/test caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local environments and notebook autosaves
+.venv/
+.ipynb_checkpoints/
+
+# The docs' example builds (scripts/build_examples.py)
+static/example-builds/
+
+# Generated from the Markdown guide pages (R2.0b.6)
+src/examples/docs--*/
+src/lib/docs/pages.generated.json
+tests/gallery/out/

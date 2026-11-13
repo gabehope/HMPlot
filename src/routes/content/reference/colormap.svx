@@ -1,0 +1,3 @@
+## Usage
+
+A colormap is a built-in name, a list of at least two opaque colors, or `{colors, space, positions}` (colors with alpha are rejected; use the mark's `opacity` for translucency). Colors are interpolated in Lab by default; `space` chooses "hsl" or "srgb", and `positions` places each color on [0, 1]. Use it wherever a colormap name works: `continuous()` and `ordinal()` scales, a mark's `colormap`, and a theme's `colormap`, which becomes the default for continuous fills without an explicit colormap. Legends draw the same colors, and SVG exports write them as gradient stops.

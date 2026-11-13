@@ -1,0 +1,76 @@
+From 8199e4e9eb3fdffae9fbd027b21bc7d69925f562 Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 23:41:25 -0400
+Subject: [PATCH 10/10] WGSL boolean reductions keep their operands'
+ parentheses
+
+A reduction strips each unrolled operand's outer parentheses and joins
+boolean ones with && (all) or || (any). An operand that is itself an ||
+or && chain, such as a <= b (printed as (a < b) || (a == b)) inside
+np.all(logicalAnd(...)), then read as a mixed chain: WGSL rejects mixing
+the two without parentheses ("mixing '||' and '&&' requires
+parenthesis"), and the precedence would have been wrong. Boolean operands
+stay wrapped.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.ts | 10 +++++++---
+ test/lax.test.ts      |  8 ++++++++
+ 2 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/src/backend/webgpu.ts b/src/backend/webgpu.ts
+index 1fed323..52fc536 100644
+--- a/src/backend/webgpu.ts
++++ b/src/backend/webgpu.ts
+@@ -460,8 +460,12 @@ export function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+ 
+     // After references are counted, we can generate the code.
+     const items = exps.map((ar) => ar.map((x) => gen.run(x)).map(strip1));
++    // Boolean reductions combine with && and ||, and an operand stripped of its parentheses
++    // may itself be an || or && chain: WGSL will not mix the two without parentheses (and the
++    // precedence would be wrong), so boolean operands stay wrapped.
++    const operand = (x: string) => (re.dtype === DType.Bool ? `(${x})` : x);
+     for (let i = 0; i < upcast; i++) {
+-      let rhs = items[i][0];
++      let rhs = operand(items[i][0]);
+       for (let j = 1; j < unroll; j++) {
+         if (re.op === AluOp.Add) rhs = `${rhs} + ${items[i][j]}`;
+         else if (re.op === AluOp.Mul) rhs = `${rhs} * ${items[i][j]}`;
+@@ -469,13 +473,13 @@ export function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+           // For booleans, min is AND; for numerics, use min()
+           rhs =
+             re.dtype === DType.Bool
+-              ? `(${rhs} && ${items[i][j]})`
++              ? `(${rhs} && ${operand(items[i][j])})`
+               : `min(${rhs}, ${items[i][j]})`;
+         } else if (re.op === AluOp.Max) {
+           // For booleans, max is OR; for numerics, use max()
+           rhs =
+             re.dtype === DType.Bool
+-              ? `(${rhs} || ${items[i][j]})`
++              ? `(${rhs} || ${operand(items[i][j])})`
+               : `max(${rhs}, ${items[i][j]})`;
+         } else throw new Error(`Unsupported reduction op: ${re.op}`);
+       }
+diff --git a/test/lax.test.ts b/test/lax.test.ts
+index e69635b..3e6ac30 100644
+--- a/test/lax.test.ts
++++ b/test/lax.test.ts
+@@ -81,6 +81,14 @@ suite.each(devices)("device:%s", (device) => {
+     });
+   });
+ 
++  // An all() over comparisons joined by logicalAnd: the reduction must keep each operand's
++  // parentheses (WGSL will not mix && and || without them).
++  test("all() of logicalAnd(<=, <=) along an axis", () => {
++    const a = np.array([[1, 5, 2, 8], [3, 3, 9, 1], [0, 0, 0, 0]]);
++    const got = np.all(np.logicalAnd(a.ref.lessEqual(4), a.greaterEqual(0)), -1);
++    expect(got.js()).toEqual([false, false, true]);
++  });
++
+   // Scatter is a routine on cpu, wasm and webgpu (as sort is); webgl has none.
+   if (deviceHasSort) suite("jax.lax.scatter()", () => {
+     test("puts rows back where take() found them, zeros elsewhere", () => {
+-- 
+2.46.1
+

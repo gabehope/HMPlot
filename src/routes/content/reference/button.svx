@@ -1,0 +1,11 @@
+## Usage
+
+An input sends its value up to the nearest input context (an InputContext, a Python Scene, or a Template instance), and everything in that context reads it by name: `input("name")` in JavaScript, `hm.input.name` in Python, or the string `"$name"` where a string names a column. A read is replaced by the value before its reader sees it, so moving an input re-runs its readers once, and the change animates like any other data change. Inputs go beside Plots (in a Row or Column), not inside them.
+
+A press can also write other inputs: `set={root.reset()}` puts `root` back to its default, and `set={root.set(literal("all"))}` gives it a value, where `const root = input("root", { default: "all" })` (Python `set=hm.input("root", default="all").reset()`). A list writes several. The input need not be a widget's: marks writing it on click (`select={root.set("id")}`) and Buttons together declare it, so a Button goes back to the top of a drill-down a click on a rectangle went into. A Button with `set` needs no `name` (then give it a `label`); with a name it also counts its presses.
+
+<Note title="SVG and PDF export">
+
+**Left out.** PNG, SVG and PDF exports leave inputs out, and show the plots at the inputs' current values. See [what is not exported as vector](/docs/export).
+
+</Note>

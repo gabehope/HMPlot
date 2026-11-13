@@ -1,0 +1,3 @@
+## Usage
+
+Delaunay makes the triangulation's edges, a row each: `start` and `end` for Segments, and `source` and `target`, the two points' rows.

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "scale-filter-small",
+    "samples": 143178,
+    "nonwhite": 29542,
+    "differences": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "scale-filter-50k",
+    "samples": 143178,
+    "nonwhite": 75400,
+    "differences": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "bounds-style-50k",
+    "samples": 143178,
+    "nonwhite": 58014,
+    "differences": 0,
+    "maxDelta": 0
+  },
+  {
+    "name": "bounds-filter-50k",
+    "samples": 143178,
+    "nonwhite": 71246,
+    "differences": 0,
+    "maxDelta": 0
+  }
+]

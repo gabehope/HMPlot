@@ -1,0 +1,219 @@
+{
+  "label": "Direct Array.data caller diagnostic after final factorial controls",
+  "sourceFingerprint": {
+    "sha256": "c2052a839edc9beebf40f374284dd01c2daf33bdd201b31eb3a9eb0f8fc1b535",
+    "files": 559
+  },
+  "rawSHA256": "d30726ccec707c09411019b805cd2d1e5b5c4253a65e85deacc29e73892a1f6c",
+  "driverSHA256": "2d064441e0b22f861c82c75863a49713b7a6bfac3377a45e352ef7cc664e85b4",
+  "warmupFlights": 2,
+  "measuredFlights": 2,
+  "dpr": 2,
+  "browser": "154.0.8037.98",
+  "sourceAttribution": {
+    "rowTokens": {
+      "path": "src/lib/plot/bound/namedMark.svelte",
+      "sourceIdentifier": "const keys = indices.ref.data().then((rows) =>",
+      "purpose": "Derived-view source indices become stable CPU key tokens for animated row matching and enter/exit."
+    },
+    "alpha": {
+      "path": "src/lib/plot/bound/namedMark.svelte",
+      "sourceIdentifier": "async function translucentRows(values)",
+      "purpose": "Decide whether current per-row opacity requires blending."
+    }
+  },
+  "limitations": [
+    "One warmed zoom/reset pair with extra direct-array recorder; diagnostic attribution only, no timing speed claim.",
+    "Array.data calls are demand sites; compare with mapAsync counts before equating all calls to GPU downloads. This pair totals match exactly.",
+    "Awaited spans overlap. They are not critical-path CPU/GPU durations.",
+    "Source-index key downloads preserve keyed animation correctness; removing them requires retained row identity/mapping, not disabling keys."
+  ],
+  "flights": [
+    {
+      "direction": "zoom",
+      "gpu": {
+        "compute": 4,
+        "render": 0,
+        "shaders": 4,
+        "buffers": 656,
+        "bufferKB": 116,
+        "readbacks": 108,
+        "readbackKinds": {
+          "jax": 100,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 1652,
+        "fences": 312,
+        "readbackP50": 3.1,
+        "readbackP95": 13.2,
+        "readbackMax": 22.5,
+        "builds": 0,
+        "ms": 1489
+      },
+      "ArrayDataCalls": 100,
+      "groups": {
+        "event source-row mapping": {
+          "count": 2,
+          "shapes": {
+            "[]": 2
+          },
+          "overlappingWaitMs": 1.2,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/namedData.js:1148:20"
+          ]
+        },
+        "tooltip": {
+          "count": 1,
+          "shapes": {
+            "[3]": 1
+          },
+          "overlappingWaitMs": 0.9,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/tooltip.js:198:28"
+          ]
+        },
+        "animated source-index key tokens": {
+          "count": 36,
+          "shapes": {
+            "[28]": 11,
+            "[19]": 4,
+            "[1]": 12,
+            "[18]": 2,
+            "[12]": 1,
+            "[6]": 5,
+            "[7]": 1
+          },
+          "overlappingWaitMs": 253.4,
+          "directCallerPaths": [
+            "/src/lib/plot/bound/namedMark.svelte:2616:31"
+          ]
+        },
+        "alpha blending decision": {
+          "count": 2,
+          "shapes": {
+            "[]": 2
+          },
+          "overlappingWaitMs": 27.2,
+          "directCallerPaths": [
+            "/src/lib/plot/bound/namedMark.svelte:976:42"
+          ]
+        },
+        "Filter count": {
+          "count": 24,
+          "shapes": {
+            "[]": 24
+          },
+          "overlappingWaitMs": 208,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/transforms/filter.js:209:34"
+          ]
+        },
+        "finite extents": {
+          "count": 35,
+          "shapes": {
+            "[12]": 24,
+            "[8]": 11
+          },
+          "overlappingWaitMs": 193,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/extentSummary.js:24:31"
+          ]
+        }
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "direction": "reset",
+      "gpu": {
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 533,
+        "bufferKB": 104,
+        "readbacks": 106,
+        "readbackKinds": {
+          "jax": 98,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 1443,
+        "fences": 253,
+        "readbackP50": 3.2,
+        "readbackP95": 11.1,
+        "readbackMax": 20.7,
+        "builds": 0,
+        "ms": 1488
+      },
+      "ArrayDataCalls": 98,
+      "groups": {
+        "event source-row mapping": {
+          "count": 1,
+          "shapes": {
+            "[]": 1
+          },
+          "overlappingWaitMs": 0.7,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/namedData.js:1148:20"
+          ]
+        },
+        "animated source-index key tokens": {
+          "count": 36,
+          "shapes": {
+            "[7]": 3,
+            "[6]": 6,
+            "[1]": 12,
+            "[28]": 9,
+            "[9]": 1,
+            "[14]": 1,
+            "[21]": 1,
+            "[22]": 1,
+            "[23]": 2
+          },
+          "overlappingWaitMs": 197.5,
+          "directCallerPaths": [
+            "/src/lib/plot/bound/namedMark.svelte:2616:31"
+          ]
+        },
+        "alpha blending decision": {
+          "count": 2,
+          "shapes": {
+            "[]": 2
+          },
+          "overlappingWaitMs": 25.1,
+          "directCallerPaths": [
+            "/src/lib/plot/bound/namedMark.svelte:976:42"
+          ]
+        },
+        "Filter count": {
+          "count": 24,
+          "shapes": {
+            "[]": 24
+          },
+          "overlappingWaitMs": 208.8,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/transforms/filter.js:209:34"
+          ]
+        },
+        "finite extents": {
+          "count": 35,
+          "shapes": {
+            "[12]": 24,
+            "[8]": 11
+          },
+          "overlappingWaitMs": 161.1,
+          "directCallerPaths": [
+            "/src/lib/plot/utils/extentSummary.js:24:31"
+          ]
+        }
+      },
+      "errors": [],
+      "renderError": ""
+    }
+  ]
+}

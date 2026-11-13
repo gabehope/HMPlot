@@ -1,0 +1,121 @@
+From b87d0a69bb2b66a57a8528971875187343ce60ce Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 20:02:49 -0400
+Subject: [PATCH] Export lax.scatter(updates, indices, shape), the inverse of
+ take
+
+The Scatter primitive (a routine on cpu, wasm and webgpu) was reachable
+only through the transpose of gather. lax.scatter puts slices of
+updates along an axis at 1D int32 indices in a zero-filled array of
+shape: "update" writes, "add" accumulates, and indices outside the
+axis are skipped, so -1 can mark an update that goes nowhere.
+heatmaptest keeps per-row state in source-row order with it (TODO 28).
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/library/lax.ts | 40 ++++++++++++++++++++++++++++++++++++++++
+ test/lax.test.ts   | 33 +++++++++++++++++++++++++++++++++
+ 2 files changed, 73 insertions(+)
+
+diff --git a/src/library/lax.ts b/src/library/lax.ts
+index 9eda3ee..8bd673a 100644
+--- a/src/library/lax.ts
++++ b/src/library/lax.ts
+@@ -11,6 +11,7 @@ import { checkConvShape } from "../frontend/convolution";
+ import * as core from "../frontend/core";
+ import { bind1, Primitive } from "../frontend/core";
+ import { moveaxis, vmap } from "../frontend/vmap";
++import { ScatterOp } from "../routine";
+ import { Pair } from "../shape";
+ import { checkAxis, deepEqual, prod, range, rep, zipn } from "../utils";
+ 
+@@ -565,3 +566,42 @@ export function topK(
+   };
+   return [extract(y), extract(yi.neg().add(size - 1))];
+ }
++
++/**
++ * Scatter `updates` along `axis` into a zero-filled array of `shape`: the inverse of
++ * `numpy.take(x, indices, axis)`. Slice `i` of `updates` along `axis` goes to position
++ * `indices[i]`; with `mode: "add"` repeated positions accumulate, with `"update"` (the default)
++ * one of them wins, in no defined order. Indices outside `[0, shape[axis])` are skipped, so -1
++ * can mark an update that goes nowhere.
++ *
++ * `indices` is a 1D int32 array, and `updates` has `shape` with `axis` replaced by its length.
++ */
++export function scatter(
++  updates: ArrayLike,
++  indices: ArrayLike,
++  shape: number[],
++  { axis = 0, mode = "update" }: { axis?: number; mode?: "update" | "add" } = {},
++): Array {
++  updates = fudgeArray(updates);
++  indices = fudgeArray(indices);
++  axis = checkAxis(axis, shape.length);
++  const expected = shape.slice();
++  expected[axis] = indices.shape[0];
++  if (indices.ndim !== 1 || indices.dtype !== DType.Int32 || !deepEqual(updates.shape, expected)) {
++    const got = `updates ${JSON.stringify(updates.shape)}, indices ${JSON.stringify(indices.shape)} ${indices.dtype}`;
++    updates.dispose();
++    indices.dispose();
++    throw new Error(
++      `scatter: expected 1D int32 indices and updates of shape ${JSON.stringify(expected)}, got ${got}`,
++    );
++  }
++  if (mode !== "update" && mode !== "add")
++    throw new Error(`scatter: mode must be "update" or "add", got ${JSON.stringify(mode)}`);
++  return core.scatter(updates, [indices], {
++    op: mode === "add" ? ScatterOp.Add : ScatterOp.Update,
++    shape,
++    axis: [axis],
++    outDim: axis,
++    uniqueIndices: false,
++  }) as Array;
++}
+diff --git a/test/lax.test.ts b/test/lax.test.ts
+index 8e194b8..73c27fa 100644
+--- a/test/lax.test.ts
++++ b/test/lax.test.ts
+@@ -12,6 +12,39 @@ suite.each(devices)("device:%s", (device) => {
+ 
+   const deviceHasSort = ["cpu", "wasm", "webgpu"].includes(device);
+ 
++  // Scatter is a routine on cpu, wasm and webgpu (as sort is); webgl has none.
++  if (deviceHasSort) suite("jax.lax.scatter()", () => {
++    test("puts rows back where take() found them, zeros elsewhere", () => {
++      const indices = np.array([3, 0, 2], { dtype: np.int32 });
++      const y = lax.scatter(np.array([30, 0, 20]), indices, [5]);
++      expect(y.js()).toEqual([0, 0, 20, 30, 0]);
++    });
++
++    test("skips indices outside the axis", () => {
++      const indices = np.array([-1, 1, 7], { dtype: np.int32 });
++      expect(lax.scatter(np.array([5, 6, 7]), indices, [3]).js()).toEqual([0, 6, 0]);
++    });
++
++    test("add accumulates repeated indices", () => {
++      const indices = np.array([1, 1, 0], { dtype: np.int32 });
++      const y = lax.scatter(np.array([1, 2, 4]), indices, [3], { mode: "add" });
++      expect(y.js()).toEqual([4, 3, 0]);
++    });
++
++    test("scatters rows of a matrix along an axis", () => {
++      const indices = np.array([2, 0], { dtype: np.int32 });
++      const rows = np.array([[1, 2], [3, 4]]);
++      expect(lax.scatter(rows, indices.ref, [3, 2]).js()).toEqual([[3, 4], [0, 0], [1, 2]]);
++      const columns = lax.scatter(np.array([[1, 2], [3, 4]]), indices, [2, 3], { axis: 1 });
++      expect(columns.js()).toEqual([[2, 0, 1], [4, 0, 3]]);
++    });
++
++    test("checks its arguments", () => {
++      expect(() => lax.scatter(np.array([1, 2]), np.array([0, 1]), [3])).toThrow(/int32/);
++      expect(() => lax.scatter(np.array([1, 2, 3]), np.array([0, 1], { dtype: np.int32 }), [3])).toThrow(/shape/);
++    });
++  });
++
+   if (deviceHasSort) {
+     suite("jax.lax.topK()", () => {
+       test("returns top k values and indices", () => {
+-- 
+2.46.1
+

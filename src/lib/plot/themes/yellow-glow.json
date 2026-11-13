@@ -1,0 +1,142 @@
+{
+  "name": "Yellow glow",
+  "view": {
+    "background": "#25272b"
+  },
+  "typography": {
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSize": 14,
+    "color": "#f4e9b5"
+  },
+  "axes": {
+    "color": "#9b956f",
+    "lineWidth": 0.75,
+    "tickSize": 3,
+    "grid": "major",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 700,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#d8ce98",
+    "fontFamily": "Inter, system-ui, sans-serif"
+  },
+  "marks": {
+    "Line": {
+      "color": "#ffd84d",
+      "width": 2
+    },
+    "Points": {
+      "fill": "#ffd84d",
+      "size": 8,
+      "outlineWidth": 0,
+      "outlineColor": "#f4e9b5",
+      "shape": "circle"
+    },
+    "Area": {
+      "fill": "#ffd84d",
+      "opacity": 0.24
+    },
+    "ErrorBars": {
+      "color": "#e8d77c",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#f4e9b5",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#9b956f",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#ffd84d",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#ffd84d",
+    "#ffad42",
+    "#fff18a",
+    "#d7e85b",
+    "#78dcca",
+    "#73a9ff",
+    "#e58cff",
+    "#ff7c72"
+  ],
+  "vectorTile": {
+    "background": {
+      "fill": "#313333"
+    },
+    "land": {
+      "fill": "#3a3a39"
+    },
+    "green": {
+      "fill": "#595e3d"
+    },
+    "water": {
+      "fill": "#3e516f"
+    },
+    "waterways": {
+      "color": "#425779",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#4c4c45"
+    },
+    "other": {
+      "fill": "#4e4e47",
+      "color": "#8d8870",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#4e4e47",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#636154",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#ac7a39",
+      "width": 3
+    },
+    "railways": {
+      "color": "#7c7865",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#9864aa",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#f4e9b5",
+      "size": 13
+    }
+  },
+  "colormap": "Inferno"
+}

@@ -1,0 +1,132 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "template": {
+    "version": 1,
+    "parameters": {
+      "value": {
+        "default": "value"
+      },
+      "group": {
+        "default": "group"
+      },
+      "bandwidth": {
+        "default": 0.4
+      },
+      "gain": {
+        "default": 2.2
+      }
+    },
+    "slot": "415cd95adc784da39827bf1e44a0b6e6-slot-13"
+  },
+  "root": {
+    "id": "415cd95adc784da39827bf1e44a0b6e6-template-1",
+    "kind": "Template",
+    "props": {},
+    "events": [],
+    "children": [
+      {
+        "id": "415cd95adc784da39827bf1e44a0b6e6-density-3",
+        "kind": "Density",
+        "props": {
+          "x": {
+            "$param": "value"
+          },
+          "by": {
+            "$param": "group"
+          },
+          "bandwidth": {
+            "$param": "bandwidth"
+          },
+          "resolution": 128
+        },
+        "events": [],
+        "children": [
+          {
+            "id": "415cd95adc784da39827bf1e44a0b6e6-calculate-7",
+            "kind": "Calculate",
+            "props": {
+              "columns": {
+                "baseline": {
+                  "$expression": {
+                    "op": "multiply",
+                    "args": [
+                      {
+                        "$param": "group"
+                      },
+                      1
+                    ]
+                  }
+                },
+                "ridge": {
+                  "$expression": {
+                    "op": "add",
+                    "args": [
+                      {
+                        "$param": "group"
+                      },
+                      {
+                        "$expression": {
+                          "op": "multiply",
+                          "args": [
+                            "density",
+                            {
+                              "$param": "gain"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "events": [],
+            "children": [
+              {
+                "id": "415cd95adc784da39827bf1e44a0b6e6-area-9",
+                "kind": "Area",
+                "props": {
+                  "x": "x",
+                  "upper": "ridge",
+                  "lower": "baseline",
+                  "series": {
+                    "$param": "group"
+                  },
+                  "fill": {
+                    "$param": "group"
+                  },
+                  "opacity": 0.65
+                },
+                "events": [],
+                "children": []
+              },
+              {
+                "id": "415cd95adc784da39827bf1e44a0b6e6-line-11",
+                "kind": "Line",
+                "props": {
+                  "x": "x",
+                  "y": "ridge",
+                  "series": {
+                    "$param": "group"
+                  },
+                  "color": "#334155",
+                  "width": 1.1
+                },
+                "events": [],
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "415cd95adc784da39827bf1e44a0b6e6-slot-13",
+        "kind": "Slot",
+        "props": {},
+        "events": [],
+        "children": []
+      }
+    ]
+  }
+}

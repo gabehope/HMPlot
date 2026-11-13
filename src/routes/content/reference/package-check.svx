@@ -1,0 +1,28 @@
+---
+title: hmplot/check
+---
+
+`inspect()` checks mounted Svelte plots. Import it explicitly in browser tests;
+HMPlot installs no global testing hook. It returns an `InspectionReport` containing
+`PlotInspection` records and structured errors, warnings and lints. `InspectionOptions`
+selects a DOM root and a total timeout, defaulting to 30 seconds.
+
+Wait for application data to finish loading before calling it. Inspection waits
+for mounted plots' first visible draws, then the work already started by each plot.
+An ongoing animation does not need to finish. A timeout is reported as an error,
+never as successful settling. Visible application alerts in the inspection root are included as errors.
+Reports include mark summaries and axis descriptions
+in `model`, completed-frame counters, pending preparations and export omissions.
+
+```js
+import { inspect } from "hmplot/check";
+const report = await inspect({ root: document.querySelector("main") });
+console.log(JSON.stringify(report));
+```
+
+For Playwright, expose the imported function from a test-only application entry
+point, then use `await page.evaluate(() => window.inspectPlot())`. Save its JSON
+and a `page.screenshot()` at device pixel ratio 2. Check values, exported geometry,
+or DOM after interactions; a changed screenshot alone does not establish correct
+selection, aggregation, or filtering. See the web authoring guide for a complete
+checking workflow.

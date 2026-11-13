@@ -1,0 +1,226 @@
+{
+  "Delaunay": {
+    "container": true,
+    "group": "Transforms",
+    "summary": "The Delaunay triangulation of points, as edges for Segments.",
+    "options": {
+      "name": {
+        "type": "string",
+        "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."
+      },
+      "x": {
+        "type": "column",
+        "doc": "The points' x column. Each output row is an edge from `start` to `end`, between the rows numbered `source` and `target`.",
+        "input": true
+      },
+      "y": {
+        "type": "column",
+        "doc": "The points' y column.",
+        "input": true
+      }
+    }
+  },
+  "Voronoi": {
+    "container": true,
+    "group": "Transforms",
+    "summary": "Each point's Voronoi cell, as triangles for Polygon.",
+    "options": {
+      "name": {
+        "type": "string",
+        "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."
+      },
+      "x": {
+        "type": "column",
+        "doc": "The points' x column. Each cell carries its point's row: its columns, and its identity for hover and selection.",
+        "input": true
+      },
+      "y": {
+        "type": "column",
+        "doc": "The points' y column.",
+        "input": true
+      },
+      "extent": {
+        "type": "[[number, number], [number, number]]",
+        "defaultText": "the points' bounds, widened by a tenth of their size",
+        "units": "data units",
+        "doc": "The rectangle the cells are clipped to, [[x0, y0], [x1, y1]]."
+      }
+    }
+  },
+  "Hull": {
+    "container": true,
+    "group": "Transforms",
+    "summary": "The convex hull around points, one per group, as triangles for Polygon.",
+    "options": {
+      "name": {
+        "type": "string",
+        "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."
+      },
+      "x": {
+        "type": "column",
+        "doc": "The points' x column.",
+        "input": true
+      },
+      "y": {
+        "type": "column",
+        "doc": "The points' y column.",
+        "input": true
+      },
+      "by": {
+        "type": "column | column[]",
+        "doc": "Groups, a hull each, carrying the group's first row (one hull around every point without it).",
+        "input": true
+      }
+    }
+  },
+  "Contour": {
+    "container": true,
+    "group": "Transforms",
+    "summary": "Contour lines or filled bands of a grid, such as a 2-D density.",
+    "options": {
+      "name": {
+        "type": "string",
+        "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."
+      },
+      "field": {
+        "type": "column",
+        "doc": "The grid table's column to contour (a Density's or an Interpolate's output, or a gridded dataset).",
+        "input": true
+      },
+      "thresholds": {
+        "type": "number | number[]",
+        "default": 10,
+        "doc": "The levels: a count of round values across the field's range (about that many), or the list of levels."
+      },
+      "mode": {
+        "type": "\"lines\" | \"bands\"",
+        "default": "lines",
+        "doc": "\"lines\" gives a row per segment (`start`, `end`, `level`) for Segments; \"bands\" gives the regions between levels as triangles (`lower`, `upper`, `band`) for Polygon.",
+        "input": true
+      },
+      "x": {
+        "type": "string",
+        "defaultText": "the grid's last dimension",
+        "doc": "The grid dimension on the x axis.",
+        "input": true
+      },
+      "y": {
+        "type": "string",
+        "defaultText": "the grid's second-to-last dimension",
+        "doc": "The grid dimension on the y axis.",
+        "input": true
+      }
+    }
+  },
+  "Density": {
+    "container": true,
+    "group": "Transforms",
+    "summary": "A kernel density estimate of one column (a smooth histogram), or of two on a grid (a density heatmap).",
+    "options": {
+      "name": {
+        "type": "string",
+        "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."
+      },
+      "x": {
+        "type": "column",
+        "doc": "The column whose density to estimate; the output's x column holds the points it is evaluated at.",
+        "input": true
+      },
+      "y": {
+        "type": "column",
+        "doc": "A second column, for a 2D density: the output is a grid of x and y that a Heatmap draws.",
+        "input": true
+      },
+      "by": {
+        "type": "column | column[]",
+        "doc": "Estimate one density per group of these columns, on the same points; the output keeps these columns.",
+        "input": true
+      },
+      "weight": {
+        "type": "column",
+        "doc": "Nonnegative weights for the rows.",
+        "input": true
+      },
+      "resolution": {
+        "type": "number | [number, number] | expression",
+        "defaultText": "256 in 1D, [128, 128] in 2D",
+        "doc": "How many points to evaluate: a number, or [nx, ny] in 2D."
+      },
+      "bandwidth": {
+        "type": "\"auto\" | number | [number, number] | expression",
+        "default": "auto",
+        "units": "data units",
+        "doc": "The kernel's width: \"auto\" uses Scott's rule; a number ([bx, by] in 2D) or an expression such as `multiply(std(col.x), 0.3)` sets it.",
+        "input": true
+      },
+      "bounds": {
+        "type": "{x, y}",
+        "defaultText": "the data's extent and three bandwidths on each side",
+        "units": "data units",
+        "doc": "The range to evaluate over, as {x: [min, max], y: [min, max]}."
+      },
+      "normalization": {
+        "type": "\"density\" | \"count\"",
+        "default": "density",
+        "doc": "What the density column holds: \"density\" integrates to 1 over each group; \"count\" integrates to its row count (or total weight).",
+        "input": true
+      },
+      "as": {
+        "type": "{x, y, density}",
+        "doc": "New names for the x, y and density columns."
+      }
+    }
+  },
+  "Regression": {
+    "container": true,
+    "group": "Transforms",
+    "summary": "A least-squares fit of y on x, sampled across x, with its confidence band.",
+    "options": {
+      "name": {
+        "type": "string",
+        "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."
+      },
+      "x": {
+        "type": "column",
+        "doc": "The column y is fitted on; the output's `x` holds `samples` positions across its range.",
+        "input": true
+      },
+      "y": {
+        "type": "column",
+        "doc": "The column fitted; the output's `y` is the fitted curve.",
+        "input": true
+      },
+      "method": {
+        "type": "\"linear\" | \"poly\" | \"log\" | \"exp\" | \"pow\"",
+        "default": "linear",
+        "doc": "The model: a line, a polynomial of `order`, y on ln x, ln y on x, or ln y on ln x. The log models leave out rows at zero or below, with a warning.",
+        "input": true
+      },
+      "order": {
+        "type": "number",
+        "default": 2,
+        "doc": "The polynomial's degree, 1 to 6, with method \"poly\"."
+      },
+      "samples": {
+        "type": "number",
+        "default": 100,
+        "doc": "How many output rows, evenly spaced across `extent`."
+      },
+      "extent": {
+        "type": "[number, number]",
+        "defaultText": "the fitted rows' x range",
+        "units": "data units",
+        "doc": "The x range the fit is sampled over."
+      },
+      "band": {
+        "type": "number | false",
+        "default": 0.95,
+        "doc": "The confidence level of the band around the fitted mean, in the `lower` and `upper` columns (Student's t); false for none, which leaves both columns missing."
+      },
+      "as": {
+        "type": "{x, y, lower, upper}",
+        "doc": "New names for the output columns `x`, `y`, `lower` and `upper`."
+      }
+    }
+  }
+}

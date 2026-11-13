@@ -1,0 +1,4545 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.5 / 122.6: field uploads and named-channel preparation contracts",
+  "baseline": "d69144e1; candidate checks field upload and named preparation implementations, preserves result ownership types, and fixes empty basis lines.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "serving": "Both frozen production builds served concurrently from separate directories; one discarded warm-up per build, then eight alternating A/B and B/A rounds.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "cpu": "Active profile time includes all samples except (idle), using timeDeltas[i+1]. Sunburst takes the median across warmed flights before comparing each round.",
+    "counters": "Lorenz GPU counters are separate from plain CPU timing and retained as whole six-second windows. Separate Sunburst captures retain readbacks per flight.",
+    "rawResults": "<tmp>/hmplot-fields-final-paired",
+    "browser": "154.0.8037.98"
+  },
+  "scenarios": {
+    "sunburst-native": {
+      "frameP50Ms": {
+        "baseline": {
+          "median": 16.7,
+          "min": 16.6,
+          "max": 16.7,
+          "rounds": [
+            16.7,
+            16.7,
+            16.6,
+            16.6,
+            16.7,
+            16.7,
+            16.7,
+            16.7
+          ]
+        },
+        "candidate": {
+          "median": 16.7,
+          "min": 16.6,
+          "max": 16.7,
+          "rounds": [
+            16.7,
+            16.6,
+            16.7,
+            16.7,
+            16.6,
+            16.7,
+            16.6,
+            16.7
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": -0.1,
+          "max": 0.1,
+          "rounds": [
+            0.0,
+            -0.1,
+            0.1,
+            0.1,
+            -0.1,
+            0.0,
+            -0.1,
+            0.0
+          ]
+        }
+      },
+      "frameP95Ms": {
+        "baseline": {
+          "median": 17.9,
+          "min": 17.6,
+          "max": 18,
+          "rounds": [
+            18,
+            17.6,
+            17.9,
+            17.9,
+            18,
+            17.8,
+            17.9,
+            17.9
+          ]
+        },
+        "candidate": {
+          "median": 18.05,
+          "min": 17.9,
+          "max": 18.2,
+          "rounds": [
+            18,
+            18.2,
+            17.9,
+            17.9,
+            18.1,
+            18.2,
+            18.2,
+            17.9
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.05,
+          "min": -0.0,
+          "max": 0.6,
+          "rounds": [
+            0,
+            0.6,
+            0.0,
+            0.0,
+            0.1,
+            0.4,
+            0.3,
+            -0.0
+          ]
+        }
+      },
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 3.8746,
+          "min": 3.4411,
+          "max": 4.1366,
+          "rounds": [
+            3.9944,
+            3.6616,
+            3.9444,
+            4.1366,
+            4.1211,
+            3.6525,
+            3.8047,
+            3.4411
+          ]
+        },
+        "candidate": {
+          "median": 3.9949,
+          "min": 3.6551,
+          "max": 4.3443,
+          "rounds": [
+            4.0633,
+            3.6551,
+            4.0886,
+            4.3443,
+            3.9248,
+            4.0998,
+            3.7569,
+            3.9265
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.1065,
+          "min": -0.1963,
+          "max": 0.4853,
+          "rounds": [
+            0.0689,
+            -0.0065,
+            0.1441,
+            0.2077,
+            -0.1963,
+            0.4472,
+            -0.0478,
+            0.4853
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              76,
+              79,
+              79,
+              79,
+              78,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.900000005960464,
+              18,
+              17.600000023841858,
+              17.900000005960464,
+              18.900000005960464,
+              18
+            ],
+            "maxGapPerFlight": [
+              256.5,
+              130,
+              142,
+              155.69999998807907,
+              164.7000000178814,
+              145.2999999821186
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 75,
+                "staticMarkReuses": 38,
+                "preparationRequests": 118,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18,
+              18.5,
+              17.400000005960464,
+              17.5,
+              17.599999994039536,
+              17.700000017881393
+            ],
+            "maxGapPerFlight": [
+              254.90000000596046,
+              132.10000002384186,
+              111,
+              139.2000000178814,
+              160.30000001192093,
+              182
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.099999994039536,
+              18.700000017881393,
+              17.900000005960464,
+              17.900000005960464,
+              18.399999976158142,
+              17.69999998807907
+            ],
+            "maxGapPerFlight": [
+              272.59999999403954,
+              142.30000001192093,
+              128.30000001192093,
+              127.69999998807907,
+              175.5,
+              176.59999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.80000001192093,
+              17.69999998807907,
+              18.099999994039536,
+              18,
+              17.900000005960464,
+              17.900000005960464
+            ],
+            "maxGapPerFlight": [
+              256,
+              130.5,
+              121.5,
+              135.09999999403954,
+              163.30000001192093,
+              187.69999998807907
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.700000017881393,
+              18.5,
+              17.5,
+              18,
+              17.799999982118607,
+              19.299999982118607
+            ],
+            "maxGapPerFlight": [
+              253.7999999821186,
+              127.2000000178814,
+              135.2000000178814,
+              124.80000001192093,
+              163.40000000596046,
+              170.39999997615814
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "frameP95PerFlight": [
+              18,
+              18,
+              17.599999994039536,
+              17.900000005960464,
+              17.600000023841858,
+              17.80000001192093
+            ],
+            "maxGapPerFlight": [
+              254.59999999403954,
+              128,
+              133.7000000178814,
+              119.10000002384186,
+              174.80000001192093,
+              175.19999998807907
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 7,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.099999994039536,
+              17.900000005960464,
+              17.700000017881393,
+              17.900000005960464,
+              17.900000005960464,
+              18.200000017881393
+            ],
+            "maxGapPerFlight": [
+              254.7000000178814,
+              131.69999998807907,
+              114.40000000596046,
+              126.60000002384186,
+              180.5,
+              171.39999997615814
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 8,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "frameP95PerFlight": [
+              17.69999998807907,
+              18.599999994039536,
+              18.19999998807907,
+              17.599999994039536,
+              17.299999982118607,
+              17.900000005960464
+            ],
+            "maxGapPerFlight": [
+              255.09999999403954,
+              128.19999998807907,
+              122,
+              130.5,
+              166,
+              181.80000001192093
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.600000023841858,
+              18.099999994039536,
+              18,
+              18,
+              17.600000023841858,
+              17.900000005960464
+            ],
+            "maxGapPerFlight": [
+              254.69999998807907,
+              127.7999999821186,
+              126.30000001192093,
+              136.2000000178814,
+              184,
+              176.7000000178814
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "frameP95PerFlight": [
+              17.5,
+              18.200000017881393,
+              18.299999982118607,
+              17.80000001192093,
+              17.400000005960464,
+              18.599999994039536
+            ],
+            "maxGapPerFlight": [
+              254.80000001192093,
+              131.09999999403954,
+              126.69999998807907,
+              128.09999999403954,
+              162.7999999821186,
+              177.5
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              77,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.69999998807907,
+              18,
+              17.599999994039536,
+              17.69999998807907,
+              17.900000005960464,
+              18.099999994039536
+            ],
+            "maxGapPerFlight": [
+              254.69999998807907,
+              113.30000001192093,
+              120.40000000596046,
+              123.59999999403954,
+              172.19999998807907,
+              177.5
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 77,
+                "staticMarkReuses": 39,
+                "preparationRequests": 121,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.30000001192093,
+              17.700000017881393,
+              18,
+              17.900000005960464,
+              18,
+              17.599999994039536
+            ],
+            "maxGapPerFlight": [
+              255.60000002384186,
+              128.09999999403954,
+              121.39999997615814,
+              120.90000000596046,
+              166.90000000596046,
+              177.90000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.700000017881393,
+              17.900000005960464,
+              17.900000005960464,
+              18.099999994039536,
+              18.599999994039536,
+              19.099999994039536
+            ],
+            "maxGapPerFlight": [
+              255.59999999403954,
+              132.40000000596046,
+              131.19999998807907,
+              138.90000000596046,
+              182.09999999403954,
+              136.7999999821186
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.100000023841858,
+              18.400000005960464,
+              18.099999994039536,
+              18.19999998807907,
+              17.80000001192093,
+              18.69999998807907
+            ],
+            "maxGapPerFlight": [
+              272,
+              126.60000002384186,
+              128.2999999821186,
+              123.40000000596046,
+              165.80000001192093,
+              182.09999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 7,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.599999994039536,
+              17.600000023841858,
+              18.19999998807907,
+              17.69999998807907,
+              19.400000005960464,
+              18.19999998807907
+            ],
+            "maxGapPerFlight": [
+              255.69999998807907,
+              130.59999999403954,
+              116.2000000178814,
+              139.40000000596046,
+              181.7000000178814,
+              126.10000002384186
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 40,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 8,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.700000017881393,
+              18.700000017881393,
+              17.5,
+              18.099999994039536,
+              17.69999998807907,
+              17.899999976158142
+            ],
+            "maxGapPerFlight": [
+              254.19999998807907,
+              131.7000000178814,
+              119.59999999403954,
+              118.90000000596046,
+              161.80000001192093,
+              165.2000000178814
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ]
+      },
+      "errors": [],
+      "firstSixAndAdditionalRounds": {
+        "cpuMsPerFrame": {
+          "firstSixPairedMedian": 0.10650000000000001,
+          "additionalPairedMedian": 0.21875,
+          "baselineFirstSixMedian": 3.9694000000000003,
+          "baselineAdditionalMedian": 3.6229,
+          "candidateFirstSixMedian": 4.07595,
+          "candidateAdditionalMedian": 3.8417
+        },
+        "frameP95Ms": {
+          "firstSixPairedMedian": 0.05,
+          "additionalPairedMedian": 0.15,
+          "baselineFirstSixMedian": 17.9,
+          "baselineAdditionalMedian": 17.9,
+          "candidateFirstSixMedian": 18.05,
+          "candidateAdditionalMedian": 18.049999999999997
+        }
+      },
+      "gateComparison": {
+        "cpuMsPerFrame": {
+          "pairedMedianDeltaPercent": 2.749,
+          "observedPairedRangeMs": 0.6816,
+          "hardLimitMs": 1.3632,
+          "overHardLimit": false,
+          "scope": "Hard threshold alone does not prove equivalence; paired noise and repeatable differences must also be reported."
+        },
+        "frameP95Ms": {
+          "pairedMedianDeltaPercent": 0.279,
+          "observedPairedRangeMs": 0.6,
+          "hardLimitMs": 1.79,
+          "overHardLimit": false,
+          "scope": "Hard threshold alone does not prove equivalence; paired noise and repeatable differences must also be reported."
+        }
+      }
+    },
+    "sunburst-scene": {
+      "frameP50Ms": {
+        "baseline": {
+          "median": 16.7,
+          "min": 16.6,
+          "max": 33.3,
+          "rounds": [
+            16.7,
+            16.6,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            33.3,
+            33.3
+          ]
+        },
+        "candidate": {
+          "median": 16.7,
+          "min": 16.6,
+          "max": 33.3,
+          "rounds": [
+            16.6,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.6,
+            33.3
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": -16.7,
+          "max": 0.1,
+          "rounds": [
+            -0.1,
+            0.1,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -16.7,
+            0.0
+          ]
+        }
+      },
+      "frameP95Ms": {
+        "baseline": {
+          "median": 18.15,
+          "min": 17.6,
+          "max": 35.2,
+          "rounds": [
+            18.1,
+            18.5,
+            17.6,
+            18.2,
+            17.8,
+            17.6,
+            35.1,
+            35.2
+          ]
+        },
+        "candidate": {
+          "median": 18.15,
+          "min": 17.8,
+          "max": 34.9,
+          "rounds": [
+            18.3,
+            17.9,
+            17.9,
+            18.4,
+            18.1,
+            18.2,
+            17.8,
+            34.9
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.2,
+          "min": -17.3,
+          "max": 0.6,
+          "rounds": [
+            0.2,
+            -0.6,
+            0.3,
+            0.2,
+            0.3,
+            0.6,
+            -17.3,
+            -0.3
+          ]
+        }
+      },
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.1546,
+          "min": 3.6512,
+          "max": 6.378,
+          "rounds": [
+            4.057,
+            4.3396,
+            3.7526,
+            4.2522,
+            3.6512,
+            3.9741,
+            5.8467,
+            6.378
+          ]
+        },
+        "candidate": {
+          "median": 4.1794,
+          "min": 3.8328,
+          "max": 5.5895,
+          "rounds": [
+            4.4232,
+            4.1841,
+            4.0387,
+            4.1747,
+            3.8328,
+            3.9869,
+            4.2006,
+            5.5895
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0323,
+          "min": -1.646,
+          "max": 0.3662,
+          "rounds": [
+            0.3662,
+            -0.1555,
+            0.286,
+            -0.0775,
+            0.1816,
+            0.0129,
+            -1.646,
+            -0.7885
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              78,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18,
+              17.69999998807907,
+              18.099999994039536,
+              18.19999998807907,
+              18.19999998807907,
+              18
+            ],
+            "maxGapPerFlight": [
+              256,
+              122.69999998807907,
+              139.5,
+              180.2999999821186,
+              162.69999998807907,
+              163.19999998807907
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.69999998807907,
+              18.600000023841858,
+              18.599999994039536,
+              17.600000023841858,
+              18.5,
+              18.200000017881393
+            ],
+            "maxGapPerFlight": [
+              273.30000001192093,
+              140.7000000178814,
+              130,
+              113.69999998807907,
+              146.59999999403954,
+              164.59999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 39,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.099999994039536,
+              17.599999994039536,
+              17.900000005960464,
+              17.400000005960464,
+              17.19999998807907,
+              17.80000001192093
+            ],
+            "maxGapPerFlight": [
+              270.2999999821186,
+              142.59999999403954,
+              161.39999997615814,
+              138.5,
+              154.5,
+              164.90000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18,
+              18.799999982118607,
+              18,
+              17.80000001192093,
+              18.200000017881393,
+              18.600000023841858
+            ],
+            "maxGapPerFlight": [
+              271.59999999403954,
+              139.2000000178814,
+              130.2999999821186,
+              120.2000000178814,
+              131.5,
+              149
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.700000017881393,
+              17.399999976158142,
+              17.900000005960464,
+              17.80000001192093,
+              17.900000005960464,
+              17.5
+            ],
+            "maxGapPerFlight": [
+              257.40000000596046,
+              114,
+              143.40000000596046,
+              130.19999998807907,
+              148.40000000596046,
+              162.90000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.599999994039536,
+              17.600000023841858,
+              17.400000005960464,
+              17.69999998807907,
+              17.30000001192093,
+              18
+            ],
+            "maxGapPerFlight": [
+              270.2000000178814,
+              139,
+              164.80000001192093,
+              118.10000002384186,
+              147.69999998807907,
+              164.5
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 7,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              41,
+              40,
+              41,
+              40
+            ],
+            "frameP95PerFlight": [
+              34.29999998211861,
+              35.5,
+              35.099999994039536,
+              34.79999998211861,
+              35.29999998211861,
+              35
+            ],
+            "maxGapPerFlight": [
+              271.40000000596046,
+              101.59999999403954,
+              72.80000001192093,
+              165.80000001192093,
+              102.40000000596046,
+              200.40000000596046
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 43,
+                "staticMarkReuses": 22,
+                "preparationRequests": 70,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 8,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              40,
+              41,
+              41,
+              40
+            ],
+            "frameP95PerFlight": [
+              34.400000005960464,
+              35.5,
+              34.599999994039536,
+              35.80000001192093,
+              35.20000001788139,
+              34.79999998211861
+            ],
+            "maxGapPerFlight": [
+              306.5,
+              84.59999999403954,
+              164,
+              92.5,
+              93.09999999403954,
+              200.30000001192093
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 43,
+                "staticMarkReuses": 22,
+                "preparationRequests": 70,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              77,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.80000001192093,
+              18,
+              18.5,
+              18.30000001192093,
+              18.099999994039536,
+              18.599999994039536
+            ],
+            "maxGapPerFlight": [
+              288.2000000178814,
+              138.90000000596046,
+              139.69999998807907,
+              124.40000000596046,
+              143.19999998807907,
+              168
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 77,
+                "staticMarkReuses": 38,
+                "preparationRequests": 121,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.600000023841858,
+              18.30000001192093,
+              17.599999994039536,
+              17.900000005960464,
+              17.900000005960464,
+              18.100000023841858
+            ],
+            "maxGapPerFlight": [
+              270.59999999403954,
+              139.60000002384186,
+              147.69999998807907,
+              122.5,
+              146.59999999403954,
+              148.7999999821186
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.700000017881393,
+              17.900000005960464,
+              18.80000001192093,
+              17.900000005960464,
+              17.700000017881393,
+              17.599999994039536
+            ],
+            "maxGapPerFlight": [
+              273,
+              138.30000001192093,
+              134.5,
+              113,
+              140.40000000596046,
+              163.5
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.30000001192093,
+              18.5,
+              18.80000001192093,
+              17.799999982118607,
+              18.400000005960464,
+              17.700000017881393
+            ],
+            "maxGapPerFlight": [
+              253.2000000178814,
+              119.40000000596046,
+              152.40000000596046,
+              130,
+              148.59999999403954,
+              160.59999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.599999994039536,
+              18.099999994039536,
+              18.099999994039536,
+              18.099999994039536,
+              17.400000005960464,
+              17.100000023841858
+            ],
+            "maxGapPerFlight": [
+              270.30000001192093,
+              138.69999998807907,
+              131.40000000596046,
+              127,
+              148.7999999821186,
+              168
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              17.799999982118607,
+              18.5,
+              18.200000017881393,
+              18.299999982118607,
+              17.80000001192093,
+              17.80000001192093
+            ],
+            "maxGapPerFlight": [
+              287.19999998807907,
+              152.5,
+              132.39999997615814,
+              127.40000000596046,
+              148.40000000596046,
+              162.09999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 79,
+                "staticMarkReuses": 40,
+                "preparationRequests": 124,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 7,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "frameP95PerFlight": [
+              18.5,
+              17.599999994039536,
+              19.099999994039536,
+              18,
+              17.599999994039536,
+              17.799999982118607
+            ],
+            "maxGapPerFlight": [
+              254,
+              124.40000000596046,
+              162.19999998807907,
+              133,
+              148.90000000596046,
+              161.30000001192093
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 8,
+            "completedFramesPerFlight": [
+              40,
+              41,
+              41,
+              41,
+              40,
+              41
+            ],
+            "frameP95PerFlight": [
+              34.5,
+              34.5,
+              35,
+              35.79999998211861,
+              34.80000001192093,
+              34.900000005960464
+            ],
+            "maxGapPerFlight": [
+              303.2000000178814,
+              92.5,
+              90.69999998807907,
+              93.7000000178814,
+              166,
+              98.09999999403954
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 43,
+                "staticMarkReuses": 21,
+                "preparationRequests": 70,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 42,
+                "staticMarkReuses": 21,
+                "preparationRequests": 69,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ]
+      },
+      "errors": [],
+      "firstSixAndAdditionalRounds": {
+        "cpuMsPerFrame": {
+          "firstSixPairedMedian": 0.09725,
+          "additionalPairedMedian": -1.21725,
+          "baselineFirstSixMedian": 4.01555,
+          "baselineAdditionalMedian": 6.11235,
+          "candidateFirstSixMedian": 4.1067,
+          "candidateAdditionalMedian": 4.8950499999999995
+        },
+        "frameP95Ms": {
+          "firstSixPairedMedian": 0.25,
+          "additionalPairedMedian": -8.8,
+          "baselineFirstSixMedian": 17.950000000000003,
+          "baselineAdditionalMedian": 35.150000000000006,
+          "candidateFirstSixMedian": 18.15,
+          "candidateAdditionalMedian": 26.35
+        }
+      },
+      "gateComparison": {
+        "cpuMsPerFrame": {
+          "pairedMedianDeltaPercent": -0.777,
+          "observedPairedRangeMs": 2.0122,
+          "hardLimitMs": 4.0244,
+          "overHardLimit": false,
+          "scope": "Hard threshold alone does not prove equivalence; paired noise and repeatable differences must also be reported."
+        },
+        "frameP95Ms": {
+          "pairedMedianDeltaPercent": 1.102,
+          "observedPairedRangeMs": 17.9,
+          "hardLimitMs": 35.8,
+          "overHardLimit": false,
+          "scope": "Hard threshold alone does not prove equivalence; paired noise and repeatable differences must also be reported."
+        }
+      }
+    },
+    "lorenz": {
+      "frameP50Ms": {
+        "baseline": {
+          "median": 16.7,
+          "min": 16.7,
+          "max": 33.3,
+          "rounds": [
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            33.3,
+            33.3
+          ]
+        },
+        "candidate": {
+          "median": 16.7,
+          "min": 16.7,
+          "max": 33.3,
+          "rounds": [
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            16.7,
+            33.3,
+            33.3
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "rounds": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "frameP95Ms": {
+        "baseline": {
+          "median": 16.8,
+          "min": 16.7,
+          "max": 33.4,
+          "rounds": [
+            16.8,
+            16.8,
+            16.7,
+            16.7,
+            16.8,
+            16.7,
+            33.4,
+            33.4
+          ]
+        },
+        "candidate": {
+          "median": 16.8,
+          "min": 16.7,
+          "max": 33.4,
+          "rounds": [
+            16.7,
+            16.8,
+            16.8,
+            16.8,
+            16.7,
+            16.8,
+            33.4,
+            33.4
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0,
+          "min": -0.1,
+          "max": 0.1,
+          "rounds": [
+            -0.1,
+            0.0,
+            0.1,
+            0.1,
+            -0.1,
+            0.1,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 6.0755,
+          "min": 5.57,
+          "max": 6.991,
+          "rounds": [
+            5.57,
+            5.687,
+            6.039,
+            6.112,
+            5.634,
+            6.175,
+            6.828,
+            6.991
+          ]
+        },
+        "candidate": {
+          "median": 5.691,
+          "min": 5.49,
+          "max": 7.297,
+          "rounds": [
+            5.49,
+            5.616,
+            5.738,
+            5.55,
+            5.702,
+            5.68,
+            7.057,
+            7.297
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0755,
+          "min": -0.562,
+          "max": 0.306,
+          "rounds": [
+            -0.08,
+            -0.071,
+            -0.301,
+            -0.562,
+            0.068,
+            -0.495,
+            0.229,
+            0.306
+          ]
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.3,
+            "builds": 0,
+            "liveMB": 131.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.4,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6001.5,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 30.983,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.4,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              359,
+              359
+            ],
+            "frames": 360,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "liveMB": 134.7,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 7,
+            "readbacksPerWindow": 180,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              180,
+              180,
+              180
+            ],
+            "frames": 180,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "liveMB": 135.1,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 8,
+            "readbacksPerWindow": 180,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              180,
+              180,
+              180
+            ],
+            "frames": 180,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerWindow": 359,
+            "submitsPerFrame": 30.925,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "liveMB": 132.6,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31.058,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6001.8,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacksPerWindow": 361,
+            "submitsPerFrame": 31.058,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacksPerWindow": 360,
+            "submitsPerFrame": 30.983,
+            "presentedFramesPerCanvas": [
+              360,
+              360,
+              360
+            ],
+            "frames": 360,
+            "windowMs": 6002.4,
+            "builds": 0,
+            "liveMB": 136,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacksPerWindow": 359,
+            "submitsPerFrame": 30.925,
+            "presentedFramesPerCanvas": [
+              360,
+              359,
+              359
+            ],
+            "frames": 360,
+            "windowMs": 6003,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 7,
+            "readbacksPerWindow": 180,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              180,
+              180,
+              180
+            ],
+            "frames": 180,
+            "windowMs": 6002.7,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 8,
+            "readbacksPerWindow": 180,
+            "submitsPerFrame": 31,
+            "presentedFramesPerCanvas": [
+              180,
+              180,
+              180
+            ],
+            "frames": 180,
+            "windowMs": 6002.6,
+            "builds": 0,
+            "liveMB": 134.2,
+            "droppedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 3.866,
+          "min": 3.444,
+          "max": 4.113,
+          "rounds": [
+            3.444,
+            3.793,
+            3.825,
+            3.734,
+            4.004,
+            3.945,
+            3.907,
+            4.113
+          ]
+        },
+        "candidate": {
+          "median": 3.8655,
+          "min": 3.029,
+          "max": 3.991,
+          "rounds": [
+            3.989,
+            3.838,
+            3.862,
+            3.869,
+            3.903,
+            3.991,
+            3.029,
+            3.373
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.041,
+          "min": -0.878,
+          "max": 0.545,
+          "rounds": [
+            0.545,
+            0.045,
+            0.037,
+            0.135,
+            -0.101,
+            0.046,
+            -0.878,
+            -0.74
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 59.9815,
+          "min": 29.972,
+          "max": 59.988,
+          "rounds": [
+            59.972,
+            59.979,
+            59.988,
+            59.984,
+            59.987,
+            59.985,
+            29.972,
+            29.989
+          ]
+        },
+        "candidate": {
+          "median": 59.9745,
+          "min": 29.988,
+          "max": 59.986,
+          "rounds": [
+            59.978,
+            59.986,
+            59.985,
+            59.983,
+            59.971,
+            59.969,
+            29.988,
+            29.989
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0005,
+          "min": -0.016,
+          "max": 0.016,
+          "rounds": [
+            0.006,
+            0.007,
+            -0.003,
+            -0.001,
+            -0.016,
+            -0.016,
+            0.016,
+            0.0
+          ]
+        }
+      },
+      "firstSixAndAdditionalRounds": {
+        "cpuMsPerFrame": {
+          "firstSixPairedMedian": -0.1905,
+          "additionalPairedMedian": 0.2675,
+          "baselineFirstSixMedian": 5.8629999999999995,
+          "baselineAdditionalMedian": 6.9094999999999995,
+          "candidateFirstSixMedian": 5.648,
+          "candidateAdditionalMedian": 7.177
+        },
+        "frameP95Ms": {
+          "firstSixPairedMedian": 0.05,
+          "additionalPairedMedian": 0.0,
+          "baselineFirstSixMedian": 16.75,
+          "baselineAdditionalMedian": 33.4,
+          "candidateFirstSixMedian": 16.8,
+          "candidateAdditionalMedian": 33.4
+        },
+        "gpuMsPerFrame": {
+          "firstSixPairedMedian": 0.0455,
+          "additionalPairedMedian": -0.8089999999999999,
+          "baselineFirstSixMedian": 3.809,
+          "baselineAdditionalMedian": 4.01,
+          "candidateFirstSixMedian": 3.886,
+          "candidateAdditionalMedian": 3.201
+        },
+        "fps": {
+          "firstSixPairedMedian": -0.002,
+          "additionalPairedMedian": 0.008,
+          "baselineFirstSixMedian": 59.9845,
+          "baselineAdditionalMedian": 29.9805,
+          "candidateFirstSixMedian": 59.9805,
+          "candidateAdditionalMedian": 29.988500000000002
+        }
+      },
+      "gateComparison": {
+        "cpuMsPerFrame": {
+          "pairedMedianDeltaPercent": -1.243,
+          "observedPairedRangeMs": 0.868,
+          "hardLimitMs": 1.736,
+          "overHardLimit": false,
+          "scope": "Hard threshold alone does not prove equivalence; paired noise and repeatable differences must also be reported."
+        },
+        "frameP95Ms": {
+          "pairedMedianDeltaPercent": 0.0,
+          "observedPairedRangeMs": 0.2,
+          "hardLimitMs": 1.68,
+          "overHardLimit": false,
+          "scope": "Hard threshold alone does not prove equivalence; paired noise and repeatable differences must also be reported."
+        }
+      }
+    }
+  },
+  "snapshots": {
+    "a": {
+      "sourceManifestSHA256": "51dc5b5a5bd3cc375b696a2e023547b9298775579cba1c2cbe3bd1d41d76f6bd",
+      "root": "<tmp>/hmplot-fields-a",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "7a4ed4fc50af0977a75ef9c57fc209402d62f08a7d27ff8410544297379d35b2",
+          "files": 613
+        },
+        "sunburst-scene": {
+          "sha256": "7a4ed4fc50af0977a75ef9c57fc209402d62f08a7d27ff8410544297379d35b2",
+          "files": 613
+        }
+      },
+      "executedJavaScriptVerified": true
+    },
+    "b": {
+      "sourceManifestSHA256": "f06df05d32a2ee00683acd41456f76635b5e2da037b167cfb8a9e0d1df16623a",
+      "root": "<tmp>/hmplot-fields-c",
+      "sourceFingerprints": {
+        "sunburst-native": {
+          "sha256": "d56bc82c87af814e9e5b96278a674a78f73e047e4f07f679a14e58ae39344517",
+          "files": 613
+        },
+        "sunburst-scene": {
+          "sha256": "d56bc82c87af814e9e5b96278a674a78f73e047e4f07f679a14e58ae39344517",
+          "files": 613
+        }
+      },
+      "executedJavaScriptVerified": true
+    }
+  },
+  "limitations": [
+    "This is a correctness regression gate, not evidence of a speedup.",
+    "Both example sets were rebuilt with each snapshot. Scene resource IDs vary; scene payloads are identical after normalizing the generated 32-character hexadecimal resource IDs.",
+    "Large profiles and builds remain local; this artifact retains round-level values and source fingerprints.",
+    "Both Lorenz builds change from about 60 FPS in rounds 1\u20136 to about 30 FPS in rounds 7\u20138. The cause is unassigned; retain first-six and additional-round summaries separately, and do not treat pooled GPU results as equivalence proof.",
+    "Sunburst GPU pass timing is unavailable; counter captures are separate from CPU timing.",
+    "Lorenz GPU timestamps measure a separate fixed-duration window from CPU profiles; equality of FPS or generated program code does not prove GPU timing equivalence.",
+    "Preparation requests and live-write counts are retained per flight; no unexposed counter is assumed zero.",
+    "The discarded warm-up and all additional rounds remain in the raw captures; no measured pair is removed for being unfavorable."
+  ],
+  "buildVerification": {
+    "author": "Codex-generated",
+    "date": "2026-10-11",
+    "baseline": "d69144e1",
+    "hardware": {
+      "model": "Mac14,5",
+      "cpu": "Apple M2 Max"
+    },
+    "sourcesRemainFrozen": true,
+    "buildOptions": {
+      "production": "VITE_HMPLOT_PERF_HOOKS=1 npx vite build",
+      "pythonBundles": "npm run build:python",
+      "examples": "sunburst and lorenz-attractor rebuilt per snapshot",
+      "measurementOnlyConfig": "Disable automatic examples plugin; resolve @hmplot/jax to the snapshot-local vendor artifacts."
+    },
+    "snapshots": {
+      "a": {
+        "root": "<tmp>/hmplot-fields-a",
+        "sourceCount": 614,
+        "sourceManifestSHA256": "51dc5b5a5bd3cc375b696a2e023547b9298775579cba1c2cbe3bd1d41d76f6bd",
+        "packageLockSHA256": "39fc5aae24ef7034388505bfa5d97090374cebb2c2cea5ca82ee8d5dc45d3558",
+        "jaxArtifacts": {
+          "backend-D1fYACha.cjs": "d9ba988731053722db945b3d214a8c4033c819dfd6bc5d465a7074d4842c6425",
+          "backend-DYcOJOqU.js": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "index.cjs": "a1ca3159c4a5fc0ab942079964cba352ea39a65257f75a19efa53519b0d0e699",
+          "index.d.cts": "5af79a42e4aac4cb008936e482ad3ffdc6cfc49c9492eb26ce07d398c9629fac",
+          "index.d.ts": "cd1906eba1d0bfe9521c569f5054ecc9b8e14daea731e3314f716cea4f16423a",
+          "index.js": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "rolldown-runtime-D7D4PA-g.js": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "webgl-Cayj9zrJ.cjs": "78f7a94e2401a77a0f237d6a171ba629f38aecbd09f99dcf864e04e6233cf8a7",
+          "webgl-CnNgJUF2.js": "8302d64be86c4935858dc42d22be0441a3b0ab775832a81cc6c2a0a4bf2784e2",
+          "webgpu-BJwlieBg.js": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "webgpu-xdzwB8u2.cjs": "3dec6ea1ca21cebef6d41f72f1cd17d8e768614527759f6c16066431734f30e1"
+        }
+      },
+      "b": {
+        "root": "<tmp>/hmplot-fields-c",
+        "sourceCount": 614,
+        "sourceManifestSHA256": "f06df05d32a2ee00683acd41456f76635b5e2da037b167cfb8a9e0d1df16623a",
+        "packageLockSHA256": "39fc5aae24ef7034388505bfa5d97090374cebb2c2cea5ca82ee8d5dc45d3558",
+        "jaxArtifacts": {
+          "backend-D1fYACha.cjs": "d9ba988731053722db945b3d214a8c4033c819dfd6bc5d465a7074d4842c6425",
+          "backend-DYcOJOqU.js": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "index.cjs": "a1ca3159c4a5fc0ab942079964cba352ea39a65257f75a19efa53519b0d0e699",
+          "index.d.cts": "5af79a42e4aac4cb008936e482ad3ffdc6cfc49c9492eb26ce07d398c9629fac",
+          "index.d.ts": "cd1906eba1d0bfe9521c569f5054ecc9b8e14daea731e3314f716cea4f16423a",
+          "index.js": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "rolldown-runtime-D7D4PA-g.js": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "webgl-Cayj9zrJ.cjs": "78f7a94e2401a77a0f237d6a171ba629f38aecbd09f99dcf864e04e6233cf8a7",
+          "webgl-CnNgJUF2.js": "8302d64be86c4935858dc42d22be0441a3b0ab775832a81cc6c2a0a4bf2784e2",
+          "webgpu-BJwlieBg.js": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "webgpu-xdzwB8u2.cjs": "3dec6ea1ca21cebef6d41f72f1cd17d8e768614527759f6c16066431734f30e1"
+        }
+      }
+    },
+    "fixtures": {
+      "sunburst": {
+        "a": {
+          "payload": "static/example-builds/sunburst/payload.39ac808274.json",
+          "sha256": "39ac8082742e115482a14668b0793a5c3f66659d5365f597be1c604d5f2cc715",
+          "normalizedSHA256": "f13f99bfbf13851a165b005dc328dff2aede92120546e57fc2cdd710e1fbd894"
+        },
+        "b": {
+          "payload": "static/example-builds/sunburst/payload.b1d00f0b6d.json",
+          "sha256": "b1d00f0b6d0ae465db9ebe6e35862984dc4e24882d0ca623b5f43164e3e7e4ae",
+          "normalizedSHA256": "f13f99bfbf13851a165b005dc328dff2aede92120546e57fc2cdd710e1fbd894"
+        }
+      },
+      "lorenz-attractor": {
+        "a": {
+          "payload": "static/example-builds/lorenz-attractor/payload.5f8d8ea78b.json",
+          "sha256": "5f8d8ea78bae66eda568956e00402565905bc8e3f946c00843216d573c67c84a",
+          "normalizedSHA256": "818254a589e4b9a8b9e3c83120780580f93578a47fa7ec7bb3ee0ebfa3a3222e"
+        },
+        "b": {
+          "payload": "static/example-builds/lorenz-attractor/payload.2839bab619.json",
+          "sha256": "2839bab619373722c17ed0bf13babdf378849cc8b0c01a01b14b212727ba4438",
+          "normalizedSHA256": "818254a589e4b9a8b9e3c83120780580f93578a47fa7ec7bb3ee0ebfa3a3222e"
+        }
+      }
+    },
+    "runtimeComparison": {
+      "src/lib/index.ts": {
+        "a": "c5829b2fdec44167a646d16e4808326f9041d371b6208c96bc85ec60fa8cebe2",
+        "b": "c5829b2fdec44167a646d16e4808326f9041d371b6208c96bc85ec60fa8cebe2",
+        "identical": true
+      },
+      "src/lib/plot/utils/curves.js": {
+        "a": "0e545c7c23f8203a5981b3010da2bd6d8fe652b2e6810b681b4bf0ab0605971d",
+        "b": "56f38d1de057b9f3841d6f6ed975ddd327411baee6a704e52e097e264e02fae1",
+        "identical": false
+      },
+      "src/lib/plot/utils/proputils.js": {
+        "a": "33deb85f277a971677b4dcf43c035202878d0c7d06f7f26c16155637888d76b3",
+        "b": "243aabf8b05fad3185f4160ae3c544d44b6b51b434789c1ded8bb734d3783324",
+        "identical": false
+      },
+      "src/lib/plot/utils/namedData.js": {
+        "a": "ac6ddedaeb91ed9c0689e059d0ee4d8226565e3981f703fa543c0e997b3fc79a",
+        "b": "0931a36e21ae5aee76298c5116f954ddc8a9b7bf7e09013c7159af35ff7afaef",
+        "identical": false
+      },
+      "src/lib/plot/utils/disposers.js": {
+        "a": "78d19d257bb1ab5f47df20acc197d21fd594cb310ad7e236d0715bc238ba483e",
+        "b": "17dff2abde138964f7162aaa6ebb707d2c714db936c858cf0da0198a39b5c1ce",
+        "identical": false
+      },
+      "src/lib/plot/utils/animation.js": {
+        "a": "7d39d0c2c9ef5f3236a4718f279367f175ff66ae54050bdf5f542d08c4811d83",
+        "b": "7d39d0c2c9ef5f3236a4718f279367f175ff66ae54050bdf5f542d08c4811d83",
+        "identical": true
+      },
+      "src/lib/plot/utils/data.js": {
+        "a": "e6944a299df03044759ab623a15e9bc9c753d820383ef2f1219c44d7c69da559",
+        "b": "e6944a299df03044759ab623a15e9bc9c753d820383ef2f1219c44d7c69da559",
+        "identical": true
+      },
+      "src/lib/plot/utils/physicalDomains.js": {
+        "a": "07052bd67312ad92009bd86a8eece6d50047872e45c031f302853b4e3333fc8d",
+        "b": "07052bd67312ad92009bd86a8eece6d50047872e45c031f302853b4e3333fc8d",
+        "identical": true
+      },
+      "src/lib/plot/utils/vectorExport/capture.js": {
+        "a": "76ea010a7510301d86acbc768aa732534bd0258226f480da079df70f639d5b70",
+        "b": "589cb0b52629ff5bb8b25a8887bad53f4694d9b572dfd0465b3d6e1ed9b0e01f",
+        "identical": false
+      }
+    }
+  },
+  "lorenzExecutedAssetVerification": {
+    "a": {
+      "verified": true,
+      "profiledExecutedAssets": {
+        "/_app/immutable/chunks/phlspTlb.js": "624f90e57cd61dea331e3e3e03db0fbafd7cae004af3e81223bf4ee6c262979f",
+        "/_app/immutable/chunks/msKdsDZo.js": "413d6b53d6ab10c963a89b7f3b79b05f9de02b4fed05429d22c3cd249946cb0b",
+        "/_app/immutable/chunks/BnSVNA7N.js": "86990d3967ad830168ad10dd52bbdd26eddc2559f6114d598363a30addab1631",
+        "/_app/immutable/chunks/CYomaTw9.js": "22201020a6c4acd79b501d2409bf499874d98cef0dcdefa5b91dadcac2013ad0",
+        "/_app/immutable/chunks/7m2ph4Re.js": "3dd98c4c9ba4165f1315ede67d077af27f1a3068374ef6f8145d420d48fd1ea5",
+        "/_app/immutable/chunks/Cw9CQdsl.js": "b331ce539d75eae215e7aa9ebaadd576aa7545ad53fe7f77fae3881386d77e99",
+        "/_app/immutable/chunks/DfXtWM67.js": "44442d6d127faf274043b086febfbef35c253e1cf2aa4b9851d8392c6997cdab",
+        "/_app/immutable/chunks/CEzhha0i.js": "93028e28f89027b7458e24805c9e630d2bd952a6b8dc772d91308e989663a180",
+        "/_app/immutable/chunks/C7s_WZvp.js": "14786dc4f60af4451b34b7f2e3be902b46a3d8977dfe70115459b9a78e077360",
+        "/_app/immutable/chunks/Dm9UBrnQ.js": "227bd3087c5ceab51d6dd1a5cf2ee656228512353902ef0caa83686063fa32ff",
+        "/_app/immutable/chunks/DRtTYwFj.js": "477f80781b491e3ca8b781110b8f0c0964df2bfaee8e88deaa4c7177929ba8f4",
+        "/_app/immutable/chunks/DRj6nowr.js": "44642b5eadfee0dd4d37d4bfe84fd4fa540bfeea1c4685497505cfe57f1a6a7f",
+        "/_app/immutable/chunks/SYCerjEN.js": "2225c50b2894b2ace3966ab59a40da52a107ae16ce4628555e37603e9d553e6c",
+        "/_app/immutable/chunks/DeQHTfvU.js": "efa2842a894d675522aede01c6fdfb8341a0402ac2df9d145110b4bb691a2bb0",
+        "/_app/immutable/chunks/P2k0JOCv.js": "ebbb82bd59bd0b56ceed2b142234021bf624be617cb6fbe5dfcd8b2a19e51856",
+        "/_app/immutable/chunks/D4XmbVwO.js": "61bfc745e14ce5337d8e50bd81e7d572af0567ad6500359c8df65972721fa644",
+        "/_app/immutable/chunks/tc56EjDJ.js": "5e376a210550c0b35eb26c2afb6061a9bbd1c996a8bcaee9fa97e3c4d50b8c50",
+        "/_app/immutable/chunks/OLnwYNbA.js": "eab127078e15f5400c5f24d912363f4b3c682a1f8bd6896e2afb3540593096f8",
+        "/_app/immutable/chunks/CwQnRulI.js": "6a3d87563b23823983b7db97baa82790b0cacce56589626038cd7e59be52a164",
+        "/_app/immutable/chunks/Bm9YOW9b.js": "059b92049195b397dd79a4e6df488cf06adf9099abbbe5bc68c8a4d74d2b0d8e",
+        "/_app/immutable/chunks/RRTEoHIm.js": "067674c6e0a311536810011dd5d8a734a1048900afd6f97622781d4859502c69",
+        "/_app/immutable/chunks/DFLwL8d_.js": "fc7824c5f0bddbfa53265406e304e4c7d3d696c3f2bd2084e21fafd57b6f1492",
+        "/_app/immutable/chunks/D2LAv8rv.js": "3f02bb0ae258ee0c502f1b57cdc0182f6bb6069923f7902aabce58890ad80b5b",
+        "/_app/immutable/chunks/Cm-Pf6bk.js": "ff9007e444c534976d6fc76ccf38fc2c38ab85c3c33e35e5d9fbcd8be8f581e7",
+        "/_app/immutable/chunks/BvcLNXRC.js": "c38476fd8da8ace719c55333f2219b3487eb80b49815b9034da9179f6ccad275",
+        "/_app/immutable/chunks/g98k4YOt.js": "0f97fc8290651462454c49bc52768c0ca88a0f02caeb17386581302cd7b6a197",
+        "/_app/immutable/chunks/D8ZUXRwZ.js": "2db6b5f4da178cd2e36d3c574ffb6572c6b08a90f26315328914db780efc4d3b",
+        "/_app/immutable/chunks/DEiZZv4U.js": "421657e0586a0182000571465eda00cd0c4673a19c346733595d78369918364d",
+        "/_app/immutable/chunks/B5IwI-P2.js": "6048733f121dc061fe5fe656c51d4113857cb730d10b0cf89b13bcaa7ee69038",
+        "/_app/immutable/chunks/LTrvKbHI.js": "30238a045437f4795bc0488213d7ffdfd49522fb9dc9afddfe842009aff23452",
+        "/_app/immutable/chunks/KyrSdyDU.js": "7cdfe7980ffde1342bb66455e685ad8ad11e359f8f08f44ccfb9c669b004c720",
+        "/_app/immutable/chunks/ClpDCxU4.js": "964b193ebf81e8082eb61306fa7e67d7ade0446a13a1f442326f7c2785c2f7ca",
+        "/_app/immutable/chunks/cBd4Hw4P.js": "6e6540f629c41f779e0a2d0b1373a6149904b8ccb801c8281e7fe7e8fe50cc55",
+        "/_app/immutable/chunks/Dgxn-Gw_.js": "dddc902996de90a373d982e5ddfb36518da03f059ce1685f1b894ce9e752d23b",
+        "/_app/immutable/chunks/Bq6uKVPm.js": "c0c497ad742b7a54d3de0d40eec926483847d987abf90889e1fe3c8638a59c2b",
+        "/_app/immutable/chunks/DryebLAD.js": "8763a5037438a5651c227167a9efd020a4759028446d8b1af1eb013ba190bb16",
+        "/_app/immutable/chunks/fwKaIaJA.js": "6ea6eb86b0fca7a89137bbf0454c7c5d4dc4f1d3bc964b0eca702a8c4ada9cea",
+        "/_app/immutable/chunks/WpKMoRgQ.js": "cc6d9bf2006190397b423243fe60bcaa32369b08b3450ac92be0b7fa9f5acdbd",
+        "/_app/immutable/chunks/Bs3yrHVf.js": "610ad52208d19cdcb89312fecf8f70040c66d6add9dc7e98027311bc551686b1",
+        "/_app/immutable/chunks/505gOotb.js": "f7bfb278649f2ffc888a94ec0393caa39fe9966763e55dfd364b5db438dd101d",
+        "/_app/immutable/chunks/DaAnJ3pA.js": "982066d6a32613d4d14242a6574c21667b0e9011fdc63c1cc696415858397a5d",
+        "/_app/immutable/chunks/Dljzn7gF.js": "0199d878e0d3f821655204944cdfb0e4a70ed66dcd2a546c92b124912f9bc16b",
+        "/_app/immutable/chunks/JrHdRe2Z.js": "b1c969392705a419ea13b2708fe6571a6750fd1c688117ff4a8cbcf96d432295",
+        "/_app/immutable/chunks/CTKcM2L6.js": "e53f6481a798d965a9592a621ee6d55b18c7df6626fe986c93158fcc784dd04c",
+        "/_app/immutable/chunks/BSV5lhbc.js": "2008316aa0dd80cf29029cd8795b0577e1586214ab5ec96486ef8ee5e57a958f",
+        "/_app/immutable/chunks/ClLTIasV.js": "4137d5f9cb9eb6ecc423a5d8179433afcda5c888bc5df1bb1a6ee76aefa736ac",
+        "/_app/immutable/chunks/CcuSn2_7.js": "bd4f51cdd5cb78f668ddc72d90000f3c22ceb5dd9823f728f0fe952a4a800176"
+      },
+      "verification": "Every local JavaScript URL in the nine CPU profiles is fetched from the unchanged production server and compared with the snapshot build bytes.",
+      "cpuProfilesVerified": 9
+    },
+    "b": {
+      "verified": true,
+      "profiledExecutedAssets": {
+        "/_app/immutable/chunks/Bwpsc7L6.js": "65a2e74751246f2389262996a3f9ad348fd8896f0e9fe1d53181e47594e195c8",
+        "/_app/immutable/chunks/BppbqnUS.js": "48179c9ef3a7a8d68fa8a7b664f0d37af635b923afcffb65d1a0038c5c1a86b6",
+        "/_app/immutable/chunks/GeBqB3W2.js": "5ec1953c899f4026fb40de48fc54491b36dd350d30584cb2b5760cbb044570bb",
+        "/_app/immutable/chunks/DwPsR0a1.js": "5353623f087880dab2db17bd93736aea7368ca4aee270798267aa28eb288bdc1",
+        "/_app/immutable/chunks/DfXtWM67.js": "44442d6d127faf274043b086febfbef35c253e1cf2aa4b9851d8392c6997cdab",
+        "/_app/immutable/chunks/CrxQuydu.js": "56a3588965ab43512ab593da87fa4f4f869da602bbc8cac40185cfea47bf0733",
+        "/_app/immutable/chunks/CS_y8P0m.js": "dcefbb2f225649261efac46c0c4c45797127518955887fce30e16683fc3945e3",
+        "/_app/immutable/chunks/CdpCoaAZ.js": "905f13c7b9ba309a80184b13542d0552e2d279c82ca3529f8cd8f6af5c7ff54f",
+        "/_app/immutable/chunks/zaknql_-.js": "a890909135d589b7b93d53c4cdaf5aa6b072bb6de5867be8ba0b068d6022d0b3",
+        "/_app/immutable/chunks/B46nxf3l.js": "206208ac0f3ee953798066004ed5e667e49e273df6716ed15ee62900166ddaad",
+        "/_app/immutable/chunks/CwQnRulI.js": "6a3d87563b23823983b7db97baa82790b0cacce56589626038cd7e59be52a164",
+        "/_app/immutable/chunks/7kpsnB1I.js": "0722586d1ef4e83dfdff16a3f16a270b9d8b66af8e08895e5c70f454fb51c851",
+        "/_app/immutable/chunks/DmuCzmUq.js": "d1a93a792cf3dc52373ea5f59099ed7e9abb6593b9ddc289fb2da1c53ba20ec9",
+        "/_app/immutable/chunks/DzZXGO_0.js": "6c510fc618990aee839342f842a8e7677f3feaa31468b272e14c5827bdf36519",
+        "/_app/immutable/chunks/AW8UiqOc.js": "2144fb3e34377e91353e924d1a631a5d3c01834a484379a0545ec5212fdbc6a7",
+        "/_app/immutable/chunks/DEUCXNQR.js": "c2f64eccee16a927be733d9702cdcb084c0d1b32713552b9dbc993113f6f9438",
+        "/_app/immutable/chunks/BpqQLC6u.js": "a5653d2335335c016f538ed9070eb6055e6ce85a80a4ea66ef247ab1a5484a28",
+        "/_app/immutable/chunks/OnirHUwT.js": "aa082322e83952bbf838650ce4aa1d893a4db9570a25ebdd2b91e9237992b16e",
+        "/_app/immutable/chunks/B4b0YhyH.js": "e267de7a01cb279a4cfec67be75421ac6dfc7a05190efbf90bb9e7325385ad9a",
+        "/_app/immutable/chunks/Dthz2A3a.js": "a01b66a8a1ac5bb562f27a47e62facc64dff6a2e79df8873355ebcef2e20d1dd",
+        "/_app/immutable/chunks/D9ALwn7c.js": "84cd03c83ae9ee39e15e0f17e586f0695450aa9cdd9a5841f1d931fc948945f5",
+        "/_app/immutable/chunks/D7U94KMv.js": "eb349638c50ac9117e40a6e29a26aee75a43f47b789bdb599b37c46adbc900d4",
+        "/_app/immutable/chunks/dbciCFwD.js": "1480452375cc6c6d569d3c35b644c80a2c5f44032df5f4572daaf28941ac6fae",
+        "/_app/immutable/chunks/CchdqYvx.js": "739a262a75d37767997bdfd4e2485c908b455ec37488fe0bf49a2a26072f3673",
+        "/_app/immutable/chunks/DD2XFiHM.js": "25bcf95a7c54832148332515bc569bf97fa5b632d481fe03bda8be45238472b2",
+        "/_app/immutable/chunks/CJJejlLQ.js": "4ea75e5c79d4b926cc635fb8c3ec7e2ce0887d825b93cffc54b22e0e52dfb379",
+        "/_app/immutable/chunks/VIzOcy40.js": "685789446e1b997deaf8b2658deca5e15f87f5c4e2a8b5c8d64bcc667fbfa6c1",
+        "/_app/immutable/chunks/MvxK-glI.js": "8a04184955d004b5215cae4b88f79992517aed1289bcc8288a7cb6da85a6b30b",
+        "/_app/immutable/chunks/CPE06Ztf.js": "c4d55cdd823ff187c97f5a3b28d9d3698fa619ee3847b9f7c3087e805fdedfd5",
+        "/_app/immutable/chunks/Cz5zblsd.js": "6ba16dd344d1a38688ffe4ae153c07abac9851d96ae0c18eba590492f73baa3d",
+        "/_app/immutable/chunks/Bxg2Gizu.js": "553dbdef3f112f34252019321924db27b59430992de26c4c5452304f6651b316",
+        "/_app/immutable/chunks/C7GSX75B.js": "6100f85a620e615af9821db959eae111f8b0dac414a79f3cfe99c99bd3964edb",
+        "/_app/immutable/chunks/fwKaIaJA.js": "6ea6eb86b0fca7a89137bbf0454c7c5d4dc4f1d3bc964b0eca702a8c4ada9cea",
+        "/_app/immutable/chunks/Bq6uKVPm.js": "c0c497ad742b7a54d3de0d40eec926483847d987abf90889e1fe3c8638a59c2b",
+        "/_app/immutable/chunks/LTrvKbHI.js": "30238a045437f4795bc0488213d7ffdfd49522fb9dc9afddfe842009aff23452",
+        "/_app/immutable/chunks/CouqYNTE.js": "f6c9f48e6a56155793eb4f3fd0470bb222343f6f7c10c452fb2c2a300b4c13e9",
+        "/_app/immutable/chunks/ClpDCxU4.js": "964b193ebf81e8082eb61306fa7e67d7ade0446a13a1f442326f7c2785c2f7ca",
+        "/_app/immutable/chunks/cBd4Hw4P.js": "6e6540f629c41f779e0a2d0b1373a6149904b8ccb801c8281e7fe7e8fe50cc55",
+        "/_app/immutable/chunks/Dgxn-Gw_.js": "dddc902996de90a373d982e5ddfb36518da03f059ce1685f1b894ce9e752d23b",
+        "/_app/immutable/chunks/JrHdRe2Z.js": "b1c969392705a419ea13b2708fe6571a6750fd1c688117ff4a8cbcf96d432295",
+        "/_app/immutable/chunks/Bb29555E.js": "dd73f76902f637ab7cc6bb3e6e9b573b79306c2eedf18d53adbf02f87a003e8e",
+        "/_app/immutable/chunks/BWbpCnVz.js": "bf84cdd7b75a85811cadb3336171f9c026e3398c2c6e448691e00151b32b7d61",
+        "/_app/immutable/chunks/CeThgVTf.js": "912ce644a638fb1972dd908f15dd2e0bd2c8e4ad394093f70316bd28703e1d8c",
+        "/_app/immutable/chunks/oltsYP6j.js": "25d4f202b3fe4cdfab8eb7bbf8c9650e75d4f1a50cf90540f09e671738dee0c0",
+        "/_app/immutable/chunks/BKXW8IOq.js": "a360322cf2635c9aae7a9ec5c627ff82d993468e5a314fcc5042e7f405ba9c6f",
+        "/_app/immutable/chunks/DuSeUYy1.js": "3dcf879c73d8b05b91c4034cfd58ac9ff8e81a1c479e6888c7e6f186ad89052f",
+        "/_app/immutable/chunks/Br5_AI7A.js": "e6c487e6aa75989cc16c391a61e68f7714c26229eed19fbd1e0ff47c5e3fa60e",
+        "/_app/immutable/chunks/DeuVkLen.js": "a014edecf4bf861f274d8b4c70bc84caa461410aa2886a32752b68971c053476"
+      },
+      "verification": "Every local JavaScript URL in the nine CPU profiles is fetched from the unchanged production server and compared with the snapshot build bytes.",
+      "cpuProfilesVerified": 9
+    }
+  },
+  "finalAnnotationVerification": {
+    "verified": true,
+    "sourceFiles": 614,
+    "method": "Every captured library/example/vendor source is byte-identical to the final workspace, except the listed annotation/type/format follow-ups. Each exception emits identical minified es2022 runtime.",
+    "differences": {
+      "src/lib/plot/utils/curvedPathTypes.ts": {
+        "capturedSourceSHA256": "ffe9b4210c21d6c8694a062bde1f0b4609dd42d195433f9866a74f77ff456737",
+        "finalSourceSHA256": "73a652562b9259f28d61b498625da130151c274e6e05f4a2999cc7226c00c010",
+        "minifiedRuntimeSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "src/lib/plot/utils/curvedPaths.js": {
+        "capturedSourceSHA256": "32c8c0b2e9af6a39fcee643b0371f509bb12f72f8909f1ecde2ac9703c73319e",
+        "finalSourceSHA256": "3537dd5e312a033889ebffaeac84dba6af29ee7674714550ac79f649acef51a6",
+        "minifiedRuntimeSHA256": "bf0ad7609e8a08fa37efa3cbe52c18a41e28546a99b7c0dae21c1105f1760b25"
+      },
+      "src/lib/plot/utils/disposers.js": {
+        "capturedSourceSHA256": "3ed97318767c783263bb43ec49e36723778c36065563cafeabc86e33144e744b",
+        "finalSourceSHA256": "edd1de9cf4372256a456c1fa341522f0cbbc2b8801f2e790a19fc3e72328da30",
+        "minifiedRuntimeSHA256": "17dff2abde138964f7162aaa6ebb707d2c714db936c858cf0da0198a39b5c1ce"
+      },
+      "src/lib/plot/utils/proputils.js": {
+        "capturedSourceSHA256": "8384bf66735bc5d2dd7657b766add97addd532edde9dc14e1c30aa50ea268938",
+        "finalSourceSHA256": "4b30188bd1cb3a411ae955f1d51d6cee4d28fd955f34755be5034baefb099a05",
+        "minifiedRuntimeSHA256": "243aabf8b05fad3185f4160ae3c544d44b6b51b434789c1ded8bb734d3783324"
+      }
+    }
+  },
+  "interpretation": {
+    "cpu": "Eight pairs retain a native Sunburst median +0.1065 ms/frame (5/8 positive); scene Sunburst -0.0323 and Lorenz -0.0755. Native values span -0.1963 to +0.4853, so these do not establish exact equivalence or isolate a reproducible implementation cost.",
+    "outliers": "Retain scene rounds 7/8 (-1.646/-0.7885 CPU ms/frame) and round 7 p95 -17.3 ms without assigning their cause or discarding them.",
+    "gpu": "Lorenz median +0.041 ms/frame, five positive pairs and three negative pairs, including -0.878/-0.740 in the additional rounds. GPU timing equivalence is unestablished.",
+    "counters": "Matched Sunburst warmed flights have no readback increase and zero warmed shader/pipeline builds; some candidate flights have fewer reads. Lorenz fixed windows retain zero builds/errors. Both builds present about 60 FPS in rounds 1\u20136 and about 30 FPS in rounds 7\u20138; the shared cadence change is retained and prevents a sustained-60-FPS claim.",
+    "scope": "This evidence does not close the broader R5 or full strict Svelte preparation packages. Keep the small native CPU hint and GPU uncertainty visible for subsequent hot-path attribution."
+  },
+  "candidateProvenance": "Empty-Line fix 2c18e719 plus the field/channel contract changes committed with this evidence; frozen snapshot C includes the rendering fix. Final storage annotations/formatting emit identical runtime to that snapshot.",
+  "sunburstCounterCaptures": {
+    "sunburst-native": {
+      "a": {
+        "rawDirectory": "<tmp>/hmplot-fields-final-counters/sunburst-native/round-1/a",
+        "errors": [],
+        "sourceVerification": true,
+        "flights": [
+          {
+            "flight": 1,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 81,
+              "staticMarkReuses": 40,
+              "preparationRequests": 127,
+              "numericExpressionsCompiled": 3,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 29,
+              "render": 1,
+              "shaders": 28,
+              "buffers": 435,
+              "bufferKB": 1092,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1051,
+              "fences": 103,
+              "readbackP50": 1.1,
+              "readbackP95": 8,
+              "readbackMax": 13.3,
+              "builds": 0,
+              "ms": 1423
+            },
+            "gpuLiveBytes": {
+              "before": 75297156,
+              "after": 76326432
+            }
+          },
+          {
+            "flight": 2,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 2,
+              "render": 0,
+              "shaders": 2,
+              "buffers": 224,
+              "bufferKB": 100,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1100,
+              "fences": 104,
+              "readbackP50": 1,
+              "readbackP95": 2.8,
+              "readbackMax": 8,
+              "builds": 0,
+              "ms": 1368
+            },
+            "gpuLiveBytes": {
+              "before": 76326432,
+              "after": 76329024
+            }
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 173,
+              "bufferKB": 93,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1092,
+              "fences": 103,
+              "readbackP50": 1.1,
+              "readbackP95": 3.2,
+              "readbackMax": 8.7,
+              "builds": 0,
+              "ms": 1368
+            },
+            "gpuLiveBytes": {
+              "before": 76329024,
+              "after": 76329024
+            }
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 173,
+              "bufferKB": 93,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1088,
+              "fences": 103,
+              "readbackP50": 1.1,
+              "readbackP95": 4.3,
+              "readbackMax": 9.6,
+              "builds": 0,
+              "ms": 1354
+            },
+            "gpuLiveBytes": {
+              "before": 76329024,
+              "after": 76329048
+            }
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "completedFrames": 80,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 179,
+              "bufferKB": 93,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1095,
+              "fences": 103,
+              "readbackP50": 1.1,
+              "readbackP95": 4.1,
+              "readbackMax": 9.5,
+              "builds": 0,
+              "ms": 1369
+            },
+            "gpuLiveBytes": {
+              "before": 76329048,
+              "after": 76329096
+            }
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "completedFrames": 78,
+            "markWork": {
+              "liveGeometryWrites": 78,
+              "staticMarkReuses": 39,
+              "preparationRequests": 123,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 171,
+              "bufferKB": 93,
+              "readbacks": 95,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 95
+              },
+              "submits": 1078,
+              "fences": 102,
+              "readbackP50": 1.1,
+              "readbackP95": 5.1,
+              "readbackMax": 10.6,
+              "builds": 0,
+              "ms": 1377
+            },
+            "gpuLiveBytes": {
+              "before": 76329096,
+              "after": 76329120
+            }
+          }
+        ]
+      },
+      "b": {
+        "rawDirectory": "<tmp>/hmplot-fields-final-counters/sunburst-native/round-1/b",
+        "errors": [],
+        "sourceVerification": true,
+        "flights": [
+          {
+            "flight": 1,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 81,
+              "staticMarkReuses": 41,
+              "preparationRequests": 127,
+              "numericExpressionsCompiled": 3,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 29,
+              "render": 1,
+              "shaders": 28,
+              "buffers": 404,
+              "bufferKB": 1092,
+              "readbacks": 98,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 98
+              },
+              "submits": 1041,
+              "fences": 100,
+              "readbackP50": 1.2,
+              "readbackP95": 8.7,
+              "readbackMax": 12.5,
+              "builds": 0,
+              "ms": 1423
+            },
+            "gpuLiveBytes": {
+              "before": 75297092,
+              "after": 76326200
+            }
+          },
+          {
+            "flight": 2,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 2,
+              "render": 0,
+              "shaders": 2,
+              "buffers": 226,
+              "bufferKB": 100,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1097,
+              "fences": 104,
+              "readbackP50": 1.1,
+              "readbackP95": 2.8,
+              "readbackMax": 7.3,
+              "builds": 0,
+              "ms": 1364
+            },
+            "gpuLiveBytes": {
+              "before": 76326200,
+              "after": 76328480
+            }
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 183,
+              "bufferKB": 93,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1092,
+              "fences": 103,
+              "readbackP50": 1,
+              "readbackP95": 5.3,
+              "readbackMax": 10.1,
+              "builds": 0,
+              "ms": 1373
+            },
+            "gpuLiveBytes": {
+              "before": 76328480,
+              "after": 76328888
+            }
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "completedFrames": 80,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 176,
+              "bufferKB": 93,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1091,
+              "fences": 103,
+              "readbackP50": 1.2,
+              "readbackP95": 4.9,
+              "readbackMax": 11.2,
+              "builds": 0,
+              "ms": 1365
+            },
+            "gpuLiveBytes": {
+              "before": 76328888,
+              "after": 76328936
+            }
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 179,
+              "bufferKB": 93,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1095,
+              "fences": 103,
+              "readbackP50": 1,
+              "readbackP95": 5.7,
+              "readbackMax": 10.3,
+              "builds": 0,
+              "ms": 1381
+            },
+            "gpuLiveBytes": {
+              "before": 76328936,
+              "after": 76328984
+            }
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "completedFrames": 78,
+            "markWork": {
+              "liveGeometryWrites": 78,
+              "staticMarkReuses": 39,
+              "preparationRequests": 123,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 174,
+              "bufferKB": 93,
+              "readbacks": 95,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 95
+              },
+              "submits": 1070,
+              "fences": 101,
+              "readbackP50": 1.1,
+              "readbackP95": 5.5,
+              "readbackMax": 12.2,
+              "builds": 0,
+              "ms": 1375
+            },
+            "gpuLiveBytes": {
+              "before": 76328984,
+              "after": 76329032
+            }
+          }
+        ]
+      }
+    },
+    "sunburst-scene": {
+      "a": {
+        "rawDirectory": "<tmp>/hmplot-fields-final-counters/sunburst-scene/round-1/a",
+        "errors": [],
+        "sourceVerification": true,
+        "flights": [
+          {
+            "flight": 1,
+            "direction": "zoom",
+            "completedFrames": 78,
+            "markWork": {
+              "liveGeometryWrites": 79,
+              "staticMarkReuses": 40,
+              "preparationRequests": 124,
+              "numericExpressionsCompiled": 3,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 29,
+              "render": 1,
+              "shaders": 28,
+              "buffers": 372,
+              "bufferKB": 1089,
+              "readbacks": 96,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 96
+              },
+              "submits": 1021,
+              "fences": 98,
+              "readbackP50": 1.3,
+              "readbackP95": 14.4,
+              "readbackMax": 30.6,
+              "builds": 0,
+              "ms": 1406
+            },
+            "gpuLiveBytes": {
+              "before": 75299384,
+              "after": 76325316
+            }
+          },
+          {
+            "flight": 2,
+            "direction": "reset",
+            "completedFrames": 80,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 2,
+              "render": 0,
+              "shaders": 2,
+              "buffers": 228,
+              "bufferKB": 99,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1100,
+              "fences": 104,
+              "readbackP50": 1.3,
+              "readbackP95": 2.9,
+              "readbackMax": 6.6,
+              "builds": 0,
+              "ms": 1364
+            },
+            "gpuLiveBytes": {
+              "before": 76325316,
+              "after": 76328348
+            }
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 174,
+              "bufferKB": 92,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1092,
+              "fences": 103,
+              "readbackP50": 1.2,
+              "readbackP95": 5.3,
+              "readbackMax": 9.6,
+              "builds": 0,
+              "ms": 1358
+            },
+            "gpuLiveBytes": {
+              "before": 76328348,
+              "after": 76328692
+            }
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 176,
+              "bufferKB": 91,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1091,
+              "fences": 103,
+              "readbackP50": 1.4,
+              "readbackP95": 4.8,
+              "readbackMax": 11.4,
+              "builds": 0,
+              "ms": 1368
+            },
+            "gpuLiveBytes": {
+              "before": 76328692,
+              "after": 76328740
+            }
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 178,
+              "bufferKB": 91,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1092,
+              "fences": 103,
+              "readbackP50": 1.3,
+              "readbackP95": 4.9,
+              "readbackMax": 11.3,
+              "builds": 0,
+              "ms": 1370
+            },
+            "gpuLiveBytes": {
+              "before": 76328740,
+              "after": 76328788
+            }
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 176,
+              "bufferKB": 91,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1088,
+              "fences": 103,
+              "readbackP50": 1.2,
+              "readbackP95": 4.7,
+              "readbackMax": 9.8,
+              "builds": 0,
+              "ms": 1374
+            },
+            "gpuLiveBytes": {
+              "before": 76328788,
+              "after": 76328836
+            }
+          }
+        ]
+      },
+      "b": {
+        "rawDirectory": "<tmp>/hmplot-fields-final-counters/sunburst-scene/round-1/b",
+        "errors": [],
+        "sourceVerification": true,
+        "flights": [
+          {
+            "flight": 1,
+            "direction": "zoom",
+            "completedFrames": 78,
+            "markWork": {
+              "liveGeometryWrites": 79,
+              "staticMarkReuses": 40,
+              "preparationRequests": 124,
+              "numericExpressionsCompiled": 3,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 29,
+              "render": 1,
+              "shaders": 28,
+              "buffers": 360,
+              "bufferKB": 1089,
+              "readbacks": 96,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 96
+              },
+              "submits": 1021,
+              "fences": 98,
+              "readbackP50": 1.3,
+              "readbackP95": 8.9,
+              "readbackMax": 13.1,
+              "builds": 0,
+              "ms": 1420
+            },
+            "gpuLiveBytes": {
+              "before": 75299448,
+              "after": 76325260
+            }
+          },
+          {
+            "flight": 2,
+            "direction": "reset",
+            "completedFrames": 80,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 2,
+              "render": 0,
+              "shaders": 2,
+              "buffers": 229,
+              "bufferKB": 99,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1095,
+              "fences": 103,
+              "readbackP50": 1.4,
+              "readbackP95": 3.2,
+              "readbackMax": 7.7,
+              "builds": 0,
+              "ms": 1374
+            },
+            "gpuLiveBytes": {
+              "before": 76325260,
+              "after": 76328628
+            }
+          },
+          {
+            "flight": 3,
+            "direction": "zoom",
+            "completedFrames": 78,
+            "markWork": {
+              "liveGeometryWrites": 78,
+              "staticMarkReuses": 39,
+              "preparationRequests": 123,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 176,
+              "bufferKB": 91,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1071,
+              "fences": 101,
+              "readbackP50": 1.1,
+              "readbackP95": 3.6,
+              "readbackMax": 8.1,
+              "builds": 0,
+              "ms": 1366
+            },
+            "gpuLiveBytes": {
+              "before": 76328628,
+              "after": 76328676
+            }
+          },
+          {
+            "flight": 4,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 176,
+              "bufferKB": 91,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1091,
+              "fences": 103,
+              "readbackP50": 1.3,
+              "readbackP95": 3.4,
+              "readbackMax": 8.6,
+              "builds": 0,
+              "ms": 1364
+            },
+            "gpuLiveBytes": {
+              "before": 76328676,
+              "after": 76328724
+            }
+          },
+          {
+            "flight": 5,
+            "direction": "zoom",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 175,
+              "bufferKB": 91,
+              "readbacks": 99,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 99
+              },
+              "submits": 1100,
+              "fences": 104,
+              "readbackP50": 1.4,
+              "readbackP95": 4.2,
+              "readbackMax": 10,
+              "builds": 0,
+              "ms": 1374
+            },
+            "gpuLiveBytes": {
+              "before": 76328724,
+              "after": 76328748
+            }
+          },
+          {
+            "flight": 6,
+            "direction": "reset",
+            "completedFrames": 79,
+            "markWork": {
+              "liveGeometryWrites": 80,
+              "staticMarkReuses": 40,
+              "preparationRequests": 126,
+              "numericExpressionsCompiled": 4,
+              "numericExpressionsFallback": 0
+            },
+            "gpu": {
+              "compute": 0,
+              "render": 0,
+              "shaders": 0,
+              "buffers": 179,
+              "bufferKB": 91,
+              "readbacks": 97,
+              "readbackKinds": {
+                "jax": 0,
+                "picking": 0,
+                "three": 0,
+                "app": 0,
+                "other": 97
+              },
+              "submits": 1091,
+              "fences": 103,
+              "readbackP50": 1.3,
+              "readbackP95": 4.5,
+              "readbackMax": 10.5,
+              "builds": 0,
+              "ms": 1378
+            },
+            "gpuLiveBytes": {
+              "before": 76328748,
+              "after": 76328820
+            }
+          }
+        ]
+      }
+    }
+  },
+  "validation": {
+    "unit": {
+      "passed": 1382,
+      "failed": 0,
+      "log": "<tmp>/hmplot-fields-final-units.log"
+    },
+    "ownershipLeaks": {
+      "combinedPassed": 118,
+      "curvePassed": 8,
+      "failed": 0,
+      "logs": [
+        "<tmp>/hmplot-fields-final-leaks.log",
+        "<tmp>/hmplot-fields-curves-leaks.log"
+      ]
+    },
+    "rgbFixtureBaseline": {
+      "baselinePassed": 87,
+      "total": 93,
+      "candidatePassed": 93,
+      "reason": "Six caller-owned fixture input arrays now release after their consumers. No leak suppression or allowlist changes."
+    },
+    "strictChecking": {
+      "coreImplementations": 9,
+      "coreTargets": 9,
+      "moduleFloor": 66,
+      "strictSveltePreparationComplete": false,
+      "finalLog": "<tmp>/hmplot-fields-final-storage-gates.log"
+    },
+    "python": {
+      "coreTemplatePassed": 204,
+      "warnings": 6,
+      "log": "<tmp>/hmplot-fields-final-python-tests.log"
+    },
+    "rendering": {
+      "devicePixelRatio": 2,
+      "rgbPassed": 1,
+      "paddedPassed": 8,
+      "linePassed": 6,
+      "livePipelinePassed": 5,
+      "newEmptyCurveRegressionPassed": true,
+      "baselineFailures": [
+        "a plain Line with per-row color, opacity and width draws every series",
+        "Lines over the vertex buffer limit report an error naming the mark and its per-row channels"
+      ],
+      "baselineFailureDetail": "Both existing tests report zero blue pixels on final candidate and untouched d69144e1. These are failures, not passes.",
+      "logs": [
+        "<tmp>/hmplot-fields-browser-rendering.log",
+        "<tmp>/hmplot-fields-browser-lines-final.log",
+        "<tmp>/hmplot-fields-browser-baseline-lines.log",
+        "<tmp>/hmplot-fields-browser-live.log"
+      ]
+    },
+    "otherGates": "Strict/Svelte, format, API report, Python signatures, package and both Python bundles pass. Package retains baseline declaration/import warnings. These are focused rendering/Python cases, not a repeat of every repository browser/Python test."
+  },
+  "completion": {
+    "stage122Closed": [
+      1,
+      2,
+      3,
+      14
+    ],
+    "stage122Total": 18,
+    "stage123Closed": [
+      1,
+      2
+    ],
+    "stage123Total": 11,
+    "stage124Closed": [],
+    "stage124Total": 7,
+    "note": "Partial implementations are not closed packages; core checking does not complete full mark preparation or R5."
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.5 / R4: checked eager expression implementation",
+  "baseline": "df79dfcd",
+  "scope": "Type/check the actual constructors, descriptor traversal, recursive resolver, grouping, operation families, sampled memo and release/publication paths; preserve executable code.",
+  "checkedCoreImplementations": {
+    "completed": 6,
+    "total": 9,
+    "remaining": [
+      "interaction",
+      "proputils",
+      "namedData"
+    ]
+  },
+  "strictModuleFloor": 62,
+  "contract": {
+    "operand": "ResolvedOperand borrows its value and metadata; a scalar category is a string name.",
+    "context": "Each sampled view state has a separate expression-identity memo.",
+    "ownership": "own() registers each acquired reference independently. Provider results retain their own dispose().",
+    "tween": "Producer owns interpolation state and retained targets; evaluation owns registered current resources."
+  },
+  "verification": {
+    "fullUnits": {
+      "passed": 1378,
+      "failed": 0
+    },
+    "focusedUnits": {
+      "passed": 134,
+      "failed": 0,
+      "files": [
+        "random-expression",
+        "reductions",
+        "view-state",
+        "tween-state",
+        "animation",
+        "lineage",
+        "refactor-ratchet"
+      ]
+    },
+    "leakGate": {
+      "passed": 42,
+      "failed": 0,
+      "files": [
+        "random-expression",
+        "reductions"
+      ]
+    },
+    "strictSvelte": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "format": "passed",
+    "api": "regenerated; type-only helper signatures with a CHANGELOG entry",
+    "pythonSignatures": "passed; 112 components"
+  },
+  "baselineFailures": {
+    "file": "view-state-kernels",
+    "cases": [
+      "a Calculate over @time compiles nothing new for a new time",
+      "tween state compiles nothing new as the clock moves or the targets change (TODO 28 Part B)"
+    ],
+    "baseline": {
+      "snapshot": "untouched git archive df79dfcd",
+      "passed": 1,
+      "failed": 2
+    },
+    "candidate": {
+      "passed": 1,
+      "failed": 2
+    },
+    "disposition": "Same retained-reference leak failures on both snapshots; no suppression or new pass claim."
+  },
+  "runtimeEquivalence": {
+    "method": "esbuild.transform, loader js, minify true, compared against df79dfcd",
+    "records": [
+      {
+        "path": "src/lib/plot/utils/expressions.js",
+        "comparison": "identical",
+        "sourceSHA256": "a49122d2450d7a1a2a8709ec0af8651cf51aa782340a83b40139da6f7cc19eda",
+        "minifiedSHA256": "ac49feedfbde3377ce00c66743de0daef770f94b503f965138d6f1a2eedaf6eb"
+      },
+      {
+        "path": "src/lib/plot/utils/expressionPlans.js",
+        "comparison": "identical",
+        "sourceSHA256": "c1b3bfbad6453b0462d19a2547668ae09ceda09337f41323f0092407723e54d6",
+        "minifiedSHA256": "4a947220410f6d0d79918bfd985e54d6240343d518d92889cb425b6b39c877c4"
+      },
+      {
+        "path": "src/lib/plot/utils/names.js",
+        "comparison": "identical",
+        "sourceSHA256": "8587983afc5446de025a26c784a1c134b5b53bb46abf5238ead6221badc71c54",
+        "minifiedSHA256": "3f6cfd3c53dbb3d3eec1529b1ed1856f7c68f9ecf8df25f10ce9fd6c3a8749b4"
+      },
+      {
+        "path": "src/lib/plot/utils/casts.js",
+        "comparison": "identical",
+        "sourceSHA256": "fea342bb2408599238a94cd493bb67805ca23c6c8dcc98e182f223632415effa",
+        "minifiedSHA256": "46c35acd13ebfe8f274a79e0cf13c93fd1308e4d0a59f4cb3bef0eee8e357c95"
+      },
+      {
+        "path": "src/lib/plot/utils/calendar.js",
+        "comparison": "identical",
+        "sourceSHA256": "19bbe2e1a417ae3b0bba8be46630bbc51d8cd6411ce6d8010f44cc817f891421",
+        "minifiedSHA256": "1a077f0611f70eb3f47c732b0f820a702d9219afa62c211720d811793c62be62"
+      },
+      {
+        "path": "src/lib/plot/utils/modelCalendars.js",
+        "comparison": "identical",
+        "sourceSHA256": "94097f0831f9784068fc52482e6c05221e593d1a94dbb9df18e7b061a7389911",
+        "minifiedSHA256": "873a8d717a6d096156de893ab4866f39e643588545dad405601c75562fbca71b"
+      },
+      {
+        "path": "src/lib/plot/utils/columnOperations.js",
+        "comparison": "identical",
+        "sourceSHA256": "118d793d5d3cf48743910b6cf5aef56e855857c924405cb09ce6825453d608fd",
+        "minifiedSHA256": "13605429610b61ffa1335860198d24bebf6e0a4920dc0b37c5254626474adfe2"
+      }
+    ],
+    "meaning": "All modified JavaScript modules emit identical executable code. Prior rendering/interleaved production evidence carries forward; no new timings or speedup claim."
+  },
+  "remaining": [
+    "R4 organization/input traversal/scope construction remains open.",
+    "Adjacent calendar/cast/ordered/tween modules have result declarations but are not themselves strictly checked.",
+    "The public Expression AST retains its existing any[] argument declaration.",
+    "A cached unbroadcast reduction does not retain its scalar result across cache retirement; separately reproduced and scheduled as a behavior change."
+  ]
+}

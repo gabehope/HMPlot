@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HMPlot theme",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string" },
+    "view": { "$ref": "#/$defs/view" },
+    "typography": { "$ref": "#/$defs/typography" },
+    "extends": {
+      "description": "Inherit from themes: a preset name (matched ignoring case and punctuation), a partial theme's name (\"axes/minimal\", \"legend/inline-top\"), a theme definition, or a list of them merged left to right. This definition's own keys merge over the result.",
+      "type": ["string", "object", "array"],
+      "items": { "type": ["string", "object"] }
+    },
+    "vectorTile": {
+      "description": "VectorTile's color scheme under this theme: part -> style, as VectorTile's styles.",
+      "$ref": "#/$defs/vectorTile"
+    },
+    "axes": { "$ref": "#/$defs/axes" },
+    "guides": { "$ref": "#/$defs/guides" },
+    "title": { "$ref": "#/$defs/title" },
+    "numbers": { "$ref": "#/$defs/numbers" },
+    "controls": { "$ref": "#/$defs/controls" },
+    "animation": { "$ref": "#/$defs/animation" },
+    "marks": {
+      "description": "Mark defaults by kind (Points, Line, ...), and default for every mark. Points3D, Arrows3D and Text3D without an entry of their own take only their flat counterpart's color. Rect, Prism, Points and Area without a fill, and Line, ErrorBars, Segments and Arrows without a color, use palette[0] below explicit defaults. A null color/fill clears an inherited color and restores that fallback.",
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/mark" }
+    },
+    "palette": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "shapes": {
+      "description": "Custom point shapes registered when the theme applies: name -> 3-16 [x, y] vertices in [-1, 1] (y up), or an SVG path using only M, L, and Z.",
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "array", "minItems": 3, "maxItems": 16, "items": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number", "minimum": -1, "maximum": 1 } } },
+          { "type": "string" }
+        ]
+      }
+    },
+    "colormap": {
+      "description": "Default colormap for continuous fill and color mappings without an explicit colormap: a built-in name, an array of at least two CSS colors, or {colors, space, positions}.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "minItems": 2, "items": { "type": "string" } },
+        { "type": "object", "additionalProperties": false, "required": ["colors"], "properties": { "colors": { "type": "array", "minItems": 2, "items": { "type": "string" } }, "space": { "enum": ["lab", "hsl", "srgb"] }, "positions": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 1 } } } }
+      ]
+    },
+    "missing": {
+      "description": "The color of a missing value (NaN or null) in a colormapped fill or color, unless its scale sets missing (default #92989f).",
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "view": { "type": "object", "additionalProperties": false, "properties": { "background": { "type": "string" } } },
+    "typography": { "type": "object", "additionalProperties": false, "properties": { "fontFamily": { "type": "string" }, "fontSize": { "type": "number" }, "color": { "type": "string" } } },
+    "axes": { "type": "object", "additionalProperties": false, "properties": { "color": { "type": "string" }, "fontFamily": { "type": "string" }, "fontSize": { "type": "number" }, "grid": { "type": "string" }, "lineWidth": { "type": "number" }, "marginBottom": {"anyOf": [{"const": "auto"}, {"type": "number", "minimum": 0}]}, "marginLeft": {"anyOf": [{"const": "auto"}, {"type": "number", "minimum": 0}]}, "marginRight": {"anyOf": [{"const": "auto"}, {"type": "number", "minimum": 0}]}, "marginTop": {"anyOf": [{"const": "auto"}, {"type": "number", "minimum": 0}]}, "textColor": { "type": "string" }, "tickSize": { "type": "number" }, "arrow": { "enum": ["none", "start", "end", "both"] }, "arrowSize": { "type": "number", "minimum": 0 }, "titlePosition": {"enum": ["start", "middle", "end"]}, "titleAngle": {"anyOf": [{"const": "auto"}, {"type": "number"}]}, "titlePlacement": {"enum": ["inside", "outside"]}, "titleOffset": {"type": "number"}, "tickLabelAngle": {"type": "number"}, "tickLabelAlign": {"enum": ["auto", "start", "middle", "end"]}, "tickLabelPlacement": {"enum": ["inside", "outside"]}, "tickLabelOffset": {"type": "number"}, "line": {"type": "boolean"}, "ticks": {"type": "boolean"}, "tickDirection": {"enum": ["outside", "inside", "both"]}, "titleFontWeight": {"type": "number", "minimum": 1, "maximum": 1000}, "gridColor": {"type": "string"}, "gridWidth": {"type": "number", "minimum": 0}, "gridDash": {"type": "array", "items": {"type": "number", "minimum": 0}}, "frame": {"type": "boolean"}, "mask": {"type": "boolean"}, "threeD": {"type": "object", "additionalProperties": false, "properties": {"style": {"enum": ["box", "triad"]}, "gridPlanes": {"type": "array", "items": {"enum": ["xy", "xz", "yz"]}}}} } },
+    "guides": {
+      "description": "Legends: their text, where a Plot's own legend sits (position, default bottom), how entries flow (layout: auto rows below or above a plot and stacks beside it), the swatch's size in CSS pixels (default 12) and shape (auto follows the mark), and the legend title's size and weight (default the text size, 500).",
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "fontFamily": { "type": "string" },
+        "fontSize": { "type": "number" },
+        "textColor": { "type": "string" },
+        "position": { "enum": ["top", "bottom", "left", "right"] },
+        "layout": { "enum": ["auto", "inline", "stacked"] },
+        "swatchSize": { "type": "number", "exclusiveMinimum": 0 },
+        "swatchShape": { "enum": ["auto", "circle", "square"] },
+        "titleFontSize": { "type": "number", "exclusiveMinimum": 0 },
+        "titleFontWeight": { "type": "integer", "minimum": 100, "maximum": 900 }
+      }
+    },
+    "title": {
+      "description": "The title block of Plots and Facets: title, subtitle and caption. Sizes are CSS pixels; an unset size follows the theme's text size (title 1.35x, subtitle +1, caption -1).",
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "align": { "enum": ["left", "center", "right"] },
+        "fontSize": { "type": "number", "exclusiveMinimum": 0 },
+        "fontWeight": { "type": "integer", "minimum": 100, "maximum": 900 },
+        "subtitleFontSize": { "type": "number", "exclusiveMinimum": 0 },
+        "captionFontSize": { "type": "number", "exclusiveMinimum": 0 },
+        "spacing": { "type": "number", "minimum": 0, "description": "Pixels between the title block and the plot." }
+      }
+    },
+    "numbers": {
+      "description": "How numbers read: format is a d3-format string (\",.2f\", \"$,.0f\", \".1%\") that axis ticks, legends and tooltips use where they set no format of their own. Dates keep theirs.",
+      "type": "object", "additionalProperties": false,
+      "properties": { "format": { "type": "string", "minLength": 1 } }
+    },
+    "controls": {
+      "description": "Inputs (Slider, Select, Button, Checkbox, Playback and the others): accentColor is a slider's handle and fill, a checked box and the focus ring (default the palette's first color); fontSize is their text size in CSS pixels (default the typography's). Their font is the typography's. A page's --hm-controls-accent, --hm-controls-font and --hm-controls-font-size win.",
+      "type": "object", "additionalProperties": false,
+      "properties": { "accentColor": { "type": "string", "minLength": 1 }, "fontSize": { "type": "number", "exclusiveMinimum": 0 } }
+    },
+    "easing": { "enum": ["linear", "quad-in", "quad-out", "quad-in-out", "cubic-in", "cubic-out", "cubic-in-out", "sine-in-out"] },
+    "lifecycleEffect": { "oneOf": [{ "type": "boolean" }, { "const": "fade" }, { "type": "object", "additionalProperties": false, "properties": { "effect": { "const": "fade" }, "duration": { "type": "number", "minimum": 0 }, "easing": { "$ref": "#/$defs/easing" } } }] },
+    "animation": {
+      "description": "Animated changes: duration (milliseconds) and easing are a Plot's animationDuration and animationEasing, and enter and exit a mark's enterEffect and exitEffect, where those are not set. It does not turn animation on.",
+      "type": "object", "additionalProperties": false,
+      "properties": { "duration": { "type": "number", "minimum": 0 }, "easing": { "$ref": "#/$defs/easing" }, "enter": { "$ref": "#/$defs/lifecycleEffect" }, "exit": { "$ref": "#/$defs/lifecycleEffect" } }
+    },
+    "vectorTileStyle": { "oneOf": [{ "const": false }, { "type": "object", "additionalProperties": false, "properties": { "fill": { "type": "string" }, "color": { "type": "string" }, "width": { "type": "number" }, "size": { "type": "number" }, "opacity": { "type": "number" }, "outlineColor": { "type": "string" }, "outlineWidth": { "type": "number" } } }] },
+    "vectorTile": { "type": "object", "additionalProperties": false, "properties": { "background": { "$ref": "#/$defs/vectorTileStyle" }, "land": { "$ref": "#/$defs/vectorTileStyle" }, "green": { "$ref": "#/$defs/vectorTileStyle" }, "water": { "$ref": "#/$defs/vectorTileStyle" }, "waterways": { "$ref": "#/$defs/vectorTileStyle" }, "buildings": { "$ref": "#/$defs/vectorTileStyle" }, "other": { "$ref": "#/$defs/vectorTileStyle" }, "paths": { "$ref": "#/$defs/vectorTileStyle" }, "roads": { "$ref": "#/$defs/vectorTileStyle" }, "majorRoads": { "$ref": "#/$defs/vectorTileStyle" }, "railways": { "$ref": "#/$defs/vectorTileStyle" }, "boundaries": { "$ref": "#/$defs/vectorTileStyle" }, "places": { "$ref": "#/$defs/vectorTileStyle" } } },
+    "mark": { "type": "object", "additionalProperties": false, "properties": { "capSize": {}, "color": {}, "dashSize": {}, "dashed": {}, "fill": {}, "font": {}, "gapSize": {}, "headLength": {}, "headWidth": {}, "lit": {}, "opacity": {}, "outlineColor": {}, "outlineWidth": {}, "outlineOpacity": {}, "rotation": {}, "shape": {}, "size": {}, "transparent": {}, "width": {} } }
+  }
+}

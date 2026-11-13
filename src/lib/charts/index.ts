@@ -1,0 +1,21 @@
+// Chart patterns composed from core marks and transforms (TODO 137.1b).
+export { default as Arrows } from "../compound/arrows.svelte";
+export { default as Bar } from "../compound/bar.svelte";
+export { default as BoxPlot } from "../compound/boxPlot.svelte";
+export { default as Callout } from "../compound/callout.svelte";
+export { default as Crosshair } from "../compound/crosshair.svelte";
+export { default as DensityBands } from "../compound/densityBands.svelte";
+export { default as DensityContour } from "../compound/densityContour.svelte";
+export { default as Ecdf } from "../compound/ecdf.svelte";
+export { default as ErrorBars } from "../compound/errorBars.svelte";
+export { default as Histogram } from "../compound/histogram.svelte";
+export { default as Lollipop } from "../compound/lollipop.svelte";
+export { default as Pie } from "../compound/pie.svelte";
+export { default as RuleX } from "../compound/ruleX.svelte";
+export { default as RuleY } from "../compound/ruleY.svelte";
+export { default as Smooth } from "../compound/smooth.svelte";
+export { default as Swarm } from "../compound/swarm.svelte";
+export { default as Violin } from "../compound/violin.svelte";
+export { default as Marginals } from "../figures/marginals.svelte";
+export { default as FocusContext } from "../figures/focusContext.svelte";
+export * from "./generated/index.js";

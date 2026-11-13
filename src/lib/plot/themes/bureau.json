@@ -1,0 +1,161 @@
+{
+  "name": "Bureau",
+  "view": {
+    "background": "#ffffff"
+  },
+  "typography": {
+    "fontFamily": "\"Public Sans\", \"Source Sans Pro\", \"Helvetica Neue\", Arial, sans-serif",
+    "fontSize": 14,
+    "color": "#1b1b1b"
+  },
+  "axes": {
+    "color": "#565c65",
+    "lineWidth": 0.75,
+    "tickSize": 3,
+    "grid": "major",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": false,
+    "ticks": false,
+    "tickDirection": "outside",
+    "titleFontWeight": 400,
+    "gridWidth": 0.6,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    },
+    "gridColor": "#dfe3e8"
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#1b1b1b",
+    "fontFamily": "\"Public Sans\", \"Source Sans Pro\", \"Helvetica Neue\", Arial, sans-serif",
+    "position": "top",
+    "layout": "inline",
+    "swatchSize": 12,
+    "swatchShape": "auto",
+    "titleFontSize": 14,
+    "titleFontWeight": 400
+  },
+  "marks": {
+    "Line": {
+      "color": "#1a4480",
+      "width": 1.5
+    },
+    "Points": {
+      "fill": "#1a4480",
+      "size": 7,
+      "outlineColor": "#ffffff",
+      "outlineWidth": 0,
+      "shape": "circle",
+      "opacity": 0.8
+    },
+    "Area": {
+      "fill": "#2e8dbe",
+      "opacity": 0.18
+    },
+    "ErrorBars": {
+      "color": "#3d4551",
+      "width": 1,
+      "capSize": 5
+    },
+    "Text": {
+      "color": "#1b1b1b",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#71767a",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#1a4480",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#1a4480",
+    "#2e8dbe",
+    "#6b8e9f",
+    "#d8a51d",
+    "#5e4b78",
+    "#4d8055",
+    "#b50909",
+    "#71767a"
+  ],
+  "colormap": "Viridis",
+  "vectorTile": {
+    "background": {
+      "fill": "#f7f7f7"
+    },
+    "land": {
+      "fill": "#eeeeee"
+    },
+    "green": {
+      "fill": "#c4d3c6"
+    },
+    "water": {
+      "fill": "#a7cfe4"
+    },
+    "waterways": {
+      "color": "#97c6df",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#dddddd"
+    },
+    "other": {
+      "fill": "#d1d1d1",
+      "color": "#8d8d8d",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fdfdfd",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#eace83",
+      "width": 3
+    },
+    "railways": {
+      "color": "#a4a4a4",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#a69cb5",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#1b1b1b",
+      "size": 13
+    }
+  },
+  "title": {
+    "align": "left",
+    "fontSize": 24,
+    "fontWeight": 700,
+    "subtitleFontSize": 15,
+    "captionFontSize": 12,
+    "spacing": 14
+  },
+  "controls": {
+    "fontSize": 14
+  }
+}

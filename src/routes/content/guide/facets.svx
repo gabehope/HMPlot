@@ -1,0 +1,55 @@
+---
+title: "Facets and layouts"
+section: guides
+order: 70
+summary: "Use facets to repeat one chart over subsets, and layouts to arrange distinct charts."
+---
+
+## One definition, multiple subsets
+
+Facet partitions by row and/or column categories and repeats its child Plot. Here group produces two cells. The Plot inherits each cell’s data, so its marks do not need a separate filter. Matrix facets preserve empty intersections; wrap arranges a single-field facet into a limited number of columns.
+
+## One cell per variable
+
+To compare different variables rather than subsets, give Facet a list of fields: `fields={["temp", "rain"]}` makes one cell per field over the same rows, and inside each cell the column `value` is that field (and `field` holds its name). The marks are written once, `<Line x="time" y="value" />`, and each field keeps its own y scale (the default `scales="field"`), while columns of the table such as time stay shared. `fields={{row: [...]}}` stacks the cells, and a categorical split may take the other dimension: `fields={[...]} row="species"` is a grid of fields by species. `pairs={[...]}` builds a scatterplot matrix the same way, with `x` and `y` as each cell's fields.
+
+## Shared and free domains
+
+Shared positional domains are the default, making magnitudes comparable. free-x, free-y, or free allow cells to fit their own extents. Explicit axis domains take precedence. link="x", "y", or "xy" can synchronize compatible 2D navigation.
+
+## Partition vs Facet
+
+Facet gives each subset its own plot in a grid. `Partition` repeats the same children once per group inside **one** frame, sharing the parent's scales, axes, and legend: `<Partition by="group">` around a Density or a fit draws one curve per group on the same axes. Use Facet to compare subsets side by side, Partition to overlay them. A Partition can sit inside a facet cell; a Facet cannot sit inside a Partition.
+
+## Dashboards are different
+
+A dashboard has separately authored plots, possibly with different data and transforms. In Python use Scene with Row or Column for that case. In Svelte use normal HTML/CSS layout. A Scene is not needed around this single Facet.
+
+## Try one change
+
+Set scales="free" to compare each group’s internal pattern rather than its absolute position. Set wrap=1 to stack the cells.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]}
+
+with hm.Facet(data=data, column="group", wrap=2) as facet:
+    with hm.Plot(height=280, axes2d=True):
+        hm.Points(x="x", y="y", fill="group", size=6)
+
+facet
+```
+
+```svelte
+<script>
+  import { Facet, Plot, Points } from "hmplot";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]};
+</script>
+
+<Facet {data} column="group" wrap={2}>
+  <Plot height={280} axes2d>
+    <Points x="x" y="y" fill="group" size={6} />
+  </Plot>
+</Facet>
+```

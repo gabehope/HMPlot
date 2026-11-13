@@ -1,0 +1,7 @@
+## Usage
+
+FocusContext draws a line chart over a strip of the whole series, as overview-and-detail charts do: a drag across the strip brushes an interval of `x`, and the chart above shows that interval; clearing the brush (Escape, or its clear control) shows the whole series again. The two Plots' plot areas line up; the strip takes a fifth of `height` (at least 48 px) and has no y axis. The strip does not pan or zoom, so a plain drag brushes it.
+
+Its other props go to the chart's Line: `series="ticker"` and `color="ticker"` draw a line per ticker in both views, `width`, `opacity` and `tooltip` work as on Line. Its children are drawn in the chart, over the lines (rules, labels, an [EndLabels](end-labels)). Give the rows with `data`, or put the FocusContext in a Data. It sits where a Plot does: in a Scene, Row, Column or Grid, not inside a Plot. Its PNG, SVG and PDF exports compose both views; bound in Svelte, `view("main")` and `view("context")` give each view's Plot handle.
+
+FocusContext is a chart template, built from Plots and Lines: import it from `hmplot/charts` in JavaScript or use `hm.charts.FocusContext` in Python. The chart's x domain is the brush's bounds read from the data (`@brush_min:x` and `@brush_max:x` as a domain, see [Plot](plot)): the same composition works by hand for other marks.

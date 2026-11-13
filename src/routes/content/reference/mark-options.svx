@@ -1,0 +1,27 @@
+## Usage
+
+These are the options the marks share; each mark's own page lists the ones it takes, with their defaults, and its own. Python spells them in snake_case (`fill_scale`, `enter_effect`). Options only some marks read, such as `series`, `shape`, `rotation`, `size_units` and `max_instances`, are on those marks' pages.
+
+**Channels** (`x`, `y`, `fill`, `size`, ...) take a column name, per-row values, an [expression](expressions) or one constant. A plain string is the column when the data has one, else the constant: `fill="species"` colors by species, `fill="steelblue"` is steelblue, and `literal("red")` (or `col.red`) says which is meant. A mapped channel goes through a scale, one object per channel: `fillScale`, `colorScale`, `sizeScale` and `widthScale` take a [continuous](continuous) scale (domain, colormap or range, transform) or a [categorical](categorical) one (categories in order and their colors or sizes), and one scale given to several marks keeps them in step. `colormap` sets a numeric fill's or color's colors without a scale object. A channel's scale does nothing without the channel.
+
+**Display** options name the mark in the legend (`label`, `legend`) and the settings pane (`name`), show or hide it (`visible`), and set how it mixes with what is under it (`blend`, `glow`) and how a plugin recolors it (`shade`).
+
+**Interaction** options make the rows respond: `select`, `hover`, `brush`, `nearby`, `nearest` and `tooltip` turn a gesture on (`true` uses the data's own selection; a [selection](selection) shares one; `select={root.set("id")}` and `hover={focus.set("series")}`, with `root = input("root", { default })`, write one value to an [input](input-context) instead, a drill-down's root or a focused series), `respond` fades the other rows while a selection is active, `drag` moves rows by [offsets](offsets-drag), and `enterEffect` and `exitEffect` fade the rows a keyed update adds and removes. **Animation** options time the transitions a change of data starts.
+
+The **settings** (tagged setting below) are what the settings pane edits: legend text, `quantize` and `levels`, `maxElements`, and a mark's own axes (`xTransform`, `xbounds`, `xrange`, ...) for a mark mapped apart from its frame, such as an image placed over an extent. A prop the mark is given wins over a theme's or a Mapping's value. [Point symbols](/examples/symbols) uses the channels, scales and picking together.
+
+**Outlines.** Outlined boundaries accept `outlineOpacity` (`outline_opacity` in Python), a number, numeric column, array or expression from 0 to 1. It fades the border over the fill; mark opacity still applies to both. Width is in CSS pixels. See the [outline support and migration audit](https://github.com/gabehope/HeatmapTest/blob/main/docs/OUTLINES.md).
+
+## Glow
+
+`glow` (0, the default, does not glow) makes a mark bloom: its own color times `glow` spreads around it, drawn after the scene, so it never changes picking or the axes. The Plot's bloom [effect](effects) sets how strong and how wide; marks drawn onto a Surface do not glow.
+
+## Shade
+
+`shade` names a [plugin's](plugins) shade with its parameters, `shade={{ kind: "hatch", spacing: 6 }}` (Python `shade=hm.shade("hatch", spacing=6)`): it recolors each fragment the mark draws. It cannot move or hide geometry, so picking, tooltips, domains and legends are unchanged. A kind no plugin registers, a parameter its schema refuses, or an input the mark lacks (normals on Points) is the mark's error, and it draws unshaded.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** with `blend="additive"` or `"subtractive"`: then SVG and PDF exports draw the mark as an image, and `mode="vector"` refuses it; screen and multiply stay vector (as `mix-blend-mode`). A `shade` draws the mark as an image too. A `glow` above 0 makes the whole plot one image: SVG and PDF exports draw all of the plot's marks, with the glow, as one image (its axes, titles and legends stay vector), and `mode="vector"` refuses it. A mark sampled by `maxInstances` exports every row, up to the export's primitive budget. See [what is not exported as vector](/docs/export).
+
+</Note>

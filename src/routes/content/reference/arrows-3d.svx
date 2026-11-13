@@ -1,0 +1,15 @@
+## Usage
+
+Use Arrows for screen-sized camera-facing shafts and heads. Solid arrows support the shared endpoint and curve inputs. Without a `color`, they take the theme's Arrows color.
+
+`width`, `headLength` and `headWidth` are world units: the arrows are geometry, as a Points3D is, and grow as you zoom in, straight or curved, in 2D and 3D plots. A Cartesian plot's box is 100 world units across (stretched to the plot in 2D, so a 2D arrow's shaft is as thick as the axes scale it); a map's or globe's world is its projection's (a flat map is 2π across, a globe's radius 1). SVG and PDF exports draw each arrow's outline in world units too.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view: then SVG and PDF exports draw the arrows, a 3D mark, as an image with all of that view's marks, and `mode="vector"` refuses it. A `color` column and a `curve` stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+### Connections
+
+With `connections={connect(before, after, {key})}` Arrows draw one arrow per matched key from the earlier endpoint to the later one. See [connect()](connect).

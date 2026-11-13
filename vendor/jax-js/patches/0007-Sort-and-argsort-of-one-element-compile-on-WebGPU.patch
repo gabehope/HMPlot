@@ -1,0 +1,73 @@
+From d5def69207a7f2df5bf5d0f2067eafaad8388d5a Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 14:57:19 -0400
+Subject: [PATCH] Sort and argsort of one element compile on WebGPU
+
+A one-element array has no bitonic stages, and the shader wrote its last
+local stage as `${numLocalStages - 1}u`: -1u, which is not valid WGSL, so
+np.sort and np.argsort of length 1 (or of a trailing axis of 1) failed to
+compile. The stage is now clamped to 0; with no stages and no merge passes
+the value is never used.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.test.ts     | 9 +++++++++
+ src/backend/webgpu/routines.ts | 8 ++++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/src/backend/webgpu.test.ts b/src/backend/webgpu.test.ts
+index 5e7e5b9..22b9711 100644
+--- a/src/backend/webgpu.test.ts
++++ b/src/backend/webgpu.test.ts
+@@ -126,6 +126,15 @@ suite("webgpu kernels are generic in sizes and values", () => {
+     });
+   });
+ 
++  test("sort and argsort of one element", async () => {
++    // Upstream wrote `${numLocalStages - 1}u`, "-1u", into the shader here.
++    const x = np.array([3], { dtype: np.float32, device: "webgpu" });
++    expect(Array.from(await np.argsort(x.ref).data())).toEqual([0]);
++    expect(Array.from(await np.sort(x).data())).toEqual([3]);
++    const rows = np.array([[5], [2], [7]], { dtype: np.float32, device: "webgpu" });
++    expect(Array.from(await np.argsort(rows).data())).toEqual([0, 0, 0]);
++  });
++
+   test("cumulative sums: lengths in one power of two share programs", async () => {
+     // Short scans pad to a power of two; long ones scan 256-element chunks and
+     // pad the chunk count (3 here) to a power of two. (A length that needs no
+diff --git a/src/backend/webgpu/routines.ts b/src/backend/webgpu/routines.ts
+index 6dc07d2..530e67f 100644
+--- a/src/backend/webgpu/routines.ts
++++ b/src/backend/webgpu/routines.ts
+@@ -83,6 +83,10 @@ function bitonicSortShader(
+   const workgroupsPerBatch = numThreads / workgroupSize;
+   const numStages = Math.log2(paddedN);
+   const numLocalStages = Math.min(numStages, Math.log2(workgroupSize * 2));
++  // The last local stage, where merge passes hand over to the workgroup. A
++  // one-element array has no stages (and no merge passes): 0, not -1u, which
++  // is not valid WGSL.
++  const lastLocalStage = Math.max(numLocalStages - 1, 0);
+ 
+   const needsF16 = dtype === DType.Float16;
+   const padValue = isFloatDtype(dtype) ? `${ty}(nan())` : maxValueWgsl(dtype);
+@@ -157,7 +161,7 @@ fn main(
+   let tid = local_id.x;
+   let base = batch * n;
+ 
+-  if (uniforms.kind == 0u || (uniforms.kind == 1u && uniforms.merge_step == ${numLocalStages - 1}u)) {
++  if (uniforms.kind == 0u || (uniforms.kind == 1u && uniforms.merge_step == ${lastLocalStage}u)) {
+     let wg_base = wg_in_batch * ${workgroupSize * 2}u;
+ 
+     // Load data into shared memory (2 elements per thread)
+@@ -187,7 +191,7 @@ ${
+     }
+     workgroupBarrier();
+ 
+-    let initial_stage = select(0u, ${numLocalStages - 1}u, uniforms.kind != 0u);
++    let initial_stage = select(0u, ${lastLocalStage}u, uniforms.kind != 0u);
+     for (var stage = initial_stage; stage < ${numLocalStages}u; stage++) {
+       for (var step1 = stage + 1u; step1 > 0u; step1--) {
+         let step = step1 - 1u;
+-- 
+2.46.1
+

@@ -1,0 +1,1539 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "baseline": "976a111f1090af5e962bd4c4955fdcd4305d8bb7",
+  "status": "First implementation slices; does not close whole stages 122\u2013124.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "build": "VITE_HMPLOT_PERF_HOOKS=1 node node_modules/vite/bin/vite.js build",
+    "serving": "Both frozen production builds served concurrently from separate directories.",
+    "rounds": 6,
+    "warmup": "One discarded run per build before six alternating A/B, B/A rounds per workload.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "browser": "154.0.8037.98",
+    "machine": "Apple M2 Max / darwin arm64",
+    "cpu": "Active profile time includes all samples except (idle); sample duration is timeDeltas[i+1]. Sunburst uses the median across warmed flights 2\u20136, then per-round paired differences.",
+    "counters": "Separate Sunburst counter runs: report whole-number readbacks per flight. Lorenz/moving-particles counters report full six-second windows with frame counts, not readbacks/frame.",
+    "timingNote": "GPU counters and timestamps are separate captures from plain CPU/frame timing. Warmed builds and device errors are checked.",
+    "coverage": "Production comparisons cover the frozen candidate before the later dependency-neutral search extraction and Partition change. Those have separate parity and Partition timing evidence below.",
+    "rawResults": "<tmp>/hmplot-stages122-paired",
+    "rawCounterResults": "<tmp>/hmplot-stages122-paired-counters"
+  },
+  "scenarios": {
+    "sunburst": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.1657,
+          "min": 4.0101,
+          "max": 4.3108,
+          "spread": 0.3007,
+          "runs": [
+            4.0101,
+            4.1045,
+            4.1677,
+            4.2631,
+            4.1636,
+            4.3108
+          ]
+        },
+        "candidate": {
+          "median": 4.1447,
+          "min": 4.0404,
+          "max": 4.2769,
+          "spread": 0.2366,
+          "runs": [
+            4.0978,
+            4.1361,
+            4.0404,
+            4.1533,
+            4.1622,
+            4.2769
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0176,
+          "min": -0.1274,
+          "max": 0.0877,
+          "spread": 0.2151,
+          "runs": [
+            0.0877,
+            0.0316,
+            -0.1274,
+            -0.1098,
+            -0.0014,
+            -0.0339
+          ]
+        }
+      },
+      "counters": {
+        "a": [
+          {
+            "round": 1,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              80,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 2,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              80,
+              78,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 3,
+            "readbacksPerFlight": [
+              96,
+              97,
+              99,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              80,
+              79,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 4,
+            "readbacksPerFlight": [
+              97,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              80,
+              78,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 5,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 6,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacksPerFlight": [
+              96,
+              97,
+              99,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 2,
+            "readbacksPerFlight": [
+              96,
+              97,
+              99,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              80,
+              79,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 3,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 4,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              80,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 5,
+            "readbacksPerFlight": [
+              96,
+              97,
+              97,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "round": 6,
+            "readbacksPerFlight": [
+              96,
+              97,
+              99,
+              97,
+              99,
+              97
+            ],
+            "completedFramesPerFlight": [
+              78,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "warmedBuildsPerFlight": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      },
+      "errors": [],
+      "warmedBuilds": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "interpretation": "No evidence of regression; warmed paired differences straddle zero."
+    },
+    "lorenz": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 5.641,
+          "min": 5.559,
+          "max": 5.829,
+          "spread": 0.27,
+          "runs": [
+            5.67,
+            5.613,
+            5.829,
+            5.563,
+            5.669,
+            5.559
+          ]
+        },
+        "candidate": {
+          "median": 5.671,
+          "min": 5.554,
+          "max": 5.867,
+          "spread": 0.313,
+          "runs": [
+            5.57,
+            5.692,
+            5.867,
+            5.829,
+            5.554,
+            5.65
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0585,
+          "min": -0.115,
+          "max": 0.266,
+          "spread": 0.381,
+          "runs": [
+            -0.1,
+            0.079,
+            0.038,
+            0.266,
+            -0.115,
+            0.091
+          ]
+        }
+      },
+      "counters": {
+        "a": [
+          {
+            "round": 1,
+            "readbacks": 351,
+            "frames": 360,
+            "windowMs": 6002.8,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacks": 360,
+            "frames": 360,
+            "windowMs": 6003.9,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacks": 358,
+            "frames": 360,
+            "windowMs": 6003.3,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacks": 359,
+            "frames": 360,
+            "windowMs": 6002.8,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacks": 361,
+            "frames": 360,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacks": 357,
+            "frames": 360,
+            "windowMs": 6002.9,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacks": 360,
+            "frames": 360,
+            "windowMs": 6003.2,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacks": 359,
+            "frames": 360,
+            "windowMs": 6002.6,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacks": 358,
+            "frames": 360,
+            "windowMs": 6003.3,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacks": 360,
+            "frames": 360,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacks": 361,
+            "frames": 361,
+            "windowMs": 6008.2,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacks": 361,
+            "frames": 361,
+            "windowMs": 6007.3,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "warmedBuilds": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 3.7905,
+          "min": 3.579,
+          "max": 3.996,
+          "spread": 0.417,
+          "runs": [
+            3.579,
+            3.84,
+            3.827,
+            3.754,
+            3.727,
+            3.996
+          ]
+        },
+        "candidate": {
+          "median": 3.8935,
+          "min": 3.783,
+          "max": 3.974,
+          "spread": 0.191,
+          "runs": [
+            3.802,
+            3.974,
+            3.882,
+            3.783,
+            3.928,
+            3.905
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.0945,
+          "min": -0.091,
+          "max": 0.223,
+          "spread": 0.314,
+          "runs": [
+            0.223,
+            0.134,
+            0.055,
+            0.029,
+            0.201,
+            -0.091
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 59.975,
+          "min": 59.972,
+          "max": 60.094,
+          "spread": 0.122,
+          "runs": [
+            59.973,
+            59.974,
+            59.972,
+            60.094,
+            59.977,
+            59.976
+          ]
+        },
+        "candidate": {
+          "median": 60.037,
+          "min": 59.972,
+          "max": 60.107,
+          "spread": 0.135,
+          "runs": [
+            59.972,
+            60.099,
+            60.102,
+            59.975,
+            59.973,
+            60.107
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": 0.062,
+          "min": -0.119,
+          "max": 0.131,
+          "spread": 0.25,
+          "runs": [
+            -0.001,
+            0.125,
+            0.13,
+            -0.119,
+            -0.004,
+            0.131
+          ]
+        }
+      },
+      "liveBufferMB": {
+        "baseline": {
+          "median": 134.2,
+          "min": 132.6,
+          "max": 138.3,
+          "spread": 5.7,
+          "runs": [
+            132.6,
+            134.2,
+            134.2,
+            134.2,
+            138.3,
+            138.3
+          ]
+        },
+        "candidate": {
+          "median": 134.2,
+          "min": 133.3,
+          "max": 136,
+          "spread": 2.7,
+          "runs": [
+            134.2,
+            133.3,
+            134.2,
+            134.9,
+            134.2,
+            136
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.45,
+          "min": -4.1,
+          "max": 1.6,
+          "spread": 5.7,
+          "runs": [
+            1.6,
+            -0.9,
+            0.0,
+            0.7,
+            -4.1,
+            -2.3
+          ]
+        }
+      },
+      "interpretation": "No repeatable CPU win or regression; median live-buffer total is 134.2 MB on both builds."
+    },
+    "moving-particles": {
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 3.0765,
+          "min": 2.632,
+          "max": 3.091,
+          "spread": 0.459,
+          "runs": [
+            2.632,
+            2.682,
+            3.091,
+            3.075,
+            3.078,
+            3.085
+          ]
+        },
+        "candidate": {
+          "median": 2.808,
+          "min": 2.451,
+          "max": 2.879,
+          "spread": 0.428,
+          "runs": [
+            2.451,
+            2.649,
+            2.821,
+            2.795,
+            2.856,
+            2.879
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.214,
+          "min": -0.28,
+          "max": -0.033,
+          "spread": 0.247,
+          "runs": [
+            -0.181,
+            -0.033,
+            -0.27,
+            -0.28,
+            -0.222,
+            -0.206
+          ]
+        }
+      },
+      "counters": {
+        "a": [
+          {
+            "round": 1,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6001.9,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6003.9,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6002.2,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6002.1,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6003.9,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6004,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6002.6,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 2,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6004.8,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 3,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6004.4,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 4,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6003.8,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 5,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6003.7,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          },
+          {
+            "round": 6,
+            "readbacks": 0,
+            "frames": 360,
+            "windowMs": 6004.4,
+            "builds": 0,
+            "droppedGpuPasses": 0,
+            "untimedGpuPasses": 0,
+            "readbackErrors": 0
+          }
+        ]
+      },
+      "errors": [],
+      "warmedBuilds": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "gpuMsPerFrame": {
+        "baseline": {
+          "median": 3.0335,
+          "min": 2.342,
+          "max": 3.534,
+          "spread": 1.192,
+          "runs": [
+            2.515,
+            2.342,
+            3.534,
+            2.851,
+            3.216,
+            3.351
+          ]
+        },
+        "candidate": {
+          "median": 2.743,
+          "min": 2.439,
+          "max": 2.993,
+          "spread": 0.554,
+          "runs": [
+            2.439,
+            2.719,
+            2.767,
+            2.781,
+            2.681,
+            2.993
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.217,
+          "min": -0.767,
+          "max": 0.377,
+          "spread": 1.144,
+          "runs": [
+            -0.076,
+            0.377,
+            -0.767,
+            -0.07,
+            -0.535,
+            -0.358
+          ]
+        }
+      },
+      "fps": {
+        "baseline": {
+          "median": 59.9665,
+          "min": 59.965,
+          "max": 59.971,
+          "spread": 0.006,
+          "runs": [
+            59.971,
+            59.969,
+            59.967,
+            59.965,
+            59.965,
+            59.966
+          ]
+        },
+        "candidate": {
+          "median": 59.965,
+          "min": 59.957,
+          "max": 59.983,
+          "spread": 0.026,
+          "runs": [
+            59.983,
+            59.962,
+            59.972,
+            59.967,
+            59.963,
+            59.957
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.0,
+          "min": -0.009,
+          "max": 0.012,
+          "spread": 0.021,
+          "runs": [
+            0.012,
+            -0.007,
+            0.005,
+            0.002,
+            -0.002,
+            -0.009
+          ]
+        }
+      },
+      "liveBufferMB": {
+        "baseline": {
+          "median": 74.1,
+          "min": 74.1,
+          "max": 74.5,
+          "spread": 0.4,
+          "runs": [
+            74.5,
+            74.1,
+            74.1,
+            74.1,
+            74.1,
+            74.4
+          ]
+        },
+        "candidate": {
+          "median": 73.1,
+          "min": 73.1,
+          "max": 73.1,
+          "spread": 0.0,
+          "runs": [
+            73.1,
+            73.1,
+            73.1,
+            73.1,
+            73.1,
+            73.1
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -1.0,
+          "min": -1.4,
+          "max": -1.0,
+          "spread": 0.4,
+          "runs": [
+            -1.4,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.0,
+            -1.3
+          ]
+        }
+      },
+      "interpretation": "All six CPU pairs favor the candidate; median paired improvement about 0.214 ms/frame, with about 60 FPS maintained."
+    },
+    "native-sunburst": {
+      "route": "/test/gallery-example?id=sunburst",
+      "cpuMsPerFrame": {
+        "baseline": {
+          "median": 4.3074,
+          "min": 4.0841,
+          "max": 4.482,
+          "spread": 0.398,
+          "runs": [
+            4.0841,
+            4.4276,
+            4.3333,
+            4.2425,
+            4.2815,
+            4.482
+          ]
+        },
+        "candidate": {
+          "median": 4.2251,
+          "min": 4.1346,
+          "max": 4.2845,
+          "spread": 0.1499,
+          "runs": [
+            4.223,
+            4.2272,
+            4.2533,
+            4.2845,
+            4.1346,
+            4.2005
+          ]
+        },
+        "pairedCandidateMinusBaseline": {
+          "median": -0.1134,
+          "min": -0.2815,
+          "max": 0.139,
+          "spread": 0.4205,
+          "runs": [
+            0.139,
+            -0.2003,
+            -0.08,
+            0.042,
+            -0.1469,
+            -0.2815
+          ]
+        }
+      },
+      "completedFramesPerFlight": {
+        "a": [
+          [
+            79,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            78,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            79,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            78,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            79,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            79,
+            79,
+            79,
+            79,
+            79,
+            79
+          ]
+        ],
+        "b": [
+          [
+            79,
+            78,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            79,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            78,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            78,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            78,
+            79,
+            79,
+            79,
+            79,
+            79
+          ],
+          [
+            78,
+            79,
+            79,
+            79,
+            79,
+            79
+          ]
+        ]
+      },
+      "errors": [],
+      "sourceFingerprints": {
+        "a": {
+          "sha256": "c53afdf2a85da45ea000dee4aa825358d46fb1d75ad876d1ff8686b11d11dd5f",
+          "files": 602
+        },
+        "b": {
+          "sha256": "41e3bd6ad3c93261dfdc080ac7840d0a17ee34fc5a8c3ed0f20f0c6a0923f9cc",
+          "files": 604
+        }
+      },
+      "executedJavaScriptVerified": true,
+      "rawResults": "<tmp>/hmplot-stages122-paired-native/sunburst",
+      "interpretation": "Six alternating pairs after one discarded warmup per build; warmed flights 2\u20136. Median paired difference favors candidate; dispersion includes both signs. No evidence of repeatable slowdown."
+    }
+  },
+  "sourceFingerprints": {
+    "a": {
+      "sha256": "c53afdf2a85da45ea000dee4aa825358d46fb1d75ad876d1ff8686b11d11dd5f",
+      "files": 602
+    },
+    "b": {
+      "sha256": "41e3bd6ad3c93261dfdc080ac7840d0a17ee34fc5a8c3ed0f20f0c6a0923f9cc",
+      "files": 604
+    }
+  },
+  "executedJavaScriptVerified": {
+    "a": true,
+    "b": true
+  },
+  "partition": {
+    "method": "CPU backend only, in-process alternating pairs; 20,000 rows / 32 dictionary groups. One discarded warmup per implementation, then six rounds. Not a WebGPU latency claim.",
+    "initialMs": {
+      "baseline": {
+        "median": 15.9561,
+        "min": 14.9497,
+        "max": 17.2006,
+        "spread": 2.2508,
+        "runs": [
+          16.9088,
+          15.1376,
+          15.4287,
+          16.4836,
+          17.2006,
+          14.9497
+        ]
+      },
+      "candidate": {
+        "median": 1.2939,
+        "min": 1.1333,
+        "max": 2.9415,
+        "spread": 1.8083,
+        "runs": [
+          1.2627,
+          1.3076,
+          1.2802,
+          2.9415,
+          1.5202,
+          1.1333
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": -13.9892,
+        "min": -15.6804,
+        "max": -13.542,
+        "spread": 2.1384,
+        "runs": [
+          -15.6461,
+          -13.83,
+          -14.1484,
+          -13.542,
+          -15.6804,
+          -13.8165
+        ]
+      }
+    },
+    "reusedMs": {
+      "baseline": {
+        "median": 14.6161,
+        "min": 13.1423,
+        "max": 16.4189,
+        "spread": 3.2766,
+        "runs": [
+          15.9885,
+          14.1345,
+          16.4189,
+          14.2904,
+          14.9418,
+          13.1423
+        ]
+      },
+      "candidate": {
+        "median": 1.0496,
+        "min": 0.8542,
+        "max": 1.4775,
+        "spread": 0.6233,
+        "runs": [
+          1.0476,
+          1.0517,
+          1.02,
+          1.4775,
+          1.1316,
+          0.8542
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": -13.4465,
+        "min": -15.399,
+        "max": -12.2881,
+        "spread": 3.1109,
+        "runs": [
+          -14.941,
+          -13.0829,
+          -15.399,
+          -12.8129,
+          -13.8102,
+          -12.2881
+        ]
+      }
+    },
+    "reusedGroupCounts": [
+      32,
+      32,
+      32,
+      32,
+      32,
+      32
+    ],
+    "workReduction": "The existing filtered-source test now performs one mapping readback instead of two. A supported same-scope reuse test performs zero grouping reads and retains only the plan snapshot, not new group views.",
+    "rawResults": "<tmp>/hmplot-stages122-partition-bench.json"
+  },
+  "limits": [
+    "Core implementation strict checking, strict Svelte boundaries, fork patches and all WebGL/WASM fallback implementation are still pending.",
+    "Whole rendering suite and package distribution gates have not yet been run; no rendering PR or release is being prepared.",
+    "Expanded leak gating finds baseline failures: 67 kernel-literals/transform-work cases, the transform-caches Join budget case, and five pre-existing Partition tests that leave their borrowed test-owned arrays undisposed. New cache/lifetime cases and supported numerical gates pass; failures are not suppressed.",
+    "Benchmark profiles, screenshots and logs are retained locally in the raw-result directories; this report stores measured rounds and source fingerprints, not the large raw profiles."
+  ],
+  "teardown": {
+    "method": "Same-document SPA navigation from Lorenz to reference/svelte/plot; no plot canvases remain. Three observations at two-second intervals per build.",
+    "baseline": {
+      "liveBytesBefore": 141450076,
+      "liveBytesAfter": [
+        46454168,
+        46454168,
+        46454168
+      ],
+      "submitsAfter": [
+        13327,
+        13327,
+        13327
+      ],
+      "errors": []
+    },
+    "candidate": {
+      "liveBytesBefore": 144810716,
+      "liveBytesAfter": [
+        49574824,
+        49574824,
+        49574824
+      ],
+      "submitsAfter": [
+        13303,
+        13303,
+        13303
+      ],
+      "errors": []
+    },
+    "interpretation": "Both builds stop submitting and retain stable buffer pools. The single candidate teardown retains about 3.1 MB more than baseline; this is not a logical-array leak measurement, nor proof of identical memory usage. Supported reference-lifetime tests pass.",
+    "rawResults": "<tmp>/hmplot-stages122-teardown.json"
+  },
+  "validation": {
+    "unit": {
+      "passed": 1377,
+      "failed": 0
+    },
+    "numericalLeakCases": 53,
+    "newGroupingLeakCases": 4,
+    "supportedPartitionLeakCases": 6,
+    "browser": {
+      "partition": 26,
+      "earlierPaddedAndRoot": 9,
+      "devicePixelRatio": 2
+    },
+    "svelte": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "strictModuleFloor": 39,
+    "coreImplementationCoverage": "0/9; the supporting additions do not satisfy this target.",
+    "format": "pass",
+    "api": "current; no public API change",
+    "pythonSignatures": "112 components",
+    "package": "Build completes. Baseline and candidate both warn about private Vec3Function declaration emit in materials/lines.js, import.meta.env and undeclared SvelteKit dependency."
+  },
+  "movingParticlesFixedStateParity": {
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "method": "Same production snapshots; fixed initial time 0 under reduced motion; visible Minimum speed control updates; exported PNG pixel parity. Playback timing measured separately.",
+    "results": [
+      {
+        "condition": "a",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.81,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.15,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.85,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "a",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": null
+      },
+      {
+        "condition": "b",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 44417
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.81,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 4327
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.15,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 64341
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.85,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 3180
+        }
+      },
+      {
+        "condition": "b",
+        "threshold": 0.3,
+        "state": "time 0; paused via initial reduced-motion setting",
+        "difference": {
+          "width": 1636,
+          "height": 960,
+          "changedPixelsOver8": 0,
+          "maxChannelDifference": 0,
+          "colors": 44417
+        }
+      }
+    ],
+    "rawResults": "<tmp>/hmplot-stages122-moving-parity",
+    "interpretation": "All five 1636\u00d7960 PNG exports are byte-identical after decoding to RGBA (zero per-channel difference); thousands of distinct drawn colors rule out blank output. This is fixed-time/mask parity; precise time crossings are covered by unit cases, and steady animation was timed separately."
+  }
+}

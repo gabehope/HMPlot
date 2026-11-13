@@ -1,0 +1,3 @@
+## Usage
+
+Python snapshots numeric columns when updates are queued. update_columns changes named columns; replace replaces the table. In-place array mutations are not observed. Use key for identity across reordering. GPU tensors require explicit host conversion in Python.

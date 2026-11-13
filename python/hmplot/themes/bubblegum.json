@@ -1,0 +1,142 @@
+{
+  "name": "Bubblegum",
+  "view": {
+    "background": "#ffe6f4"
+  },
+  "typography": {
+    "fontFamily": "\"Comic Sans MS\", \"Chalkboard SE\", \"Comic Neue\", cursive",
+    "fontSize": 14,
+    "color": "#7a1f5c"
+  },
+  "axes": {
+    "color": "#ff8ac6",
+    "lineWidth": 1.5,
+    "tickSize": 5,
+    "grid": "off",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 700,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#8e2f6c",
+    "fontFamily": "\"Comic Sans MS\", \"Chalkboard SE\", \"Comic Neue\", cursive"
+  },
+  "marks": {
+    "Line": {
+      "color": "#ff4fa3",
+      "width": 3
+    },
+    "Points": {
+      "fill": "#40c9ff",
+      "size": 12,
+      "outlineColor": "#ffffff",
+      "outlineWidth": 0.7,
+      "shape": "star"
+    },
+    "Area": {
+      "fill": "#ff8ac6",
+      "opacity": 0.35
+    },
+    "ErrorBars": {
+      "color": "#7a1f5c",
+      "width": 2,
+      "capSize": 9
+    },
+    "Text": {
+      "color": "#7a1f5c",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#ff4fa3",
+      "width": 2,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#ff4fa3",
+      "width": 3
+    }
+  },
+  "palette": [
+    "#ff4fa3",
+    "#40c9ff",
+    "#ffd23f",
+    "#7cf29a",
+    "#b388ff",
+    "#ff9f6e",
+    "#00d5c0",
+    "#ff6f91"
+  ],
+  "colormap": "RdPu",
+  "vectorTile": {
+    "background": {
+      "fill": "#fadfef"
+    },
+    "land": {
+      "fill": "#f5d7e9"
+    },
+    "green": {
+      "fill": "#d4e5d5"
+    },
+    "water": {
+      "fill": "#afdaf9"
+    },
+    "waterways": {
+      "color": "#a0d8fa",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#ebc8dd"
+    },
+    "other": {
+      "fill": "#e4bed6",
+      "color": "#bd83a8",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fef5fa",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#ffdb90",
+      "width": 3
+    },
+    "railways": {
+      "color": "#ca96b7",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#d5b2fa",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#7a1f5c",
+      "size": 13
+    }
+  }
+}

@@ -1,0 +1,23 @@
+## Usage
+
+Area fills between `lower` and `upper`, each a scalar or a matching array of absolute coordinates. `lower` defaults to zero. The edges may cross, preserving positive, negative and mixed fills; nonfinite values produce breaks. Area does not calculate uncertainty bounds.
+
+By default, `x` gives row positions and the bounds span y. With `orientation="horizontal"`, pass positions as `y`; the bounds then span x.
+
+```svelte
+<Area x="time" upper="value" />
+<Area x="time" lower="low" upper="high" opacity={0.2} />
+<Area y="depth" lower="low" upper="high" orientation="horizontal" />
+```
+
+The automatic value domain includes both edges. A constant lower edge outside the scale's domain (the default zero on a log axis) is an error: pass `lower={1}`, for example. Rows outside the value scale's domain are missing. The theme sets opacity (1 in HMPlot); outlines default off. An enabled outline follows both curves, without interval joins or end caps. `series` partitions independent bands.
+
+Hover, select and brush take whole series, as a Line's do. Area brushes along its positions: x, or y when horizontal.
+
+`Ribbon` was merged into Area. Replace it with `Area(lower=..., upper=...)`; set opacity explicitly for a translucent band. Former `Area(y=..., baseline=...)` calls use `upper=...` and `lower=...`. The old value shorthands are not accepted. Theme overrides belong under `marks.Area`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** where a map's seam crosses an interval more than once or a Mercator map's latitude limit cuts it, or in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw the area (in a 3D view all of that view's marks) as an image, and `mode="vector"` refuses it. In other 3D views it is vector too, drawn back to front by depth (approximate where marks cross closely). A `fill` column of numbers or categories stays vector. See [what is not exported as vector](/docs/export).
+
+</Note>

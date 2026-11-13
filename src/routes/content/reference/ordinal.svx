@@ -1,0 +1,3 @@
+## Usage
+
+Unlike an unordered categorical palette, an ordinal colormap communicates rank. Supply the category order explicitly; category values are not numerically interpolated.

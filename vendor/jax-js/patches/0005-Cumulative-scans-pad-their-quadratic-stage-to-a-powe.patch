@@ -1,0 +1,88 @@
+From 2a3ca6e19ece2018e6e54ca3dceb0df1013571e4 Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 10:58:19 -0400
+Subject: [PATCH 5/6] Cumulative scans pad their quadratic stage to a power of
+ two
+
+cumsum and cumprod scan an axis of 512 or fewer with an O(n^2) masked
+reduction, and a longer axis in 256-element chunks whose totals are
+scanned the same way. That reduction's length and divisor are the axis
+length (or the chunk count), which are written into the shader, so every
+new length compiled a new one. The quadratic stage now pads the axis to a
+power of two and slices the result back: one shader per power of two,
+and one more for a length that is itself a power of two (unpadded, it
+has no mask). Zeros pad even products, since output i reads only inputs
+up to i.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.test.ts | 16 ++++++++++++++++
+ src/library/numpy.ts       | 16 ++++++++++++++--
+ 2 files changed, 30 insertions(+), 2 deletions(-)
+
+diff --git a/src/backend/webgpu.test.ts b/src/backend/webgpu.test.ts
+index be7ddeb..436ded3 100644
+--- a/src/backend/webgpu.test.ts
++++ b/src/backend/webgpu.test.ts
+@@ -126,6 +126,22 @@ suite("webgpu kernels are generic in sizes and values", () => {
+     });
+   });
+ 
++  test("cumulative sums: lengths in one power of two share programs", async () => {
++    // Short scans pad to a power of two; long ones scan 256-element chunks and
++    // pad the chunk count (3 here) to a power of two. (A length that needs no
++    // padding has no mask: one more shader per power of two.)
++    for (const lengths of [
++      [300, 400, 500],
++      [520, 600, 760],
++    ])
++      await expectOneCompile(lengths, async (n) => {
++        const scan = await np.cumsum(ramp(n)).data();
++        expect(scan.length).toBe(n);
++        expect(scan[n - 1]).toBeCloseTo((n * (n - 1)) / 2, -2);
++        expect(scan[1]).toBe(1);
++      });
++  });
++
+   test("NaN and infinite constants survive the uniform buffer", async () => {
+     const x = np.array([1, 2, 3], { device: "webgpu" });
+     expect(Array.from(await x.ref.add(NaN).data()).every(Number.isNaN)).toBe(
+diff --git a/src/library/numpy.ts b/src/library/numpy.ts
+index eeaaa30..90ce5d5 100644
+--- a/src/library/numpy.ts
++++ b/src/library/numpy.ts
+@@ -694,6 +694,13 @@ export function nanargmax(
+ /**
+  * Direct O(n^2) cumulative reduction of the last axis, by a masked reduction.
+  * The diagonal offset `k` selects an inclusive (0) or exclusive (-1) scan.
++ *
++ * The axis is padded to a power of two and the result sliced back: n is a
++ * divisor and a reduction length in the kernel, both written into its source,
++ * so each length would compile its own shader; padded, lengths share one per
++ * power of two (and a length that is a power of two, unpadded, has its own).
++ * Zeros are safe padding even for products: output i reads only inputs up to
++ * i, so the tail reaches only outputs that are sliced off.
+  */
+ function cumulativeQuadratic(
+   op: AluOp.Add | AluOp.Mul,
+@@ -701,13 +708,18 @@ function cumulativeQuadratic(
+   padValue: number,
+   k: number = 0,
+ ): Array {
+-  const n = a.shape[a.ndim - 1];
++  const length = a.shape[a.ndim - 1];
++  const n = 2 ** Math.ceil(Math.log2(Math.max(length, 1)));
++  if (n !== length) a = core.pad(a, { [a.ndim - 1]: [0, n - length] }) as Array;
+   a = core.broadcast(a, a.shape.concat(n), [-2]) as Array;
+-  return core.reduce(
++  const scan = core.reduce(
+     where(tri(n, n, k, { dtype: bool }), a, padValue),
+     op,
+     -1,
+   ) as Array;
++  if (n === length) return scan;
++  const cols = scan.shape.slice(0, -1).map((): [] => []);
++  return scan.slice(...cols, [0, length]);
+ }
+ 
+ function cumulativeHelper(

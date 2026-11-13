@@ -1,0 +1,54 @@
+---
+title: "Data and channels"
+section: guides
+order: 30
+summary: "Channels connect columns to visual properties. Use named columns, literal arrays, or GPU arrays without changing the mark model."
+---
+
+## Column lookup and constants
+
+A string in a data-bearing property first looks for a column in the nearest data scope. If no column matches, a valid literal such as a named CSS color retains its ordinary meaning. literal("white") explicitly bypasses lookup if the table also has a column called white. Names and labels are descriptive settings, not column references.
+
+## Choose a table shape
+
+Use an object of equal-length columns or an array of row records. Numeric columns can be typed arrays or JAX-JS arrays. Python Table accepts dictionaries, NumPy arrays, and supported dataframe adapters. Multidimensional heatmap values retain their shape; an image is not treated as a table of point positions.
+
+## Arrays still work
+
+Points can receive position as an N×2 or N×3 array instead of x/y/z channels. Do not provide both position forms. Arrays remain useful for neural network tensors and simulations; a Data scope is a convenience, not a prerequisite.
+
+## Replace deliberately
+
+When a simulation only needs generated rows, use [Data] with `rows=N`. Expressions such as
+`row()` and `random({seed: 7})` generate columns in [Calculate]; Python sends only the count
+and expressions. The [particle simulation](/examples/constant-data) shows this initializing [Simulate].
+
+Replace a table or its columns to publish an update; arbitrary in-place mutation is not detected. In Python, keep an hm.Table handle and use update_columns. A key column preserves observation identity through reordering and is especially useful for selection and entry/exit animation.
+
+## Try one change
+
+Change fill from group to score. String categories use a categorical palette; numeric scores use a continuous mapping. The next lesson makes those mappings explicit.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]}
+
+with hm.Plot(data=data, height=340, axes2d=True) as plot:
+    hm.Points(x="x", y="y", fill="group", size=6,
+                     outline_color=hm.literal("white"), outline_width=1)
+
+plot
+```
+
+```svelte
+<script>
+  import { Plot, Points, literal } from "hmplot";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]};
+</script>
+
+<Plot {data} height={340} axes2d>
+  <Points x="x" y="y" fill="group" size={6}
+    outlineColor={literal("white")} outlineWidth={1} />
+</Plot>
+```

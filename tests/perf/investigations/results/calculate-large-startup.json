@@ -1,0 +1,73 @@
+{
+  "example": "calculate-large",
+  "device_pixel_ratio": 2,
+  "viewport": {
+    "width": 1500,
+    "height": 1100
+  },
+  "diagnosis": "Legacy Svelte dev compilation instruments top-level typed-array mutations. Immutable generation blocked component initialization before the transform chain mounted; no repeated transform requests or aborts occurred.",
+  "before": {
+    "compiler_mode": "legacy",
+    "rows": 100000,
+    "instrumented_element_writes": 400000,
+    "loop_milliseconds": 32109.5,
+    "document_loop_start_milliseconds": 185.19999998807907,
+    "document_loop_end_milliseconds": 32294.69999998808,
+    "trace": [
+      {
+        "kind": "Filter",
+        "requests": 1,
+        "starts": 1,
+        "publications": 0,
+        "aborts": 0,
+        "events": [
+          {
+            "event": "requests",
+            "at": 32306,
+            "id": 1,
+            "sourceVersion": 1,
+            "length": 100000
+          },
+          {
+            "event": "starts",
+            "at": 32306.29999998212,
+            "id": 1
+          }
+        ]
+      }
+    ],
+    "test_seconds": 43.4,
+    "result": "30-second section readiness assertion failed"
+  },
+  "after": {
+    "compiler_mode": "legacy",
+    "change": "Construct identical immutable typed arrays inside makeData(), leaving component props and all calculations unchanged.",
+    "top_level_mutate_calls": 0,
+    "test_seconds": 12.2,
+    "result": "Original first-12 sequential navigation and Svelte/Python SVG comparison passed"
+  },
+  "comparison": {
+    "baseline_reference": "a3667d1d",
+    "baseline_original_test_seconds": 41.4,
+    "baseline_status": "Passed near startup readiness limit; loop cost was not timed separately.",
+    "runes_only_variant_test_seconds": 12.2,
+    "runes_only_variant": "Diagnostic only; not the shipped fix."
+  },
+  "verification": {
+    "original_test": "tests/browser/docs-site.spec.js:792",
+    "examples": "anchor-basic,animate-tween-basic,area-basic,arrows-3d-basic,arrows-basic,bar-basic,bin-basic,bloom-basic,box-plot-basic,button-basic,calculate-basic,calculate-large",
+    "source_legacy_compilation_retained": true,
+    "test_thresholds_changed": false,
+    "diagnostic_bindings_or_subscriptions": false,
+    "library_execution_change": false
+  },
+  "logs": {
+    "passive_before": "<tmp>/hmplot-calculate-passive-legacy.log",
+    "clean_helper_after": "<tmp>/hmplot-calculate-helper-legacy.log",
+    "baseline": "<tmp>/hmplot-stage101-geometry-baseline.log"
+  },
+  "limitations": [
+    "The after time covers the first-12 navigation/SVG test, not a separately measured generation loop.",
+    "This scoped startup verification does not replace the final whole gallery/browser gate."
+  ]
+}

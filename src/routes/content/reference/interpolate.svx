@@ -1,0 +1,5 @@
+## Usage
+
+Outputs coordinates and requested value columns as a grid table (y then x; see Data, "Grid tables"), its 2-D cells tiling the bounds. auto uses linear interpolation in 1D, bilinear for complete rectangular data, and local IDW for scattered 2D samples. Categories always use nearest neighbors. Numeric columns share interpolation geometry.
+
+To let the viewer change a setting, read an input in it: `resolution={input("resolution")}` (Python `resolution=hm.input.resolution`), where `resolution` is a [Slider](slider).

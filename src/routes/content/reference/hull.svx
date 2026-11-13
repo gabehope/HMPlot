@@ -1,0 +1,3 @@
+## Usage
+
+Hull makes the convex hull of each group of `by` as triangles for Polygon, carrying the group's first row: `fill="species"` colors each hull by its group.

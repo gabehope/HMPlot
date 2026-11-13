@@ -1,0 +1,3 @@
+## Usage
+
+A Python layout container with gap in pixels. Data/transform scopes do not add visible layout boxes. In Svelte use ordinary document layout.

@@ -1,0 +1,4624 @@
+{
+  "label": "sunburst-numeric-control-repeat-plain",
+  "route": "/test/gallery-example?id=sunburst",
+  "instrument": false,
+  "browser": "154.0.8037.98",
+  "summarySHA256": "fc4389222ff5b44ba20c6f15418a7a3060e903151fa1b478918e7d278c2dbec1",
+  "sourceFingerprint": {
+    "sha256": "fa29298ebbd745f28eee986e7bf94faa5174b5babe2fe09d311abec46cfaefcf",
+    "files": 562
+  },
+  "sourceVerification": {
+    "method": "App-relative Vite raw modules/source downloads compared with local bytes",
+    "scope": "Representative source files; this does not fingerprint every executed compiled chunk.",
+    "verified": true,
+    "files": [
+      {
+        "path": "src/lib/plot/bound/namedMark.svelte",
+        "localSHA256": "2fc68bdad50893a6560719b1886e6ce2ed49696457b1be52a4da54758de73d04",
+        "servedSHA256": "2fc68bdad50893a6560719b1886e6ce2ed49696457b1be52a4da54758de73d04"
+      },
+      {
+        "path": "src/lib/plot/marks/labels.svelte",
+        "localSHA256": "d76586b99ddeebdf0afa07663ac5e2c0ee5b3d141a13a80c8ee9966ef1dce352",
+        "servedSHA256": "d76586b99ddeebdf0afa07663ac5e2c0ee5b3d141a13a80c8ee9966ef1dce352"
+      },
+      {
+        "path": "src/lib/plot/utils/expressions.js",
+        "localSHA256": "c65dae162e71e8b60f82d3520d31ce863ab13d2a595ea995e35ff9b7d9c4ecd7",
+        "servedSHA256": "c65dae162e71e8b60f82d3520d31ce863ab13d2a595ea995e35ff9b7d9c4ecd7"
+      },
+      {
+        "path": "src/lib/plot/utils/namedData.js",
+        "localSHA256": "26bced4e90f02306c76e94f605047cc314722c8f0b118ce369fbb89d566cb873",
+        "servedSHA256": "26bced4e90f02306c76e94f605047cc314722c8f0b118ce369fbb89d566cb873"
+      },
+      {
+        "path": "src/examples/sunburst/sunburst.svelte",
+        "localSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080",
+        "servedSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080"
+      }
+    ]
+  },
+  "sourceMapFingerprints": {},
+  "limitations": [
+    "CPU samples and CPU conservative pending deadlines do not measure GPU execution or GPU row start times.",
+    "Async read waits overlap; their sums are not a critical-path total. Callers lost across async boundaries stay unresolved.",
+    "Historical diagnostic runs without sourceFingerprint must not be assigned later snapshot hashes.",
+    "The historical a3667d1d baseline lacks mark lifecycle fades; comparisons with it are behavior-confounded. A later correctness baseline must retain the same fade targets and durations."
+  ],
+  "flights": [
+    {
+      "flight": 1,
+      "direction": "zoom",
+      "wallMs": 1502.9,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 51.9,
+      "maxGap": 240.7,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 0,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 0,
+          "duration": 0,
+          "deadline": 0,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 59.6,
+          "lastWallMs": 812.1,
+          "firstClockTime": 0,
+          "lastClockTime": 618.5,
+          "deadlineResets": 0,
+          "initialDeadline": 0
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 59.6,
+          "lastWallMs": 812.1,
+          "firstClockTime": 0,
+          "lastClockTime": 618.5,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 59.6,
+          "lastWallMs": 812.1,
+          "firstClockTime": 0,
+          "lastClockTime": 618.5,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 669.2000000059604,
+          "duration": 650,
+          "deadline": 1319.2000000059604,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 85.5,
+          "lastWallMs": 1447.7,
+          "firstClockTime": 0,
+          "lastClockTime": 1266.6,
+          "deadlineResets": 13,
+          "initialDeadline": 650
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 161.6,
+          "lastWallMs": 812.1,
+          "firstClockTime": 0,
+          "lastClockTime": 618.5,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 240.69999998807907,
+          "frame": 6,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 292.59999999403954,
+          "frame": 7,
+          "xbounds": [
+            0,
+            184.5245361328125
+          ],
+          "ybounds": [
+            -0.15985912322998047,
+            4.156337203979493
+          ]
+        },
+        {
+          "wallMs": 341.59999999403954,
+          "frame": 8,
+          "xbounds": [
+            0,
+            181.64450073242188
+          ],
+          "ybounds": [
+            -0.15900577545166017,
+            4.134150161743164
+          ]
+        },
+        {
+          "wallMs": 392.69999998807907,
+          "frame": 9,
+          "xbounds": [
+            0,
+            175.57620239257812
+          ],
+          "ybounds": [
+            -0.15720775604248047,
+            4.087401657104492
+          ]
+        },
+        {
+          "wallMs": 447.19999998807907,
+          "frame": 10,
+          "xbounds": [
+            0,
+            164.17665100097656
+          ],
+          "ybounds": [
+            -0.1538301181793213,
+            3.9995830726623534
+          ]
+        },
+        {
+          "wallMs": 490.5,
+          "frame": 11,
+          "xbounds": [
+            0,
+            146.76808166503906
+          ],
+          "ybounds": [
+            -0.14867202758789064,
+            3.865472717285156
+          ]
+        },
+        {
+          "wallMs": 541.5999999940395,
+          "frame": 12,
+          "xbounds": [
+            0,
+            121.52936553955078
+          ],
+          "ybounds": [
+            -0.14119388580322265,
+            3.671041030883789
+          ]
+        },
+        {
+          "wallMs": 592.5999999940395,
+          "frame": 13,
+          "xbounds": [
+            0,
+            93.53563690185547
+          ],
+          "ybounds": [
+            -0.13289945602416992,
+            3.455385856628418
+          ]
+        },
+        {
+          "wallMs": 641.9000000059605,
+          "frame": 14,
+          "xbounds": [
+            0,
+            74.08055114746094
+          ],
+          "ybounds": [
+            -0.1271349811553955,
+            3.305509510040283
+          ]
+        },
+        {
+          "wallMs": 692.2999999821186,
+          "frame": 15,
+          "xbounds": [
+            0,
+            61.601871490478516
+          ],
+          "ybounds": [
+            -0.12343759536743164,
+            3.209377479553223
+          ]
+        },
+        {
+          "wallMs": 742,
+          "frame": 16,
+          "xbounds": [
+            0,
+            54.440738677978516
+          ],
+          "ybounds": [
+            -0.12131577491760254,
+            3.154210147857666
+          ]
+        },
+        {
+          "wallMs": 791.5999999940395,
+          "frame": 17,
+          "xbounds": [
+            0,
+            51.02957534790039
+          ],
+          "ybounds": [
+            -0.12030506134033203,
+            3.127931594848633
+          ]
+        },
+        {
+          "wallMs": 841.5999999940395,
+          "frame": 18,
+          "xbounds": [
+            0,
+            50.06145477294922
+          ],
+          "ybounds": [
+            -0.12001821517944336,
+            3.1204735946655275
+          ]
+        },
+        {
+          "wallMs": 879.5,
+          "frame": 19,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 894.5999999940395,
+          "frame": 20,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 911.7999999821186,
+          "frame": 21,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 928,
+          "frame": 22,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 944.6999999880791,
+          "frame": 23,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 962.2999999821186,
+          "frame": 24,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 979,
+          "frame": 25,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 995.6999999880791,
+          "frame": 26,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1012.6999999880791,
+          "frame": 27,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1029.0999999940395,
+          "frame": 28,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1044.7999999821186,
+          "frame": 29,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1062.0999999940395,
+          "frame": 30,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1078.5,
+          "frame": 31,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1095.199999988079,
+          "frame": 32,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1111.5,
+          "frame": 33,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1128.699999988079,
+          "frame": 34,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1145.2999999821186,
+          "frame": 35,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1161.4000000059605,
+          "frame": 36,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1178.699999988079,
+          "frame": 37,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1195.5999999940395,
+          "frame": 38,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1212,
+          "frame": 39,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1228.2999999821186,
+          "frame": 40,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1245.5,
+          "frame": 41,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1262,
+          "frame": 42,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1280.2999999821186,
+          "frame": 43,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1296.699999988079,
+          "frame": 44,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1311.9000000059605,
+          "frame": 45,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1328.9000000059605,
+          "frame": 46,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1345.699999988079,
+          "frame": 47,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1361.4000000059605,
+          "frame": 48,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1378.199999988079,
+          "frame": 49,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1394.9000000059605,
+          "frame": 50,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1411.7999999821186,
+          "frame": 51,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1428.2999999821186,
+          "frame": 52,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1447.7999999821186,
+          "frame": 53,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1464.0999999940395,
+          "frame": 54,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1478.4000000059605,
+          "frame": 55,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1497.4000000059605,
+          "frame": 56,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 14,
+        "preparationRequests": 49,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "errors": [],
+      "renderError": "",
+      "geometryProgress": {
+        "changedBounds": 13,
+        "sampledMotionMs": 638.8,
+        "updatesPerSecond": 20.351,
+        "firstGeometryMs": 240.7,
+        "lastChangedGeometryMs": 879.5,
+        "limitation": "Changes of sampled drawn x/y bounds, excluding initial geometry; not total fade frames or GPU execution time."
+      }
+    },
+    {
+      "flight": 2,
+      "direction": "reset",
+      "wallMs": 1431.5,
+      "completedFrames": 50,
+      "frameP50": 16.8,
+      "frameP95": 65.1,
+      "maxGap": 155.7,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 1333.3,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 1333.3,
+          "duration": 0,
+          "deadline": 1333.3,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 52.4,
+          "lastWallMs": 727.8,
+          "firstClockTime": 1333.3,
+          "lastClockTime": 1934.7,
+          "deadlineResets": 0,
+          "initialDeadline": 1333.3
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.3,
+          "duration": 650,
+          "deadline": 1983.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 52.4,
+          "lastWallMs": 727.8,
+          "firstClockTime": 1333.3,
+          "lastClockTime": 1934.7,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.3
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1984.8,
+          "duration": 650,
+          "deadline": 2634.8,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 62.4,
+          "lastWallMs": 1395,
+          "firstClockTime": 1333.3,
+          "lastClockTime": 2599.9,
+          "deadlineResets": 13,
+          "initialDeadline": 1983.3
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.3,
+          "duration": 650,
+          "deadline": 1983.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 62.4,
+          "lastWallMs": 727.8,
+          "firstClockTime": 1333.3,
+          "lastClockTime": 1934.7,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.3
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.3,
+          "duration": 650,
+          "deadline": 1983.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 62.4,
+          "lastWallMs": 727.8,
+          "firstClockTime": 1333.3,
+          "lastClockTime": 1934.7,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.3
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.3,
+          "duration": 650,
+          "deadline": 1983.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 94.5,
+          "lastWallMs": 727.8,
+          "firstClockTime": 1333.3,
+          "lastClockTime": 1934.7,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.3
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 155.69999998807907,
+          "frame": 58,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 207.09999999403954,
+          "frame": 59,
+          "xbounds": [
+            0,
+            50.080039978027344
+          ],
+          "ybounds": [
+            -0.12002371788024903,
+            3.120616664886475
+          ]
+        },
+        {
+          "wallMs": 257.09999999403954,
+          "frame": 60,
+          "xbounds": [
+            0,
+            51.211830139160156
+          ],
+          "ybounds": [
+            -0.12035905838012696,
+            3.129335517883301
+          ]
+        },
+        {
+          "wallMs": 322.19999998807907,
+          "frame": 61,
+          "xbounds": [
+            0,
+            54.8378791809082
+          ],
+          "ybounds": [
+            -0.1214334487915039,
+            3.1572696685791017
+          ]
+        },
+        {
+          "wallMs": 375.19999998807907,
+          "frame": 62,
+          "xbounds": [
+            0,
+            62.5106315612793
+          ],
+          "ybounds": [
+            -0.12370685577392579,
+            3.2163782501220703
+          ]
+        },
+        {
+          "wallMs": 424.80000001192093,
+          "frame": 63,
+          "xbounds": [
+            0,
+            81.61705017089844
+          ],
+          "ybounds": [
+            -0.12936800956726074,
+            3.3635682487487792
+          ]
+        },
+        {
+          "wallMs": 475.59999999403954,
+          "frame": 64,
+          "xbounds": [
+            0,
+            104.05191040039062
+          ],
+          "ybounds": [
+            -0.13601537704467773,
+            3.536399803161621
+          ]
+        },
+        {
+          "wallMs": 525.9000000059605,
+          "frame": 65,
+          "xbounds": [
+            0,
+            132.91171264648438
+          ],
+          "ybounds": [
+            -0.14456643104553224,
+            3.758727207183838
+          ]
+        },
+        {
+          "wallMs": 573.9000000059605,
+          "frame": 66,
+          "xbounds": [
+            0,
+            155.22491455078125
+          ],
+          "ybounds": [
+            -0.15117774963378908,
+            3.9306214904785155
+          ]
+        },
+        {
+          "wallMs": 623.6999999880791,
+          "frame": 67,
+          "xbounds": [
+            0,
+            169.66717529296875
+          ],
+          "ybounds": [
+            -0.1554569435119629,
+            4.041880531311035
+          ]
+        },
+        {
+          "wallMs": 672.5999999940395,
+          "frame": 68,
+          "xbounds": [
+            0,
+            178.66429138183594
+          ],
+          "ybounds": [
+            -0.15812274932861328,
+            4.111191482543945
+          ]
+        },
+        {
+          "wallMs": 722.9000000059605,
+          "frame": 69,
+          "xbounds": [
+            0,
+            183.11512756347656
+          ],
+          "ybounds": [
+            -0.15944150924682618,
+            4.1454792404174805
+          ]
+        },
+        {
+          "wallMs": 796.4000000059605,
+          "frame": 70,
+          "xbounds": [
+            0,
+            184.77427673339844
+          ],
+          "ybounds": [
+            -0.15993311882019043,
+            4.158261089324951
+          ]
+        },
+        {
+          "wallMs": 828.3000000119209,
+          "frame": 71,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 845.5,
+          "frame": 72,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 861.6999999880791,
+          "frame": 73,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 878.3000000119209,
+          "frame": 74,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 894,
+          "frame": 75,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 910.8000000119209,
+          "frame": 76,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 927.5,
+          "frame": 77,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 945.1999999880791,
+          "frame": 78,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 961.0999999940395,
+          "frame": 79,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 978.3000000119209,
+          "frame": 80,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 994.5,
+          "frame": 81,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1011.8000000119209,
+          "frame": 82,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1028.5,
+          "frame": 83,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1045.0999999940395,
+          "frame": 84,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1062,
+          "frame": 85,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1078.0999999940395,
+          "frame": 86,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1094.4000000059605,
+          "frame": 87,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1111.0999999940395,
+          "frame": 88,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1127.800000011921,
+          "frame": 89,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1144.4000000059605,
+          "frame": 90,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1160.9000000059605,
+          "frame": 91,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1178,
+          "frame": 92,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1194.0999999940395,
+          "frame": 93,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1211.699999988079,
+          "frame": 94,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1227.9000000059605,
+          "frame": 95,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1244.699999988079,
+          "frame": 96,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1261.5999999940395,
+          "frame": 97,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1277.4000000059605,
+          "frame": 98,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1294.5,
+          "frame": 99,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1311.800000011921,
+          "frame": 100,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1327.699999988079,
+          "frame": 101,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1345.0999999940395,
+          "frame": 102,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1361.5999999940395,
+          "frame": 103,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1378.300000011921,
+          "frame": 104,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1395,
+          "frame": 105,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1411.800000011921,
+          "frame": 106,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1427.9000000059605,
+          "frame": 107,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "errors": [],
+      "renderError": "",
+      "geometryProgress": {
+        "changedBounds": 13,
+        "sampledMotionMs": 672.6,
+        "updatesPerSecond": 19.328,
+        "firstGeometryMs": 155.7,
+        "lastChangedGeometryMs": 828.3,
+        "limitation": "Changes of sampled drawn x/y bounds, excluding initial geometry; not total fade frames or GPU execution time."
+      }
+    },
+    {
+      "flight": 3,
+      "direction": "zoom",
+      "wallMs": 1423.9,
+      "completedFrames": 51,
+      "frameP50": 16.7,
+      "frameP95": 53.7,
+      "maxGap": 148,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 2649.9,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 2649.9,
+          "duration": 0,
+          "deadline": 2649.9,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 55.5,
+          "lastWallMs": 719.6,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3251.7,
+          "deadlineResets": 0,
+          "initialDeadline": 2649.9
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9,
+          "duration": 650,
+          "deadline": 3299.9,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 55.5,
+          "lastWallMs": 719.6,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3251.7,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3301.5000000000005,
+          "duration": 650,
+          "deadline": 3951.5000000000005,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 81.1,
+          "lastWallMs": 1335.9,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3866.5,
+          "deadlineResets": 13,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9,
+          "duration": 650,
+          "deadline": 3299.9,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 81.1,
+          "lastWallMs": 719.6,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3251.7,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9,
+          "duration": 650,
+          "deadline": 3299.9,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 81.1,
+          "lastWallMs": 719.6,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3251.7,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9,
+          "duration": 650,
+          "deadline": 3299.9,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 101.3,
+          "lastWallMs": 719.6,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3251.7,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 148,
+          "frame": 109,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 198.90000000596046,
+          "frame": 110,
+          "xbounds": [
+            0,
+            184.91995239257812
+          ],
+          "ybounds": [
+            -0.15997628211975098,
+            4.159383335113525
+          ]
+        },
+        {
+          "wallMs": 247.90000000596046,
+          "frame": 111,
+          "xbounds": [
+            0,
+            183.77101135253906
+          ],
+          "ybounds": [
+            -0.15963584899902344,
+            4.15053207397461
+          ]
+        },
+        {
+          "wallMs": 301.60000002384186,
+          "frame": 112,
+          "xbounds": [
+            0,
+            180.16212463378906
+          ],
+          "ybounds": [
+            -0.1585665512084961,
+            4.1227303314208985
+          ]
+        },
+        {
+          "wallMs": 364.40000000596046,
+          "frame": 113,
+          "xbounds": [
+            0,
+            172.50955200195312
+          ],
+          "ybounds": [
+            -0.1562991237640381,
+            4.06377721786499
+          ]
+        },
+        {
+          "wallMs": 414.10000002384186,
+          "frame": 114,
+          "xbounds": [
+            0,
+            153.4204864501953
+          ],
+          "ybounds": [
+            -0.15064310073852538,
+            3.9167206192016604
+          ]
+        },
+        {
+          "wallMs": 463.7000000178814,
+          "frame": 115,
+          "xbounds": [
+            0,
+            131.1090850830078
+          ],
+          "ybounds": [
+            -0.1440323257446289,
+            3.7448404693603514
+          ]
+        },
+        {
+          "wallMs": 514.8000000119209,
+          "frame": 116,
+          "xbounds": [
+            0,
+            102.2981948852539
+          ],
+          "ybounds": [
+            -0.13549575805664063,
+            3.5228897094726563
+          ]
+        },
+        {
+          "wallMs": 566.5,
+          "frame": 117,
+          "xbounds": [
+            0,
+            80.13755798339844
+          ],
+          "ybounds": [
+            -0.12892964363098144,
+            3.3521707344055174
+          ]
+        },
+        {
+          "wallMs": 614.5,
+          "frame": 118,
+          "xbounds": [
+            0,
+            65.12496948242188
+          ],
+          "ybounds": [
+            -0.12448146820068359,
+            3.2365181732177732
+          ]
+        },
+        {
+          "wallMs": 665,
+          "frame": 119,
+          "xbounds": [
+            0,
+            56.3614616394043
+          ],
+          "ybounds": [
+            -0.12188488006591797,
+            3.1690068817138672
+          ]
+        },
+        {
+          "wallMs": 716,
+          "frame": 120,
+          "xbounds": [
+            0,
+            51.862037658691406
+          ],
+          "ybounds": [
+            -0.12055171966552734,
+            3.134344711303711
+          ]
+        },
+        {
+          "wallMs": 766.4000000059605,
+          "frame": 121,
+          "xbounds": [
+            0,
+            50.220191955566406
+          ],
+          "ybounds": [
+            -0.12006524085998535,
+            3.121696262359619
+          ]
+        },
+        {
+          "wallMs": 803.1000000238419,
+          "frame": 122,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 818.4000000059605,
+          "frame": 123,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 835,
+          "frame": 124,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 851.6000000238419,
+          "frame": 125,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 868.9000000059605,
+          "frame": 126,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 885.6000000238419,
+          "frame": 127,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 902,
+          "frame": 128,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 918.5,
+          "frame": 129,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 936.5,
+          "frame": 130,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 952.7000000178814,
+          "frame": 131,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 969.4000000059605,
+          "frame": 132,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 986,
+          "frame": 133,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1002.8000000119209,
+          "frame": 134,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1022.1000000238419,
+          "frame": 135,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1038.7000000178814,
+          "frame": 136,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1052,
+          "frame": 137,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1069.5,
+          "frame": 138,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1085.6000000238419,
+          "frame": 139,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1102.1000000238419,
+          "frame": 140,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1118.2000000178814,
+          "frame": 141,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1135.2000000178814,
+          "frame": 142,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1151.9000000059605,
+          "frame": 143,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1168.4000000059605,
+          "frame": 144,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1185.1000000238419,
+          "frame": 145,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1201.800000011921,
+          "frame": 146,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1218.300000011921,
+          "frame": 147,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1236,
+          "frame": 148,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1252.7000000178814,
+          "frame": 149,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1269.2000000178814,
+          "frame": 150,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1285.300000011921,
+          "frame": 151,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1301.800000011921,
+          "frame": 152,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1319.300000011921,
+          "frame": 153,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1335.9000000059605,
+          "frame": 154,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1354,
+          "frame": 155,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1369.300000011921,
+          "frame": 156,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1386,
+          "frame": 157,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1403.7000000178814,
+          "frame": 158,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1419,
+          "frame": 159,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "errors": [],
+      "renderError": "",
+      "geometryProgress": {
+        "changedBounds": 13,
+        "sampledMotionMs": 655.1,
+        "updatesPerSecond": 19.844,
+        "firstGeometryMs": 148,
+        "lastChangedGeometryMs": 803.1,
+        "limitation": "Changes of sampled drawn x/y bounds, excluding initial geometry; not total fade frames or GPU execution time."
+      }
+    },
+    {
+      "flight": 4,
+      "direction": "reset",
+      "wallMs": 1425.3,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 51.3,
+      "maxGap": 169.7,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 3966.600000000001,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 3966.600000000001,
+          "duration": 0,
+          "deadline": 3966.600000000001,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 46.8,
+          "lastWallMs": 723.1,
+          "firstClockTime": 3966.6,
+          "lastClockTime": 4585.7,
+          "deadlineResets": 0,
+          "initialDeadline": 3966.6
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3966.600000000001,
+          "duration": 649.9999999999995,
+          "deadline": 4616.6,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 46.8,
+          "lastWallMs": 723.1,
+          "firstClockTime": 3966.6,
+          "lastClockTime": 4585.7,
+          "deadlineResets": 0,
+          "initialDeadline": 4616.6
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4635.500000017882,
+          "duration": 650,
+          "deadline": 5285.500000017882,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 56,
+          "lastWallMs": 1339.3,
+          "firstClockTime": 3966.6,
+          "lastClockTime": 5199.8,
+          "deadlineResets": 13,
+          "initialDeadline": 4616.6
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3966.600000000001,
+          "duration": 650,
+          "deadline": 4616.6,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 56,
+          "lastWallMs": 723.1,
+          "firstClockTime": 3966.6,
+          "lastClockTime": 4585.7,
+          "deadlineResets": 0,
+          "initialDeadline": 4616.6
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3966.600000000001,
+          "duration": 650,
+          "deadline": 4616.6,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 56,
+          "lastWallMs": 723.1,
+          "firstClockTime": 3966.6,
+          "lastClockTime": 4585.7,
+          "deadlineResets": 0,
+          "initialDeadline": 4616.6
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3966.600000000001,
+          "duration": 650,
+          "deadline": 4616.6,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 88.5,
+          "lastWallMs": 723.1,
+          "firstClockTime": 3966.6,
+          "lastClockTime": 4585.7,
+          "deadlineResets": 0,
+          "initialDeadline": 4616.6
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 169.69999998807907,
+          "frame": 161,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 220,
+          "frame": 162,
+          "xbounds": [
+            0,
+            50.62648391723633
+          ],
+          "ybounds": [
+            -0.12018562316894532,
+            3.124826202392578
+          ]
+        },
+        {
+          "wallMs": 269.69999998807907,
+          "frame": 163,
+          "xbounds": [
+            0,
+            53.25541687011719
+          ],
+          "ybounds": [
+            -0.12096456527709962,
+            3.14507869720459
+          ]
+        },
+        {
+          "wallMs": 319.7999999821186,
+          "frame": 164,
+          "xbounds": [
+            0,
+            59.35683822631836
+          ],
+          "ybounds": [
+            -0.12277239799499512,
+            3.192082347869873
+          ]
+        },
+        {
+          "wallMs": 371.09999999403954,
+          "frame": 165,
+          "xbounds": [
+            0,
+            70.42754364013672
+          ],
+          "ybounds": [
+            -0.12605260848999023,
+            3.2773678207397463
+          ]
+        },
+        {
+          "wallMs": 418.39999997615814,
+          "frame": 166,
+          "xbounds": [
+            0,
+            88.27458953857422
+          ],
+          "ybounds": [
+            -0.13134061813354492,
+            3.414856071472168
+          ]
+        },
+        {
+          "wallMs": 468.89999997615814,
+          "frame": 167,
+          "xbounds": [
+            0,
+            113.77007293701172
+          ],
+          "ybounds": [
+            -0.13889483451843262,
+            3.611265697479248
+          ]
+        },
+        {
+          "wallMs": 518.1999999880791,
+          "frame": 168,
+          "xbounds": [
+            0,
+            141.32461547851562
+          ],
+          "ybounds": [
+            -0.14705915451049806,
+            3.8235380172729494
+          ]
+        },
+        {
+          "wallMs": 567.6999999880791,
+          "frame": 169,
+          "xbounds": [
+            0,
+            160.47801208496094
+          ],
+          "ybounds": [
+            -0.15273423194885255,
+            3.971090030670166
+          ]
+        },
+        {
+          "wallMs": 618,
+          "frame": 170,
+          "xbounds": [
+            0,
+            173.1848907470703
+          ],
+          "ybounds": [
+            -0.1564992332458496,
+            4.06898006439209
+          ]
+        },
+        {
+          "wallMs": 669.5,
+          "frame": 171,
+          "xbounds": [
+            0,
+            180.50828552246094
+          ],
+          "ybounds": [
+            -0.1586691188812256,
+            4.125397090911865
+          ]
+        },
+        {
+          "wallMs": 719.5,
+          "frame": 172,
+          "xbounds": [
+            0,
+            183.94728088378906
+          ],
+          "ybounds": [
+            -0.15968807220458986,
+            4.151889877319336
+          ]
+        },
+        {
+          "wallMs": 769.5,
+          "frame": 173,
+          "xbounds": [
+            0,
+            184.94200134277344
+          ],
+          "ybounds": [
+            -0.15998281478881837,
+            4.159553184509277
+          ]
+        },
+        {
+          "wallMs": 806.3999999761581,
+          "frame": 174,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 822.5,
+          "frame": 175,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 839.3999999761581,
+          "frame": 176,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 855.1999999880791,
+          "frame": 177,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 872.0999999940395,
+          "frame": 178,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 889.5,
+          "frame": 179,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 906,
+          "frame": 180,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 922.5,
+          "frame": 181,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 939.2999999821186,
+          "frame": 182,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 956.0999999940395,
+          "frame": 183,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 972.0999999940395,
+          "frame": 184,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 988.5,
+          "frame": 185,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1006.1999999880791,
+          "frame": 186,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1022.8999999761581,
+          "frame": 187,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1039.3999999761581,
+          "frame": 188,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1055.5,
+          "frame": 189,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1074.199999988079,
+          "frame": 190,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1090.5,
+          "frame": 191,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1107.199999988079,
+          "frame": 192,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1124.0999999940395,
+          "frame": 193,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1140.5999999940395,
+          "frame": 194,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1157.5999999940395,
+          "frame": 195,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1173.699999988079,
+          "frame": 196,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1192.5,
+          "frame": 197,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1207.2999999821186,
+          "frame": 198,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1224.2999999821186,
+          "frame": 199,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1241.3999999761581,
+          "frame": 200,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1258.3999999761581,
+          "frame": 201,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1273.2999999821186,
+          "frame": 202,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1289.7999999821186,
+          "frame": 203,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1306.0999999940395,
+          "frame": 204,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1322.699999988079,
+          "frame": 205,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1339.2999999821186,
+          "frame": 206,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1355.699999988079,
+          "frame": 207,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1372.199999988079,
+          "frame": 208,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1389.699999988079,
+          "frame": 209,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1405.5,
+          "frame": 210,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1422.7999999821186,
+          "frame": 211,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "errors": [],
+      "renderError": "",
+      "geometryProgress": {
+        "changedBounds": 13,
+        "sampledMotionMs": 636.7,
+        "updatesPerSecond": 20.418,
+        "firstGeometryMs": 169.7,
+        "lastChangedGeometryMs": 806.4,
+        "limitation": "Changes of sampled drawn x/y bounds, excluding initial geometry; not total fade frames or GPU execution time."
+      }
+    },
+    {
+      "flight": 5,
+      "direction": "zoom",
+      "wallMs": 1469.7,
+      "completedFrames": 52,
+      "frameP50": 16.8,
+      "frameP95": 53.5,
+      "maxGap": 173.8,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 5299.8,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 5299.8,
+          "duration": 0,
+          "deadline": 5299.8,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 76,
+          "lastWallMs": 761,
+          "firstClockTime": 5299.8,
+          "lastClockTime": 5935.3,
+          "deadlineResets": 0,
+          "initialDeadline": 5299.8
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.8,
+          "duration": 650,
+          "deadline": 5949.8,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 76,
+          "lastWallMs": 761,
+          "firstClockTime": 5299.8,
+          "lastClockTime": 5935.3,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.8
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5985.300000011921,
+          "duration": 650,
+          "deadline": 6635.300000011921,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 98.3,
+          "lastWallMs": 1363.2,
+          "firstClockTime": 5299.8,
+          "lastClockTime": 6533.1,
+          "deadlineResets": 13,
+          "initialDeadline": 5949.8
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.8,
+          "duration": 650,
+          "deadline": 5949.8,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 98.3,
+          "lastWallMs": 761,
+          "firstClockTime": 5299.8,
+          "lastClockTime": 5935.3,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.8
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.8,
+          "duration": 650,
+          "deadline": 5949.8,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 98.3,
+          "lastWallMs": 761,
+          "firstClockTime": 5299.8,
+          "lastClockTime": 5935.3,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.8
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.8,
+          "duration": 650,
+          "deadline": 5949.8,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 111.3,
+          "lastWallMs": 761,
+          "firstClockTime": 5299.8,
+          "lastClockTime": 5935.3,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.8
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 173.7999999821186,
+          "frame": 213,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 226.39999997615814,
+          "frame": 214,
+          "xbounds": [
+            0,
+            184.73764038085938
+          ],
+          "ybounds": [
+            -0.15992225646972658,
+            4.15797866821289
+          ]
+        },
+        {
+          "wallMs": 275.89999997615814,
+          "frame": 215,
+          "xbounds": [
+            0,
+            182.91331481933594
+          ],
+          "ybounds": [
+            -0.15938172340393067,
+            4.143924808502197
+          ]
+        },
+        {
+          "wallMs": 325.7999999821186,
+          "frame": 216,
+          "xbounds": [
+            0,
+            178.0536651611328
+          ],
+          "ybounds": [
+            -0.15794182777404786,
+            4.106487522125244
+          ]
+        },
+        {
+          "wallMs": 376.09999999403954,
+          "frame": 217,
+          "xbounds": [
+            0,
+            168.8888702392578
+          ],
+          "ybounds": [
+            -0.1552263355255127,
+            4.03588472366333
+          ]
+        },
+        {
+          "wallMs": 424.69999998807907,
+          "frame": 218,
+          "xbounds": [
+            0,
+            153.38278198242188
+          ],
+          "ybounds": [
+            -0.15063193321228027,
+            3.916430263519287
+          ]
+        },
+        {
+          "wallMs": 475.5,
+          "frame": 219,
+          "xbounds": [
+            0,
+            131.05538940429688
+          ],
+          "ybounds": [
+            -0.14401640892028808,
+            3.74442663192749
+          ]
+        },
+        {
+          "wallMs": 524.5999999940395,
+          "frame": 220,
+          "xbounds": [
+            0,
+            101.87867736816406
+          ],
+          "ybounds": [
+            -0.13537145614624024,
+            3.519657859802246
+          ]
+        },
+        {
+          "wallMs": 575.6999999880791,
+          "frame": 221,
+          "xbounds": [
+            0,
+            80.10113525390625
+          ],
+          "ybounds": [
+            -0.1289188575744629,
+            3.3518902969360354
+          ]
+        },
+        {
+          "wallMs": 629.1999999880791,
+          "frame": 222,
+          "xbounds": [
+            0,
+            65.30956268310547
+          ],
+          "ybounds": [
+            -0.12453617095947266,
+            3.237940444946289
+          ]
+        },
+        {
+          "wallMs": 717.6999999880791,
+          "frame": 223,
+          "xbounds": [
+            0,
+            56.33567810058594
+          ],
+          "ybounds": [
+            -0.1218772315979004,
+            3.16880802154541
+          ]
+        },
+        {
+          "wallMs": 758,
+          "frame": 224,
+          "xbounds": [
+            0,
+            51.86201858520508
+          ],
+          "ybounds": [
+            -0.12055171012878418,
+            3.1343444633483886
+          ]
+        },
+        {
+          "wallMs": 806.5,
+          "frame": 225,
+          "xbounds": [
+            0,
+            50.00599670410156
+          ],
+          "ybounds": [
+            -0.12000177383422851,
+            3.1200461196899414
+          ]
+        },
+        {
+          "wallMs": 828.7999999821186,
+          "frame": 226,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 844.7999999821186,
+          "frame": 227,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 862,
+          "frame": 228,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 878.6999999880791,
+          "frame": 229,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 895.2999999821186,
+          "frame": 230,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 911.3999999761581,
+          "frame": 231,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 928.6999999880791,
+          "frame": 232,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 944.5999999940395,
+          "frame": 233,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 961.5999999940395,
+          "frame": 234,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 978.6999999880791,
+          "frame": 235,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 995.1999999880791,
+          "frame": 236,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1012,
+          "frame": 237,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1028.699999988079,
+          "frame": 238,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1045.5,
+          "frame": 239,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1062.0999999940395,
+          "frame": 240,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1078.7999999821186,
+          "frame": 241,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1095.3999999761581,
+          "frame": 242,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1111.8999999761581,
+          "frame": 243,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1130.2999999821186,
+          "frame": 244,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1146.7999999821186,
+          "frame": 245,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1163,
+          "frame": 246,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1180,
+          "frame": 247,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1195.2999999821186,
+          "frame": 248,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1213.0999999940395,
+          "frame": 249,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1229,
+          "frame": 250,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1245,
+          "frame": 251,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1262.2999999821186,
+          "frame": 252,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1277.8999999761581,
+          "frame": 253,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1295.5999999940395,
+          "frame": 254,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1311.3999999761581,
+          "frame": 255,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1329,
+          "frame": 256,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1346.7999999821186,
+          "frame": 257,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1363.2999999821186,
+          "frame": 258,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1379.3999999761581,
+          "frame": 259,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1395.5999999940395,
+          "frame": 260,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1411.7999999821186,
+          "frame": 261,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1428.8999999761581,
+          "frame": 262,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1445,
+          "frame": 263,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1461.699999988079,
+          "frame": 264,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "errors": [],
+      "renderError": "",
+      "geometryProgress": {
+        "changedBounds": 13,
+        "sampledMotionMs": 655.0,
+        "updatesPerSecond": 19.847,
+        "firstGeometryMs": 173.8,
+        "lastChangedGeometryMs": 828.8,
+        "limitation": "Changes of sampled drawn x/y bounds, excluding initial geometry; not total fade frames or GPU execution time."
+      }
+    },
+    {
+      "flight": 6,
+      "direction": "reset",
+      "wallMs": 1407.7,
+      "completedFrames": 51,
+      "frameP50": 16.8,
+      "frameP95": 54.2,
+      "maxGap": 131.6,
+      "gpu": null,
+      "asyncReads": {},
+      "clockStart": 6649.700000000001,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 6649.700000000001,
+          "duration": 0,
+          "deadline": 6649.700000000001,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 45.4,
+          "lastWallMs": 721.1,
+          "firstClockTime": 6649.7,
+          "lastClockTime": 7268,
+          "deadlineResets": 0,
+          "initialDeadline": 6649.7
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6649.700000000001,
+          "duration": 650,
+          "deadline": 7299.700000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 45.4,
+          "lastWallMs": 721.1,
+          "firstClockTime": 6649.7,
+          "lastClockTime": 7268,
+          "deadlineResets": 0,
+          "initialDeadline": 7299.7
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 7301.300000000001,
+          "duration": 650,
+          "deadline": 7951.300000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 53.6,
+          "lastWallMs": 1321,
+          "firstClockTime": 6649.7,
+          "lastClockTime": 7866.4,
+          "deadlineResets": 13,
+          "initialDeadline": 7299.7
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6649.700000000001,
+          "duration": 650,
+          "deadline": 7299.700000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 53.6,
+          "lastWallMs": 721.1,
+          "firstClockTime": 6649.7,
+          "lastClockTime": 7268,
+          "deadlineResets": 0,
+          "initialDeadline": 7299.7
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6649.700000000001,
+          "duration": 650,
+          "deadline": 7299.700000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 53.6,
+          "lastWallMs": 721.1,
+          "firstClockTime": 6649.7,
+          "lastClockTime": 7268,
+          "deadlineResets": 0,
+          "initialDeadline": 7299.7
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6649.700000000001,
+          "duration": 650,
+          "deadline": 7299.700000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 71,
+          "lastWallMs": 721.1,
+          "firstClockTime": 6649.7,
+          "lastClockTime": 7268,
+          "deadlineResets": 0,
+          "initialDeadline": 7299.7
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 131.59999999403954,
+          "frame": 266,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 212.5,
+          "frame": 267,
+          "xbounds": [
+            0,
+            50.080039978027344
+          ],
+          "ybounds": [
+            -0.12002371788024903,
+            3.120616664886475
+          ]
+        },
+        {
+          "wallMs": 266.69999998807907,
+          "frame": 268,
+          "xbounds": [
+            0,
+            52.504615783691406
+          ],
+          "ybounds": [
+            -0.12074211120605469,
+            3.1392948913574217
+          ]
+        },
+        {
+          "wallMs": 316.09999999403954,
+          "frame": 269,
+          "xbounds": [
+            0,
+            59.50783920288086
+          ],
+          "ybounds": [
+            -0.12281713485717774,
+            3.193245506286621
+          ]
+        },
+        {
+          "wallMs": 366,
+          "frame": 270,
+          "xbounds": [
+            0,
+            70.65312957763672
+          ],
+          "ybounds": [
+            -0.12611945152282716,
+            3.279105739593506
+          ]
+        },
+        {
+          "wallMs": 416.7999999821186,
+          "frame": 271,
+          "xbounds": [
+            0,
+            88.06156158447266
+          ],
+          "ybounds": [
+            -0.13127750396728516,
+            3.413215103149414
+          ]
+        },
+        {
+          "wallMs": 469.39999997615814,
+          "frame": 272,
+          "xbounds": [
+            0,
+            113.53047943115234
+          ],
+          "ybounds": [
+            -0.13882384300231934,
+            3.609419918060303
+          ]
+        },
+        {
+          "wallMs": 516.5999999940395,
+          "frame": 273,
+          "xbounds": [
+            0,
+            141.4176483154297
+          ],
+          "ybounds": [
+            -0.1470867156982422,
+            3.824254608154297
+          ]
+        },
+        {
+          "wallMs": 565.7999999821186,
+          "frame": 274,
+          "xbounds": [
+            0,
+            160.66775512695312
+          ],
+          "ybounds": [
+            -0.15279045104980468,
+            3.972551727294922
+          ]
+        },
+        {
+          "wallMs": 616.8999999761581,
+          "frame": 275,
+          "xbounds": [
+            0,
+            173.2043914794922
+          ],
+          "ybounds": [
+            -0.15650501251220703,
+            4.069130325317383
+          ]
+        },
+        {
+          "wallMs": 666,
+          "frame": 276,
+          "xbounds": [
+            0,
+            180.5287322998047
+          ],
+          "ybounds": [
+            -0.15867517471313478,
+            4.125554542541504
+          ]
+        },
+        {
+          "wallMs": 715.0999999940395,
+          "frame": 277,
+          "xbounds": [
+            0,
+            183.93161010742188
+          ],
+          "ybounds": [
+            -0.1596834373474121,
+            4.151769371032715
+          ]
+        },
+        {
+          "wallMs": 748.0999999940395,
+          "frame": 278,
+          "xbounds": [
+            0,
+            184.9373779296875
+          ],
+          "ybounds": [
+            -0.15998144149780275,
+            4.159517478942871
+          ]
+        },
+        {
+          "wallMs": 787.5,
+          "frame": 279,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 803.7999999821186,
+          "frame": 280,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 821.0999999940395,
+          "frame": 281,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 837.5999999940395,
+          "frame": 282,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 854.1999999880791,
+          "frame": 283,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 870.8999999761581,
+          "frame": 284,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 887.5,
+          "frame": 285,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 904.1999999880791,
+          "frame": 286,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 920.5999999940395,
+          "frame": 287,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 937.5,
+          "frame": 288,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 953.8999999761581,
+          "frame": 289,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 971,
+          "frame": 290,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 987.0999999940395,
+          "frame": 291,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1003.8999999761581,
+          "frame": 292,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1021.0999999940395,
+          "frame": 293,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1037.2999999821186,
+          "frame": 294,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1054.199999988079,
+          "frame": 295,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1070.699999988079,
+          "frame": 296,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1087.199999988079,
+          "frame": 297,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1103.7999999821186,
+          "frame": 298,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1120.5,
+          "frame": 299,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1137.199999988079,
+          "frame": 300,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1154.3999999761581,
+          "frame": 301,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1170.3999999761581,
+          "frame": 302,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1187.199999988079,
+          "frame": 303,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1204.199999988079,
+          "frame": 304,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1220.5999999940395,
+          "frame": 305,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1237.3999999761581,
+          "frame": 306,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1253.7999999821186,
+          "frame": 307,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1270.3999999761581,
+          "frame": 308,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1287.5,
+          "frame": 309,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1304.2999999821186,
+          "frame": 310,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1321,
+          "frame": 311,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1337.199999988079,
+          "frame": 312,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1354.0999999940395,
+          "frame": 313,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1370.8999999761581,
+          "frame": 314,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1387.199999988079,
+          "frame": 315,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1404.199999988079,
+          "frame": 316,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "errors": [],
+      "renderError": "",
+      "geometryProgress": {
+        "changedBounds": 13,
+        "sampledMotionMs": 655.9,
+        "updatesPerSecond": 19.82,
+        "firstGeometryMs": 131.6,
+        "lastChangedGeometryMs": 787.5,
+        "limitation": "Changes of sampled drawn x/y bounds, excluding initial geometry; not total fade frames or GPU execution time."
+      }
+    }
+  ],
+  "errors": [],
+  "experiment": "Private numeric target compiler; production remains unchanged at capture. Same example/layout/paint targets and masks in both conditions; discard the first zoom/reset pair as warm-up."
+}

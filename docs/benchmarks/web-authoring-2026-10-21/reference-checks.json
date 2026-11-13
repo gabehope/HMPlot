@@ -1,0 +1,522 @@
+[
+  {
+    "schema": 1,
+    "task": "bundled-communities",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "sorted neighborhood, pin persistence through curve changes, reset",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "ea56ef3b68f02b05f137e331035bd5dac6cfb0ba41b4880a38f05a99a83c22de",
+      "reference-initial.png": "e9f75bba7f7f69ebe605440dd7106abaed4ec2606a8d33249610cfd38824bb43"
+    },
+    "current_source_sha256": "7ac156886bfec178370b4fd2057bb20b3a9f8d79a0b2d2ed1ed980e61205a3af"
+  },
+  {
+    "schema": 1,
+    "task": "calendar-anomalies",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "full leap-year contributing readings",
+        "status": "pass"
+      },
+      {
+        "name": "February 29 inclusive interval",
+        "status": "pass"
+      },
+      {
+        "name": "multi-day inclusive interval",
+        "status": "pass"
+      },
+      {
+        "name": "leap-day pointer detail uses fixed monthly baseline outside date lens",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "88da7df52adc1eb746d55702772cc734ba8318198d469bee6bed5fb6b4366c68",
+      "reference-initial.png": "c72aeec02f318b6be651451a466f0af8b0eab9166e20c9531fbce1ac833b3995"
+    },
+    "current_source_sha256": "22f8cb68abd0a1eb3a6a20313f82ddc04c16f5e636f489ffa28d3a51292597e5"
+  },
+  {
+    "schema": 1,
+    "task": "clustered-expression",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "independent average-linkage correlation order and linked gene values",
+        "status": "pass"
+      },
+      {
+        "name": "rendered heatmap cell hover selects corresponding clustered gene",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "6093d527d28e540491101c759340cc1a41f333bdd30725ba9b41f05447416945",
+      "reference-initial.png": "c7e19ed60647a9f8b108b770b9311e45a0ba5ff82dca2fbc200dbb84f061716c"
+    },
+    "current_source_sha256": "6b8de0584b2ac2df589995c12a349e58850ca89bbbd080d427840797ccdecff5"
+  },
+  {
+    "schema": 1,
+    "task": "epidemic-network",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "infection recovery transmission day 0",
+        "status": "pass"
+      },
+      {
+        "name": "infection recovery transmission day 7",
+        "status": "pass"
+      },
+      {
+        "name": "infection recovery transmission day 20",
+        "status": "pass"
+      },
+      {
+        "name": "infection recovery transmission day 68",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "2f49071ee65c4e0acdb7d4a11a2435c73c217b1a2f888aa7cf032a80f5b9ceb6",
+      "reference-initial.png": "35b7731ff53235dbab934cb20fa87d29dcfa759d7a81a26f4f4c36e4f3e5319e"
+    },
+    "current_source_sha256": "6130757f66957419816a284bad177040d671947713ec1460b00e74d229d069ff"
+  },
+  {
+    "schema": 1,
+    "task": "flight-network",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "full-data route aggregates and airport totals",
+        "status": "pass"
+      },
+      {
+        "name": "selected-hour route aggregates and airport totals",
+        "status": "pass"
+      },
+      {
+        "name": "departure-hour pointer brush updates the same aggregates",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "e5c5703078451f1d4526114940a32a55911649cf53e874d822fab5c7d8fc003b",
+      "reference-initial.png": "54d36963b30ec0fd136ce1e34502eca5a9d0fa7e8d074ff3f9ee31cf012db861"
+    },
+    "current_source_sha256": "5bf12b17f391a684d11b770489b63280abd4287516df01f0481eb4761b0957ab"
+  },
+  {
+    "schema": 1,
+    "task": "galaxy-slices",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "all 200000 stars",
+        "status": "pass"
+      },
+      {
+        "name": "height filtering exact count",
+        "status": "pass"
+      },
+      {
+        "name": "face-on brush partitions full height-filtered 3D cloud",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "df3271f523b3bea4ac973a49e6a2748544986e9e1a3e976f7a55404013360298",
+      "reference-initial.png": "4b18680335458d19a5dc2ccf77d16948d98bc73af7eb738eb60cf11ed1c41135"
+    },
+    "current_source_sha256": "58111a524f60858fa56f9b581e654815a69329ae7dd36d9359e238999260256b"
+  },
+  {
+    "schema": 1,
+    "task": "parallel-coordinates",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "all cars and descending top ten",
+        "status": "pass"
+      },
+      {
+        "name": "pointer brush then independent persistent AND brush",
+        "status": "pass"
+      },
+      {
+        "name": "empty result and usable reset",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "647cd7defc20088ca04ee71379368bab210cbea5e062455a06294a6d05efeaa8",
+      "reference-initial.png": "57d76707e68cbb468c69a5ff5ca7615d467be51f144a272711518d09bdfb3495"
+    },
+    "current_source_sha256": "e1eb01f22121650be9021fc05059538729e2743d16710cb10eb6f64b6f6a4566"
+  },
+  {
+    "schema": 1,
+    "task": "quake-globe",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "rolling window and synchronized depth bins at day 30",
+        "status": "pass"
+      },
+      {
+        "name": "rolling window and synchronized depth bins at day 180",
+        "status": "pass"
+      },
+      {
+        "name": "rolling window and synchronized depth bins at day 366",
+        "status": "pass"
+      },
+      {
+        "name": "native globe drag changes longitude latitude center",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "8dfdcfd53ff0dba26f85932f07002c8bb8ab410fd778db62adcdc6e5633bdc95",
+      "reference-initial.png": "8374d0a56001f85aa818fee93a84e1a87d2ea7c3084b049b3741e4d78a1f2804"
+    },
+    "current_source_sha256": "14dc8435167606ea6402ba7e3174ed445f87eb982d3d7975e308739e64dbfbd3"
+  },
+  {
+    "schema": 1,
+    "task": "rebased-returns",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "date control and pointer-driven endpoint rebasing",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "f9217aef0135621c6a27276a94d4505fc3cf82ddd12428c3bbf086b5184d41a0",
+      "reference-initial.png": "f9e8b991aca71a55837fc770f199ece171c5c4485733755de8dd5325f848a4fc"
+    },
+    "current_source_sha256": "3b40eb6177239507df5a23fbcc21d515a13e82b1ed89d6074de9159bfabcdd5b"
+  },
+  {
+    "schema": 1,
+    "task": "rent-map-linked",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "quantile classification, least-squares regression and district detail",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "852d17ebdd07fd78887ee43afa04d870fdccc14bf0daf78156c768524b6c482a",
+      "reference-initial.png": "617a49d4f5d108aac2b790771fbae2148d449fa546d58ba523504bdd19cd3a43"
+    },
+    "current_source_sha256": "5536edf932575fe2d91877e05e7b17bf6a8d2a7e077ef82f56dce6099a9f9de6"
+  },
+  {
+    "schema": 1,
+    "task": "sensor-wall",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "36 panels, missing hours, independent rolling outliers and overview brush",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "1128e9f6574449f7fe6445b812f1275cc007839765b3cb07eea639a83c56fbc5",
+      "reference-initial.png": "f06f28ac438b0ab4ff19745b3aeceb5a7722eb868f860c7246d44ad788636f3a"
+    },
+    "current_source_sha256": "62f53640af03ef0da3105035b0754aa84890dd6c4c033c180ab0a569f4382220"
+  },
+  {
+    "schema": 1,
+    "task": "streamgraph-lens",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "full-period inclusive source totals",
+        "status": "pass"
+      },
+      {
+        "name": "leap-day range totals",
+        "status": "pass"
+      },
+      {
+        "name": "baseline switching preserves date lens and totals",
+        "status": "pass"
+      },
+      {
+        "name": "native overview date brush recomputes inclusive range totals",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "890f4b5d4f68a1cf7715b0f2e17a335f16478e8963ebaf4afd8aa589ca4c3393",
+      "reference-initial.png": "df1bdb42c28ebd03db2f1d71261413c048f9d8901224be1ff58693c62ce401cf"
+    },
+    "current_source_sha256": "e957456b41eca09fd5c9349f33d09d8d77212d052ceab0218955711dfecf33bc"
+  },
+  {
+    "schema": 1,
+    "task": "taxi-explorer",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "all million rows and exact full count",
+        "status": "pass"
+      },
+      {
+        "name": "hour filter exact selected count",
+        "status": "pass"
+      },
+      {
+        "name": "scatter rectangle and hour filter combine with exact membership",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "c64c99bb50d87537e63c72aac592c08198865ba69a2b88d58645755223376040",
+      "reference-initial.png": "4cae7679f1f2ed2bb7f9af76cbb6c5ccd1d873009a71b3f48110bd70cf11dfce"
+    },
+    "current_source_sha256": "a15e0592d008ed21e2acca93870f96a45e260dc70d1245cb2fb90afbc5de7790"
+  },
+  {
+    "schema": 1,
+    "task": "wealth-health-trails",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "interpolated featured values and all countries at 1950",
+        "status": "pass"
+      },
+      {
+        "name": "interpolated featured values and all countries at 1982.5",
+        "status": "pass"
+      },
+      {
+        "name": "interpolated featured values and all countries at 2020",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "3484dadc78baba23cc7c8c413b3c3cc3768780bd22a0639a1566638e46817d4f",
+      "reference-initial.png": "79de1c546311894802f47867e438dbab6921b55a769680d63ea3af7a0425f74d"
+    },
+    "current_source_sha256": "bf9ce04fb0c36a0ea3178979b0b21bfa9b624cff4aeca9957f09519a41d9e3c1"
+  },
+  {
+    "schema": 1,
+    "task": "zoomable-portfolio",
+    "checks": [
+      {
+        "name": "completed initial draw without errors",
+        "status": "pass"
+      },
+      {
+        "name": "root revenue totals and ranking",
+        "status": "pass"
+      },
+      {
+        "name": "rendered areas proportional to revenue and rectangle click drills down",
+        "status": "pass"
+      },
+      {
+        "name": "hierarchy navigation and metric preserves focus",
+        "status": "pass"
+      }
+    ],
+    "reviewer": {
+      "kind": "deterministic",
+      "source": "agenteval/web_reference_checks.py"
+    },
+    "visual_review": {
+      "status": "reviewed-with-coverage-limits",
+      "reviewer": "coordinating Codex implementation agent",
+      "report": "reference-review.md"
+    },
+    "artifacts": {
+      "reference-interaction.png": "7cd7985b46c788479e9618adaae26009d9356dd00b924f983b52dbb67a3fc5c6",
+      "reference-initial.png": "036837a034f5d0e36dc0feed6a8009c65b7cbcb3ce59a186ed6442a9476c8191"
+    },
+    "current_source_sha256": "71e4ebf282f1e4b3bdf646a33305273ace4044caef960918dc6bc99ad4969b01"
+  }
+]

@@ -1,0 +1,15 @@
+## Usage
+
+series partitions paths independently from color. Observations remain in supplied order; invalid coordinates create breaks. curve supports linear, step variants, monotone-x/y, catmull-rom, and basis. Width uses screen pixels: a number, or an expression of numbers such as `where("@hovered", 2, 1)`; a column maps through the width scale.
+
+A Line interacts by series: `hover` and `select` take every row of the series under the pointer (the whole line without `series`), and `brush` takes every series with a row inside the brush. Hover only marks the rows `@hovered`; read it in a channel, as the width above, or fade the other series with `respond="hovered"`. A tooltip shows the row at the pointer.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the line are vectors too, drawn back to front by depth (approximate where marks cross closely). A `color` column (runs of one color that meet at shared vertices), `dash` and every `curve`, on maps too, stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+### Connections
+
+With `connections={connect(...)}` a Line takes its vertices from other marks instead of from `x`/`y`: one path per matched key through the endpoints in argument order, or, for one repeated endpoint passed alone, across its Facet cells in facet order (parallel coordinates). A key missing in one endpoint breaks the path there. See [connect()](connect).

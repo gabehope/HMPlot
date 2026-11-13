@@ -1,0 +1,25 @@
+## Usage
+
+Accept data as Geometry/Feature/FeatureCollection, or geometry from a Data scope. Feature properties are fields; featureKey/dataKey joins measurements. A numeric `fill` maps through `fillScale` (by default over the values' extent, as on other marks) or the `colormap`; a numeric line `color` through `colorScale`. Height is per feature, mapped through `heightScale`, a `continuous()` scale from its domain (by default [0, 1]) onto its range (by default [0, 1]), clamped at its ends; polygons alone extrude. Longitude/latitude are degrees even when the plot uses other angular units.
+
+Set `fill={null}` (Python `fill=None`) to draw only LineStrings and polygon boundaries,
+without filling or triangulating polygons. This replaces GeoJSONLine. `color` and `width`
+style all those strokes, including property columns and `colorScale`; the default stroke is
+`#425669`, one pixel wide. Feature joins and picking work as for filled regions. Changing
+`fill` switches between filled regions and boundaries on the same component.
+
+Set `tooltip` to true or a list of feature-property/joined-column names, as on other marks;
+the Plot's tooltip is the default. `hover` marks the whole feature, including every polygon
+part, boundary and point. Add `respond="hovered"` to fade other features, with
+`selectionOpacity` (Python `selection_opacity`) setting their opacity. Joins and geometry
+columns share their enclosing table's row identity, so hover coordinates with other marks;
+unmatched features do not mark a table row. Raw GeoJSON owns feature rows of its own.
+Brush and drag are not GeoJSON producers.
+
+A `GeoJSONHandle` has `getLegendSource()`, `whenSettled()` (once its geometry is prepared and drawn) and `getDiagnostics()` (features, instances and geometry bytes).
+
+<Note title="SVG and PDF export">
+
+**Partly an image.** SVG and PDF exports draw the filled polygons as an image at the export's raster DPI, and `mode="vector"` refuses them. The boundaries are vector paths in a 2D view, colored by a column too; on a 3D globe they are part of the image. See [what is not exported as vector](/docs/export).
+
+</Note>

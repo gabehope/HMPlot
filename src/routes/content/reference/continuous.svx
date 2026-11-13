@@ -1,0 +1,5 @@
+## Usage
+
+Pass a shared normalization to coordinate domains across encodings. colormap selects a color map (a built-in name, a list of colors, or `{colors, space, positions}`; see colormap); range selects numeric output values such as pixel sizes. Share this resource explicitly when separate marks or plots must use the same mapping. Without an explicit colormap, marks use the inherited default: a theme colormap, else Viridis.
+
+A missing value (`NaN`, or `null`/`None` in the data) of a colormapped fill or color draws in `missing`, on screen, in SVG, PDF and PNG exports, and as a "Missing" swatch under the colorbar of a mark that holds one; without it, the theme's `missing` color (a neutral gray, `#92989f`, by default), not the colormap's end. `update({ missing: null })` (Python: `update(missing=None)`) returns to the theme's. A value outside the transform's domain (a zero under log) is not drawn, as before.

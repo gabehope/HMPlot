@@ -1,0 +1,9 @@
+## Usage
+
+Place `Routes` inside a DAG `Edges` scope. It expands each edge's ordered route points into visible segments, retaining the original edge row for styling and picking.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the routes are vectors too, drawn back to front by depth (approximate where marks cross closely). `dash` and a `color` column stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>

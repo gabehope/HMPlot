@@ -1,0 +1,5 @@
+## Usage
+
+The categorical axis determines displacement direction. Size is a point's diameter in CSS pixels; padding is the gap between glyphs. Uses Dodge and preserves original row identities. Screen-space collision layout is Cartesian 2D.
+
+Swarm is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.

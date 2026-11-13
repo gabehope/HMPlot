@@ -1,0 +1,56 @@
+---
+title: "Appearance and guides"
+section: guides
+order: 80
+summary: "Use themes for defaults, mark properties for local choices, and legends to explain mappings."
+---
+
+## Presentation without rewriting charts
+
+Themes supply typography, axis and guide appearance, mark defaults, and inferred categorical palettes. Without a theme font, text uses the bundled Source Sans 3, which PDF exports embed. A local Theme can override an outer theme. Explicit properties and settings overrides retain precedence. Paper, minimal, presentation, and colorblind presets are starting points, not new plot types.
+
+## Series legends and channel legends
+
+A plot-level legend (`legend` on a Plot or Facet, or a Legend without a channel) explains what the marks map from data, then lists labeled marks, one entry per mark as written even when a Facet draws it in every cell. A channel legend describes a fill, color, shape, outline, size, width, or opacity mapping. Category columns list categories, combining channels that share a column; numeric columns produce a colorbar, or a ramp of sample sizes, widths, or opacities. Marks that share one scale resource share one colorbar.
+
+## Interactive settings
+
+Settings belong to their owners: camera and export under Plot, coordinate definitions under Axes, visual properties under Marks, and computation under transforms. A local override can be reset to inheritance. Avoid encoding data meaning solely through theme colors.
+
+## Motion
+
+`animation` on a mark interpolates its data changes, which is `animate()` on every channel; `animate(value, {duration, enter, exit})` on one channel does the same per row in that channel's scale space (geometrically on a log axis) with values for rows that arrive and leave, and `tween(value)` interpolates the value itself, in its own units, anywhere inside an expression (on a log axis it rushes through the first decades). A channel that reads `@time` re-evaluates every frame; freeze the clock with `setAnimationTime` for a deterministic export, or step it into a video with Python's `export_mp4`.
+
+## Try one change
+
+Change fill to score and the same channel legend becomes continuous; the size legend is already a ramp because score is numeric. Because shape and fill share the group column, the group legend draws colored symbols. Replace themes.paper with themes.presentation for larger presentation typography.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]}
+
+with hm.Theme(value=hm.themes.paper) as themed:
+    with hm.Plot(data=data, height=340, axes2d=True):
+        points = hm.Points(x="x", y="y", fill="group", shape="group", size="score")
+        hm.Legend(target=points, channel="fill", label="Group")
+        hm.Legend(target=points, channel="size", label="Score", position="right")
+
+themed
+```
+
+```svelte
+<script>
+  import { Plot, Points, Legend, Theme, themes } from "hmplot";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]};
+  let points = $state();
+</script>
+
+<Theme value={themes.paper}>
+  <Plot {data} height={340} axes2d>
+    <Points bind:this={points} x="x" y="y" fill="group" shape="group" size="score" />
+    <Legend for={points} channel="fill" label="Group" />
+    <Legend for={points} channel="size" label="Score" position="right" />
+  </Plot>
+</Theme>
+```

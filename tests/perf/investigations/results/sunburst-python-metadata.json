@@ -1,0 +1,2965 @@
+{
+  "date": "2026-10-08",
+  "baselineCommit": "b5b84320",
+  "route": "/examples/sunburst",
+  "track": "Python scene gallery",
+  "mode": "development",
+  "machine": "Apple M2 Max, 32 GiB RAM",
+  "deviceScaleFactor": 2,
+  "samplingIntervalMicroseconds": 500,
+  "protocol": {
+    "captures": 4,
+    "flightsPerCapture": 12,
+    "discardedWarmupFlights": 2,
+    "retainedZoomResetPairs": 5,
+    "serial": true,
+    "inspectorEnabled": false,
+    "plainAndCpuSeparate": true
+  },
+  "runtimeChanges": [
+    "src/lib/scene/resources.js: omit undefined optional column metadata"
+  ],
+  "snapshotNonRuntimeDifferences": [
+    "src/lib/.DS_Store only in fixed snapshot",
+    "src/examples/sunburst/__pycache__/sunburst.cpython-313.pyc only in fixed snapshot"
+  ],
+  "userTrace": {
+    "path": "<downloads>/Trace-20261008T093045.json.gz",
+    "sha256": "da4d7f8b578c6f69b1ca9452794dc41340fab2842db10e4b5214c1eb9a6a95f9"
+  },
+  "drivers": {
+    "maintained": "tests/perf/investigations/sunburst-profile.mjs",
+    "maintainedSHA256": "eab53261941076e9e87c4b336060cf74e9640612c430493874459c2959ed1a88",
+    "measurementSHA256": "ec57eb69709977861399002a535870efd882da579d1d271315e154d6b24e1d80",
+    "changes": [
+      "Increase flight loop bound from 6 to 12",
+      "Resolve gpu-counters.js import to absolute repository path in private driver"
+    ],
+    "summarizer": "tests/perf/investigations/summarize-sunburst.mjs",
+    "summarizerSHA256": "1079fb1a152fca2e245bb259d65e77e5e7c5fae06436f609ceea6e25d58b79b1"
+  },
+  "scenePayload": {
+    "path": "static/example-builds/sunburst/payload.51d9f7e89b.json",
+    "baselineSHA256": "51d9f7e89bc0eb093a19ddd3e60294b510686ef3a33fa397b9690da89b31a175",
+    "fixedSHA256": "51d9f7e89bc0eb093a19ddd3e60294b510686ef3a33fa397b9690da89b31a175"
+  },
+  "limitations": [
+    "One five-pair capture per build and measurement mode on one machine; not a production comparison.",
+    "CPU excludes idle/program samples and includes GC; samples are CPU work, not GPU timings.",
+    "Frame p95 is the mean of per-gesture observed completed-frame interval p95s, including gesture boundaries; not a pooled quantile.",
+    "Bounds updates per second are sampled accepted domain changes, not GPU layout duration or precise visual FPS.",
+    "Expression diagnostics are cumulative through all 12 flights; baseline compiled subplans do not mean the complete expression compiled.",
+    "No operation/GPU-counter capture was made for this decoder follow-up; no readback, shader, submission or retained-memory improvement is claimed.",
+    "The earlier native Svelte fixture measured preparation reuse; it did not cover the optional metadata in Python scene columns.",
+    "A private compiled-gather timing capture overlapped another diagnostic run and is excluded. No gather or backend patch was retained."
+  ],
+  "captures": [
+    {
+      "build": "baseline",
+      "measurement": "plain",
+      "rawDirectory": "<tmp>/hmplot-scene-metadata-baseline-plain",
+      "summarySHA256": "bf8927507738d4ce8d87f57abd52af619f6373219a1fdf6efacc0b1fcba2222b",
+      "browser": "154.0.8037.98",
+      "sourceFingerprint": {
+        "sha256": "87f3b126ad958054cb7f6857ff749c0bd055a750671f8a3439764d56675a15da",
+        "files": 578
+      },
+      "sourceVerification": {
+        "method": "App-relative Vite raw modules/source downloads compared with local bytes",
+        "scope": "Representative source files; this does not fingerprint every executed compiled chunk.",
+        "verified": true,
+        "files": [
+          {
+            "path": "src/lib/plot/bound/namedMark.svelte",
+            "localSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5",
+            "servedSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5"
+          },
+          {
+            "path": "src/lib/plot/marks/labels.svelte",
+            "localSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12",
+            "servedSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12"
+          },
+          {
+            "path": "src/lib/plot/utils/expressions.js",
+            "localSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e",
+            "servedSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e"
+          },
+          {
+            "path": "src/lib/plot/utils/namedData.js",
+            "localSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386",
+            "servedSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386"
+          },
+          {
+            "path": "src/examples/sunburst/sunburst.svelte",
+            "localSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080",
+            "servedSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080"
+          },
+          {
+            "path": "src/lib/scene/resources.js",
+            "localSHA256": "5900978d983433bd3e3d9ffd942471755edde452b8796766273436ee62444ee7",
+            "servedSHA256": "5900978d983433bd3e3d9ffd942471755edde452b8796766273436ee62444ee7"
+          }
+        ]
+      },
+      "finalPngSHA256": "e28b6dac612759165c3300110fecb7dd332390bb456317937d8d499dab58207d",
+      "errors": [],
+      "flights": [
+        {
+          "flight": 3,
+          "direction": "zoom",
+          "wallMs": 1409.1,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 32.6,
+          "maxGap": 109.6,
+          "markWork": {
+            "liveGeometryWrites": 72,
+            "staticMarkReuses": 36,
+            "preparationRequests": 114,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 35,
+            "sampledMotionMs": 750.6,
+            "updatesPerSecond": 46.629
+          }
+        },
+        {
+          "flight": 4,
+          "direction": "reset",
+          "wallMs": 1393.8,
+          "completedFrames": 73,
+          "frameP50": 16.7,
+          "frameP95": 44.3,
+          "maxGap": 98.4,
+          "markWork": {
+            "liveGeometryWrites": 70,
+            "staticMarkReuses": 35,
+            "preparationRequests": 111,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 34,
+            "sampledMotionMs": 684.5,
+            "updatesPerSecond": 49.671
+          }
+        },
+        {
+          "flight": 5,
+          "direction": "zoom",
+          "wallMs": 1392.3,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 27.8,
+          "maxGap": 88.8,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 730.1,
+            "updatesPerSecond": 49.308
+          }
+        },
+        {
+          "flight": 6,
+          "direction": "reset",
+          "wallMs": 1406.8,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 24.9,
+          "maxGap": 96.4,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 659.2,
+            "updatesPerSecond": 56.129
+          }
+        },
+        {
+          "flight": 7,
+          "direction": "zoom",
+          "wallMs": 1395,
+          "completedFrames": 75,
+          "frameP50": 16.7,
+          "frameP95": 33.4,
+          "maxGap": 102,
+          "markWork": {
+            "liveGeometryWrites": 72,
+            "staticMarkReuses": 36,
+            "preparationRequests": 114,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 35,
+            "sampledMotionMs": 642.1,
+            "updatesPerSecond": 54.509
+          }
+        },
+        {
+          "flight": 8,
+          "direction": "reset",
+          "wallMs": 1380.3,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 22.2,
+          "maxGap": 84.3,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 643.8,
+            "updatesPerSecond": 57.471
+          }
+        },
+        {
+          "flight": 9,
+          "direction": "zoom",
+          "wallMs": 1408.4,
+          "completedFrames": 77,
+          "frameP50": 16.6,
+          "frameP95": 17.7,
+          "maxGap": 113.7,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 643.0,
+            "updatesPerSecond": 57.543
+          }
+        },
+        {
+          "flight": 10,
+          "direction": "reset",
+          "wallMs": 1394.2,
+          "completedFrames": 69,
+          "frameP50": 16.7,
+          "frameP95": 35.2,
+          "maxGap": 100,
+          "markWork": {
+            "liveGeometryWrites": 60,
+            "staticMarkReuses": 30,
+            "preparationRequests": 96,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 29,
+            "sampledMotionMs": 641.6,
+            "updatesPerSecond": 45.2
+          }
+        },
+        {
+          "flight": 11,
+          "direction": "zoom",
+          "wallMs": 1395.1,
+          "completedFrames": 79,
+          "frameP50": 16.6,
+          "frameP95": 21.5,
+          "maxGap": 95.1,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 734.0,
+            "updatesPerSecond": 51.771
+          }
+        },
+        {
+          "flight": 12,
+          "direction": "reset",
+          "wallMs": 1378.7,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 24.7,
+          "maxGap": 82.9,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 642.3,
+            "updatesPerSecond": 56.049
+          }
+        }
+      ],
+      "lastExpressionPlans": [
+        {
+          "consumer": "layout inputs",
+          "kind": "Tree",
+          "plans": 1,
+          "compiled": 78,
+          "fallback": 54,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 77,
+          "reasons": {
+            "host-managed operation: tween": 26,
+            "host value": 2,
+            "input representation or trace unsupported": 26
+          }
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 13,
+          "fallback": 13,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 12,
+          "reasons": {
+            "input representation or trace unsupported": 13
+          }
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Rect",
+          "label": "Studio workload",
+          "plans": 1,
+          "compiled": 104,
+          "fallback": 26,
+          "lookups": 1720,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 103,
+          "reasons": {
+            "input representation or trace unsupported": 26
+          }
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 6,
+          "compiled": 2270,
+          "fallback": 454,
+          "lookups": 858,
+          "traceFailures": 0,
+          "traces": 6,
+          "hits": 2264,
+          "reasons": {
+            "input representation or trace unsupported": 454
+          }
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 0,
+          "compiled": 0,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 0,
+          "hits": 0,
+          "reasons": {}
+        }
+      ],
+      "means": {
+        "wallMs": 1395.37,
+        "completedFrames": 75.6,
+        "frameP50": 16.68,
+        "frameP95": 28.43,
+        "maxGap": 97.12,
+        "boundsUpdatesPerSecond": 52.428
+      }
+    },
+    {
+      "build": "baseline",
+      "measurement": "cpu",
+      "rawDirectory": "<tmp>/hmplot-scene-metadata-baseline-cpu",
+      "summarySHA256": "343deb781d2ceaad3336f400ec749cbd1d709f6f6e1e4d0690bc19e08fb58ed9",
+      "browser": "154.0.8037.98",
+      "sourceFingerprint": {
+        "sha256": "87f3b126ad958054cb7f6857ff749c0bd055a750671f8a3439764d56675a15da",
+        "files": 578
+      },
+      "sourceVerification": {
+        "method": "App-relative Vite raw modules/source downloads compared with local bytes",
+        "scope": "Representative source files; this does not fingerprint every executed compiled chunk.",
+        "verified": true,
+        "files": [
+          {
+            "path": "src/lib/plot/bound/namedMark.svelte",
+            "localSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5",
+            "servedSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5"
+          },
+          {
+            "path": "src/lib/plot/marks/labels.svelte",
+            "localSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12",
+            "servedSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12"
+          },
+          {
+            "path": "src/lib/plot/utils/expressions.js",
+            "localSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e",
+            "servedSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e"
+          },
+          {
+            "path": "src/lib/plot/utils/namedData.js",
+            "localSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386",
+            "servedSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386"
+          },
+          {
+            "path": "src/examples/sunburst/sunburst.svelte",
+            "localSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080",
+            "servedSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080"
+          },
+          {
+            "path": "src/lib/scene/resources.js",
+            "localSHA256": "5900978d983433bd3e3d9ffd942471755edde452b8796766273436ee62444ee7",
+            "servedSHA256": "5900978d983433bd3e3d9ffd942471755edde452b8796766273436ee62444ee7"
+          }
+        ]
+      },
+      "finalPngSHA256": "e28b6dac612759165c3300110fecb7dd332390bb456317937d8d499dab58207d",
+      "errors": [],
+      "flights": [
+        {
+          "flight": 3,
+          "direction": "zoom",
+          "wallMs": 1509.8,
+          "completedFrames": 76,
+          "frameP50": 16.6,
+          "frameP95": 29.4,
+          "maxGap": 212,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 642.4,
+            "updatesPerSecond": 56.04
+          },
+          "cpu": {
+            "profileSHA256": "f5c67dc25c51d351e5ae07522f4932b8b58358855733625550b7c65c50cccf51",
+            "sampledMs": 1520.604,
+            "categories": {
+              "(program)": 154.886,
+              "other/unresolved": 5.8,
+              "HMPlot CPU runtime": 164.469,
+              "(idle)": 764.299,
+              "jax-js CPU construction/dispatch": 273.47,
+              "Svelte CPU/dev runtime": 98.521,
+              "Three CPU runtime": 33.575,
+              "(garbage collector)": 25.584
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 49.429,
+                "named channel preparation": 12.906,
+                "target expression evaluation": 111.551,
+                "JAX array construction": 20.789,
+                "JAX submission CPU": 29.104,
+                "JAX realization": 62.38,
+                "Filter": 3.138,
+                "Tree host orchestration": 72.592,
+                "JAX indexing descriptions": 43.594,
+                "Tween evaluation": 37.522,
+                "Text atlas and footprint preparation": 8.178,
+                "array field target publication": 32.619,
+                "buffered field preparation": 33.253,
+                "domain preparation": 8.77,
+                "transition clock and dispatch": 43.483,
+                "keyed lifecycle": 4.413,
+                "procedural current fields": 134.213,
+                "mark field animation": 0.63
+              },
+              "nearestMs": {
+                "JAX hashing": 49.429,
+                "named channel preparation": 2.514,
+                "target expression evaluation": 68.182,
+                "JAX array construction": 20.789,
+                "JAX submission CPU": 29.104,
+                "JAX realization": 13.784,
+                "Tree host orchestration": 21.228,
+                "JAX indexing descriptions": 43.594,
+                "Tween evaluation": 4.611,
+                "Filter": 2.509,
+                "Text atlas and footprint preparation": 1.895,
+                "transition clock and dispatch": 36.572,
+                "keyed lifecycle": 2.525,
+                "array field target publication": 13.805,
+                "buffered field preparation": 6.909,
+                "procedural current fields": 21.336,
+                "domain preparation": 1.856,
+                "mark field animation": 0.63
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 601.419
+        },
+        {
+          "flight": 4,
+          "direction": "reset",
+          "wallMs": 1571.9,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 20.9,
+          "maxGap": 276.7,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 642.8,
+            "updatesPerSecond": 56.005
+          },
+          "cpu": {
+            "profileSHA256": "e5d528879309f3903d365edd20444caaed825878e368384060bcd3f070cb2327",
+            "sampledMs": 1580.688,
+            "categories": {
+              "(program)": 200.914,
+              "(idle)": 792.83,
+              "HMPlot CPU runtime": 150.686,
+              "jax-js CPU construction/dispatch": 259.116,
+              "Svelte CPU/dev runtime": 89.021,
+              "(garbage collector)": 66.026,
+              "Three CPU runtime": 18.859,
+              "other/unresolved": 3.236
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 13.33,
+                "target expression evaluation": 101.362,
+                "JAX hashing": 47.774,
+                "JAX array construction": 20.594,
+                "domain preparation": 10.385,
+                "JAX indexing descriptions": 38.106,
+                "JAX realization": 53.272,
+                "Filter": 1.763,
+                "Tree host orchestration": 49.873,
+                "JAX submission CPU": 25.067,
+                "Tween evaluation": 15.254,
+                "Text atlas and footprint preparation": 30.927,
+                "array field target publication": 27.641,
+                "buffered field preparation": 29.54,
+                "transition clock and dispatch": 34.712,
+                "keyed lifecycle": 4.412,
+                "procedural current fields": 125.949,
+                "mark field animation": 1.887
+              },
+              "nearestMs": {
+                "named channel preparation": 3.392,
+                "target expression evaluation": 66.27,
+                "JAX hashing": 47.774,
+                "JAX array construction": 20.594,
+                "JAX indexing descriptions": 38.106,
+                "JAX submission CPU": 25.067,
+                "Tree host orchestration": 22.746,
+                "Tween evaluation": 5.787,
+                "JAX realization": 6.275,
+                "Text atlas and footprint preparation": 6.585,
+                "array field target publication": 13.203,
+                "keyed lifecycle": 1.91,
+                "procedural current fields": 24.411,
+                "transition clock and dispatch": 27.812,
+                "mark field animation": 1.887,
+                "buffered field preparation": 6.286,
+                "domain preparation": 3.136,
+                "Filter": 1.142
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 586.944
+        },
+        {
+          "flight": 5,
+          "direction": "zoom",
+          "wallMs": 1510.4,
+          "completedFrames": 77,
+          "frameP50": 16.6,
+          "frameP95": 26.5,
+          "maxGap": 200.4,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 656.6,
+            "updatesPerSecond": 56.351
+          },
+          "cpu": {
+            "profileSHA256": "422eb066e9e853b11686c20656d300daf89922f8d5ed30fefcff0b3655e9cbd5",
+            "sampledMs": 1519.101,
+            "categories": {
+              "(program)": 138.617,
+              "(idle)": 808.081,
+              "jax-js CPU construction/dispatch": 244.204,
+              "HMPlot CPU runtime": 172.131,
+              "Svelte CPU/dev runtime": 95.847,
+              "Three CPU runtime": 31.17,
+              "(garbage collector)": 25.854,
+              "other/unresolved": 3.197
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 15.706,
+                "JAX realization": 49.568,
+                "target expression evaluation": 105.981,
+                "JAX hashing": 47.597,
+                "mark field animation": 4.401,
+                "domain preparation": 10.048,
+                "Filter": 0.631,
+                "Tree host orchestration": 68.615,
+                "JAX submission CPU": 26.321,
+                "JAX array construction": 23.069,
+                "Tween evaluation": 31.328,
+                "Text atlas and footprint preparation": 5.908,
+                "array field target publication": 24.603,
+                "buffered field preparation": 28.534,
+                "keyed lifecycle": 3.144,
+                "transition clock and dispatch": 40.178,
+                "procedural current fields": 128.507,
+                "JAX indexing descriptions": 33.238
+              },
+              "nearestMs": {
+                "named channel preparation": 5.684,
+                "JAX realization": 8.817,
+                "target expression evaluation": 59.847,
+                "JAX hashing": 47.597,
+                "mark field animation": 4.401,
+                "JAX submission CPU": 26.321,
+                "Tree host orchestration": 28.471,
+                "JAX array construction": 23.069,
+                "Text atlas and footprint preparation": 5.297,
+                "keyed lifecycle": 2.513,
+                "buffered field preparation": 5.194,
+                "transition clock and dispatch": 35.776,
+                "array field target publication": 8.151,
+                "JAX indexing descriptions": 33.238,
+                "procedural current fields": 18.802,
+                "domain preparation": 3.759,
+                "Tween evaluation": 4.4
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 572.403
+        },
+        {
+          "flight": 6,
+          "direction": "reset",
+          "wallMs": 1532,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 27,
+          "maxGap": 237.9,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 642.0,
+            "updatesPerSecond": 56.075
+          },
+          "cpu": {
+            "profileSHA256": "0630ba2cb2db1f04243ed3f5f520cf90d5c347285c22d26226573fc2593c64b3",
+            "sampledMs": 1537.472,
+            "categories": {
+              "(program)": 163.464,
+              "(idle)": 878.81,
+              "HMPlot CPU runtime": 126.044,
+              "jax-js CPU construction/dispatch": 257.509,
+              "Svelte CPU/dev runtime": 75.344,
+              "(garbage collector)": 25.572,
+              "Three CPU runtime": 8.199,
+              "other/unresolved": 2.53
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 12.39,
+                "JAX indexing descriptions": 47.803,
+                "JAX realization": 59.143,
+                "target expression evaluation": 85.144,
+                "JAX hashing": 50.557,
+                "JAX array construction": 16.737,
+                "domain preparation": 8.818,
+                "Filter": 1.25,
+                "JAX submission CPU": 18.177,
+                "Tree host orchestration": 74.002,
+                "Tween evaluation": 39.745,
+                "Text atlas and footprint preparation": 6.303,
+                "array field target publication": 26.398,
+                "buffered field preparation": 27.014,
+                "keyed lifecycle": 3.756,
+                "transition clock and dispatch": 31.988,
+                "procedural current fields": 97.737,
+                "mark field animation": 2.503
+              },
+              "nearestMs": {
+                "named channel preparation": 3.061,
+                "JAX indexing descriptions": 47.803,
+                "JAX hashing": 50.557,
+                "target expression evaluation": 48.852,
+                "JAX array construction": 16.737,
+                "JAX submission CPU": 18.177,
+                "Tree host orchestration": 20.573,
+                "Tween evaluation": 4.533,
+                "Text atlas and footprint preparation": 5.034,
+                "keyed lifecycle": 2.121,
+                "buffered field preparation": 5.011,
+                "array field target publication": 11.915,
+                "procedural current fields": 16.346,
+                "JAX realization": 11.362,
+                "transition clock and dispatch": 26.984,
+                "domain preparation": 1.883,
+                "mark field animation": 2.503,
+                "Filter": 0.628
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 495.198
+        },
+        {
+          "flight": 7,
+          "direction": "zoom",
+          "wallMs": 1550.5,
+          "completedFrames": 76,
+          "frameP50": 16.6,
+          "frameP95": 24.6,
+          "maxGap": 255.2,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 643.0,
+            "updatesPerSecond": 55.988
+          },
+          "cpu": {
+            "profileSHA256": "1513894a45068b3bd39f1e456ad0f4d3863bf97abecf7a178b86c476662c8c3d",
+            "sampledMs": 1555.203,
+            "categories": {
+              "(program)": 192.151,
+              "other/unresolved": 3.168,
+              "(idle)": 826.544,
+              "jax-js CPU construction/dispatch": 274.087,
+              "Svelte CPU/dev runtime": 78.871,
+              "HMPlot CPU runtime": 141.512,
+              "(garbage collector)": 24.988,
+              "Three CPU runtime": 13.882
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 55.247,
+                "named channel preparation": 11.242,
+                "target expression evaluation": 86.723,
+                "Text atlas and footprint preparation": 6.882,
+                "domain preparation": 8.153,
+                "Filter": 1.266,
+                "JAX realization": 70.225,
+                "Tree host orchestration": 82.793,
+                "JAX indexing descriptions": 53.261,
+                "Tween evaluation": 52.552,
+                "JAX submission CPU": 20.425,
+                "array field target publication": 28.938,
+                "buffered field preparation": 31.881,
+                "JAX array construction": 15.205,
+                "transition clock and dispatch": 40.705,
+                "keyed lifecycle": 3.145,
+                "procedural current fields": 100.465,
+                "mark field animation": 0.625
+              },
+              "nearestMs": {
+                "JAX hashing": 55.247,
+                "target expression evaluation": 50.233,
+                "Text atlas and footprint preparation": 5.629,
+                "Tree host orchestration": 20.201,
+                "JAX indexing descriptions": 53.261,
+                "named channel preparation": 1.25,
+                "JAX submission CPU": 20.425,
+                "Filter": 0.632,
+                "JAX realization": 13.865,
+                "JAX array construction": 15.205,
+                "array field target publication": 11.436,
+                "keyed lifecycle": 1.251,
+                "buffered field preparation": 4.147,
+                "procedural current fields": 18.098,
+                "Tween evaluation": 7.458,
+                "transition clock and dispatch": 36.232,
+                "domain preparation": 1.26,
+                "mark field animation": 0.625
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 536.508
+        },
+        {
+          "flight": 8,
+          "direction": "reset",
+          "wallMs": 1575.6,
+          "completedFrames": 78,
+          "frameP50": 16.6,
+          "frameP95": 20.8,
+          "maxGap": 280.7,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 643.8,
+            "updatesPerSecond": 59.025
+          },
+          "cpu": {
+            "profileSHA256": "f045e4758c4b94d24787050803b580ae40764d76a4c44bccdd92b76e6ac40f9a",
+            "sampledMs": 1580.603,
+            "categories": {
+              "(program)": 215.603,
+              "(idle)": 846.978,
+              "HMPlot CPU runtime": 136.017,
+              "Svelte CPU/dev runtime": 79.086,
+              "jax-js CPU construction/dispatch": 252.254,
+              "(garbage collector)": 33.012,
+              "Three CPU runtime": 16.393,
+              "other/unresolved": 1.26
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "target expression evaluation": 92.672,
+                "named channel preparation": 8.184,
+                "JAX hashing": 54.087,
+                "JAX indexing descriptions": 20.123,
+                "JAX realization": 42.667,
+                "domain preparation": 11.916,
+                "Filter": 1.254,
+                "JAX submission CPU": 23.832,
+                "Tree host orchestration": 50.908,
+                "Tween evaluation": 16.347,
+                "JAX array construction": 21.217,
+                "array field target publication": 32.871,
+                "buffered field preparation": 38.916,
+                "transition clock and dispatch": 28.959,
+                "keyed lifecycle": 3.756,
+                "procedural current fields": 108.406,
+                "Text atlas and footprint preparation": 5.641,
+                "mark field animation": 0.629
+              },
+              "nearestMs": {
+                "target expression evaluation": 55.189,
+                "JAX hashing": 54.087,
+                "JAX indexing descriptions": 20.123,
+                "domain preparation": 5.017,
+                "JAX submission CPU": 23.832,
+                "Tree host orchestration": 21.361,
+                "Tween evaluation": 5.643,
+                "JAX array construction": 21.217,
+                "named channel preparation": 0.637,
+                "JAX realization": 18.223,
+                "array field target publication": 8.336,
+                "keyed lifecycle": 1.25,
+                "buffered field preparation": 8.113,
+                "transition clock and dispatch": 26.926,
+                "Text atlas and footprint preparation": 3.764,
+                "procedural current fields": 18.22,
+                "mark field animation": 0.629,
+                "Filter": 0.625
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 518.022
+        },
+        {
+          "flight": 9,
+          "direction": "zoom",
+          "wallMs": 1583.2,
+          "completedFrames": 76,
+          "frameP50": 16.6,
+          "frameP95": 23.8,
+          "maxGap": 288.7,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 659.2,
+            "updatesPerSecond": 56.129
+          },
+          "cpu": {
+            "profileSHA256": "dcc49371e78fbb5748764526223318bc048a16339f4e7decab2f0c9e8962d2ee",
+            "sampledMs": 1588.767,
+            "categories": {
+              "(program)": 224.153,
+              "(idle)": 819.862,
+              "HMPlot CPU runtime": 141.51,
+              "jax-js CPU construction/dispatch": 280.823,
+              "Svelte CPU/dev runtime": 84.049,
+              "(garbage collector)": 27.017,
+              "Three CPU runtime": 10.098,
+              "other/unresolved": 1.255
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 14.029,
+                "target expression evaluation": 111.338,
+                "JAX array construction": 30.065,
+                "JAX hashing": 53.692,
+                "domain preparation": 20.158,
+                "JAX indexing descriptions": 41.4,
+                "JAX realization": 64.414,
+                "Filter": 1.268,
+                "Tree host orchestration": 68.997,
+                "Tween evaluation": 35.107,
+                "JAX submission CPU": 23.73,
+                "array field target publication": 31.777,
+                "buffered field preparation": 30.537,
+                "transition clock and dispatch": 38.394,
+                "keyed lifecycle": 3.759,
+                "Text atlas and footprint preparation": 16.33,
+                "procedural current fields": 145.49,
+                "mark field animation": 0.629
+              },
+              "nearestMs": {
+                "named channel preparation": 2.144,
+                "target expression evaluation": 57.786,
+                "JAX array construction": 30.065,
+                "JAX hashing": 53.692,
+                "JAX indexing descriptions": 41.4,
+                "Tree host orchestration": 19.492,
+                "JAX submission CPU": 23.73,
+                "JAX realization": 19.174,
+                "domain preparation": 3.15,
+                "keyed lifecycle": 1.881,
+                "Text atlas and footprint preparation": 6.25,
+                "transition clock and dispatch": 32.821,
+                "procedural current fields": 20.785,
+                "array field target publication": 9.973,
+                "buffered field preparation": 3.717,
+                "Tween evaluation": 6.919,
+                "Filter": 0.631,
+                "mark field animation": 0.629
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 544.752
+        },
+        {
+          "flight": 10,
+          "direction": "reset",
+          "wallMs": 1666.3,
+          "completedFrames": 73,
+          "frameP50": 16.7,
+          "frameP95": 19.3,
+          "maxGap": 370.7,
+          "markWork": {
+            "liveGeometryWrites": 68,
+            "staticMarkReuses": 34,
+            "preparationRequests": 108,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 33,
+            "sampledMotionMs": 642.8,
+            "updatesPerSecond": 51.338
+          },
+          "cpu": {
+            "profileSHA256": "8557a77efce95ebc15b33eb19b9f0c20cff9280126bac2fa1bb3a27a41beb47d",
+            "sampledMs": 1671.12,
+            "categories": {
+              "(program)": 281.922,
+              "HMPlot CPU runtime": 124.133,
+              "(idle)": 803.48,
+              "jax-js CPU construction/dispatch": 284.641,
+              "Svelte CPU/dev runtime": 68.53,
+              "Three CPU runtime": 15.178,
+              "(garbage collector)": 92.001,
+              "other/unresolved": 1.235
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 12.503,
+                "JAX array construction": 28.314,
+                "target expression evaluation": 89.05,
+                "JAX hashing": 48.379,
+                "Filter": 3.137,
+                "JAX submission CPU": 22.756,
+                "Tree host orchestration": 62.813,
+                "JAX indexing descriptions": 63.556,
+                "Tween evaluation": 30.829,
+                "JAX realization": 83.435,
+                "Text atlas and footprint preparation": 46.573,
+                "domain preparation": 5.055,
+                "keyed lifecycle": 5.011,
+                "buffered field preparation": 27.453,
+                "array field target publication": 24.629,
+                "transition clock and dispatch": 29.456,
+                "procedural current fields": 99.48,
+                "mark field animation": 2.51
+              },
+              "nearestMs": {
+                "named channel preparation": 3.133,
+                "JAX array construction": 28.314,
+                "target expression evaluation": 55.765,
+                "JAX hashing": 48.379,
+                "JAX submission CPU": 22.756,
+                "Tree host orchestration": 17.492,
+                "JAX indexing descriptions": 63.556,
+                "Tween evaluation": 8.195,
+                "JAX realization": 14.71,
+                "keyed lifecycle": 1.882,
+                "buffered field preparation": 5.668,
+                "domain preparation": 1.892,
+                "array field target publication": 7.239,
+                "transition clock and dispatch": 25.36,
+                "procedural current fields": 16.717,
+                "Text atlas and footprint preparation": 1.268,
+                "Filter": 2.508,
+                "mark field animation": 2.51
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 585.718
+        },
+        {
+          "flight": 11,
+          "direction": "zoom",
+          "wallMs": 1549.8,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 24.3,
+          "maxGap": 259.9,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 654.6,
+            "updatesPerSecond": 56.523
+          },
+          "cpu": {
+            "profileSHA256": "8e55b4ae7064bdc31da12ae1ef3b83cc4942392c3525860c1470281ac9a173a0",
+            "sampledMs": 1555.515,
+            "categories": {
+              "(program)": 191.363,
+              "(idle)": 848.491,
+              "HMPlot CPU runtime": 147.756,
+              "jax-js CPU construction/dispatch": 250.637,
+              "Svelte CPU/dev runtime": 75.272,
+              "(garbage collector)": 26.889,
+              "Three CPU runtime": 11.971,
+              "other/unresolved": 3.136
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 16.288,
+                "JAX hashing": 45.358,
+                "target expression evaluation": 103.294,
+                "JAX array construction": 17.567,
+                "Filter": 0.637,
+                "Tree host orchestration": 64.144,
+                "Tween evaluation": 25.775,
+                "JAX submission CPU": 25.553,
+                "domain preparation": 8.824,
+                "JAX realization": 37.531,
+                "array field target publication": 19.989,
+                "buffered field preparation": 22.477,
+                "transition clock and dispatch": 34.604,
+                "keyed lifecycle": 3.756,
+                "Text atlas and footprint preparation": 7.553,
+                "procedural current fields": 130.952,
+                "JAX indexing descriptions": 28.737,
+                "mark field animation": 3.137
+              },
+              "nearestMs": {
+                "named channel preparation": 5.004,
+                "JAX hashing": 45.358,
+                "target expression evaluation": 57.698,
+                "JAX array construction": 17.567,
+                "Filter": 0.637,
+                "Tree host orchestration": 30.154,
+                "Tween evaluation": 5.02,
+                "JAX submission CPU": 25.553,
+                "array field target publication": 10.675,
+                "keyed lifecycle": 2.285,
+                "buffered field preparation": 3.749,
+                "Text atlas and footprint preparation": 6.29,
+                "procedural current fields": 25.118,
+                "transition clock and dispatch": 31.471,
+                "JAX indexing descriptions": 28.737,
+                "mark field animation": 3.137,
+                "JAX realization": 6.873,
+                "domain preparation": 1.271
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 515.661
+        },
+        {
+          "flight": 12,
+          "direction": "reset",
+          "wallMs": 1582.7,
+          "completedFrames": 76,
+          "frameP50": 16.8,
+          "frameP95": 25,
+          "maxGap": 284.9,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 18,
+            "numericExpressionsFallback": 4
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 660.5,
+            "updatesPerSecond": 56.018
+          },
+          "cpu": {
+            "profileSHA256": "ad0583b1be984d253e4209365786fb6ba3ee5d37979fc4438fe5360d49576627",
+            "sampledMs": 1590.45,
+            "categories": {
+              "(program)": 218.602,
+              "(idle)": 844.568,
+              "HMPlot CPU runtime": 131.811,
+              "jax-js CPU construction/dispatch": 256.077,
+              "Svelte CPU/dev runtime": 84.722,
+              "(garbage collector)": 27.856,
+              "Three CPU runtime": 24.902,
+              "other/unresolved": 1.912
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 10.491,
+                "target expression evaluation": 88.888,
+                "JAX hashing": 61.981,
+                "JAX array construction": 16.251,
+                "Text atlas and footprint preparation": 8.806,
+                "domain preparation": 9.427,
+                "Filter": 1.25,
+                "JAX submission CPU": 26.304,
+                "Tree host orchestration": 68.924,
+                "Tween evaluation": 25.007,
+                "JAX realization": 47.492,
+                "JAX indexing descriptions": 25.657,
+                "array field target publication": 26.193,
+                "buffered field preparation": 29.32,
+                "keyed lifecycle": 3.758,
+                "procedural current fields": 100.77,
+                "mark field animation": 0.632,
+                "transition clock and dispatch": 24.457
+              },
+              "nearestMs": {
+                "named channel preparation": 0.628,
+                "target expression evaluation": 54.534,
+                "JAX hashing": 61.981,
+                "JAX array construction": 16.251,
+                "JAX submission CPU": 26.304,
+                "Tree host orchestration": 33.299,
+                "Tween evaluation": 4.911,
+                "JAX realization": 12.504,
+                "JAX indexing descriptions": 25.657,
+                "Text atlas and footprint preparation": 4.41,
+                "keyed lifecycle": 1.882,
+                "array field target publication": 4.986,
+                "mark field animation": 0.632,
+                "procedural current fields": 12.567,
+                "transition clock and dispatch": 23.829,
+                "buffered field preparation": 2.509,
+                "domain preparation": 1.251,
+                "Filter": 0.621
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 527.28
+        }
+      ],
+      "lastExpressionPlans": [
+        {
+          "consumer": "layout inputs",
+          "kind": "Tree",
+          "plans": 1,
+          "compiled": 78,
+          "fallback": 54,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 77,
+          "reasons": {
+            "host-managed operation: tween": 26,
+            "host value": 2,
+            "input representation or trace unsupported": 26
+          }
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 13,
+          "fallback": 13,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 12,
+          "reasons": {
+            "input representation or trace unsupported": 13
+          }
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Rect",
+          "label": "Studio workload",
+          "plans": 1,
+          "compiled": 104,
+          "fallback": 26,
+          "lookups": 1760,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 103,
+          "reasons": {
+            "input representation or trace unsupported": 26
+          }
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 6,
+          "compiled": 2320,
+          "fallback": 464,
+          "lookups": 878,
+          "traceFailures": 0,
+          "traces": 6,
+          "hits": 2314,
+          "reasons": {
+            "input representation or trace unsupported": 464
+          }
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 0,
+          "compiled": 0,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 0,
+          "hits": 0,
+          "reasons": {}
+        }
+      ],
+      "means": {
+        "wallMs": 1563.22,
+        "completedFrames": 76,
+        "frameP50": 16.66,
+        "frameP95": 24.16,
+        "maxGap": 266.71,
+        "boundsUpdatesPerSecond": 55.949,
+        "activeCpuMs": 548.39
+      },
+      "sourceMapFingerprints": {
+        "chunk-ZHMSHE3J.js.map": "cd3badfdf0c061bccc871c6a1c08439eb09358e18ec949ff53c6fb6cceebd0a3",
+        "chunk-MXL3RCYT.js.map": "87dbec92d41821963e16c85d70f45123134813b9683dac03652f9d5d406a3493",
+        "chunk-KWPVD4H7.js.map": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9",
+        "chunk-F33TH5KI.js.map": "8bcff980e89cbe323420e247daa4484c78dd1d377eeddc4d0dd7fb153a38ee40",
+        "chunk-IM2PV6P7.js.map": "126ee2dd20987d2f1173ca7b4ffe0ae86e4047e7f5bb35010c3e26506790d41f",
+        "webgpu-BJwlieBg-OMSCSCFI.js.map": "cfb0eff080601d822a0dd3cd948a7ba493b6724c3d60e52ddbb92af116b61ba4",
+        "chunk-K4OIMFR7.js.map": "4fd7a0f1f727f6d2b19a2d29ef65f2e47be9912836f4d73ee522fb888ebb71c6",
+        "@hmplot_jax.js.map": "4cc5134ec424942b9d617e44716bade8d6c7c8921e1a5f09e8caf9f025628ab6",
+        "d3.js.map": "266c196ec0d507c1f5fefb5ae465ca2ce363e60663461eebf860ef0e7cb2b129",
+        "chunk-NYUZAQGG.js.map": "3a196746c592f757db64f24703bdf68f8eb7462cfc5c66b42c6687ed2ff3a184",
+        "chunk-B6TJ2Q2L.js.map": "c8c4982e99c2a7ef5a14bb8686ee7e64e1ad805faf0a4c3e00e627c032967fa9"
+      },
+      "artifactRanges": {
+        "vendor/jax-js/dist/backend-DYcOJOqU.js": {
+          "sha256": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "ranges": [
+            {
+              "group": "JAX indexing descriptions",
+              "from": 2486,
+              "to": 2496
+            },
+            {
+              "group": "JAX hashing",
+              "from": 631,
+              "to": 642
+            },
+            {
+              "group": "JAX hashing",
+              "from": 643,
+              "to": 645
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1364,
+              "to": 1366
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1418,
+              "to": 1420
+            },
+            {
+              "group": "JAX hashing",
+              "from": 2199,
+              "to": 2206
+            },
+            {
+              "group": "JAX hashing",
+              "from": 2508,
+              "to": 2511
+            }
+          ]
+        },
+        "vendor/jax-js/dist/webgpu-BJwlieBg.js": {
+          "sha256": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "ranges": [
+            {
+              "group": "JAX submission CPU",
+              "from": 2211,
+              "to": 2248
+            },
+            {
+              "group": "JAX submission CPU",
+              "from": 1993,
+              "to": 2007
+            }
+          ]
+        },
+        "vendor/jax-js/dist/rolldown-runtime-D7D4PA-g.js": {
+          "sha256": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "ranges": []
+        },
+        "vendor/jax-js/dist/index.js": {
+          "sha256": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "ranges": [
+            {
+              "group": "JAX array construction",
+              "from": 2572,
+              "to": 2584
+            },
+            {
+              "group": "JAX array construction",
+              "from": 2600,
+              "to": 2610
+            },
+            {
+              "group": "JAX realization",
+              "from": 2922,
+              "to": 2954
+            },
+            {
+              "group": "JAX submission CPU",
+              "from": 2537,
+              "to": 2545
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1244,
+              "to": 1268
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1269,
+              "to": 1271
+            }
+          ]
+        }
+      }
+    },
+    {
+      "build": "fixed",
+      "measurement": "plain",
+      "rawDirectory": "<tmp>/hmplot-scene-metadata-fixed-plain",
+      "summarySHA256": "c289c80cfd43cb3bcfb58907dee8f30ca933f3a32fe644fd053c1c4077bf4368",
+      "browser": "154.0.8037.98",
+      "sourceFingerprint": {
+        "sha256": "678a4e337354f2af93d74ac07fc29b433b2daddccaeaa90341cd2c6fcbf10c5c",
+        "files": 580
+      },
+      "sourceVerification": {
+        "method": "App-relative Vite raw modules/source downloads compared with local bytes",
+        "scope": "Representative source files; this does not fingerprint every executed compiled chunk.",
+        "verified": true,
+        "files": [
+          {
+            "path": "src/lib/plot/bound/namedMark.svelte",
+            "localSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5",
+            "servedSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5"
+          },
+          {
+            "path": "src/lib/plot/marks/labels.svelte",
+            "localSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12",
+            "servedSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12"
+          },
+          {
+            "path": "src/lib/plot/utils/expressions.js",
+            "localSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e",
+            "servedSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e"
+          },
+          {
+            "path": "src/lib/plot/utils/namedData.js",
+            "localSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386",
+            "servedSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386"
+          },
+          {
+            "path": "src/examples/sunburst/sunburst.svelte",
+            "localSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080",
+            "servedSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080"
+          },
+          {
+            "path": "src/lib/scene/resources.js",
+            "localSHA256": "8144031167625dc6992547a5c2b770e1e9db14018c6dc4e6e763cb2f0c6446ce",
+            "servedSHA256": "8144031167625dc6992547a5c2b770e1e9db14018c6dc4e6e763cb2f0c6446ce"
+          }
+        ]
+      },
+      "finalPngSHA256": "e28b6dac612759165c3300110fecb7dd332390bb456317937d8d499dab58207d",
+      "errors": [],
+      "flights": [
+        {
+          "flight": 3,
+          "direction": "zoom",
+          "wallMs": 1390.4,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 23.8,
+          "maxGap": 88.3,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 661.6,
+            "updatesPerSecond": 57.437
+          }
+        },
+        {
+          "flight": 4,
+          "direction": "reset",
+          "wallMs": 1382.7,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 24.4,
+          "maxGap": 84.3,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 644.4,
+            "updatesPerSecond": 57.418
+          }
+        },
+        {
+          "flight": 5,
+          "direction": "zoom",
+          "wallMs": 1406.9,
+          "completedFrames": 78,
+          "frameP50": 16.7,
+          "frameP95": 22.3,
+          "maxGap": 88.4,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 750.6,
+            "updatesPerSecond": 49.294
+          }
+        },
+        {
+          "flight": 6,
+          "direction": "reset",
+          "wallMs": 1408.3,
+          "completedFrames": 79,
+          "frameP50": 16.6,
+          "frameP95": 20.4,
+          "maxGap": 90.5,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 750.7,
+            "updatesPerSecond": 50.619
+          }
+        },
+        {
+          "flight": 7,
+          "direction": "zoom",
+          "wallMs": 1384.9,
+          "completedFrames": 78,
+          "frameP50": 16.7,
+          "frameP95": 17.5,
+          "maxGap": 88.4,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 644.1,
+            "updatesPerSecond": 58.997
+          }
+        },
+        {
+          "flight": 8,
+          "direction": "reset",
+          "wallMs": 1374,
+          "completedFrames": 78,
+          "frameP50": 16.6,
+          "frameP95": 19.5,
+          "maxGap": 73.3,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 717.6,
+            "updatesPerSecond": 51.561
+          }
+        },
+        {
+          "flight": 9,
+          "direction": "zoom",
+          "wallMs": 1376.1,
+          "completedFrames": 80,
+          "frameP50": 16.6,
+          "frameP95": 17.4,
+          "maxGap": 73.5,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 39,
+            "sampledMotionMs": 717.9,
+            "updatesPerSecond": 54.325
+          }
+        },
+        {
+          "flight": 10,
+          "direction": "reset",
+          "wallMs": 1373.8,
+          "completedFrames": 79,
+          "frameP50": 16.7,
+          "frameP95": 18,
+          "maxGap": 77.2,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 39,
+            "sampledMotionMs": 644.5,
+            "updatesPerSecond": 60.512
+          }
+        },
+        {
+          "flight": 11,
+          "direction": "zoom",
+          "wallMs": 1362.6,
+          "completedFrames": 75,
+          "frameP50": 16.7,
+          "frameP95": 24.5,
+          "maxGap": 65.6,
+          "markWork": {
+            "liveGeometryWrites": 72,
+            "staticMarkReuses": 36,
+            "preparationRequests": 114,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 35,
+            "sampledMotionMs": 644.5,
+            "updatesPerSecond": 54.306
+          }
+        },
+        {
+          "flight": 12,
+          "direction": "reset",
+          "wallMs": 1375.7,
+          "completedFrames": 80,
+          "frameP50": 16.7,
+          "frameP95": 19.1,
+          "maxGap": 71.8,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 39,
+            "sampledMotionMs": 716.7,
+            "updatesPerSecond": 54.416
+          }
+        }
+      ],
+      "lastExpressionPlans": [
+        {
+          "consumer": "layout inputs",
+          "kind": "Tree",
+          "plans": 2,
+          "compiled": 52,
+          "fallback": 28,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 2,
+          "hits": 50,
+          "reasons": {
+            "host-managed operation: tween": 26,
+            "host value": 2
+          }
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 13,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 12,
+          "reasons": {}
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Rect",
+          "label": "Studio workload",
+          "plans": 1,
+          "compiled": 26,
+          "fallback": 0,
+          "lookups": 1864,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 25,
+          "reasons": {}
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 2,
+          "compiled": 490,
+          "fallback": 0,
+          "lookups": 930,
+          "traceFailures": 0,
+          "traces": 2,
+          "hits": 488,
+          "reasons": {}
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 0,
+          "compiled": 0,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 0,
+          "hits": 0,
+          "reasons": {}
+        }
+      ],
+      "means": {
+        "wallMs": 1383.54,
+        "completedFrames": 78.1,
+        "frameP50": 16.67,
+        "frameP95": 20.69,
+        "maxGap": 80.13,
+        "boundsUpdatesPerSecond": 54.888
+      }
+    },
+    {
+      "build": "fixed",
+      "measurement": "cpu",
+      "rawDirectory": "<tmp>/hmplot-scene-metadata-fixed-cpu",
+      "summarySHA256": "47a1a76738634fc8eb9a246070e44c3949ed11e7f6cd301d54c3481ed7c04497",
+      "browser": "154.0.8037.98",
+      "sourceFingerprint": {
+        "sha256": "678a4e337354f2af93d74ac07fc29b433b2daddccaeaa90341cd2c6fcbf10c5c",
+        "files": 580
+      },
+      "sourceVerification": {
+        "method": "App-relative Vite raw modules/source downloads compared with local bytes",
+        "scope": "Representative source files; this does not fingerprint every executed compiled chunk.",
+        "verified": true,
+        "files": [
+          {
+            "path": "src/lib/plot/bound/namedMark.svelte",
+            "localSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5",
+            "servedSHA256": "55f4d05aa2812e9fdef17123de995d75f2ed31b7e244d3b485c954b18ffc38a5"
+          },
+          {
+            "path": "src/lib/plot/marks/labels.svelte",
+            "localSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12",
+            "servedSHA256": "492b25fe0bf8b53d3335d12d7d0aad4e5cea7d04f6d0a22a474f5674ba995e12"
+          },
+          {
+            "path": "src/lib/plot/utils/expressions.js",
+            "localSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e",
+            "servedSHA256": "bc40a05e31843b0a1d9e7426e6504df9f01cfea0373fa7660ec571f3b7e0437e"
+          },
+          {
+            "path": "src/lib/plot/utils/namedData.js",
+            "localSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386",
+            "servedSHA256": "7dd580004f47f150133b0e0cf122546ce3ade5768a0ca16e757f009a16c71386"
+          },
+          {
+            "path": "src/examples/sunburst/sunburst.svelte",
+            "localSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080",
+            "servedSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080"
+          },
+          {
+            "path": "src/lib/scene/resources.js",
+            "localSHA256": "8144031167625dc6992547a5c2b770e1e9db14018c6dc4e6e763cb2f0c6446ce",
+            "servedSHA256": "8144031167625dc6992547a5c2b770e1e9db14018c6dc4e6e763cb2f0c6446ce"
+          }
+        ]
+      },
+      "finalPngSHA256": "e28b6dac612759165c3300110fecb7dd332390bb456317937d8d499dab58207d",
+      "errors": [],
+      "flights": [
+        {
+          "flight": 3,
+          "direction": "zoom",
+          "wallMs": 1491.9,
+          "completedFrames": 78,
+          "frameP50": 16.6,
+          "frameP95": 22.4,
+          "maxGap": 192.1,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 644.9,
+            "updatesPerSecond": 58.924
+          },
+          "cpu": {
+            "profileSHA256": "061af5358aad0e3aa5d80563b2ec38c9d6f050be3951f804144522d746eb9c50",
+            "sampledMs": 1502.978,
+            "categories": {
+              "(program)": 157.895,
+              "HMPlot CPU runtime": 162.925,
+              "jax-js CPU construction/dispatch": 176.479,
+              "(idle)": 853.375,
+              "Svelte CPU/dev runtime": 100.177,
+              "Three CPU runtime": 26.266,
+              "(garbage collector)": 23.589,
+              "other/unresolved": 2.272
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 9.036,
+                "target expression evaluation": 15.13,
+                "Text atlas and footprint preparation": 7.479,
+                "domain preparation": 10.5,
+                "Tree host orchestration": 61.751,
+                "JAX submission CPU": 23.434,
+                "Tween evaluation": 29.527,
+                "JAX realization": 48.459,
+                "array field target publication": 30.388,
+                "buffered field preparation": 36.217,
+                "JAX hashing": 29.615,
+                "transition clock and dispatch": 42.083,
+                "keyed lifecycle": 4.251,
+                "JAX array construction": 8.291,
+                "procedural current fields": 52.238,
+                "JAX indexing descriptions": 27.837,
+                "Filter": 0.756
+              },
+              "nearestMs": {
+                "named channel preparation": 7.527,
+                "target expression evaluation": 14.392,
+                "Text atlas and footprint preparation": 4.459,
+                "Tree host orchestration": 24.168,
+                "JAX submission CPU": 23.434,
+                "Tween evaluation": 7.711,
+                "JAX realization": 10.549,
+                "JAX hashing": 29.615,
+                "keyed lifecycle": 0.755,
+                "JAX array construction": 8.291,
+                "array field target publication": 9.02,
+                "buffered field preparation": 6.59,
+                "procedural current fields": 15.668,
+                "JAX indexing descriptions": 27.837,
+                "transition clock and dispatch": 39.819,
+                "domain preparation": 3.014,
+                "Filter": 0.756
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 491.708
+        },
+        {
+          "flight": 4,
+          "direction": "reset",
+          "wallMs": 1510.1,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 23,
+          "maxGap": 212.5,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 644.0,
+            "updatesPerSecond": 57.453
+          },
+          "cpu": {
+            "profileSHA256": "94210da62f6d9ef1c1726ed2d2d4d79e7f01468925a595f0b98276ebd81c33ae",
+            "sampledMs": 1519.257,
+            "categories": {
+              "(program)": 175.235,
+              "(idle)": 888.287,
+              "HMPlot CPU runtime": 130.056,
+              "jax-js CPU construction/dispatch": 179.482,
+              "Svelte CPU/dev runtime": 98.455,
+              "Three CPU runtime": 28.359,
+              "(garbage collector)": 17.144,
+              "other/unresolved": 2.239
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 21.283,
+                "target expression evaluation": 17.33,
+                "named channel preparation": 4.457,
+                "mark field animation": 2.268,
+                "domain preparation": 7.497,
+                "Filter": 0.761,
+                "Tree host orchestration": 66.222,
+                "Tween evaluation": 31.3,
+                "JAX submission CPU": 22.491,
+                "Text atlas and footprint preparation": 5.254,
+                "JAX realization": 43.339,
+                "array field target publication": 21.802,
+                "buffered field preparation": 26.287,
+                "keyed lifecycle": 3.677,
+                "JAX indexing descriptions": 33.324,
+                "procedural current fields": 56.948,
+                "transition clock and dispatch": 30.059,
+                "JAX array construction": 10.376
+              },
+              "nearestMs": {
+                "JAX hashing": 21.283,
+                "mark field animation": 2.268,
+                "named channel preparation": 2.971,
+                "target expression evaluation": 16.598,
+                "Tree host orchestration": 24.635,
+                "Tween evaluation": 5.255,
+                "JAX submission CPU": 22.491,
+                "Text atlas and footprint preparation": 2.981,
+                "keyed lifecycle": 2.944,
+                "JAX indexing descriptions": 33.324,
+                "buffered field preparation": 4.979,
+                "procedural current fields": 24.094,
+                "domain preparation": 2.251,
+                "transition clock and dispatch": 27.034,
+                "array field target publication": 6.77,
+                "JAX array construction": 10.376,
+                "JAX realization": 7.504
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 455.735
+        },
+        {
+          "flight": 5,
+          "direction": "zoom",
+          "wallMs": 1530.2,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 21.1,
+          "maxGap": 232.7,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 645.0,
+            "updatesPerSecond": 55.814
+          },
+          "cpu": {
+            "profileSHA256": "e80d27ae074fab294847fd0f9dad6620e643190272b2d910daabb47bead2a852",
+            "sampledMs": 1538.951,
+            "categories": {
+              "(program)": 196.08,
+              "(idle)": 886.346,
+              "HMPlot CPU runtime": 140.078,
+              "jax-js CPU construction/dispatch": 174.564,
+              "Svelte CPU/dev runtime": 78.649,
+              "Three CPU runtime": 14.351,
+              "(garbage collector)": 45.867,
+              "other/unresolved": 3.016
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 32.92,
+                "named channel preparation": 3.601,
+                "JAX submission CPU": 21.258,
+                "mark field animation": 1.504,
+                "target expression evaluation": 18.066,
+                "Filter": 0.735,
+                "Tree host orchestration": 66.549,
+                "Tween evaluation": 34.619,
+                "JAX array construction": 12.774,
+                "Text atlas and footprint preparation": 7.101,
+                "domain preparation": 6.34,
+                "buffered field preparation": 29.623,
+                "keyed lifecycle": 5.984,
+                "JAX realization": 38.252,
+                "array field target publication": 23.065,
+                "JAX indexing descriptions": 26.261,
+                "procedural current fields": 56.409,
+                "transition clock and dispatch": 35.284
+              },
+              "nearestMs": {
+                "JAX hashing": 32.92,
+                "JAX submission CPU": 21.258,
+                "mark field animation": 1.504,
+                "target expression evaluation": 16.582,
+                "named channel preparation": 0.571,
+                "Filter": 0.735,
+                "Tree host orchestration": 22.879,
+                "Tween evaluation": 8.275,
+                "JAX array construction": 12.774,
+                "buffered field preparation": 7.492,
+                "keyed lifecycle": 3.743,
+                "JAX indexing descriptions": 26.261,
+                "array field target publication": 8.863,
+                "JAX realization": 6.72,
+                "transition clock and dispatch": 32.259,
+                "procedural current fields": 17.072,
+                "Text atlas and footprint preparation": 4.835
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 456.525
+        },
+        {
+          "flight": 6,
+          "direction": "reset",
+          "wallMs": 1502.9,
+          "completedFrames": 79,
+          "frameP50": 16.7,
+          "frameP95": 19.7,
+          "maxGap": 206.4,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 39,
+            "sampledMotionMs": 645.0,
+            "updatesPerSecond": 60.465
+          },
+          "cpu": {
+            "profileSHA256": "f401c7fe1ad9135e1dc532f55d9fa362a8e692d6efa45152cfc6f7cea0cca958",
+            "sampledMs": 1506.68,
+            "categories": {
+              "(program)": 166.289,
+              "(idle)": 938.367,
+              "HMPlot CPU runtime": 126.904,
+              "jax-js CPU construction/dispatch": 156.418,
+              "Svelte CPU/dev runtime": 87.53,
+              "Three CPU runtime": 11.448,
+              "(garbage collector)": 17.459,
+              "other/unresolved": 2.265
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 5.263,
+                "target expression evaluation": 16.036,
+                "mark field animation": 2.994,
+                "domain preparation": 8.299,
+                "Filter": 3.006,
+                "Tree host orchestration": 48.337,
+                "Tween evaluation": 24.053,
+                "JAX hashing": 29.448,
+                "Text atlas and footprint preparation": 7.531,
+                "JAX submission CPU": 24.788,
+                "JAX array construction": 9.754,
+                "JAX indexing descriptions": 23.255,
+                "JAX realization": 35.018,
+                "keyed lifecycle": 3.734,
+                "array field target publication": 20.551,
+                "buffered field preparation": 29.402,
+                "procedural current fields": 49.768,
+                "transition clock and dispatch": 28.351
+              },
+              "nearestMs": {
+                "named channel preparation": 2.988,
+                "target expression evaluation": 10.758,
+                "mark field animation": 2.994,
+                "Filter": 3.006,
+                "Tree host orchestration": 16.627,
+                "Tween evaluation": 9.192,
+                "JAX hashing": 29.448,
+                "Text atlas and footprint preparation": 3.743,
+                "JAX submission CPU": 24.788,
+                "JAX array construction": 9.754,
+                "JAX indexing descriptions": 23.255,
+                "keyed lifecycle": 1.487,
+                "JAX realization": 6.004,
+                "procedural current fields": 16.087,
+                "transition clock and dispatch": 27.605,
+                "array field target publication": 7.286,
+                "buffered field preparation": 5.851,
+                "domain preparation": 0.748
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 402.024
+        },
+        {
+          "flight": 7,
+          "direction": "zoom",
+          "wallMs": 1544.2,
+          "completedFrames": 79,
+          "frameP50": 16.7,
+          "frameP95": 21.1,
+          "maxGap": 246.5,
+          "markWork": {
+            "liveGeometryWrites": 80,
+            "staticMarkReuses": 40,
+            "preparationRequests": 126,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 39,
+            "sampledMotionMs": 645.4,
+            "updatesPerSecond": 60.428
+          },
+          "cpu": {
+            "profileSHA256": "cc1d218e1fb520fdcbe0867326684d27c36122e5b33c3d6e5e8e13dbe05f5e71",
+            "sampledMs": 1550.421,
+            "categories": {
+              "(program)": 204.273,
+              "jax-js CPU construction/dispatch": 167.076,
+              "(idle)": 918.17,
+              "Svelte CPU/dev runtime": 81.354,
+              "HMPlot CPU runtime": 145.507,
+              "(garbage collector)": 19.856,
+              "Three CPU runtime": 11.957,
+              "other/unresolved": 2.228
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "named channel preparation": 7.25,
+                "target expression evaluation": 17.745,
+                "JAX array construction": 8.267,
+                "Filter": 2.211,
+                "Tree host orchestration": 55.819,
+                "Tween evaluation": 20.229,
+                "JAX hashing": 38.889,
+                "domain preparation": 6.534,
+                "JAX indexing descriptions": 26.162,
+                "JAX realization": 47.109,
+                "JAX submission CPU": 12.332,
+                "array field target publication": 33.564,
+                "buffered field preparation": 32.864,
+                "transition clock and dispatch": 35.651,
+                "keyed lifecycle": 4.486,
+                "mark field animation": 1.494,
+                "procedural current fields": 51.24,
+                "Text atlas and footprint preparation": 4.228
+              },
+              "nearestMs": {
+                "named channel preparation": 3.581,
+                "target expression evaluation": 9.617,
+                "JAX array construction": 8.267,
+                "Filter": 2.211,
+                "Tree host orchestration": 25.805,
+                "Tween evaluation": 6.761,
+                "JAX hashing": 38.889,
+                "domain preparation": 1.577,
+                "JAX indexing descriptions": 26.162,
+                "JAX submission CPU": 12.332,
+                "array field target publication": 11.849,
+                "keyed lifecycle": 2.247,
+                "mark field animation": 1.494,
+                "procedural current fields": 18,
+                "Text atlas and footprint preparation": 2.73,
+                "transition clock and dispatch": 32.628,
+                "JAX realization": 8.978,
+                "buffered field preparation": 2.153
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 427.978
+        },
+        {
+          "flight": 8,
+          "direction": "reset",
+          "wallMs": 1554.8,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 24.3,
+          "maxGap": 258.2,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 645.0,
+            "updatesPerSecond": 57.364
+          },
+          "cpu": {
+            "profileSHA256": "dce513146423cde87264e2c252b0fe91edec823eecf950e7a3de9959c322ced8",
+            "sampledMs": 1558.233,
+            "categories": {
+              "(program)": 206.041,
+              "HMPlot CPU runtime": 123.751,
+              "(idle)": 949.486,
+              "Svelte CPU/dev runtime": 87.589,
+              "jax-js CPU construction/dispatch": 163.41,
+              "(garbage collector)": 19.608,
+              "Three CPU runtime": 6.839,
+              "other/unresolved": 1.509
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 27.263,
+                "target expression evaluation": 20.939,
+                "named channel preparation": 3.72,
+                "domain preparation": 5.994,
+                "Filter": 0.754,
+                "Tree host orchestration": 64.588,
+                "Tween evaluation": 32.151,
+                "JAX indexing descriptions": 30.654,
+                "JAX realization": 47.17,
+                "array field target publication": 27.003,
+                "buffered field preparation": 32.209,
+                "transition clock and dispatch": 31.367,
+                "JAX submission CPU": 15.894,
+                "keyed lifecycle": 2.995,
+                "mark field animation": 2.254,
+                "JAX array construction": 10.253,
+                "procedural current fields": 51.091,
+                "Text atlas and footprint preparation": 3.758
+              },
+              "nearestMs": {
+                "JAX hashing": 27.263,
+                "named channel preparation": 1.481,
+                "Tree host orchestration": 24.47,
+                "JAX indexing descriptions": 30.654,
+                "target expression evaluation": 16.479,
+                "JAX realization": 8.988,
+                "array field target publication": 7.502,
+                "JAX submission CPU": 15.894,
+                "keyed lifecycle": 2.24,
+                "mark field animation": 2.254,
+                "JAX array construction": 10.253,
+                "buffered field preparation": 5.204,
+                "transition clock and dispatch": 27.608,
+                "procedural current fields": 17.909,
+                "Text atlas and footprint preparation": 3.005,
+                "Tween evaluation": 7.485,
+                "domain preparation": 1.511
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 402.706
+        },
+        {
+          "flight": 9,
+          "direction": "zoom",
+          "wallMs": 1562.4,
+          "completedFrames": 77,
+          "frameP50": 16.7,
+          "frameP95": 23.7,
+          "maxGap": 265.3,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 644.7,
+            "updatesPerSecond": 57.391
+          },
+          "cpu": {
+            "profileSHA256": "8076500a3e8c100ccc4ae61c62ef6e63fccb9669624d890c72442c8ebe254224",
+            "sampledMs": 1568.511,
+            "categories": {
+              "(program)": 225.235,
+              "(idle)": 923.12,
+              "HMPlot CPU runtime": 133.593,
+              "jax-js CPU construction/dispatch": 172.739,
+              "Svelte CPU/dev runtime": 84.757,
+              "(garbage collector)": 17.674,
+              "Three CPU runtime": 8.373,
+              "other/unresolved": 3.02
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 27.497,
+                "named channel preparation": 6.728,
+                "target expression evaluation": 22.005,
+                "Text atlas and footprint preparation": 5.972,
+                "domain preparation": 7.481,
+                "Tree host orchestration": 62.673,
+                "Tween evaluation": 30.75,
+                "mark field animation": 3.757,
+                "JAX submission CPU": 17.44,
+                "Filter": 1.524,
+                "array field target publication": 23.651,
+                "buffered field preparation": 26.348,
+                "keyed lifecycle": 4.485,
+                "JAX array construction": 8.968,
+                "procedural current fields": 53.077,
+                "JAX realization": 45.034,
+                "JAX indexing descriptions": 28.743,
+                "transition clock and dispatch": 29.548
+              },
+              "nearestMs": {
+                "JAX hashing": 27.497,
+                "named channel preparation": 2.264,
+                "target expression evaluation": 13.792,
+                "Text atlas and footprint preparation": 5.972,
+                "Tree host orchestration": 23.518,
+                "Tween evaluation": 9.087,
+                "mark field animation": 3.757,
+                "JAX submission CPU": 17.44,
+                "Filter": 1.524,
+                "array field target publication": 7.377,
+                "keyed lifecycle": 2.218,
+                "JAX array construction": 8.968,
+                "procedural current fields": 20.6,
+                "JAX indexing descriptions": 28.743,
+                "JAX realization": 7.264,
+                "transition clock and dispatch": 27.603,
+                "buffered field preparation": 4.745,
+                "domain preparation": 1.509
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 420.156
+        },
+        {
+          "flight": 10,
+          "direction": "reset",
+          "wallMs": 1590.4,
+          "completedFrames": 77,
+          "frameP50": 16.6,
+          "frameP95": 18.5,
+          "maxGap": 305.2,
+          "markWork": {
+            "liveGeometryWrites": 76,
+            "staticMarkReuses": 38,
+            "preparationRequests": 120,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 37,
+            "sampledMotionMs": 632.6,
+            "updatesPerSecond": 58.489
+          },
+          "cpu": {
+            "profileSHA256": "4d4087ff0c9a4a31f56b4be5a29ffb591001d61336fbe1f4e437ef754e6c7c4d",
+            "sampledMs": 1597.759,
+            "categories": {
+              "(program)": 249.036,
+              "HMPlot CPU runtime": 110.79,
+              "Svelte CPU/dev runtime": 90.855,
+              "(idle)": 917.772,
+              "jax-js CPU construction/dispatch": 183.234,
+              "Three CPU runtime": 23.624,
+              "(garbage collector)": 18.192,
+              "other/unresolved": 4.256
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX hashing": 23.327,
+                "named channel preparation": 5.022,
+                "target expression evaluation": 11.184,
+                "Tree host orchestration": 65.618,
+                "Tween evaluation": 32.333,
+                "JAX array construction": 11.973,
+                "JAX submission CPU": 24.814,
+                "domain preparation": 6.745,
+                "array field target publication": 25.01,
+                "transition clock and dispatch": 32.23,
+                "keyed lifecycle": 2.992,
+                "buffered field preparation": 33.207,
+                "JAX indexing descriptions": 34.6,
+                "JAX realization": 48.526,
+                "procedural current fields": 47.044,
+                "Text atlas and footprint preparation": 5.248,
+                "mark field animation": 1.514,
+                "Filter": 0.756
+              },
+              "nearestMs": {
+                "JAX hashing": 23.327,
+                "target expression evaluation": 8.921,
+                "Tree host orchestration": 22.752,
+                "Tween evaluation": 3.729,
+                "JAX array construction": 11.973,
+                "named channel preparation": 1.315,
+                "JAX submission CPU": 24.814,
+                "array field target publication": 8.85,
+                "keyed lifecycle": 1.51,
+                "JAX indexing descriptions": 34.6,
+                "buffered field preparation": 7.543,
+                "procedural current fields": 19.344,
+                "transition clock and dispatch": 30.749,
+                "JAX realization": 10.724,
+                "Text atlas and footprint preparation": 3.746,
+                "mark field animation": 1.514,
+                "domain preparation": 0.756,
+                "Filter": 0.756
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 430.951
+        },
+        {
+          "flight": 11,
+          "direction": "zoom",
+          "wallMs": 1616.7,
+          "completedFrames": 76,
+          "frameP50": 16.7,
+          "frameP95": 23.4,
+          "maxGap": 316.4,
+          "markWork": {
+            "liveGeometryWrites": 74,
+            "staticMarkReuses": 37,
+            "preparationRequests": 117,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 36,
+            "sampledMotionMs": 644.9,
+            "updatesPerSecond": 55.823
+          },
+          "cpu": {
+            "profileSHA256": "77d10bedd5aef495fd1f43d8f46b602447e040a8e846dc543a3c0eb69bf044a6",
+            "sampledMs": 1625.414,
+            "categories": {
+              "(program)": 266.485,
+              "HMPlot CPU runtime": 144.965,
+              "(idle)": 870.272,
+              "jax-js CPU construction/dispatch": 188.008,
+              "Svelte CPU/dev runtime": 103.456,
+              "other/unresolved": 4.487,
+              "Three CPU runtime": 28.365,
+              "(garbage collector)": 19.376
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "JAX indexing descriptions": 52.532,
+                "JAX realization": 65.546,
+                "target expression evaluation": 21.462,
+                "named channel preparation": 4.495,
+                "JAX array construction": 10.461,
+                "Filter": 0.739,
+                "Tree host orchestration": 85.065,
+                "JAX hashing": 27.197,
+                "Tween evaluation": 51.78,
+                "Text atlas and footprint preparation": 3.725,
+                "domain preparation": 5.991,
+                "JAX submission CPU": 22.412,
+                "transition clock and dispatch": 35.802,
+                "keyed lifecycle": 3.748,
+                "array field target publication": 25.801,
+                "buffered field preparation": 28.588,
+                "procedural current fields": 48.4,
+                "mark field animation": 0.759
+              },
+              "nearestMs": {
+                "JAX indexing descriptions": 52.532,
+                "target expression evaluation": 13.971,
+                "JAX array construction": 10.461,
+                "Tree host orchestration": 25.082,
+                "JAX hashing": 27.197,
+                "Text atlas and footprint preparation": 0.732,
+                "JAX submission CPU": 22.412,
+                "named channel preparation": 0.76,
+                "transition clock and dispatch": 32.778,
+                "keyed lifecycle": 1.51,
+                "JAX realization": 5.055,
+                "array field target publication": 9.017,
+                "buffered field preparation": 2.775,
+                "procedural current fields": 16.485,
+                "Tween evaluation": 11.268,
+                "mark field animation": 0.759,
+                "domain preparation": 1.506
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 488.657
+        },
+        {
+          "flight": 12,
+          "direction": "reset",
+          "wallMs": 1626,
+          "completedFrames": 78,
+          "frameP50": 16.7,
+          "frameP95": 18.6,
+          "maxGap": 327.7,
+          "markWork": {
+            "liveGeometryWrites": 78,
+            "staticMarkReuses": 39,
+            "preparationRequests": 123,
+            "numericExpressionsCompiled": 4,
+            "numericExpressionsFallback": 0
+          },
+          "errors": [],
+          "renderError": "",
+          "geometryProgress": {
+            "changedBounds": 38,
+            "sampledMotionMs": 645.0,
+            "updatesPerSecond": 58.915
+          },
+          "cpu": {
+            "profileSHA256": "39ace38201015a8edae8301046314aa77306d65511b9030eeea2d5d18d1eb171",
+            "sampledMs": 1634.985,
+            "categories": {
+              "(program)": 290.07,
+              "HMPlot CPU runtime": 140.293,
+              "(idle)": 875.872,
+              "Svelte CPU/dev runtime": 94.837,
+              "jax-js CPU construction/dispatch": 177.716,
+              "Three CPU runtime": 35.007,
+              "(garbage collector)": 18.214,
+              "other/unresolved": 2.976
+            },
+            "focusSamples": {
+              "inclusiveMs": {
+                "target expression evaluation": 16.904,
+                "named channel preparation": 2.254,
+                "Text atlas and footprint preparation": 6.081,
+                "domain preparation": 7.579,
+                "JAX array construction": 19.508,
+                "Tree host orchestration": 66.908,
+                "Tween evaluation": 32.365,
+                "JAX hashing": 24.713,
+                "JAX submission CPU": 18.695,
+                "JAX realization": 53.483,
+                "array field target publication": 31.557,
+                "buffered field preparation": 36.831,
+                "keyed lifecycle": 4.476,
+                "procedural current fields": 54.462,
+                "JAX indexing descriptions": 35.432,
+                "transition clock and dispatch": 27.967,
+                "Filter": 1.521,
+                "mark field animation": 1.485
+              },
+              "nearestMs": {
+                "target expression evaluation": 14.671,
+                "Text atlas and footprint preparation": 3.086,
+                "JAX array construction": 19.508,
+                "Tree host orchestration": 19.532,
+                "Tween evaluation": 5.225,
+                "JAX hashing": 24.713,
+                "JAX submission CPU": 18.695,
+                "keyed lifecycle": 3.723,
+                "JAX realization": 11.292,
+                "procedural current fields": 19.943,
+                "JAX indexing descriptions": 35.432,
+                "array field target publication": 10.511,
+                "transition clock and dispatch": 26.459,
+                "Filter": 1.521,
+                "domain preparation": 1.498,
+                "buffered field preparation": 3.774,
+                "mark field animation": 1.485
+              },
+              "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+            }
+          },
+          "activeCpuMs": 469.043
+        }
+      ],
+      "lastExpressionPlans": [
+        {
+          "consumer": "layout inputs",
+          "kind": "Tree",
+          "plans": 2,
+          "compiled": 52,
+          "fallback": 28,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 2,
+          "hits": 50,
+          "reasons": {
+            "host-managed operation: tween": 26,
+            "host value": 2
+          }
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 1,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 0,
+          "reasons": {}
+        },
+        {
+          "consumer": "transform inputs",
+          "kind": "Filter",
+          "plans": 1,
+          "compiled": 13,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 12,
+          "reasons": {}
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Rect",
+          "label": "Studio workload",
+          "plans": 1,
+          "compiled": 26,
+          "fallback": 0,
+          "lookups": 1852,
+          "traceFailures": 0,
+          "traces": 1,
+          "hits": 25,
+          "reasons": {}
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 2,
+          "compiled": 487,
+          "fallback": 0,
+          "lookups": 924,
+          "traceFailures": 0,
+          "traces": 2,
+          "hits": 485,
+          "reasons": {}
+        },
+        {
+          "consumer": "mark channels",
+          "mark": "Text",
+          "plans": 0,
+          "compiled": 0,
+          "fallback": 0,
+          "lookups": 0,
+          "traceFailures": 0,
+          "traces": 0,
+          "hits": 0,
+          "reasons": {}
+        }
+      ],
+      "means": {
+        "wallMs": 1552.96,
+        "completedFrames": 77.4,
+        "frameP50": 16.68,
+        "frameP95": 21.58,
+        "maxGap": 256.3,
+        "boundsUpdatesPerSecond": 58.107,
+        "activeCpuMs": 444.548
+      },
+      "sourceMapFingerprints": {
+        "chunk-ISWQPOCH.js.map": "32de73b2a7eab8593d7091e90b72869a60f86ae0e58bb7a2978179055aa00ec1",
+        "chunk-KWPVD4H7.js.map": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9",
+        "chunk-GGQEGUV2.js.map": "9932761b67faa22d08a0cd6a56ed077de7c1a0db9aa0f7638edcde8cd05c6f54",
+        "chunk-IM2PV6P7.js.map": "126ee2dd20987d2f1173ca7b4ffe0ae86e4047e7f5bb35010c3e26506790d41f",
+        "webgpu-BJwlieBg-BOASS5VO.js.map": "ef019b3b880ad87767bd48d65bd0e00228713181ceae41c7e4cc668412f4fb76",
+        "chunk-K4OIMFR7.js.map": "4fd7a0f1f727f6d2b19a2d29ef65f2e47be9912836f4d73ee522fb888ebb71c6",
+        "d3.js.map": "266c196ec0d507c1f5fefb5ae465ca2ce363e60663461eebf860ef0e7cb2b129",
+        "chunk-ZHMSHE3J.js.map": "cd3badfdf0c061bccc871c6a1c08439eb09358e18ec949ff53c6fb6cceebd0a3",
+        "chunk-MXL3RCYT.js.map": "87dbec92d41821963e16c85d70f45123134813b9683dac03652f9d5d406a3493",
+        "@hmplot_jax.js.map": "7303d1fa88f2522f4decd27f5d1fb4acfab17bb749ea609594a6e5a7de9da50d",
+        "chunk-NYUZAQGG.js.map": "3a196746c592f757db64f24703bdf68f8eb7462cfc5c66b42c6687ed2ff3a184",
+        "chunk-B6TJ2Q2L.js.map": "c8c4982e99c2a7ef5a14bb8686ee7e64e1ad805faf0a4c3e00e627c032967fa9"
+      },
+      "artifactRanges": {
+        "vendor/jax-js/dist/backend-DYcOJOqU.js": {
+          "sha256": "d68ab8268aa424aa59f3d5e75b918d8ac778dfa21c0eff0ae2f9e4b523f804d5",
+          "ranges": [
+            {
+              "group": "JAX indexing descriptions",
+              "from": 2486,
+              "to": 2496
+            },
+            {
+              "group": "JAX hashing",
+              "from": 631,
+              "to": 642
+            },
+            {
+              "group": "JAX hashing",
+              "from": 643,
+              "to": 645
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1364,
+              "to": 1366
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1418,
+              "to": 1420
+            },
+            {
+              "group": "JAX hashing",
+              "from": 2199,
+              "to": 2206
+            },
+            {
+              "group": "JAX hashing",
+              "from": 2508,
+              "to": 2511
+            }
+          ]
+        },
+        "vendor/jax-js/dist/webgpu-BJwlieBg.js": {
+          "sha256": "dabdc4726a4c80745824c0f47ae583e2fe76536f31fa9f573db889685e08a3eb",
+          "ranges": [
+            {
+              "group": "JAX submission CPU",
+              "from": 2211,
+              "to": 2248
+            },
+            {
+              "group": "JAX submission CPU",
+              "from": 1993,
+              "to": 2007
+            }
+          ]
+        },
+        "vendor/jax-js/dist/rolldown-runtime-D7D4PA-g.js": {
+          "sha256": "16a983b80655888fa521be8504570aef2fc3713d1a723ff439beddac3a2428c3",
+          "ranges": []
+        },
+        "vendor/jax-js/dist/index.js": {
+          "sha256": "ae0229837002a1f02b9945aadd5e66c37b89b49c37b5087fb1dbc94cff3f03a3",
+          "ranges": [
+            {
+              "group": "JAX array construction",
+              "from": 2572,
+              "to": 2584
+            },
+            {
+              "group": "JAX array construction",
+              "from": 2600,
+              "to": 2610
+            },
+            {
+              "group": "JAX realization",
+              "from": 2922,
+              "to": 2954
+            },
+            {
+              "group": "JAX submission CPU",
+              "from": 2537,
+              "to": 2545
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1244,
+              "to": 1268
+            },
+            {
+              "group": "JAX hashing",
+              "from": 1269,
+              "to": 1271
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

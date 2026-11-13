@@ -1,0 +1,5 @@
+## Usage
+
+Calendar functions read a datetime column and run on the GPU with the rest of an expression: in a `Calculate` column, a `Filter` condition or a mark channel. `year`, `quarter`, `month`, `week` (ISO), `day`, `weekday` (Monday is 0), `day_of_year`, `hour`, `minute` and `second` give numbers; `month_name` and `day_name` give ordered categories, so a `Group` by them lists January first and Monday first; `time_floor(t, "1 month")` gives the start of the month (or week, day, hour...) each time falls in, and stays a time.
+
+They work in the column's time zone (a time-zone-aware pandas, Polars or Arrow column carries one; JavaScript Dates and naive times are UTC) unless `{ tz }` names another. A zone's changes of UTC offset over the column's range become one table on the GPU, so a zone costs nothing per row.

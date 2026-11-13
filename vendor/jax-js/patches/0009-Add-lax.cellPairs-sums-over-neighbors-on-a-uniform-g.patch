@@ -1,0 +1,558 @@
+From c4812a2ab6a0d0c8f66a345ff9155b5b1b3a043b Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 23:32:33 -0400
+Subject: [PATCH 09/10] Add lax.cellPairs: sums over neighbors on a uniform
+ grid
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+A routine (cpu, wasm, webgpu): for each query point, every source point
+in the grid cells within `radius` of its cell (sources sorted by cell,
+each cell a range), except itself, with one of three pair functions:
+d3's many-body force, a many-body force softened at max(d², 1e-3), and
+d3's collision. One thread per query loops over its neighbor cells'
+ranges, so any number of points may share a cell: heatmaptest's force
+layouts use it for the exact near field of their grid (TODO 30.1),
+where fixed-shape kernels had to cap the points per cell.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu/routines.ts | 110 +++++++++++++++++++++++++++++++++
+ src/frontend/array.ts          |   1 +
+ src/frontend/core.ts           |   9 ++-
+ src/frontend/jaxpr.ts          |   5 ++
+ src/frontend/jit.ts            |   1 +
+ src/frontend/jvp.ts            |   3 +
+ src/library/lax.ts             |  45 +++++++++++++-
+ src/routine.ts                 | 100 ++++++++++++++++++++++++++++++
+ test/lax.test.ts               |  69 +++++++++++++++++++++
+ 9 files changed, 341 insertions(+), 2 deletions(-)
+
+diff --git a/src/backend/webgpu/routines.ts b/src/backend/webgpu/routines.ts
+index 530e67f..a3875f3 100644
+--- a/src/backend/webgpu/routines.ts
++++ b/src/backend/webgpu/routines.ts
+@@ -11,6 +11,8 @@ import {
+ import { DType, isFloatDtype } from "../../alu";
+ import { UnsupportedRoutineError } from "../../backend";
+ import {
++  CellPairsKind,
++  type CellPairsParams,
+   Routine,
+   Routines,
+   RoutineType,
+@@ -395,6 +397,112 @@ fn atomic_add_f16(
+   }
+ }
+ 
++/**
++ * Sums over grid neighbors (see `Routines.CellPairs`): one thread per query, looping over the
++ * source ranges of the cells around it, so any number of points may share a cell. Sizes and the
++ * pair function are baked in; distanceMin² and distanceMax² come from a buffer.
++ */
++function createCellPairs(
++  device: GPUDevice,
++  type: RoutineType,
++  { kind, radius, grid }: CellPairsParams,
++): ShaderInfo[] {
++  const [n, d] = type.inputShapes[0];
++  const span = 2 * radius + 1;
++  const axes = range(d);
++  const workgroupSize = findPow2(Math.min(Math.max(n, 1), 64), 64);
++  const cellCoords = axes
++    .map(
++      (a) =>
++        `    let c${a} = i32(query_cell[i * ${d}u + ${a}u]) + i32((o / ${span ** a}u) % ${span}u) - ${radius};`,
++    )
++    .join("\n");
++  const inside = axes.map((a) => `c${a} < 0 || c${a} >= ${grid}`).join(" || ");
++  const flat = axes.map((a) => `c${a} * ${grid ** a}`).join(" + ");
++  const deltas = axes
++    .map((a) => `      var x${a} = position[i * ${d}u + ${a}u] - sorted_position[k * ${d}u + ${a}u];`)
++    .join("\n");
++  const distance = axes.map((a) => `x${a} * x${a}`).join(" + ");
++  const jitter = axes
++    .map((a) => `        x${a} = sin(pair * 0.731 + ${(a * 1.239).toFixed(3)}) * s * 0.001;`)
++    .join("\n");
++  let body: string;
++  if (kind === CellPairsKind.Collide) {
++    body = `
++      let ri = query_value[i];
++      let rj = sorted_value[k];
++      let r = ri + rj;
++      if (!(d2 < r * r)) { continue; }
++      let l = sqrt(max(d2, 1e-12));
++      let s2 = (r - l) / l * (rj * rj / max(ri * ri + rj * rj, 1e-12));
++${axes.map((a) => `      acc${a} += x${a} * s2;`).join("\n")}`;
++  } else {
++    const softened =
++      kind === CellPairsKind.ManyBodyLegacy
++        ? "max(d2, 1e-3)"
++        : "select(d2, sqrt(minimum2 * d2), d2 < minimum2)";
++    body = `
++      ${kind === CellPairsKind.ManyBody ? "if (!(d2 < maximum2)) { continue; }" : ""}
++      let q = sorted_value[k] / ${softened};
++${axes.map((a) => `      acc${a} -= x${a} * q;`).join("\n")}`;
++  }
++  const code = `
++${headerWgsl}
++
++@group(0) @binding(0) var<storage, read> position: array<f32>;
++@group(0) @binding(1) var<storage, read> query_cell: array<f32>;
++@group(0) @binding(2) var<storage, read> query_value: array<f32>;
++@group(0) @binding(3) var<storage, read> sorted_position: array<f32>;
++@group(0) @binding(4) var<storage, read> sorted_value: array<f32>;
++@group(0) @binding(5) var<storage, read> sorted_index: array<i32>;
++@group(0) @binding(6) var<storage, read> cell_start: array<i32>;
++@group(0) @binding(7) var<storage, read> cell_end: array<i32>;
++@group(0) @binding(8) var<storage, read> scalars: array<f32>;
++@group(0) @binding(9) var<storage, read_write> output: array<f32>;
++
++@compute @workgroup_size(${workgroupSize})
++fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
++  let i = global_id.x + global_id.y * ${gridOffsetY * workgroupSize}u;
++  if (i >= ${n}u) {
++    return;
++  }
++  let minimum2 = scalars[0];
++  let maximum2 = scalars[1];
++${axes.map((a) => `  var acc${a} = 0.0;`).join("\n")}
++  for (var o = 0u; o < ${span ** d}u; o++) {
++${cellCoords}
++    if (${inside}) { continue; }
++    let cell = ${flat};
++    let first = u32(cell_start[cell]);
++    let last = u32(cell_end[cell]);
++    for (var k = first; k < last; k++) {
++      let j = sorted_index[k];
++      if (j == i32(i)) { continue; }
++${deltas}
++      var d2 = ${distance};
++      if (d2 < 1e-12) {
++        let s = sign(f32(i32(i) - j));
++        let pair = f32(i32(i) + j);
++${jitter}
++        d2 = ${distance};
++      }
++${body}
++    }
++  }
++${axes.map((a) => `  output[i * ${d}u + ${a}u] = acc${a};`).join("\n")}
++}
++`.trim();
++  return [
++    {
++      code,
++      numInputs: 9,
++      numOutputs: 1,
++      hasUniform: false,
++      passes: [{ grid: calculateGrid(Math.ceil(Math.max(n, 1) / workgroupSize)) }],
++    },
++  ];
++}
++
+ function createScatter(
+   device: GPUDevice,
+   type: RoutineType,
+@@ -1380,6 +1488,8 @@ export function createRoutineShader(
+       return createArgsort(device, routine.type);
+     case Routines.Scatter:
+       return createScatter(device, routine.type, routine.params);
++    case Routines.CellPairs:
++      return createCellPairs(device, routine.type, routine.params);
+     case Routines.TriangularSolve:
+       return createTriangularSolve(device, routine.type, routine.params);
+     case Routines.Cholesky:
+diff --git a/src/frontend/array.ts b/src/frontend/array.ts
+index 236c40f..ba1f73c 100644
+--- a/src/frontend/array.ts
++++ b/src/frontend/array.ts
+@@ -1182,6 +1182,7 @@ export class Array extends Tracer {
+       [Primitive.Sort]: Array.#routine(Primitive.Sort),
+       [Primitive.Argsort]: Array.#routine(Primitive.Argsort),
+       [Primitive.Scatter]: Array.#routine(Primitive.Scatter),
++      [Primitive.CellPairs]: Array.#routine(Primitive.CellPairs),
+       [Primitive.TriangularSolve]: Array.#routine(Primitive.TriangularSolve),
+       [Primitive.Cholesky]: Array.#routine(Primitive.Cholesky),
+       [Primitive.LU]: Array.#routine(Primitive.LU),
+diff --git a/src/frontend/core.ts b/src/frontend/core.ts
+index b1f46fc..01f9d0f 100644
+--- a/src/frontend/core.ts
++++ b/src/frontend/core.ts
+@@ -1,7 +1,7 @@
+ /** @file Core library internals and interpreter stack, based on Autodidax. */
+ 
+ import { AluGroup, AluOp, DType, isFloatDtype, promoteTypes } from "../alu";
+-import { Routines, type ScatterParams } from "../routine";
++import { type CellPairsParams, Routines, type ScatterParams } from "../routine";
+ import { type Pair } from "../shape";
+ import {
+   JsTreeDef,
+@@ -92,6 +92,7 @@ export enum Primitive {
+   Sort = "sort", // sort(x, axis=-1), unstable
+   Argsort = "argsort", // argsort(x, axis=-1), stable
+   Scatter = "scatter",
++  CellPairs = "cell_pairs", // sums over neighbors on a uniform grid
+   TriangularSolve = "triangular_solve", // A is upper triangular, A @ X.T = B.T
+   Cholesky = "cholesky", // A is positive-definite, A = L @ L^T
+   LU = "lu", // LU decomposition with partial pivoting
+@@ -131,6 +132,7 @@ interface PrimitiveParamsImpl extends Record<Primitive, Record<string, any>> {
+   [Primitive.Shrink]: { slice: Pair[] };
+   [Primitive.Pad]: { width: Pair[] };
+   [Primitive.Scatter]: ScatterParams;
++  [Primitive.CellPairs]: CellPairsParams;
+   [Primitive.TriangularSolve]: { unitDiagonal: boolean };
+   [Primitive.JacobiEigh]: { maxSweeps: number; tolerance: number };
+   [Primitive.Fft]: { factors: number[]; inverse: boolean };
+@@ -156,6 +158,7 @@ export const routinePrimitives = new Map([
+   [Primitive.Sort, Routines.Sort],
+   [Primitive.Argsort, Routines.Argsort],
+   [Primitive.Scatter, Routines.Scatter],
++  [Primitive.CellPairs, Routines.CellPairs],
+   [Primitive.TriangularSolve, Routines.TriangularSolve],
+   [Primitive.Cholesky, Routines.Cholesky],
+   [Primitive.LU, Routines.LU],
+@@ -617,6 +620,10 @@ export function scatter(
+   return bind1(Primitive.Scatter, [updates, ...indices], params);
+ }
+ 
++export function cellPairs(inputs: TracerValue[], params: CellPairsParams) {
++  return bind1(Primitive.CellPairs, inputs, params);
++}
++
+ export function bind1<P extends Primitive>(
+   prim: P,
+   args: TracerValue[],
+diff --git a/src/frontend/jaxpr.ts b/src/frontend/jaxpr.ts
+index e3eb7ea..023c56f 100644
+--- a/src/frontend/jaxpr.ts
++++ b/src/frontend/jaxpr.ts
+@@ -1001,6 +1001,11 @@ export const abstractEvalRules: { [P in Primitive]: AbstractEvalRule<P> } = {
+     }
+     return [new ShapedArray(shape, updates.dtype, updates.weakType)];
+   },
++  [Primitive.CellPairs]([position]) {
++    if (position.ndim !== 2)
++      throw new TypeError(`cell_pairs: position must be [n, d], got ${position}`);
++    return [new ShapedArray(position.shape, DType.Float32, false)];
++  },
+   [Primitive.TriangularSolve]([a, b]) {
+     if (a.ndim < 2)
+       throw new TypeError(`triangular_solve: a must be at least 2D, got ${a}`);
+diff --git a/src/frontend/jit.ts b/src/frontend/jit.ts
+index 5ebf544..13214b3 100644
+--- a/src/frontend/jit.ts
++++ b/src/frontend/jit.ts
+@@ -777,6 +777,7 @@ const jitRules: { [P in Primitive]: JitRule<P> } = {
+   [Primitive.Sort]: routineNoJit(),
+   [Primitive.Argsort]: routineNoJit(),
+   [Primitive.Scatter]: routineNoJit(),
++  [Primitive.CellPairs]: routineNoJit(),
+   [Primitive.TriangularSolve]: routineNoJit(),
+   [Primitive.Cholesky]: routineNoJit(),
+   [Primitive.LU]: routineNoJit(),
+diff --git a/src/frontend/jvp.ts b/src/frontend/jvp.ts
+index df86122..3d01b7e 100644
+--- a/src/frontend/jvp.ts
++++ b/src/frontend/jvp.ts
+@@ -348,6 +348,9 @@ const jvpRules: { [P in Primitive]: JvpRule<P> } = {
+       [scatter(dupdates, tangentIndices, params)],
+     ];
+   },
++  [Primitive.CellPairs]() {
++    throw new Error("cell_pairs: not differentiable");
++  },
+   [Primitive.TriangularSolve]([a, b], [da, db], { unitDiagonal }) {
+     // A @ X.T = B.T  =>  dA @ X.T + A @ dX.T = dB.T
+     // So: A @ dX.T = dB.T - dA @ X.T
+diff --git a/src/library/lax.ts b/src/library/lax.ts
+index 8bd673a..0d8b1ca 100644
+--- a/src/library/lax.ts
++++ b/src/library/lax.ts
+@@ -11,7 +11,7 @@ import { checkConvShape } from "../frontend/convolution";
+ import * as core from "../frontend/core";
+ import { bind1, Primitive } from "../frontend/core";
+ import { moveaxis, vmap } from "../frontend/vmap";
+-import { ScatterOp } from "../routine";
++import { CellPairsKind, ScatterOp } from "../routine";
+ import { Pair } from "../shape";
+ import { checkAxis, deepEqual, prod, range, rep, zipn } from "../utils";
+ 
+@@ -567,6 +567,49 @@ export function topK(
+   return [extract(y), extract(yi.neg().add(size - 1))];
+ }
+ 
++/**
++ * Sums over each query's neighbors on a uniform grid of `grid` cells per axis (the near field of
++ * a force layout): for query `i`, every source in the cells within `radius` of `i`'s cell, except
++ * `i`, with the pair function `kind` ("manyBody": d3's, value_j × (p_j - p_i) / l;
++ * "manyBodyLegacy": softened at max(d², 1e-3); "collide": d3's collision). Sources are sorted by
++ * cell: `cellStart` and `cellEnd` (int32, one per cell, x fastest) are each cell's range in
++ * them, and `sortedIndex` (int32) each source's query index. `scalars` is [distanceMin²,
++ * distanceMax²]. Returns [n, d] float32.
++ */
++export function cellPairs(
++  position: ArrayLike,
++  queryCell: ArrayLike,
++  queryValue: ArrayLike,
++  sortedPosition: ArrayLike,
++  sortedValue: ArrayLike,
++  sortedIndex: ArrayLike,
++  cellStart: ArrayLike,
++  cellEnd: ArrayLike,
++  scalars: ArrayLike,
++  { kind, radius = 1, grid }: { kind: "manyBody" | "manyBodyLegacy" | "collide"; radius?: number; grid: number },
++): Array {
++  const args = [position, queryCell, queryValue, sortedPosition, sortedValue, sortedIndex, cellStart, cellEnd, scalars].map(fudgeArray);
++  const [p, cell, value, sp, sv, si, start, end, sc] = args;
++  const fail = (message: string) => {
++    args.forEach((a) => a.dispose());
++    throw new Error(`cellPairs: ${message}`);
++  };
++  if (p.ndim !== 2 || !deepEqual(cell.shape, p.shape)) fail("position and queryCell must be [n, d]");
++  const [n, d] = p.shape;
++  if (value.ndim !== 1 || value.shape[0] !== n) fail("queryValue must be [n]");
++  if (sp.ndim !== 2 || sp.shape[1] !== d) fail("sortedPosition must be [m, d]");
++  const m = sp.shape[0];
++  if (!deepEqual(sv.shape, [m]) || !deepEqual(si.shape, [m])) fail("sortedValue and sortedIndex must be [m]");
++  if (!deepEqual(start.shape, [grid ** d]) || !deepEqual(end.shape, [grid ** d])) fail("cellStart and cellEnd must be [grid^d]");
++  if (!deepEqual(sc.shape, [2])) fail("scalars must be [2]");
++  if (si.dtype !== DType.Int32 || start.dtype !== DType.Int32 || end.dtype !== DType.Int32)
++    fail("sortedIndex, cellStart and cellEnd must be int32");
++  for (const a of [p, cell, value, sp, sv, sc]) if (a.dtype !== DType.Float32) fail("positions, cells, values and scalars must be float32");
++  if (!Object.values(CellPairsKind).includes(kind as CellPairsKind)) fail(`unknown kind ${JSON.stringify(kind)}`);
++  if (!Number.isInteger(radius) || radius < 0 || !Number.isInteger(grid) || grid < 1) fail("radius and grid must be integers");
++  return core.cellPairs(args, { kind: kind as CellPairsKind, radius, grid }) as Array;
++}
++
+ /**
+  * Scatter `updates` along `axis` into a zero-filled array of `shape`: the inverse of
+  * `numpy.take(x, indices, axis)`. Slice `i` of `updates` along `axis` goes to position
+diff --git a/src/routine.ts b/src/routine.ts
+index 6822c3f..83c0cf1 100644
+--- a/src/routine.ts
++++ b/src/routine.ts
+@@ -47,6 +47,20 @@ export enum Routines {
+    */
+   Scatter = "Scatter",
+ 
++  /**
++   * Sums over each query's neighbors on a uniform grid: for query `i`, every source point in the
++   * grid cells within `radius` of `i`'s cell (sources sorted by cell, each cell a range), except
++   * `i` itself, with a pair function picked by `CellPairsKind`. The output is `[n, d]`. Written
++   * for heatmaptest's force layouts, whose near field needs every neighbor however many share a
++   * cell (a loop per query, which elementwise kernels cannot express).
++   *
++   * Inputs: position `[n, d]`, query cell `[n, d]` (integer coordinates as float32), query
++   * value `[n]`, sorted position `[m, d]`, sorted value `[m]`, sorted index `[m]` (int32, the
++   * source's query index, for self-exclusion), cell start and end `[g^d]` (int32), and scalars
++   * `[2]` (distanceMin², distanceMax²).
++   */
++  CellPairs = "CellPairs",
++
+   /**
+    * Solve a triangular system of equations.
+    *
+@@ -107,6 +121,24 @@ export enum ScatterOp {
+   Add = "add",
+ }
+ 
++/** The pair function of a `CellPairs` routine. */
++export enum CellPairsKind {
++  /** d3's many-body force: value_j × (p_j - p_i) / l, l = d² (distanceMin × d below it), within distanceMax. */
++  ManyBody = "manyBody",
++  /** A many-body force softened at max(d², 1e-3) (heatmaptest's default charge). */
++  ManyBodyLegacy = "manyBodyLegacy",
++  /** d3's collision: (p_i - p_j) × (r - l) / l × r_j² / (r_i² + r_j²) for overlapping pairs, r = r_i + r_j. */
++  Collide = "collide",
++}
++
++export interface CellPairsParams {
++  kind: CellPairsKind;
++  /** Neighbor cells on each side of the query's cell. */
++  radius: number;
++  /** Cells per axis. */
++  grid: number;
++}
++
+ export interface ScatterParams {
+   op: ScatterOp;
+   shape: number[];
+@@ -144,6 +176,8 @@ export function runCpuRoutine(
+       return runArgsort(type, inputAr, outputAr);
+     case Routines.Scatter:
+       return runScatter(type, inputAr, outputAr, routine.params);
++    case Routines.CellPairs:
++      return runCellPairs(type, inputAr, outputAr, routine.params);
+     case Routines.TriangularSolve:
+       return runTriangularSolve(type, inputAr, outputAr, routine.params);
+     case Routines.Cholesky:
+@@ -168,11 +202,13 @@ const ${byteWidth.name} = ${byteWidth.toString()};
+ const ${isFloatDtype.name} = ${isFloatDtype.toString()};
+ const ${dtypedArray.name} = ${dtypedArray.toString()};
+ const ScatterOp = ${JSON.stringify(ScatterOp)};
++const CellPairsKind = ${JSON.stringify(CellPairsKind)};
+ ${runCpuRoutine.toString()}
+ ${runSort.toString()}
+ ${runArgsort.toString()}
+ ${shapeStrides.toString()}
+ ${runScatter.toString()}
++${runCellPairs.toString()}
+ ${runTriangularSolve.toString()}
+ ${runCholesky.toString()}
+ ${runLU.toString()}
+@@ -223,6 +259,70 @@ function shapeStrides(shape: number[]): number[] {
+   return strides;
+ }
+ 
++function runCellPairs(
++  type: RoutineType,
++  [position, queryCell, queryValue, sortedPosition, sortedValue, sortedIndex, cellStart, cellEnd, scalars]: DataArray[],
++  [output]: DataArray[],
++  { kind, radius, grid }: CellPairsParams,
++) {
++  const [n, d] = type.inputShapes[0];
++  const minimum2 = scalars[0], maximum2 = scalars[1];
++  const span = 2 * radius + 1, offsets = span ** d;
++  const delta = new Float64Array(d), acc = new Float64Array(d);
++  for (let i = 0; i < n; i++) {
++    acc.fill(0);
++    for (let o = 0; o < offsets; o++) {
++      let flat = 0, stride = 1, inside = true;
++      for (let a = 0; a < d; a++) {
++        const c = Number(queryCell[i * d + a]) + (Math.floor(o / span ** a) % span) - radius;
++        if (c < 0 || c >= grid) {
++          inside = false;
++          break;
++        }
++        flat += c * stride;
++        stride *= grid;
++      }
++      if (!inside) continue;
++      for (let k = Number(cellStart[flat]); k < Number(cellEnd[flat]); k++) {
++        const j = Number(sortedIndex[k]);
++        if (j === i) continue;
++        let d2 = 0;
++        for (let a = 0; a < d; a++) {
++          delta[a] = Number(position[i * d + a]) - Number(sortedPosition[k * d + a]);
++          d2 += delta[a] * delta[a];
++        }
++        if (d2 < 1e-12) {
++          // Coincident points: a small deterministic jitter, antisymmetric in (i, j).
++          d2 = 0;
++          const sign = Math.sign(i - j);
++          for (let a = 0; a < d; a++) {
++            delta[a] = Math.sin((i + j) * 0.731 + a * 1.239) * sign * 0.001;
++            d2 += delta[a] * delta[a];
++          }
++        }
++        if (kind === CellPairsKind.Collide) {
++          const ri = Number(queryValue[i]), rj = Number(sortedValue[k]), r = ri + rj;
++          if (!(d2 < r * r)) continue;
++          const l = Math.sqrt(Math.max(d2, 1e-12));
++          const s = ((r - l) / l) * ((rj * rj) / Math.max(ri * ri + rj * rj, 1e-12));
++          for (let a = 0; a < d; a++) acc[a] += delta[a] * s;
++        } else {
++          if (kind === CellPairsKind.ManyBody && !(d2 < maximum2)) continue;
++          const l =
++            kind === CellPairsKind.ManyBodyLegacy
++              ? Math.max(d2, 1e-3)
++              : d2 < minimum2
++                ? Math.sqrt(minimum2 * d2)
++                : d2;
++          const q = Number(sortedValue[k]) / l;
++          for (let a = 0; a < d; a++) acc[a] -= delta[a] * q;
++        }
++      }
++    }
++    for (let a = 0; a < d; a++) output[i * d + a] = acc[a];
++  }
++}
++
+ function runScatter(
+   type: RoutineType,
+   [updates, ...indices]: DataArray[],
+diff --git a/test/lax.test.ts b/test/lax.test.ts
+index 73c27fa..e69635b 100644
+--- a/test/lax.test.ts
++++ b/test/lax.test.ts
+@@ -12,6 +12,75 @@ suite.each(devices)("device:%s", (device) => {
+ 
+   const deviceHasSort = ["cpu", "wasm", "webgpu"].includes(device);
+ 
++  // cellPairs is a routine on cpu, wasm and webgpu, as scatter is.
++  if (deviceHasSort) suite("jax.lax.cellPairs()", () => {
++    function brute(kind: string, pos: number[][], cell: number[][], value: number[], scalars: number[]) {
++      const n = pos.length, d = pos[0].length, out: number[] = [];
++      for (let i = 0; i < n; i++) {
++        const acc = new Array(d).fill(0);
++        for (let j = 0; j < n; j++) {
++          if (i === j || cell[j].some((c, a) => Math.abs(c - cell[i][a]) > 1)) continue;
++          let delta = pos[i].map((v, a) => v - pos[j][a]);
++          let d2 = delta.reduce((s, v) => s + v * v, 0);
++          if (d2 < 1e-12) {
++            const sign = Math.sign(i - j);
++            delta = delta.map((_, a) => Math.sin((i + j) * 0.731 + a * 1.239) * sign * 0.001);
++            d2 = delta.reduce((s, v) => s + v * v, 0);
++          }
++          if (kind === "collide") {
++            const r = value[i] + value[j];
++            if (!(d2 < r * r)) continue;
++            const l = Math.sqrt(d2), s = (((r - l) / l) * value[j] ** 2) / (value[i] ** 2 + value[j] ** 2);
++            delta.forEach((v, a) => (acc[a] += v * s));
++          } else {
++            if (kind === "manyBody" && !(d2 < scalars[1])) continue;
++            const l = kind === "manyBodyLegacy" ? Math.max(d2, 1e-3) : d2 < scalars[0] ? Math.sqrt(scalars[0] * d2) : d2;
++            delta.forEach((v, a) => (acc[a] -= (v * value[j]) / l));
++          }
++        }
++        out.push(...acc);
++      }
++      return out;
++    }
++    function grid(n: number, d: number, g: number, seed: number) {
++      let state = seed;
++      const random = () => ((state = (state * 16807) % 2147483647) - 1) / 2147483646;
++      const width = 10;
++      const pos = Array.from({ length: n }, () => Array.from({ length: d }, () => random() * g * width));
++      pos[5] = pos[4].slice(); // a coincident pair
++      const cell = pos.map((p) => p.map((v) => Math.min(g - 1, Math.floor(v / width))));
++      const key = cell.map((c) => c.reduce((s, v, a) => s + v * g ** a, 0));
++      const order = Array.from({ length: n }, (_, i) => i).sort((a, b) => key[a] - key[b]);
++      const start = new Int32Array(g ** d), end = new Int32Array(g ** d);
++      order.forEach((i, k) => {
++        if (k === 0 || key[order[k - 1]] !== key[i]) start[key[i]] = k;
++        end[key[i]] = k + 1;
++      });
++      return { pos, cell, order, start, end };
++    }
++    for (const d of [2, 3])
++      for (const kind of ["manyBody", "manyBodyLegacy", "collide"] as const)
++        test(`${d}D ${kind} matches a brute-force sum over neighbor cells`, () => {
++          const n = 120, g = 6, { pos, cell, order, start, end } = grid(n, d, g, 3 + d);
++          const value = pos.map((_, i) => (kind === "collide" ? 2 + (i % 5) : -1 - (i % 3)));
++          const scalars = [4, 900];
++          const out = lax.cellPairs(np.array(pos), np.array(cell), np.array(value),
++            np.array(order.map((i) => pos[i])), np.array(order.map((i) => value[i])), np.array(order, { dtype: np.int32 }),
++            np.array(start), np.array(end), np.array(scalars), { kind, radius: 1, grid: g });
++          const got = out.js().flat() as number[], want = brute(kind, pos, cell, value, scalars);
++          got.forEach((v, i) => expect(v).toBeCloseTo(want[i], 2));
++        });
++    test("a large 3D grid", () => {
++      const n = 200, d = 3, g = 32, { pos, cell, order, start, end } = grid(n, d, g, 11);
++      const value = pos.map(() => 3);
++      const out = lax.cellPairs(np.array(pos), np.array(cell), np.array(value),
++        np.array(order.map((i) => pos[i])), np.array(order.map((i) => value[i])), np.array(order, { dtype: np.int32 }),
++        np.array(start), np.array(end), np.zeros([2]), { kind: "collide", radius: 1, grid: g });
++      const got = out.js().flat() as number[], want = brute("collide", pos, cell, value, [0, 0]);
++      got.forEach((v, i) => expect(v).toBeCloseTo(want[i], 2));
++    });
++  });
++
+   // Scatter is a routine on cpu, wasm and webgpu (as sort is); webgl has none.
+   if (deviceHasSort) suite("jax.lax.scatter()", () => {
+     test("puts rows back where take() found them, zeros elsewhere", () => {
+-- 
+2.46.1
+

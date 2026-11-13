@@ -1,0 +1,15 @@
+{
+  "fast": {
+    "duration": 150
+  },
+  "slow": {
+    "duration": 600
+  },
+  "linear": {
+    "easing": "linear"
+  },
+  "fade": {
+    "enter": "fade",
+    "exit": "fade"
+  }
+}

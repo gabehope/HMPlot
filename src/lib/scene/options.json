@@ -1,0 +1,1676 @@
+{
+  "groups": ["Plot and layout", "Marks", "3D marks", "Transforms", "Scales and legends", "Interaction", "Inputs", "Data sources", "Maps and tiles", "Graphs", "Export"],
+  "sets": {
+    "position": {
+      "title": "Position",
+      "options": {
+        "x": {"type": "channel", "doc": "The x position: a column, per-row values, or one value.", "input": true},
+        "y": {"type": "channel", "doc": "The y position: a column, per-row values, or one value.", "input": true},
+        "z": {"type": "channel", "doc": "The z position, in a 3D plot: a column, per-row values, or one value.", "input": true},
+        "position": {"type": "channel", "doc": "Positions as one column or an N x 2 (or N x 3) array, instead of x, y and z.", "input": true}
+      }
+    },
+    "channels": {
+      "title": "Appearance",
+      "options": {
+        "fill": {"type": "channel", "doc": "The fill color: a CSS color, or a column of numbers or categories mapped to colors.", "input": true},
+        "color": {"type": "channel", "doc": "The line or text color: a CSS color, or a column mapped to colors.", "input": true},
+        "size": {"type": "channel", "units": "px", "doc": "The size of each point or label: a number, or a column mapped to sizes.", "input": true},
+        "width": {"type": "channel", "units": "px", "doc": "The line width: a number, or a column mapped to widths.", "input": true},
+        "opacity": {"type": "channel", "default": 1, "doc": "The opacity, 0 to 1: a number, or a column (categories map through opacityScale).", "input": true},
+        "outlineColor": {"type": "channel", "doc": "The outline's color: a CSS color, or a column of categories mapped through outlineColorScale.", "input": true},
+        "outlineOpacity": {"type": "channel", "default": 1, "doc": "Border opacity from 0 to 1: a number, numeric column, array or expression. Fades the border over the fill; mark opacity still applies to both. Missing values hide the border.", "input": true},
+        "outlineWidth": {"type": "channel", "default": 0, "doc": "The outline's width in CSS pixels, drawn inside the mark's edge (a point's at most its radius).", "input": true}
+      }
+    },
+    "scales": {
+      "title": "Scales",
+      "options": {
+        "fillScale": {"type": "scale", "doc": "The fill's scale, which marks can share: continuous({domain, colormap, transform}) for numbers, categorical({domain, range}) or ordinal() for categories."},
+        "colorScale": {"type": "scale", "doc": "A scale for color that marks can share."},
+        "colormap": {"type": "string | color[] | object", "defaultText": "the theme's (Viridis)", "doc": "The colormap of a numeric fill or color: a name, a list of colors, or {colors, space, positions}."},
+        "sizeScale": {"type": "scale", "doc": "The size's scale, which marks can share: continuous({domain, range, transform}) for numbers (without a range, the automatic one), or categories with a numeric range."},
+        "widthScale": {"type": "scale", "doc": "A scale for width that marks can share, as sizeScale."},
+        "outlineColorScale": {"type": "scale", "doc": "A categorical() scale from the outlineColor column's categories to colors."},
+        "opacityScale": {"type": "scale", "doc": "A categorical() scale from the opacity column's categories to opacities, 0 to 1."}
+      }
+    },
+    "display": {
+      "title": "Display",
+      "options": {
+        "label": {"type": "string", "doc": "The mark's name in the legend and the settings pane."},
+        "legend": {"type": "boolean", "default": true, "doc": "Whether the mark has a legend entry."},
+        "visible": {"type": "boolean", "default": true, "doc": "Whether the mark is drawn."},
+        "domains": {"type": "boolean", "default": true, "doc": "Whether the mark's data counts toward its axes' automatic domains; false leaves them to the other marks (a reference line, a decorative part)."},
+        "rows": {"type": "\"auto\"", "doc": "\"auto\" draws one item when no channel reads a column (a line at a value, a label at a point), instead of one per row of the data; \"@\" view-state fields are not columns."},
+        "blend": {"type": "\"normal\" | \"additive\" | \"multiply\" | \"screen\" | \"subtractive\"", "default": "normal", "doc": "How the mark mixes with what is drawn under it; any mode but normal draws it transparent, and SVG and PDF exports draw additive and subtractive as an image."},
+        "glow": {"type": "number", "default": 0, "doc": "How much the mark glows: its own color times glow blooms around it in the plot's presentation (0 does not glow); the Plot's bloom effect sets the bloom's strength and radius. SVG and PDF exports draw the whole plot as an image."},
+        "shade": {"type": "ShadeSpec", "doc": "A plugin's shade (registerPlugin): { kind, ...parameters }, as { kind: \"hatch\", spacing: 6 } (Python hm.shade(\"hatch\", spacing=6)), recolors each fragment the mark draws; picking, tooltips, domains and legends are unchanged. SVG and PDF exports draw a shaded mark as an image."},
+        "options": {"type": "string[]", "doc": "The settings the settings pane shows for this mark, by name."},
+        "name": {"type": "string", "doc": "The mark's name in the settings pane, and the name facet.endpoint() and partition.endpoint() find it by."}
+      }
+    },
+    "interaction": {
+      "title": "Interaction",
+      "options": {
+        "identity": {"type": "identity", "defaultText": "its data's", "doc": "Whose rows these are for selections: an identity() shared by tables that show the same things."},
+        "select": {"type": "boolean | selection | object", "doc": "Click to replace the selection; an exact repeat clears it. Shift/Meta/Ctrl-click toggles membership (whole series for Line, Area): true uses its data's selection, or give a selection(). input(\"root\").set(\"id\") writes an input instead: a click sets it to the clicked row's id (a drill-down's root), .set(literal(v)) to a constant, .reset() to its default, and a click on nothing restores its default (input(\"root\", {default}), else a Select of that name's, else null); several marks may write one input."},
+        "hover": {"type": "boolean | selection | object", "doc": "Mark the row under the pointer as @hovered (a whole series for Line, Area), without fading the others: true uses its data's hover, or give a selection(). input(\"focus\").set(\"series\") writes an input instead: while the pointer is on a row the input shows its series (or .set(literal(v)), a constant), then its committed value again (a hover that would change this mark's own rows is an error)."},
+        "tooltip": {"type": "boolean | field[] | object", "defaultText": "the Plot's", "doc": "Show the nearest row's values in a box by the pointer: true, a list of fields, or {fields, radius, content}."},
+        "brush": {"type": "boolean | selection | object", "doc": "Brush rows with Shift-drag (point marks; Line, Area brush whole series): true uses its data's brush, a selection() shares one, {selection, axis} picks the axes."},
+        "nearby": {"type": "boolean | selection | object", "doc": "Mark the rows near the pointer (point marks): true, a selection(), or {selection, radius, units, axis}."},
+        "nearest": {"type": "boolean | selection | object", "defaultText": "the Plot's", "doc": "Mark the row a tooltip shows as @nearest, with or without the tooltip: under the pointer, else the nearest drawn row within radius pixels (a whole series for Line, Area): true, a selection(), or {selection, radius}."},
+        "respond": {"type": "boolean | \"selected\" | \"brushed\" | \"hovered\" | \"nearby\" | \"nearest\" | selection | array", "defaultText": "the states it sets, except hover and nearest", "doc": "Which interaction states fade this mark's other rows to selectionOpacity; \"hovered\" fades them while hovering, \"nearest\" while a row is nearest."},
+        "selectionOpacity": {"type": "number", "default": 0.25, "doc": "The opacity of the rows outside the selection while one is active."},
+        "drag": {"type": "boolean | \"x\" | \"y\" | \"z\" | \"xy\" | \"xz\" | \"yz\" | \"xyz\"", "default": false, "doc": "Drag rows to move them (point marks): true along every numeric axis, or the axes to move along."},
+        "onclick": {"type": "(event) => void", "doc": "Called for click on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "ondblclick": {"type": "(event) => void", "doc": "Called for dblclick on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "oncontextmenu": {"type": "(event) => void", "doc": "Called for contextmenu on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointerenter": {"type": "(event) => void", "doc": "Called for pointerenter on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointerleave": {"type": "(event) => void", "doc": "Called for pointerleave on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointermove": {"type": "(event) => void", "doc": "Called for pointermove on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointerdown": {"type": "(event) => void", "doc": "Called for pointerdown on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointerup": {"type": "(event) => void", "doc": "Called for pointerup on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointercancel": {"type": "(event) => void", "doc": "Called for pointercancel on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointerover": {"type": "(event) => void", "doc": "Called for pointerover on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointerout": {"type": "(event) => void", "doc": "Called for pointerout on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "onpointermissed": {"type": "(event) => void", "doc": "Called for pointermissed on this mark; row provenance is optional after transforms.", "languages": "js"},
+        "ondrag": {"type": "(event) => void", "doc": "Called while rows are dragged, each time they move. Python: on_event(\"drag\").", "languages": "js"},
+        "ondragend": {"type": "(event) => void", "doc": "Called when a drag ends; event.cancelled when Escape put the rows back. Python: on_event(\"dragend\").", "languages": "js"},
+        "enterEffect": {"type": "boolean | \"fade\" | object", "doc": "How rows that arrive in a keyed update appear: \"fade\", or {effect, duration, easing}. animate()'s enter option is the value a channel starts from."},
+        "exitEffect": {"type": "boolean | \"fade\" | object", "doc": "How rows that leave in a keyed update disappear, as enterEffect. animate()'s exit option is the value a channel ends at."}
+      }
+    },
+    "animation": {
+      "title": "Animation",
+      "options": {
+        "animation": {"type": "boolean", "default": false, "doc": "Animate changes to the mark's values."},
+        "animationDuration": {"type": "number", "default": 300, "units": "ms", "doc": "How long an animated change takes."},
+        "animationEasing": {"type": "\"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\"", "default": "cubic-in-out", "doc": "The animation's easing."}
+      }
+    },
+    "seriesOption": {
+      "title": "Series",
+      "options": {
+        "series": {"type": "column | column[] | array", "doc": "Split the rows into separate paths, one per value of this column (Line, Area). Without it, a Line colored or an Area filled by a category column splits by that column."}
+      }
+    },
+    "endsOptions": {
+      "title": "Segment ends",
+      "options": {
+        "start": {"type": "channel", "doc": "Where each segment starts (Segments, Arrows): a column of positions or an N x 2 (N x 3) array.", "input": true},
+        "end": {"type": "channel", "doc": "Where each segment ends, as start.", "input": true}
+      }
+    },
+    "samplingOption": {
+      "title": "Sampling",
+      "options": {
+        "sampling": {"advanced": true, "type": "\"random\" | \"uniform-x\"", "default": "random", "doc": "Which rows a Line keeps when it has more than maxInstances: a random sample, or the extremes across even steps of x."}
+      }
+    },
+    "maxInstancesOption": {
+      "title": "Row limit",
+      "options": {
+        "maxInstances": {"advanced": true, "type": "number | null", "default": null, "doc": "The most rows drawn; past it the rows are sampled (null draws them all), though SVG and PDF exports draw every row."}
+      }
+    },
+    "interpolationOption": {
+      "title": "Map paths",
+      "options": {
+        "interpolation": {"type": "\"great-circle\" | \"angular\" | \"cartesian\"", "default": "great-circle", "doc": "How a path between two points runs on a map or a globe: along a great circle, straight in longitude and latitude, or straight in space."}
+      }
+    },
+    "rotationOption": {
+      "title": "Symbol rotation",
+      "options": {
+        "rotation": {"type": "number", "default": 0, "units": "degrees", "doc": "The symbol's rotation."}
+      }
+    },
+    "shapeOptions": {
+      "title": "Symbol",
+      "options": {
+        "shape": {"type": "string | column | string[]", "default": "circle", "doc": "The point symbol: a shape name, a column of categories mapped to shapes, or one name per row."},
+        "shapeScale": {"type": "scale", "doc": "A categorical() scale from the shape column's categories to shape names."}
+      }
+    },
+    "sizeUnitsOption": {
+      "title": "Size units",
+      "options": {
+        "sizeUnits": {"type": "\"px\" | \"data\"", "default": "px", "doc": "What size measures: CSS pixels whatever the zoom, or units of the x axis, so zooming scales the points."}
+      }
+    },
+    "textureResolutionOption": {
+      "title": "Texture",
+      "options": {
+        "textureResolution": {"advanced": true, "type": "[number, number]", "units": "px", "doc": "The size of the texture a Heatmap's child marks are drawn into."}
+      }
+    },
+    "mark": {
+      "title": "Mark",
+      "use": ["position", "channels", "scales", "display", "interaction", "animation"]
+    },
+    "legendSettings": {
+      "title": "Legend settings",
+      "options": {
+        "legendFontSize": {"type": "number", "defaultText": "the theme's (14 in the default theme)", "units": "px", "doc": "The size of the mark's legend text.", "setting": true},
+        "legendFontFamily": {"type": "string", "defaultText": "the plot's font", "doc": "The font of the mark's legend text, a CSS font-family.", "setting": true},
+        "legendTextColor": {"type": "color", "default": "#40505d", "doc": "The color of the mark's legend text.", "setting": true},
+        "legendTickFormat": {"type": "string", "default": ".3~g", "doc": "How a colorbar labels numbers: a d3-format string, or a %-pattern for dates.", "setting": true}
+      }
+    },
+    "colorSettings": {
+      "title": "Color settings",
+      "options": {
+        "quantize": {"type": "boolean", "default": false, "doc": "Step a numeric fill or color into `levels` colors instead of a smooth gradient.", "setting": true},
+        "levels": {"type": "number", "default": 10, "doc": "How many colors quantize steps through.", "setting": true}
+      }
+    },
+    "limitSettings": {
+      "title": "Limits",
+      "options": {
+        "maxElements": {"type": "number", "default": 250000, "doc": "The most rows the mark prepares on the GPU.", "setting": true}
+      }
+    },
+    "axisSettings": {
+      "title": "The mark's own axes",
+      "options": {
+        "xTransform": {"type": "\"linear\" | \"log\" | \"sqrt\" | \"symlog\"", "defaultText": "its frame's", "doc": "This mark's own x transform, instead of its frame's.", "setting": true},
+        "xInvert": {"type": "boolean", "default": false, "doc": "Reverse this mark's x direction.", "setting": true},
+        "xbounds": {"type": "[number, number]", "defaultText": "its frame's", "doc": "The x extent this mark maps, instead of its frame's domain (an image's or a grid's extent).", "setting": true},
+        "xrange": {"type": "[number, number]", "defaultText": "its frame's", "doc": "Where this mark's x extent lands, in its frame's world units.", "setting": true},
+        "yTransform": {"type": "\"linear\" | \"log\" | \"sqrt\" | \"symlog\"", "defaultText": "its frame's", "doc": "This mark's own y transform, instead of its frame's.", "setting": true},
+        "yInvert": {"type": "boolean", "default": false, "doc": "Reverse this mark's y direction.", "setting": true},
+        "ybounds": {"type": "[number, number]", "defaultText": "its frame's", "doc": "The y extent this mark maps, instead of its frame's domain (an image's or a grid's extent).", "setting": true},
+        "yrange": {"type": "[number, number]", "defaultText": "its frame's", "doc": "Where this mark's y extent lands, in its frame's world units.", "setting": true},
+        "zTransform": {"type": "\"linear\" | \"log\" | \"sqrt\" | \"symlog\"", "defaultText": "its frame's", "doc": "This mark's own z transform, instead of its frame's.", "setting": true},
+        "zInvert": {"type": "boolean", "default": false, "doc": "Reverse this mark's z direction.", "setting": true},
+        "zbounds": {"type": "[number, number]", "defaultText": "its frame's", "doc": "The z extent this mark maps, instead of its frame's domain (an image's or a grid's extent).", "setting": true},
+        "zrange": {"type": "[number, number]", "defaultText": "its frame's", "doc": "Where this mark's z extent lands, in its frame's world units.", "setting": true}
+      }
+    },
+    "detail": {
+      "title": "Geometry",
+      "options": {
+        "detail": {"type": "number", "doc": "How finely a point's or a surface's geometry is divided (sphere segments, grid cells).", "setting": true}
+      }
+    },
+    "lit": {
+      "title": "Shading",
+      "options": {
+        "lit": {"type": "boolean", "default": false, "doc": "Shade the mark with the plot's lights.", "setting": true}
+      }
+    },
+    "transparent": {
+      "title": "Shading",
+      "options": {
+        "transparent": {"type": "boolean", "default": false, "doc": "Draw the mark in the transparent pass, blended in depth order with other transparent marks.", "setting": true}
+      }
+    },
+    "sizeAttenuation": {
+      "title": "3D settings",
+      "options": {
+        "sizeAttenuation": {"type": "boolean", "default": true, "doc": "Shrink far points in perspective, as three.js does.", "setting": true}
+      }
+    },
+    "arrowSettings": {
+      "title": "Arrowheads",
+      "options": {
+        "headLength": {"type": "number", "units": "px", "doc": "The arrowhead's length.", "setting": true},
+        "headWidth": {"type": "number", "units": "px", "doc": "The arrowhead's width.", "setting": true}
+      }
+    },
+    "surfaceSettings": {
+      "title": "Surface settings",
+      "options": {
+        "zScale": {"type": "number", "default": 0, "doc": "How high a surface's values stand: the relief's height scale.", "setting": true},
+        "surfaceMode": {"type": "boolean", "default": false, "doc": "Draw the grid as a surface whose height is its values, instead of a flat raster.", "setting": true},
+        "surface3d": {"type": "boolean", "default": false, "doc": "Draw the surface in 3D, lit and seen from the camera, rather than flat in 2D.", "setting": true},
+        "depthtest": {"type": "boolean", "default": true, "doc": "Hide the parts of the surface behind other geometry.", "setting": true}
+      }
+    },
+    "textSettings": {
+      "title": "Text settings",
+      "options": {
+        "font": {"type": "string", "default": "helvetiker", "doc": "The typeface of the 3D text.", "setting": true},
+        "align": {"type": "\"left\" | \"center\" | \"right\"", "default": "center", "doc": "How each text sits at its position.", "setting": true},
+        "billboard": {"type": "boolean", "default": false, "doc": "Turn the text to face the camera.", "setting": true}
+      }
+    },
+    "plotAxisSettings": {
+      "title": "Axis style",
+      "options": {
+        "axisFontSize": {"type": "number", "defaultText": "the theme's (14 in the default theme)", "units": "px", "doc": "The size of the axis labels.", "setting": true},
+        "axisFontFamily": {"type": "string", "defaultText": "the theme's", "doc": "The axis labels' font, a CSS font-family.", "setting": true},
+        "axisLineWidth": {"type": "number", "defaultText": "the theme's (1 in the default theme)", "units": "px", "doc": "The width of the axis lines and ticks.", "setting": true},
+        "axisTickSize": {"type": "number", "defaultText": "the theme's (3 in the default theme)", "units": "px", "doc": "The length of the ticks.", "setting": true},
+        "axisMarginLeft": {"type": "number | \"auto\"", "default": "auto", "units": "px", "doc": "The space left of the plot area: \"auto\" fits the y axis's labels and title, a number pins it.", "setting": true},
+        "axisMarginRight": {"type": "number | \"auto\"", "default": "auto", "units": "px", "doc": "The space right of the plot area: \"auto\" fits what reaches past it (the last x label), a number pins it.", "setting": true},
+        "axisMarginTop": {"type": "number | \"auto\"", "default": "auto", "units": "px", "doc": "The space above the plot area: \"auto\" fits what reaches past it (the top y label), a number pins it.", "setting": true},
+        "axisMarginBottom": {"type": "number | \"auto\"", "default": "auto", "units": "px", "doc": "The space below the plot area: \"auto\" fits the x axis's labels and title, a number pins it.", "setting": true}
+      }
+    },
+    "geoSettings": {
+      "title": "Map settings",
+      "options": {
+        "missingColor": {"type": "color", "defaultText": "the fill scale's missing, else the theme's (#92989f in the default theme)", "doc": "The color of the features the data has no value for: no joined row, or a missing (NaN) value.", "setting": true}
+      }
+    },
+    "markSettings": {
+      "title": "Settings",
+      "use": ["legendSettings", "colorSettings", "limitSettings", "axisSettings"]
+    }
+  },
+  "components": {
+    "Html": {
+      "group": "Plot and layout", "languages": "js", "container": true,
+      "summary": "Anchor ordinary HTML at a numeric 2D frame position; excluded from plot exports.",
+      "options": {
+        "x": {"type": "number", "doc": "Scalar x coordinate in the enclosing frame."},
+        "y": {"type": "number", "doc": "Scalar y coordinate in the enclosing frame."},
+        "dx": {"type": "number", "default": 0, "doc": "Horizontal offset in CSS pixels."},
+        "dy": {"type": "number", "default": 0, "doc": "Vertical offset in CSS pixels."}
+      }
+    },
+    "Plot": {
+      "container": true,
+      "group": "Plot and layout",
+      "summary": "A chart: axes, a camera and the marks inside it, in 2D or 3D.",
+      "use": ["interpolationOption", "plotAxisSettings"],
+      "options": {
+        "animationGroup": {"type": "column | column[] | null", "defaultText": "inherited; otherwise Data.key, then position", "doc": "Match animation rows by these columns within each filtered/transformed snapshot; selections keep Data.key. null restores key/position matching."},
+        "description": {"type": "string", "doc": "Your description of the plot for screen readers and exports; the generated summary of its marks, axes and legend follows it unless describe is false."},
+        "describe": {"type": "boolean", "default": true, "doc": "Add the generated summary of the plot's marks, axes and legend to its description."},
+        "tooltip": {"type": "boolean | field[] | object", "doc": "The tooltip of every mark in the plot that sets none: true, a list of fields, or {fields, radius, content, mode}. mode \"x\" lists every series' value at the pointer's x in one box."},
+        "nearest": {"type": "boolean | selection | object", "doc": "The nearest of every mark in the plot that has rows and sets none: true, a selection(), or {selection, radius}."},
+        "loading": {"type": "\"atomic\" | \"progressive\"", "default": "atomic", "doc": "\"atomic\" shows the plot once its first frame is complete; \"progressive\" draws each mark as soon as it is ready."},
+        "background": {"type": "color", "defaultText": "the theme's (white in the default theme)", "doc": "The plot's background: a CSS color, or \"transparent\"."},
+        "data": {"type": "table", "doc": "A table or live pipeline output for the marks in the plot; the same as wrapping them in Data."},
+        "schema": {"type": "object", "doc": "Column types for data, such as {\"day\": \"datetime\"}, as on Data."},
+        "key": {"type": "column | column[]", "doc": "The column, or columns, that identify each row of data across updates, as on Data."},
+        "x": {"type": "{domain, transform, label, ...}", "doc": "The x axis: its domain, transform, label, ticks, grid and the rest of an axis definition."},
+        "y": {"type": "{domain, transform, label, ...}", "doc": "The y axis, as x."},
+        "z": {"type": "{domain, transform, label, ...}", "doc": "The z axis of a 3D plot, as x."},
+        "scaleDefaults": {"type": "{color, size, width}", "doc": "Defaults for the continuous color, size and width scales the plot's marks make for numeric columns: each {colormap, range, transform, ...}."},
+        "zScale": {"type": "number", "defaultText": "each surface's own (0)", "doc": "The height scale of every surface in the plot (a Heatmap with surfaceMode), unless the surface sets its own."},
+        "legend": {"type": "boolean | {position}", "defaultText": "a legend at the bottom for each fill, color or outline color mapped from a category column", "doc": "true shows a legend that explains everything the plot's marks map from data (a guide per channel, as a Legend without a channel does), then lists the labeled marks; {position} puts it at the \"top\", \"right\", \"bottom\" (the default) or \"left\"; false shows none. A channel an explicit Legend explains is left out."},
+        "coordinates": {"type": "\"cartesian\" | \"polar\" | \"spherical\"", "default": "cartesian", "doc": "The coordinate system: polar reads x as angle and y as radius; spherical reads x and y as longitude and latitude."},
+        "polarAxis": {"type": "\"X\" | \"Y\" | \"Z\"", "default": "Z", "doc": "The axis a 3D polar plot turns around; a 2D polar plot uses \"Z\"."},
+        "sphericalView": {"type": "\"globe\" | \"projected\"", "default": "globe", "doc": "How a 3D spherical plot shows the sphere: as a globe, or flat in its map projection."},
+        "cameraMode": {"type": "\"orbit\" | \"flyover\"", "default": "orbit", "doc": "How the viewer moves a 3D camera: \"orbit\" turns around a target; \"flyover\" moves like a map (drag pans the ground, the wheel zooms toward the pointer, right-drag looks, WASD and QE fly)."},
+        "cameraPosition": {"type": "[number, number, number]", "defaultText": "[90, 70, 140], scaled to the scene", "units": "world units", "doc": "Where the 3D camera is; the plot's box spans -50 to 50. A new value moves it there (easing with animation)."},
+        "cameraTarget": {"type": "[number, number, number]", "default": [0, 0, 0], "units": "world units", "doc": "The point the 3D camera looks at."},
+        "cameraUp": {"type": "[number, number, number]", "defaultText": "[0, 0, 1] for 3d; [0, 1, 0] for 3d-y-up", "doc": "The 3D camera's up direction, overriding the view preset."},
+        "cameraFov": {"type": "number", "default": 50, "units": "degrees", "doc": "The 3D camera's vertical field of view."},
+        "cameraNear": {"type": "number", "defaultText": "from the scene's size", "units": "world units", "doc": "The 3D camera's near clipping distance."},
+        "cameraFar": {"type": "number", "defaultText": "from the scene's size", "units": "world units", "doc": "The 3D camera's far clipping distance."},
+        "flySpeed": {"type": "number", "default": 1, "doc": "A multiplier on flyover's wheel zoom and key travel, from 0.1 to 10."},
+        "flyoverMomentum": {"type": "boolean", "default": true, "doc": "A flyover ground drag released while moving glides on for a moment, slowing to a stop; false stops the view on release, as reduced motion does."},
+        "lights": {"type": "LightSpec[]", "doc": "Lights for lit marks: ambient, directional, hemisphere or point. Positions use world units; omitted, no lights are added."},
+        "effects": {"type": "EffectSpec[]", "doc": "Effects over the whole plot: {kind: \"sky\", ...} (a 3D plot's sky), {kind: \"bloom\", strength, radius} (how glowing marks bloom), {kind: \"fog\", near, far, color} (a 3D plot's distance fog) or a registered plugin's kind with its parameters. A kind no plugin registers is skipped with a warning. SVG and PDF exports draw the whole plot as an image while one shows."},
+        "oncamerachange": {"type": "(camera) => void", "doc": "Called at most once per frame after the 3D camera moves, with its position, target, up, fov, near, far, zoom and mode. Python: on_event(\"camerachange\").", "languages": "js"},
+        "globeBackground": {"type": "color | false", "default": false, "doc": "A color fills the sphere under a 3D globe's marks; false leaves it empty."},
+        "angleUnit": {"type": "\"degrees\" | \"radians\" | \"extent\" | \"custom\"", "default": "degrees", "doc": "The unit of polar and spherical angles: \"extent\" makes the x domain one turn, \"custom\" uses anglePeriod."},
+        "anglePeriod": {"type": "number", "default": 360, "doc": "Angle units in one turn when angleUnit is \"custom\" (24 for hours)."},
+        "baseRadius": {"type": "number", "defaultText": "0 in polar coordinates, 1 in spherical", "doc": "The radius at zero: a polar plot's radius is baseRadius + radialScale × y, a globe's baseRadius + radialScale × height."},
+        "radialScale": {"type": "number", "default": 1, "doc": "The radius per unit of y in a polar plot, or of height on a globe (see baseRadius)."},
+        "projection": {"type": "\"equirectangular\" | \"mercator\" | \"equal-area\" | \"orthographic\" | \"equal-earth\" | \"natural-earth\" | \"albers\" | \"albers-usa\"", "default": "equirectangular", "doc": "The map projection of a 2D spherical plot (or a projected 3D one). An orthographic globe drags to turn; equal-earth, natural-earth, albers and albers-usa have curved outlines and draw a graticule instead of edge axes."},
+        "projectionCenter": {"type": "[number, number]", "default": [0, 0], "doc": "The map's center [longitude, latitude], in angleUnit: the orthographic globe's starting view, and the central meridian of equal-earth, natural-earth and albers (its origin latitude too)."},
+        "parallels": {"type": "[number, number]", "default": [29.5, 45.5], "doc": "The albers projection's two standard parallels, in angleUnit."},
+        "interpolation": {"type": "\"great-circle\" | \"angular\" | \"cartesian\"", "default": "great-circle", "doc": "How the plot's paths run between two points on a map or a globe: along a great circle, straight in longitude and latitude, or straight in space. Marks can set their own."},
+        "subdivisionTolerance": {"type": "number", "default": 0.5, "units": "px", "doc": "How far a curved line, band or outline may stray from its true shape before it is divided further."},
+        "zoomAxis": {"type": "\"x\" | \"xy\" | \"y\"", "default": "xy", "doc": "Which axes the viewer's 2D zoom changes."},
+        "dynamicMargins": {"type": "boolean", "default": true, "doc": "Fit axis margins during navigation. False fits initially, then holds this plot's own margins during pan/zoom; size, font, style and data-domain changes refit. Aligned peers can still reserve space; longer labels may clip."},
+        "axisMarginZoom": {"type": "boolean", "default": true, "doc": "With axes shown, zooming over an axis's margin zooms that axis only."},
+        "overviewScale": {"type": "number", "default": 0.35, "doc": "A multiplier on the marks' sizes in the overview."},
+        "overviewMaxInstances": {"type": "number | null", "default": 1000, "doc": "The most rows per mark the overview draws; past it the rows are sampled (null draws them all)."},
+        "axisFrame": {"type": "boolean", "defaultText": "the theme's", "doc": "Draw a complete rectangular border in 2D Cartesian frames without duplicate ticks or labels."},
+        "axisMask": {"type": "boolean", "defaultText": "the theme's", "doc": "Clip marks and picking to the rectangular 2D Cartesian axes interior, intersecting ancestor masks."},
+        "axes3d": {"type": "boolean | {style, gridPlanes}", "default": false, "doc": "Enable Cartesian 3D guides: true uses theme defaults; an object selects box or triad style and xy/xz/yz grid planes."},
+        "aspect": {"type": "\"auto\" | \"equal\"", "default": "auto", "doc": "\"equal\" keeps one transformed data unit the same length on all Cartesian axes, including 3D; \"auto\" fills the plot. In 2D an explicit domain is kept: the plot area letterboxes instead of widening it. Polar and spherical plots are always equal."},
+        "overviewAxes": {"type": "boolean | {x, y}", "default": false, "doc": "Label the overview's axes: true for both, or {x, y} to choose."},
+        "rules": {"type": "{axis, value, label, color, width, dash}[]", "doc": "Reference lines across the plot at x or y values, each with an optional label, color, width and dash."},
+        "bands": {"type": "{axis, from, to, label, color, opacity}[]", "doc": "Shaded spans of the x or y axis behind the marks and grid lines, labelled like rules."},
+        "viewport": {"type": "{x, y, zoom, zoomX, zoomY, center}", "doc": "The 2D view: its center as a fraction of each axis's domain (x, y) and its zoom. With onviewportchange it controls the view or shares it between plots; with animation, a new value eases there."},
+        "onviewportchange": {"type": "(viewport) => void", "doc": "Called when the viewer pans or zooms a 2D plot, with the new viewport. Python: on_event(\"viewportchange\").", "languages": "js"},
+        "interactive": {"type": "boolean | \"brush\"", "default": true, "doc": "Let the viewer pan and zoom a 2D plot or move a 3D camera, and Shift-drag to brush a mark with brush; false fixes the view, and a plain drag brushes. \"brush\": a plain drag brushes, Shift-drag pans and the wheel zooms."},
+        "name": {"type": "string", "defaultText": "Plot 1, Plot 2, ...", "doc": "The plot's name in its settings and export panels, and its accessible name when it has no title."},
+        "width": {"type": "number", "defaultText": "the container width", "units": "px", "doc": "A fixed width; without one the plot fills its notebook cell or exported page (in a Facet, its cell). hm.export_png, export_svg and export_pdf, with no page to fill, draw it 800 px wide; a view's own export draws it as shown."},
+        "height": {"type": "number", "default": 450, "units": "px", "doc": "The height of the whole plot: its title, caption and top or bottom legends take their room from it, and the drawing area the rest (at least a quarter of it)."},
+        "responsive": {"type": "boolean", "defaultText": "fill the container without width", "doc": "True fills the container even when width is set; false uses width or 800 px."},
+        "type": {"type": "\"2d\" | \"3d\" | \"3d-y-up\"", "default": "2d", "doc": "A 2D plot, a Z-up 3D plot (3d), or a Y-up 3D plot (3d-y-up); cameraUp overrides either 3D preset; SVG and PDF exports draw a 3D plot's 2D marks as vectors sorted by depth, and its marks as one image when one has no vector form there (a 3D mark, a Heatmap)."},
+        "settings": {"type": "{showTrigger, showExport, menu, allowSharedDefaults}", "doc": "showTrigger: false hides the settings and export buttons; showExport: false hides the export button and the menu's Export entry; menu: false leaves the browser's own context menu instead of the plot's; allowSharedDefaults: false leaves the shared defaults out of the settings pane. The plot's export and openSettings() methods work whatever these say."},
+        "toneMapping": {"type": "number", "default": 0, "doc": "The three.js tone mapping the plot renders with: 0 (the default) keeps colors exact, so marks match their legends; 4 is ACES filmic, for a photographic look in lit 3D scenes."},
+        "toolbar": {"type": "snippet", "doc": "Your own content, such as buttons, at the bottom of the plot's box.", "languages": "js"},
+        "overview": {"type": "boolean", "default": false, "doc": "Show an overview in the corner: a minimap of the whole domain in 2D, an orientation gadget in 3D; exports leave it out."},
+        "axes2d": {"type": "boolean", "defaultText": "true for 2D Cartesian plots and 2D orthographic globes; false otherwise", "doc": "Draw the 2D axes: lines, ticks, labels and titles; on a 2D orthographic globe, a graticule (every 15°) and the sphere's outline."},
+        "orientation3d": {"type": "boolean", "default": false, "doc": "Show an X/Y/Z orientation indicator in the lower left while a 3D plot is hovered."},
+        "axisTickLabels": {"type": "boolean", "default": true, "doc": "Draw the axes' tick labels."},
+        "axisTitles": {"type": "boolean", "default": true, "doc": "Draw the axis titles, in 2D and on the 3D box."},
+        "antialias": {"type": "\"msaa\" | \"ssaa8\" | \"ssaa16\" | \"smaa\" | \"off\"", "default": "msaa", "doc": "On-screen antialiasing: 4x MSAA (msaa), hybrid 8x/16x sampling (ssaa8/ssaa16: 4x MSAA at 2x/4x the pixel count, then downsampling), SMAA, or off. Hybrid modes cost more GPU work. Exports always use 4x MSAA at their requested resolution."},
+        "autoBounds": {"type": "boolean", "defaultText": "true when the plot has data (its own, an enclosing Data or a Facet); Python's Plot sends true", "doc": "Fit missing x, y and z domains to the plotted data; an explicit domain always wins."},
+        "animation": {"type": "boolean", "default": false, "doc": "Animate changes to the values of every mark in the plot (marks can set their own), and ease a new viewport or camera prop (position, target, up, fov, near, far) to its value, except under reduced motion; the viewer's press or wheel stops the move."},
+        "animationDuration": {"type": "number", "default": 300, "units": "ms", "doc": "How long animated changes take, including setCamera's with animate."},
+        "animationEasing": {"type": "\"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\"", "default": "cubic-in-out", "doc": "The easing of animated changes."},
+        "animateBounds": {"type": "boolean", "default": false, "doc": "Animate numeric axis domains and ranges independently of mark animation; structural changes and direction reversals snap."},
+        "boundsDuration": {"type": "number", "default": 300, "units": "ms", "doc": "Duration of scale transitions, independent of mark timing."},
+        "boundsEasing": {"type": "\"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\"", "default": "cubic-in-out", "doc": "Easing of scale transitions, independent of mark timing."},
+        "title": {"type": "string", "doc": "A title above the plot, part of it on screen and in its exports."},
+        "subtitle": {"type": "string", "doc": "A line under the title, smaller and lighter."},
+        "caption": {"type": "string", "doc": "A note under the plot, such as its source, smaller and lighter."},
+        "filename": {"type": "string", "doc": "Save an export to this file when the plot's with block closes; the suffix picks PNG, SVG, PDF or HTML.", "languages": "python"},
+        "exportOptions": {"type": "object", "doc": "Options for that export, such as scale for PNG or mode and width for SVG and PDF; needs filename.", "languages": "python"}
+      }
+    },
+    "Heatmap": {
+      "container": true,
+      "mark": true,
+      "group": "Marks",
+      "summary": "A grid of values drawn as colors, one cell per value.",
+      "use": ["mark", "textureResolutionOption", "markSettings", "detail", "lit", "transparent", "sizeAttenuation", "surfaceSettings"],
+      "omit": ["brush", "color", "colorScale", "drag", "nearby", "nearest", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "position", "size", "sizeScale", "width", "widthScale"],
+      "options": {
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "fill": {"type": "column | number[][]", "doc": "The values, one per cell, mapped to colors: a 2-D array (nested lists or a NumPy array in Python), or a variable of a grid table. A 2-D array's cell in row i and column j is centered at x = j, y = i (row 0 at the bottom), so the axes span -0.5 to n - 0.5, unless the plot sets the axis's domain."},
+        "pixelated": {"type": "boolean", "defaultText": "true for a 2-D array of at most 64 cells along each side, without surfaceMode or contours in a 2D plot; false for a grid table", "doc": "Draw each cell as a flat square of its value instead of blending it into its neighbors."},
+        "x": {"type": "column", "defaultText": "the grid's last dimension", "doc": "Over a grid table, the dimension drawn along x."},
+        "y": {"type": "column", "defaultText": "the grid's second-to-last dimension", "doc": "Over a grid table, the dimension drawn along y."}
+      }
+    },
+    "Points3D": {
+      "mark": true,
+      "group": "3D marks",
+      "summary": "Solid spheres or cubes in a 3D plot, one per row.",
+      "use": ["mark", "maxInstancesOption", "shapeOptions", "markSettings", "detail", "lit", "transparent", "sizeAttenuation"],
+      "omit": ["color", "colorScale", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "width", "widthScale"],
+      "options": {
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "size": {"default": 4, "units": "world units", "doc": "The diameter of each sphere (a cube's side is half of it): a number, or a column mapped to sizes through sizeScale (its range in world units: continuous({ range: [2, 8] }) spans small to large spheres). A 3D plot's box is 100 world units across, so 4 is a twenty-fifth of it; a few hundred points read well at 2 to 6."},
+        "shape": {"type": "\"sphere\" | \"cube\"", "default": "sphere", "doc": "The solid drawn at every point."},
+        "fill": {"defaultText": "the theme's Points fill (#3478c7 in the default theme)"},
+        "detail": {"default": 3, "doc": "How finely each sphere is divided, 0 to 4: 3 is 320 triangles a sphere, 1 (80) draws a large dataset faster."},
+        "depthWrite": {"advanced": true, "type": "boolean", "default": true, "doc": "Write visible point fragments to the depth buffer with normal blending; false leaves depth testing and nearest-point picking unchanged. Other blend modes disable depth writes."}
+      }
+    },
+    "Points": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "A scatter plot's symbols, one per row.",
+      "use": ["mark", "maxInstancesOption", "rotationOption", "shapeOptions", "sizeUnitsOption", "markSettings", "detail", "lit", "transparent"],
+      "omit": ["width", "widthScale"],
+      "options": {
+        "xOffset": {"type": "channel", "default": 0, "units": "data", "doc": "Moves each row along x in data units: on a categorical axis a band is one unit, so 0.25 is a quarter of the category's band (grouped bars, dodged points). A number or a column. dx moves by CSS pixels.", "input": true},
+        "yOffset": {"type": "channel", "default": 0, "units": "data", "doc": "Moves each row along y in data units: on a categorical axis a band is one unit (side-by-side horizontal bars). A number or a column. dy moves by CSS pixels.", "input": true},
+        "dx": {"type": "channel", "default": 0, "units": "px", "doc": "Moves each point right, or left when negative: a number, or a column (Dodge writes one).", "input": true},
+        "dy": {"type": "channel", "default": 0, "units": "px", "doc": "Moves each point down, or up when negative: a number, or a column (Dodge writes one).", "input": true},
+        "depthWrite": {"advanced": true, "type": "boolean", "default": true, "doc": "Write visible point fragments to the depth buffer with normal blending; false leaves depth testing and nearest-point picking unchanged. Other blend modes disable depth writes."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "size": {"default": 6, "doc": "Each point's diameter in CSS pixels (in x units with sizeUnits=\"data\"): a number, or a column mapped through sizeScale (by default onto the automatic size range)."},
+        "fill": {"defaultText": "the theme's (#3478c7 in the default theme)", "doc": "The fill color: a CSS color, or a column of numbers or categories mapped to colors. \"transparent\" draws a hollow point, its outline alone (outlineColor, outlineWidth); colors are otherwise opaque (use opacity)."}
+      }
+    },
+    "Segments": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "Line segments, one per row, each from its start to its end.",
+      "use": ["mark", "endsOptions", "maxInstancesOption", "interpolationOption", "markSettings", "transparent"],
+      "omit": ["brush", "drag", "fill", "fillScale", "nearby", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "position", "size", "sizeScale", "x", "y", "z"],
+      "options": {
+        "connections": {"type": "connect()", "doc": "Draw between other marks instead of from start and end: connect(a, b, {key}) draws a segment for each matched key and pair of adjacent endpoints."},
+        "dash": {"type": "boolean | number | [number, number]", "units": "px", "doc": "Draw the line dashed: true (4 px dashes and gaps), a dash length (gaps as long), or [dash, gap], measured along the drawn path."},
+        "curve": {"type": "\"linear\" | \"step\" | \"step-before\" | \"step-after\" | \"link-horizontal\" | \"link-vertical\" | \"quadratic\" | \"cubic\"", "defaultText": "\"linear\", or \"cubic\" when control points are given", "doc": "How each segment runs from start to end: straight, in steps, as a tree link, or as a Bézier curve through its control points."},
+        "control1": {"type": "channel", "doc": "Each segment's first control point for a quadratic or cubic curve: a column of positions or an N x 2 (N x 3) array. Without curve, control points make the segments cubic.", "input": true},
+        "control2": {"type": "channel", "doc": "Each segment's second control point for a cubic curve; left out of an automatic cubic, it is the segment's end.", "input": true},
+        "cap": {"type": "\"none\" | \"bar\" | \"arrow\"", "default": "none", "doc": "\"bar\": a bar across both ends; \"arrow\": an arrowhead at the true end, following the curve."},
+        "capSize": {"type": "number", "default": 6, "units": "px", "doc": "The length of the bars cap=\"bar\" draws."},
+        "headLength": {"type": "number", "default": 10, "units": "px", "doc": "The length of cap=\"arrow\" heads, limited to the segment's length."},
+        "headWidth": {"type": "number", "default": 8, "units": "px", "doc": "The width of cap=\"arrow\" heads."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "color": {"defaultText": "the theme's (#3478c7 in the default theme)"},
+        "width": {"defaultText": "the theme's (1 in the default theme)"}
+      }
+    },
+    "Line": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "A line through the rows in order: one path, or one per series.",
+      "use": ["mark", "seriesOption", "samplingOption", "maxInstancesOption", "interpolationOption", "markSettings", "transparent"],
+      "omit": ["drag", "fill", "fillScale", "nearby", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "size", "sizeScale"],
+      "options": {
+        "connections": {"type": "connect()", "doc": "Draw between other marks instead of from x and y: connect(a, b, {key}) draws one path per matched key through the endpoints in order."},
+        "dash": {"type": "boolean | number | [number, number]", "units": "px", "doc": "Draw the line dashed: true (4 px dashes and gaps), a dash length (gaps as long), or [dash, gap], measured along the drawn path."},
+        "curve": {"type": "\"linear\" | \"step\" | \"step-before\" | \"step-after\" | \"monotone-x\" | \"monotone-y\" | \"catmull-rom\" | \"basis\"", "default": "linear", "doc": "How the path runs between its points: straight, in steps, or smoothed."},
+        "curveAlpha": {"type": "number", "default": 0.5, "doc": "How a catmull-rom curve bends: 0 uniform, 0.5 centripetal, 1 chordal."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "color": {"defaultText": "the theme's (#3478c7 in the default theme)"},
+        "width": {"defaultText": "the theme's (2 in the default theme)"}
+      }
+    },
+    "Surface": {
+      "mark": true,
+      "group": "3D marks",
+      "summary": "A 3D surface over a grid of heights, or a triangle mesh.",
+      "use": ["mark", "markSettings", "lit", "transparent"],
+      "omit": ["brush", "drag", "nearby", "nearest", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "size", "sizeScale", "width", "widthScale", "z"],
+      "options": {
+        "height": {"type": "number[][]", "doc": "The heights as a grid: row j, column i is the height at (x[i], y[j]). Without x and y the grid spans -1 to 1 on both axes."},
+        "indices": {"type": "number[]", "doc": "With position instead of height, a triangle mesh: three vertex indices per triangle."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "x": {"type": "number[]", "doc": "With height, the x of each grid column."},
+        "y": {"type": "number[]", "doc": "With height, the y of each grid row."},
+        "position": {"type": "number[][]", "doc": "With indices, the mesh's vertices: an N x 2 or N x 3 array."},
+        "fill": {"defaultText": "the heights, through the colormap", "doc": "The color: one CSS color, or values mapped through the colormap, a grid like height (one per vertex for a mesh)."}
+      }
+    },
+    "Arrows3D": {
+      "mark": true,
+      "group": "3D marks",
+      "summary": "Solid arrows, a tube and a cone, from start to end points, one per row.",
+      "use": ["mark", "endsOptions", "maxInstancesOption", "interpolationOption", "markSettings", "transparent", "lit", "arrowSettings"],
+      "omit": ["brush", "drag", "fill", "fillScale", "nearby", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "position", "size", "sizeScale", "x", "y", "z"],
+      "options": {
+        "connections": {"type": "connect(...)", "doc": "Draw between endpoint marks instead of from start and end: connections={connect(before, after, {key: \"id\"})} draws one arrow per matched pair, from the earlier endpoint to the later one."},
+        "curve": {"type": "\"linear\" | \"step\" | \"step-before\" | \"step-after\" | \"link-horizontal\" | \"link-vertical\" | \"quadratic\" | \"cubic\"", "default": "linear", "doc": "How each arrow runs from start to end: straight, in steps, as a link curve, or as a Bézier through control1 (and control2)."},
+        "control1": {"type": "channel", "doc": "Each arrow's Bézier control point, an N x 2 or N x 3 array or a column: the one of a \"quadratic\" curve, the first of a \"cubic\" one.", "input": true},
+        "control2": {"type": "channel", "doc": "Each arrow's second control point, for a \"cubic\" curve.", "input": true},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "color": {"defaultText": "the theme's Arrows color (#3478c7 in the default theme)"},
+        "width": {"default": 0.05, "units": "world units", "doc": "The shaft's thickness: a number, or a column mapped to widths. A Cartesian plot's box is 100 world units across; a map's or globe's world is its projection's (a flat map is 2π across)."},
+        "headLength": {"default": 3, "units": "world units", "doc": "The arrowhead's length."},
+        "headWidth": {"default": 2, "units": "world units", "doc": "The arrowhead's width."}
+      }
+    },
+    "Text3D": {
+      "mark": true,
+      "group": "3D marks",
+      "summary": "One piece of text drawn as geometry in the plot, plain or TeX math.",
+      "use": ["mark", "axisSettings", "textSettings"],
+      "omit": ["brush", "shade", "colorScale", "colormap", "drag", "enterEffect", "exitEffect", "fill", "fillScale", "hover", "identity", "nearby", "nearest", "ondrag", "ondragend", "opacityScale", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "respond", "select", "selectionOpacity", "tooltip", "width", "widthScale", "x", "y", "z"],
+      "options": {
+        "text": {"type": "string", "doc": "The text to draw. Text3D draws one label; use Text for a label per row."},
+        "tex": {"type": "boolean", "default": false, "doc": "Typeset the text as TeX math (with MathJax), such as \\frac{1}{x^2+1}."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "position": {"type": "[number, number] | [number, number, number]", "default": [0, 0, 0], "doc": "Where the text sits, [x, y] or [x, y, z]: its middle, or the end that align names."},
+        "size": {"default": 3, "units": "world units", "doc": "The text's size (its font size): one number."},
+        "color": {"defaultText": "the theme's Text color (#252525 in the default theme)", "doc": "The text's color, a CSS color."}
+      }
+    },
+    "Image": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "An image drawn from its pixels: grayscale, RGB or RGBA.",
+      "use": ["mark", "markSettings"],
+      "omit": ["brush", "color", "colorScale", "drag", "nearby", "nearest", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "position", "size", "sizeScale", "width", "widthScale"],
+      "options": {
+        "data": {"type": "number[][] | number[][][] | url | image", "doc": "The pixels, row 0 at the top: [height, width] (grayscale) or [height, width, 3 or 4] (RGB, RGBA), integers 0-255 or floats 0-1. Or an image file, which the browser decodes (RGB, or RGBA when some pixel is not opaque): a URL; in Python also a path, bytes or a PIL image; in JavaScript also a Blob, an ImageBitmap, or an image or canvas element."},
+        "pixelated": {"type": "boolean", "default": false, "doc": "Draw each pixel as a sharp square instead of blending it into its neighbors."},
+        "lit": {"type": "boolean", "default": false, "doc": "Shade the image with the plot's lights instead of showing its exact colors."},
+        "fill": {"type": "column | {r, g, b, a}", "doc": "Over a grid table, the pixels' colors instead of data: a column of [r, g, b] or [r, g, b, a] rows, or {r, g, b, a} naming a column per channel. Integers are 0-255, floats 0-1."},
+        "x": {"type": "column", "defaultText": "the grid's last dimension", "doc": "Over a grid table, the dimension drawn along x."},
+        "y": {"type": "column", "defaultText": "the grid's second-to-last dimension", "doc": "Over a grid table, the dimension drawn along y."}
+      }
+    },
+    "Theme": {
+      "container": true,
+      "group": "Plot and layout",
+      "summary": "Fonts, colors and mark styles for everything inside it.",
+      "options": {
+        "value": {"type": "theme", "doc": "The theme: a preset from themes (Python hm.themes), createTheme(...) (Python hm.create_theme), or a definition object. An inner theme changes only what it names."}
+      }
+    },
+    "Minimap": {
+      "group": "Interaction",
+      "summary": "A small overview of a plot's whole extent, with a rectangle to drag its view around (a 3D plot gets an orientation gadget).",
+      "options": {
+        "axis": {"type": "FrameHandle", "defaultText": "the plot's root frame", "doc": "The Frame whose axis settings (bounds, transform, format) the minimap's axis labels follow."},
+        "axes": {"type": "boolean | {x, y}", "default": false, "doc": "Whether the minimap labels its axes: true for both, or {x, y} for each."},
+        "displayScale": {"type": "number", "default": 0.35, "doc": "A multiplier on the marks' sizes in the overview, relative to their sizes in the plot."},
+        "maxInstances": {"advanced": true, "type": "number | null", "default": 1000, "doc": "The most rows of each mark the overview draws; past it the rows are sampled (null draws them all)."},
+        "for": {"type": "PlotHandle", "doc": "The Plot the minimap shows and moves (Python target=)."},
+        "width": {"type": "number", "default": 180, "units": "px", "doc": "The minimap's width."},
+        "height": {"type": "number", "default": 120, "units": "px", "doc": "The minimap's height."}
+      }
+    },
+    "Legend": {
+      "group": "Scales and legends",
+      "summary": "A key to a plot's marks, or to the colors, shapes or sizes one channel encodes.",
+      "options": {
+        "for": {"type": "PlotHandle | FacetHandle | MarkHandle | MarkHandle[]", "defaultText": "the Plot or Facet it is in", "doc": "What the legend explains: a plot, a facet grid, a mark or a list of marks (Python target=)."},
+        "channel": {"type": "\"fill\" | \"color\" | \"shape\" | \"outlineColor\" | \"size\" | \"width\" | \"opacity\"", "doc": "The channel to explain: categories draw swatches, numbers a colorbar (fill, color) or a ramp of sample sizes (size, width, opacity). Without it the legend explains every channel its marks map from data, then lists the labeled marks."},
+        "label": {"type": "string", "defaultText": "the scale's label, else the mark's label, else the column's name", "doc": "The legend's title. With several guides (one per scale), each keeps its own title."},
+        "position": {"type": "\"top\" | \"bottom\" | \"left\" | \"right\"", "defaultText": "right with a channel, else bottom", "doc": "The side of the plot the legend sits on; left and right stack its entries."}
+      }
+    },
+    "Area": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "A filled area between two edges, with lower=0 by default.",
+      "use": ["mark", "seriesOption", "maxInstancesOption", "markSettings", "transparent"],
+      "omit": ["color", "colorScale", "drag", "nearby", "ondrag", "ondragend", "position", "size", "sizeScale"],
+      "options": {
+        "x": {"type": "channel", "doc": "The x position of each row; the area joins the rows in order. A horizontal Area takes y instead."},
+        "y": {"type": "channel", "doc": "With orientation=\"horizontal\", the y position of each row; lower and upper are on x."},
+        "lower": {"type": "channel", "default": 0, "doc": "The first edge, a number or value per row; default 0. The edges may cross.", "input": true},
+        "upper": {"type": "channel", "doc": "The second edge, a number or value per row, in value-axis units.", "input": true},
+        "orientation": {"type": "\"vertical\" | \"horizontal\"", "default": "vertical", "doc": "Whether the area spans y between lower and upper along x, or spans x along y."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "fill": {"defaultText": "the theme's (#3478c7 in the default theme)"},
+        "opacity": {"defaultText": "the theme's (1 in the default theme)"}
+      }
+    },
+    "Data": {
+      "positional": "value",
+      "container": true,
+      "group": "Data sources",
+      "summary": "A table whose columns the components inside it read by name.",
+      "options": {
+        "animationGroup": {"type": "column | column[] | null", "defaultText": "inherited; otherwise Data.key, then position", "doc": "Match animation rows by these columns within each filtered/transformed snapshot; selections keep Data.key. null restores key/position matching."},
+        "value": {"type": "table | transform", "doc": "The table: columns, rows, typed arrays, an Arrow table or a GeoJSON FeatureCollection (Python also takes it as the first argument); or a transform (a Filter, Group, ...: its handle in Svelte, value=node in Python), whose live output the components inside read, computed once wherever it is drawn."},
+        "rows": {"type": "number", "doc": "Number of rows instead of a table: an integer from 0 to 2147483647. Generate columns with row(), random() and Calculate; pass value or rows, not both."},
+        "key": {"type": "column | column[]", "defaultText": "the row's index", "doc": "The column (or columns) whose values identify a row across updates, so selections and animations follow it."},
+        "schema": {"type": "Record<string, type | {type, domain, unit, timezone}>", "doc": "Column types, when inference is not enough: numeric, categorical, ordinal, boolean, datetime, duration or geometry."}
+      }
+    },
+    "Provider": {
+      "container": true,
+      "group": "Data sources",
+      "summary": "A table loaded asynchronously, from a URL or a load function, for the components inside it.",
+      "options": {
+        "source": {"type": "((context) => table) | {load, requestKey, id}", "doc": "Loads the data: a function load(context), or {load, requestKey, id}; fetchJSON, fetchCSV, fetchArrow and fetchParquet build one.", "languages": "js"},
+        "url": {"type": "string | (params) => string", "doc": "The address to fetch, instead of `source`, with {name} placeholders filled from params. In Svelte markup write it as a string expression: url={\"/data/{year}.csv\"}."},
+        "format": {"type": "\"json\" | \"csv\" | \"arrow\" | \"parquet\"", "default": "json", "doc": "How the fetched file is read: JSON rows, CSV, an Arrow IPC file, or Parquet read by byte ranges."},
+        "path": {"type": "string", "doc": "For JSON, a dot path to the rows in the response, such as \"data.items\"."},
+        "columns": {"type": "column[]", "doc": "For Parquet, the columns to read; the others are never downloaded."},
+        "params": {"type": "object", "doc": "The load's inputs, as plain JSON values that fill the url's placeholders; a change that makes a new request loads again."},
+        "key": {"type": "column | column[]", "doc": "The column (or columns) that identify a row, as on Data, so selections follow rows across loads."},
+        "schema": {"type": "Record<string, type | {type, domain, unit, timezone}>", "doc": "Column types, as on Data."},
+        "initial": {"type": "table", "doc": "A table shown until the first load completes, so the components inside mount at once."},
+        "debounce": {"type": "number", "default": 150, "units": "ms", "doc": "How long a change of params waits for the next one before loading."},
+        "refreshInterval": {"type": "number", "units": "ms", "doc": "Loads again this long after the last load ended; it pauses while the page is hidden."},
+        "accumulate": {"type": "boolean | {maxRows}", "default": false, "doc": "Merge each completed load into the table on screen instead of replacing it: with key, a re-sent row updates in place and new keys append; without, rows append in arrival order. {maxRows} keeps the newest rows. New params start a fresh table, and a url's {version} placeholder asks for rows since the result on screen."},
+        "refresh": {"type": "number | string", "doc": "Each change of its value loads again with the same params (a Button's count works: refresh={input(\"reload\")})."},
+        "snapshot": {"type": "boolean", "default": true, "doc": "Whether exported HTML embeds the last result and never fetches; false loads when the exported page opens."},
+        "name": {"type": "string", "doc": "The provider's name in its status."},
+        "onload": {"type": "(event) => void", "doc": "Called after each load that shows a new result, with {revision, rows, ms}. Python: on_event(\"load\").", "languages": "js"},
+        "onerror": {"type": "(event) => void", "doc": "Called when a load fails, with {error, revision}; the previous result stays. Python: on_event(\"error\").", "languages": "js"}
+      }
+    },
+    "Interaction": {
+      "container": true,
+      "group": "Interaction",
+      "summary": "Names selections as columns (\"@focus\") that the filters and channels inside it read.",
+      "options": {
+        "columns": {"type": "Record<string, selection>", "doc": "Column names, each starting with @ (\"@focus\"), mapped to the selection() they read: 1 on the selection's rows, 0 elsewhere."}
+      }
+    },
+    "Bin": {
+      "tier": "stats",
+      "container": true,
+      "group": "Transforms",
+      "summary": "Counts the rows in each interval of x (a histogram), or in each cell of an x-y or x-y-z grid.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "x": {"type": "channel", "doc": "The values to bin along x; each bin's row gets x0 and x1 (its edges) and x (its center).", "input": true},
+        "y": {"type": "channel", "doc": "The values to bin along y, for a 2D grid of bins; each bin gets y0, y1 and y.", "input": true},
+        "z": {"type": "channel", "doc": "The values to bin along z, for a 3D grid of bins; each bin gets z0, z1 and z.", "input": true},
+        "bins": {"type": "number | expression | number[] | \"auto\" | \"sturges\" | \"fd\" | \"scott\" | {x, y, z}", "default": 30, "doc": "How many equal-width bins span the data, the edges themselves (Dates on a datetime axis), a rule that picks the count as numpy does, or an expression such as `power(count(col.x), 0.5)`; {x, y, z} sets each axis.", "input": true},
+        "interval": {"type": "string | {x, y, z}", "defaultText": "the interval axis ticks would use for `bins` bins", "doc": "For a datetime column, the calendar interval each bin spans, such as \"1 month\", \"1 week\" or \"6 hours\" (weeks start on Sunday); {x, y, z} sets each axis."},
+        "tz": {"type": "string | {x, y, z}", "defaultText": "the column's own, else UTC", "doc": "The time zone of a datetime column's calendar bins: an IANA name, \"UTC\" or \"Local\"; {x, y, z} sets each axis."},
+        "mode": {"type": "\"aggregate\" | \"assign\"", "default": "aggregate", "doc": "\"aggregate\" gives one row per bin, with its count; \"assign\" keeps the input rows and adds each row's bin: binX (its index), binX0 and binX1 (its edges), and likewise for y and z.", "input": true},
+        "sharedBins": {"type": "boolean", "default": true, "doc": "In a Facet, gives every cell the same edges, with a rule or expression resolved over all the cells' rows; false bins each cell on its own."},
+        "empty": {"type": "boolean", "default": true, "doc": "Show the bins no row falls in; false hides them."},
+        "normalization": {"type": "\"count\" | \"proportion\" | \"density\"", "doc": "Gives a histogram's bars, binning x alone (or y alone): each bin also gets y0 (0), y1 and y (x0, x1 and x for bins along y) holding its rows' count, their share of all the rows (\"proportion\"), or that share divided by the bin's width (\"density\"), so one Rect x0=\"x0\" x1=\"x1\" y0=\"y0\" y1=\"y1\" draws either orientation.", "input": true},
+        "columns": {"type": "{[name]: expression}", "doc": "Columns to compute over each bin's rows besides count, each a reduction expression as in Calculate: {mean_y: mean(\"y\")}, Python {\"mean_y\": hm.mean(\"y\")}. Every reduction reduces the bin's visible rows; an empty bin's column is missing.", "input": true},
+        "as": {"type": "{[column]: string}", "doc": "New names for the output columns, such as {count: \"n\", x0: \"left\"}.", "input": true},
+        "weight": {"type": "column", "doc": "A column, or one number per row, that scales each row's contribution to count(), sum(x) and mean(x) columns (other columns leave out rows of weight 0; with a column weight, a sum, mean or count inside a larger expression is an error). An interaction column such as \"@brushed\" counts only those rows, and every row while there are none.", "input": true}
+      }
+    },
+    "Filter": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Keeps the rows that meet a condition, or the selected or brushed rows.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "inactive": {"type": "\"all\" | \"none\"", "default": "all", "doc": "What a condition on a selection or brush keeps while nothing is selected or brushed: every row, or none.", "input": true},
+        "where": {"type": "string | expression | {field, op, value} | selection | array", "doc": "The rows to keep: an interaction column such as \"@brushed\", a comparison {field, op, value} (op eq, ne, lt, lte, gt, gte, in or finite), a selection, an expression with one value per row such as `greater(col.x, mean(col.x))`, or a list of these that must all hold.", "input": true}
+      }
+    },
+    "Sort": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Orders the rows by one or more columns, so a line connects them in that order.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "by": {"type": "column | column[]", "doc": "The column or columns to sort by, the first first; rows that tie keep their order.", "input": true},
+        "order": {"type": "\"asc\" | \"desc\"", "default": "asc", "doc": "Ascending or descending; missing values go last either way.", "input": true}
+      }
+    },
+    "Normalize": {
+      "tier": "stats",
+      "container": true,
+      "group": "Transforms",
+      "summary": "Rescales a column to z-scores, to 0 to 1, or relative to its sum, first value or maximum, over all rows or per group.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "field": {"type": "column", "doc": "The numeric column to normalize.", "input": true},
+        "method": {"type": "\"deviation\" | \"extent\" | \"sum\" | \"first\" | \"max\"", "default": "deviation", "doc": "\"deviation\" gives z-scores (0 for a constant column), \"extent\" maps the minimum to 0 and the maximum to 1, and \"sum\", \"first\" and \"max\" divide by the column's sum, first value or maximum.", "input": true},
+        "by": {"type": "column | column[]", "doc": "Normalize within each group of these columns instead of over all the rows.", "input": true},
+        "as": {"type": "string", "default": "normalized", "doc": "The name of the normalized column it adds.", "input": true}
+      }
+    },
+    "Shift": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Shift a numeric or datetime coordinate by a numeric or UTC calendar interval.",
+      "options": {
+        "name": {
+          "type": "string",
+          "doc": "Names this transform for handle updates."
+        },
+        "field": {
+          "type": "column",
+          "doc": "Numeric or datetime column to offset without reordering rows.",
+          "input": true
+        },
+        "interval": {
+          "type": "number | string",
+          "doc": "Coordinate offset, or a signed UTC calendar interval such as -1 year; numeric datetime offsets are milliseconds."
+        },
+        "as": {
+          "type": "{ shifted?: string; original?: string }",
+          "default": {
+            "shifted": "shifted",
+            "original": "original"
+          },
+          "doc": "Names for the shifted coordinate and unchanged copy."
+        }
+      }
+    },
+    "Window": {
+      "tier": "stats",
+      "container": true,
+      "group": "Transforms",
+      "summary": "A moving average (or other reduction) over each row and its neighbors.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "field": {"type": "column", "doc": "The numeric column to reduce; windows run over the rows in their order, so Sort them first if they are not.", "input": true},
+        "size": {"type": "number | expression", "default": 5, "units": "rows", "doc": "How many rows each window spans; windows at the ends use the rows there are."},
+        "reduce": {"type": "\"mean\" | \"sum\" | \"count\" | \"min\" | \"max\" | \"first\" | \"last\" | \"variance\" | \"std\" | \"any\" | \"all\"", "default": "mean", "doc": "What to compute over each window.", "input": true},
+        "align": {"type": "\"trailing\" | \"center\" | \"leading\"", "default": "trailing", "doc": "Where each row sits in its window: at its end (the row and the ones before it), in its middle, or at its start.", "input": true},
+        "by": {"type": "column | column[]", "doc": "Window each group of these columns separately.", "input": true},
+        "as": {"type": "string", "default": "smoothed", "doc": "The name of the column it adds.", "input": true}
+      }
+    },
+    "Group": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "One row per value (or combination of values) of the `by` columns, with the group's count, sums, means or other reductions.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "by": {"type": "column | key | (column | key)[]", "doc": "The columns whose values form the groups, and bins or hexagons: bin(\"x\", 20) (Python hm.bin(\"x\", 20)) groups the rows by their bin of x and writes its edges and center, x0, x1 and x; hexbin(\"x\", \"y\") groups them by hexagon and writes its center, x and y. The output keeps them, one row per group with a visible row, with a count column. Without by, one row of totals over the visible rows (a count of 0 when none is).", "input": true},
+        "columns": {"type": "{[name]: expression}", "doc": "Columns to compute over each group's rows besides count, each a reduction expression as in Calculate: {mean_x: mean(\"x\")}, Python {\"mean_x\": hm.mean(\"x\")}. Every reduction (mean, sum, count, median, ...) reduces the group's visible rows; a column read outside one must be a key.", "input": true},
+        "as": {"type": "{[column]: string}", "doc": "New names for the output columns, such as {count: \"n\"}.", "input": true}
+      }
+    },
+    "Hexbin": {
+      "tier": "stats",
+      "container": true,
+      "group": "Transforms",
+      "summary": "Counts the points in each hexagon of a hexagonal grid over x and y.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "x": {"type": "channel", "doc": "The x values to bin; each hexagon's row gets x, its center's x.", "input": true},
+        "y": {"type": "channel", "doc": "The y values to bin; each hexagon's row gets y, its center's y.", "input": true},
+        "bins": {"type": "number | expression", "default": 30, "doc": "How many hexagons span the x extent (or the x of `bounds`)."},
+        "radius": {"type": "number | expression", "defaultText": "from bins", "units": "data units", "doc": "The hexagons' radius, instead of the one bins gives. Each row's width and depth columns give a Prism with shape=\"hexagon\" this size."},
+        "bounds": {"type": "{x, y}", "units": "data units", "doc": "A fixed grid: the hexagons covering these x and y ranges, one row per hexagon with the occupied ones shown, so filtering the input never changes the output's length. Points outside fall in no hexagon."},
+        "orientation": {"type": "\"pointy\" | \"flat\"", "default": "pointy", "doc": "Whether the hexagons point up or have flat tops; each row's rotation column (30 or 0 degrees) turns a Prism's hexagon to match.", "input": true},
+        "sharedBins": {"type": "boolean", "default": true, "doc": "In a Facet, gives every cell the same hexagon grid; false sizes each cell's grid from its own rows."},
+        "columns": {"type": "{[name]: expression}", "doc": "Columns to compute over each hexagon's rows besides count, each a reduction expression as in Calculate: {mean_v: mean(\"v\")}, Python {\"mean_v\": hm.mean(\"v\")}. With bounds, a count, sum or mean of a column keeps the fixed grid; any other column groups the hexagons.", "input": true},
+        "as": {"type": "{[column]: string}", "doc": "New names for the output columns, such as {count: \"n\"}.", "input": true}
+      }
+    },
+    "Stack": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Stacks values on one another, for stacked bars and areas, 100% stacks and streamgraphs.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "x": {"type": "column", "doc": "The column whose values make the stacks: rows with the same x stack together; without it, every row is in one stack.", "input": true},
+        "y": {"type": "column", "doc": "The values to stack; each row gets y0 and y1, the bottom and top of its segment.", "input": true},
+        "series": {"type": "column", "doc": "The column naming each row's layer; within a stack, rows are ordered by series, then by row.", "input": true},
+        "order": {"type": "\"none\" | \"appearance\" | \"asc\" | \"desc\" | \"insideOut\" | \"reverse\" | category[]", "default": "none", "doc": "The order of the series in each stack: \"none\" (their own), \"appearance\" (by where each peaks), \"asc\" or \"desc\" (by total), \"insideOut\" (the largest in the middle, for streamgraphs), \"reverse\", or a list of categories. Every order but \"none\" and \"reverse\" needs series.", "input": true},
+        "offset": {"type": "\"zero\" | \"expand\" | \"center\" | \"wiggle\"", "default": "zero", "doc": "Where each stack sits: \"zero\" stacks positive values up from 0 and negative ones down, \"expand\" scales each stack to span 0 to 1 (100% stacks), \"center\" centers it on 0, and \"wiggle\" makes a streamgraph (needs series). center and wiggle need non-negative values.", "input": true},
+        "as": {"type": "{y0, y1}", "doc": "New names for the y0 and y1 columns, such as {y0: \"low\", y1: \"high\"}.", "input": true}
+      }
+    },
+    "Rect": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "Rectangles given by their edges, one per row: bars, bins, tiles.",
+      "use": ["mark", "maxInstancesOption", "rotationOption", "markSettings", "lit", "transparent"],
+      "omit": ["brush", "color", "colorScale", "drag", "nearby", "ondrag", "ondragend", "position", "size", "sizeScale", "width", "widthScale", "x", "y", "z"],
+      "options": {
+        "x0": {"type": "channel", "doc": "Each rectangle's left edge: a column, per-row values, or one number.", "input": true},
+        "x1": {"type": "channel", "doc": "Each rectangle's right edge; a rectangle whose x1 is less than its x0 is not drawn.", "input": true},
+        "y0": {"type": "channel", "doc": "Each rectangle's bottom edge.", "input": true},
+        "y1": {"type": "channel", "doc": "Each rectangle's top edge; a rectangle whose y1 is less than its y0 is not drawn.", "input": true},
+        "z0": {"type": "channel", "doc": "Each box's bottom in a 3D plot: with z1, the rectangles become solid boxes.", "input": true},
+        "z1": {"type": "channel", "doc": "Each box's top in a 3D plot; give both z0 and z1, or neither.", "input": true},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "fill": {"defaultText": "the theme's first palette color (#3478c7 in the default theme)"},
+        "rotation": {"doc": "Turns each rectangle about its center."}
+      }
+    },
+    "Prism": {
+      "mark": true,
+      "group": "3D marks",
+      "summary": "3D columns (boxes, triangular, hexagonal or round prisms), one per row, extruded along an axis.",
+      "use": ["mark", "maxInstancesOption", "rotationOption", "shapeOptions", "markSettings", "lit", "transparent"],
+      "omit": ["brush", "color", "colorScale", "drag", "nearby", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "position", "size", "sizeScale"],
+      "options": {
+        "xOffset": {"type": "channel", "default": 0, "units": "data", "doc": "Moves each row along x in data units: on a categorical axis a band is one unit, so 0.25 is a quarter of the category's band (grouped bars, dodged points). A number or a column. dx moves by CSS pixels.", "input": true},
+        "yOffset": {"type": "channel", "default": 0, "units": "data", "doc": "Moves each row along y in data units: on a categorical axis a band is one unit (side-by-side horizontal bars). A number or a column. dy moves by CSS pixels.", "input": true},
+        "x": {"type": "channel", "doc": "The center of each footprint on x: a column, per-row values, or one value (with axis=\"x\", x0 and x1 instead)."},
+        "y": {"type": "channel", "doc": "The center of each footprint on y (with axis=\"y\", y0 and y1 instead)."},
+        "z": {"type": "channel", "doc": "The center of each footprint on z, when axis is \"x\" or \"y\"."},
+        "x0": {"type": "channel", "doc": "Where each prism starts along x, when axis is \"x\".", "input": true},
+        "x1": {"type": "channel", "doc": "Where each prism ends along x, when axis is \"x\".", "input": true},
+        "y0": {"type": "channel", "doc": "Where each prism starts along y, when axis is \"y\".", "input": true},
+        "y1": {"type": "channel", "doc": "Where each prism ends along y, when axis is \"y\".", "input": true},
+        "z0": {"type": "channel", "doc": "Where each prism starts along z: its base, with the default axis.", "input": true},
+        "z1": {"type": "channel", "doc": "Where each prism ends along z: its top, with the default axis.", "input": true},
+        "width": {"type": "channel", "default": 1, "units": "data units", "doc": "The footprint's size along the first of the other two axes (x for the default axis): a number or a column."},
+        "depth": {"type": "channel", "default": 1, "units": "data units", "doc": "The footprint's size along the second of the other two axes (y for the default axis): a number or a column.", "input": true},
+        "rotation": {"type": "channel", "default": 0, "units": "degrees", "doc": "The footprint's turn about the extrusion axis: a number or a column.", "input": true},
+        "axis": {"type": "\"x\" | \"y\" | \"z\"", "default": "z", "doc": "The axis each prism extends along: z, from z0 to z1, or x (x0 to x1) or y (y0 to y1)."},
+        "shape": {"type": "\"rectangle\" | \"triangle\" | \"hexagon\" | \"circle\"", "default": "rectangle", "doc": "The footprint's shape, stretched to width by depth."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "fill": {"defaultText": "the theme's first palette color (#3478c7 in the default theme)"}
+      }
+    },
+    "Facet": {
+      "container": true,
+      "group": "Plot and layout",
+      "summary": "Small multiples: one cell per category, per field, or per pair of fields (a scatterplot matrix).",
+      "options": {
+        "cacheSize": {"type": "number", "default": 64, "doc": "How many offscreen cells stay mounted besides the visible ones; 0 keeps none."},
+        "layout": {"type": "\"bands\" | \"grid\"", "defaultText": "\"grid\" with fields or pairs, else \"bands\"", "doc": "In a Facet inside a Plot, how the cells divide the plot: \"bands\" along the split dimension (the other dimension is the Plot's), or \"grid\", each cell with its own x and y.", "input": true},
+        "bandPadding": {"type": "number", "default": 0.1, "doc": "The space between bands in the \"bands\" layout, as a fraction of a band."},
+        "data": {"type": "table", "doc": "A table or live pipeline output for the cells; the same as wrapping the Facet in Data."},
+        "key": {"type": "column | column[]", "doc": "The column, or columns, that identify each row of data across updates, as on Data."},
+        "name": {"type": "string", "default": "Facet", "doc": "The grid's name in its settings pane."},
+        "settings": {"type": "{showTrigger, showExport, menu}", "doc": "showTrigger: false hides the grid's settings and export buttons; showExport: false hides its export button and its cells' Export menu entry; menu: false leaves the browser's own context menu on its cells."},
+        "row": {"type": "column", "doc": "A categorical column: one row of cells per value.", "input": true},
+        "column": {"type": "column", "doc": "A categorical column: one column of cells per value.", "input": true},
+        "wrap": {"type": "number", "doc": "The most cells across before the grid wraps, when only one dimension splits the cells."},
+        "gap": {"type": "number", "default": 16, "units": "px", "doc": "Space between the cells."},
+        "rowOrder": {"type": "category[]", "defaultText": "the column's category order", "doc": "The rows to show, in order: values of row (a numeric row column needs this), or fields with fields or pairs. Rows with other values are left out.", "input": true},
+        "columnOrder": {"type": "category[]", "defaultText": "the column's category order", "doc": "The columns to show, in order, as rowOrder.", "input": true},
+        "fields": {"type": "column[] | {row} | {column}", "doc": "One cell per field, over the same rows: in each cell the column value is that field and field holds its name. A list lays the cells along columns; {row: [...]} stacks them.", "input": true},
+        "pairs": {"type": "column[] | {x, y}", "doc": "A scatterplot matrix: each cell's x and y are two of these fields; {x: [...], y: [...]} makes a rectangular one. It cannot combine with row, column or fields.", "input": true},
+        "triangle": {"type": "\"full\" | \"upper\" | \"lower\"", "default": "full", "doc": "With a list of pairs, the cells of the whole matrix or of its upper or lower triangle.", "input": true},
+        "diagonal": {"type": "boolean", "default": true, "doc": "With pairs, whether to draw the cells that pair a field with itself."},
+        "as": {"type": "{value, field} | {x, y}", "doc": "New names for the columns the cells alias ({value, field} with fields, {x, y} with pairs), when the table has columns of those names."},
+        "scales": {"type": "\"shared\" | \"field\" | \"free-x\" | \"free-y\" | \"free-z\" | \"free\"", "defaultText": "\"field\" with fields or pairs, else \"shared\"", "doc": "How the cells share axis domains: \"shared\", one per axis; \"field\", one per plotted column; \"free-x\", \"free-y\", \"free-z\" or \"free\", each cell its own.", "input": true},
+        "resolve": {"type": "{color, size, width, shape}", "defaultText": "\"shared\" for each", "doc": "Whether each appearance scale is \"shared\" across the cells or \"independent\" in each."},
+        "link": {"type": "\"auto\" | \"x\" | \"xy\" | \"y\" | \"none\" | \"grid\"", "default": "auto", "doc": "Pan and zoom the cells together along x, y or both; \"grid\" links x down each column and y along each row; \"none\" keeps each cell's own. \"auto\" links the axes the cells share (not free in scales), which the grid labels once, on its outer cells. A Facet inside a Plot shares its camera and takes \"none\" (or \"auto\").", "input": true},
+        "legend": {"type": "boolean | {position} | \"cell\"", "defaultText": "the cells' legend around the grid (by default, a legend for each color mapped from a category column)", "doc": "One legend for the whole grid, explaining what the marks map from data and listing the labeled marks: true or {position} shows it, false hides it even when the cells ask for one, \"cell\" gives each cell its own.", "input": true},
+        "title": {"type": "string", "doc": "A title above the grid, part of it on screen and in its exports."},
+        "subtitle": {"type": "string", "doc": "A line under the title, smaller and lighter.", "input": true},
+        "caption": {"type": "string", "doc": "A note under the grid, such as its source, smaller and lighter.", "input": true},
+        "filename": {"type": "string", "doc": "Save an export to this file when the Facet's with block closes; the suffix picks PNG, SVG, PDF or HTML.", "languages": "python", "input": true},
+        "exportOptions": {"type": "object", "doc": "Options for that export, such as scale for PNG or mode and width for SVG and PDF; needs filename.", "languages": "python"},
+        "schema": {"type": "object", "doc": "Column types for data, such as {\"day\": \"datetime\"}, as on Data."}
+      }
+    },
+    "Partition": {
+      "container": true,
+      "group": "Plot and layout",
+      "summary": "Repeats its children once per group of rows, all in the same frame: one line, fit or density per group.",
+      "options": {
+        "by": {"type": "column | column[]", "doc": "The column, or columns, whose values split the rows into groups; the children repeat once per group, in the column's order. Rows missing a value form a last \"(missing)\" group.", "input": true},
+        "limit": {"type": "number", "default": 256, "doc": "The most groups Partition mounts; more is an error."},
+        "legendGroups": {"type": "boolean", "default": false, "doc": "One legend entry per group, labelled by its value, instead of one per mark."},
+        "name": {"type": "string", "default": "Partition", "doc": "The partition's name in the settings pane, where each group's marks are listed under it."}
+      }
+    },
+    "Dodge": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Moves overlapping points apart, for a beeswarm, or lays out one unit per row in a grid, for a unit (waffle) chart.",
+      "options": {
+        "mode": {"type": "\"collision\" | \"grid\"", "default": "collision", "doc": "\"collision\" offsets the points of one point mark so they do not overlap; \"grid\" lays out units in rows of `columns` cells: each unit gets x and y (its cell's center), x0, x1, y0 and y1.", "input": true},
+        "columns": {"type": "number | expression", "default": 10, "doc": "In grid mode, how many cells each row of units has."},
+        "count": {"type": "column", "defaultText": "one unit per row", "doc": "In grid mode, how many units each row makes (whole numbers).", "input": true},
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "x": {"type": "column", "doc": "The points' x column: with axis \"y\", their positions; with axis \"x\", groups whose points are laid out separately.", "input": true},
+        "y": {"type": "column", "doc": "The points' y column: with axis \"x\", their positions; with axis \"y\", groups whose points are laid out separately, such as one row per category.", "input": true},
+        "axis": {"type": "\"x\" | \"y\" | \"auto\"", "default": "auto", "doc": "The direction points move to clear each other: \"x\", \"y\", or \"auto\": across a categorical x (or a lone y), otherwise along y. The point mark inside takes the offsets itself.", "input": true},
+        "as": {"type": "string", "default": "offset", "doc": "The name of the offset column, in pixels; a point mark may still give it as dy (or dx).", "input": true},
+        "padding": {"type": "number", "default": 1, "units": "px", "doc": "The gap between neighboring points."},
+        "seed": {"type": "number", "default": 42, "doc": "The random seed of the order in which points are placed."}
+      }
+    },
+    "InputContext": {
+      "inputContext": true,
+      "container": true,
+      "group": "Inputs",
+      "summary": "A scope for inputs: everything inside it reads the inputs inside it by name (a Python Scene is one already)."
+    },
+
+    "TextInput": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "Text edited by the viewer, updated on each keystroke.",
+      "options": {
+        "value": {
+          "type": "string",
+          "default": "",
+          "doc": "The initial text."
+        },
+        "placeholder": {
+          "type": "string",
+          "doc": "A hint shown while the input is empty."
+        },
+        "name": {
+          "type": "string",
+          "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."
+        },
+        "label": {
+          "type": "string",
+          "defaultText": "the name",
+          "doc": "The text shown beside the control."
+        }
+      }
+    },
+    "ColorPicker": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "An opaque RGB color selected with the browser color picker.",
+      "options": {
+        "value": {
+          "type": "string",
+          "default": "#000000",
+          "doc": "A six-digit hexadecimal color; the value is lowercase #rrggbb."
+        },
+        "name": {
+          "type": "string",
+          "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."
+        },
+        "label": {
+          "type": "string",
+          "defaultText": "the name",
+          "doc": "The text shown beside the control."
+        }
+      }
+    },
+    "DateTimeInput": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "A date and time edited in a chosen time zone, held as a Date or null.",
+      "options": {
+        "value": {
+          "type": "Date | null",
+          "doc": "The initial instant; omitted or null leaves the input empty."
+        },
+        "min": {
+          "type": "Date",
+          "doc": "The earliest allowed instant."
+        },
+        "max": {
+          "type": "Date",
+          "doc": "The latest allowed instant."
+        },
+        "step": {
+          "type": "number",
+          "default": 60000,
+          "doc": "The step in milliseconds."
+        },
+        "timezone": {
+          "type": "string",
+          "default": "UTC",
+          "doc": "The editing time zone: an IANA name, UTC, or Local."
+        },
+        "name": {
+          "type": "string",
+          "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."
+        },
+        "label": {
+          "type": "string",
+          "defaultText": "the name",
+          "doc": "The text shown beside the control."
+        }
+      }
+    },
+    "Slider": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "A number, date or two-endpoint interval the viewer drags between min and max, read by name.",
+      "options": {
+        "min": {"type": "number | Date | expression", "default": 0, "doc": "The low end of the range: a number, a Date, or an expression such as min(\"x\") over the data around the slider."},
+        "max": {"type": "number | Date | expression", "default": 1, "doc": "The high end of the range: a number, a Date, or an expression such as max(\"x\")."},
+        "step": {"type": "number | string | {unit, step}", "defaultText": "any value", "doc": "The distance between values; over Dates, a calendar interval such as \"1 month\" (which lands on month starts) or milliseconds."},
+        "value": {"type": "number | Date | [number, number] | [Date, Date] | expression", "defaultText": "min", "doc": "The initial value, or [lower, upper] for two thumbs selecting an interval. Endpoints are sorted and clamped to min/max; an expression reads the data."},
+        "format": {"type": "string | (value) => string", "defaultText": "a numeric step's decimals, else 4 significant digits (12,346); over Dates, by the step, as an axis labels them", "doc": "How the value is shown: a d3-format string such as \".2f\", a %-pattern such as \"%b %Y\" over Dates, or (in JavaScript) a function."},
+        "timezone": {"type": "string", "defaultText": "the zone of the datetime column min or max reads, else UTC", "doc": "Over Dates, the time zone its steps and labels are in: an IANA name, \"UTC\" or \"Local\"."},
+        "name": {"type": "string", "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."},
+        "label": {"type": "string", "defaultText": "the name", "doc": "The text shown beside the control."}
+      }
+    },
+    "Checkbox": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "True or false, set by the viewer and read by name.",
+      "options": {
+        "value": {"type": "boolean", "default": false, "doc": "The value before the viewer sets it."},
+        "name": {"type": "string", "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."},
+        "label": {"type": "string", "defaultText": "the name", "doc": "The text shown beside the control."}
+      }
+    },
+    "Button": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "Counts the viewer's presses, so a prop that acts on each change of its value (reset=, refresh=) acts on each press; with set, a press writes other inputs (back to the top of a drill-down).",
+      "options": {
+        "value": {"type": "number", "default": 0, "doc": "The count before the first press."},
+        "name": {"type": "string", "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context. Optional with set."},
+        "label": {"type": "string", "defaultText": "the name", "doc": "The text shown beside the control (needed with set and no name)."},
+        "set": {"type": "object | array", "doc": "Inputs a press writes: input(\"root\").reset() restores root's default, input(\"root\").set(literal(\"all\")) sets a constant; a list writes several."}
+      }
+    },
+    "Select": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "One or several options, chosen by the viewer and read by name; a Select of column names picks what a channel plots.",
+      "options": {
+        "options": {"type": "(string | number | boolean | Date)[] | {label: value} | expression", "doc": "The choices: a list of values, labels and their values, or categories(\"field\") or columnNames() read from the data around it."},
+        "multiple": {"type": "boolean", "default": false, "doc": "Allow several choices; the value is a list usable with is_in(column, input(\"name\"))."},
+        "value": {"type": "string | number | boolean | Date | (string | number | boolean | Date)[]", "defaultText": "the first option, or an empty list when multiple", "doc": "The chosen value, or list of values when multiple is true."},
+        "name": {"type": "string", "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."},
+        "label": {"type": "string", "defaultText": "the name", "doc": "The text shown beside the control."}
+      }
+    },
+    "Playback": {
+      "input": true,
+      "group": "Inputs",
+      "summary": "A slider with play, pause and reset buttons that moves its value over time, read by name.",
+      "options": {
+        "rate": {"type": "number | string | {unit, step}", "default": 1, "doc": "How fast play moves the value, in value units per second; over Dates, a calendar interval per second (\"1 day\") or milliseconds per second."},
+        "loop": {"type": "boolean", "default": false, "doc": "Wraps back to min at max instead of stopping."},
+        "autoplay": {"type": "boolean", "default": false, "doc": "Starts playing when it mounts, unless the viewer prefers reduced motion."},
+        "playing": {"type": "boolean", "doc": "Plays (true) or pauses (false) it from code; Python has play() and pause()."},
+        "reset": {"type": "number | string", "doc": "Each change of its value returns it to its first value (a Button's count works); Python has reset()."},
+        "min": {"type": "number | Date | expression", "default": 0, "doc": "The low end of the range: a number, a Date, or an expression such as min(\"t\") over the data around it."},
+        "max": {"type": "number | Date | expression", "default": 1, "doc": "The high end of the range: a number, a Date, or an expression such as max(\"t\")."},
+        "step": {"type": "number | string | {unit, step}", "defaultText": "any value", "doc": "The distance between values: play moves one step every step/rate seconds, or every frame without one. Over Dates, a calendar interval such as \"1 month\" or milliseconds."},
+        "value": {"type": "number | Date | expression", "defaultText": "min", "doc": "The first value, where play starts and reset returns; an expression reads it from the data."},
+        "format": {"type": "string | (value) => string", "defaultText": "a numeric step's decimals, else 4 significant digits (12,346); over Dates, by the step, as an axis labels them", "doc": "How the value is shown: a d3-format string such as \".2f\", a %-pattern such as \"%b %Y\" over Dates, or (in JavaScript) a function."},
+        "timezone": {"type": "string", "defaultText": "the zone of the datetime column min or max reads, else UTC", "doc": "Over Dates, the time zone its steps and labels are in: an IANA name, \"UTC\" or \"Local\"."},
+        "name": {"type": "string", "doc": "The name readers use (input(\"name\"), hm.input.name, or \"$name\" where a string names a column): an identifier, unique in its input context."},
+        "label": {"type": "string", "defaultText": "the name", "doc": "The text shown beside the control."}
+      }
+    },
+    "Simulate": {
+      "container": true,
+      "group": "Inputs",
+      "summary": "Per-row state, such as positions and velocities, stepped at a fixed interval for the marks inside it to draw.",
+      "options": {
+        "name": {"type": "string", "doc": "The simulation's name in its status."},
+        "initial": {"type": "Record<string, string | number | expression>", "doc": "Each state column's first value: a column name, a number, or an expression over the data's columns. Rows that arrive later start from it too."},
+        "update": {"type": "Record<string, string | number | expression>", "doc": "Each state column's next value, reading the previous step (prev(\"x\"), Python hm.prev.x), the data's columns, the step (\"@dt\", Python hm.view.dt) and inputs. Every update reads the previous step, so their order does not matter."},
+        "step": {"type": "number", "default": 16, "units": "ms", "doc": "The simulated time one step advances; the state after n steps is the same at any frame rate."},
+        "maxSteps": {"type": "number", "default": 8, "doc": "The most steps one frame takes, so a slow device runs behind real time instead of stalling."},
+        "stop": {"type": "{tolerance, every, columns}", "doc": "Settles once no column in `columns` (default: the updated ones) changes by more than `tolerance` in a step, checked every `every` steps (default 30). New data, inputs, running or reset wake it."},
+        "running": {"type": "boolean", "default": true, "doc": "Plays or pauses the simulation; running={input(\"run\")} lets a Checkbox do it. Under prefers-reduced-motion one that plays from the start waits until running changes, as a Playback's autoplay does."},
+        "reset": {"type": "number | string", "doc": "Each change of its value starts again from `initial` (a Button's count works: reset={input(\"kick\")})."}
+      }
+    },
+    "Interpolate": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Fills a regular grid from scattered samples, for a heatmap, contours or a smooth line.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "x": {"type": "column", "doc": "The samples' x positions; the output's x column holds the grid's.", "input": true},
+        "y": {"type": "column", "doc": "The samples' y positions, for a 2D grid (the output's y column); without it the grid is 1D.", "input": true},
+        "values": {"type": "column[]", "doc": "The columns to interpolate onto the grid, each output under its own name; categorical ones take the nearest sample's value.", "input": true},
+        "resolution": {"type": "number | [number, number] | expression", "defaultText": "256 in 1D, [128, 128] in 2D", "doc": "How many grid points: a number, or [nx, ny] in 2D."},
+        "method": {"type": "\"auto\" | \"linear\" | \"bilinear\" | \"idw\" | \"nearest\"", "default": "auto", "doc": "\"linear\" (1D), \"bilinear\" (2D samples on a complete rectangular grid), \"idw\" (inverse-distance weighting of nearby samples) or \"nearest\"; \"auto\" picks linear in 1D, bilinear for a complete grid and idw otherwise.", "input": true},
+        "bounds": {"type": "{x, y}", "defaultText": "the samples' extent", "units": "data units", "doc": "The grid's extent, as {x: [min, max], y: [min, max]}."}
+      }
+    },
+    "Slice": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Each entity's values at one time (or other coordinate), interpolated between its observations, or one slice of a grid table.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "field": {"type": "column", "doc": "The column to slice along, such as time (on a grid table, one of its dimensions); in the output it holds `at`.", "input": true},
+        "at": {"type": "number", "default": 0, "doc": "Where to slice: each entity's values are interpolated between its observations on either side, and entities without one on each side are left out."},
+        "by": {"type": "column | column[]", "doc": "The columns that identify an entity; the output has one row per entity.", "input": true},
+        "values": {"type": "column[]", "defaultText": "every column but field and by", "doc": "The columns to interpolate: numbers linearly, categories from the nearer observation.", "input": true}
+      }
+    },
+    "Pivot": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "A long table made wide: a row per group and a column per category of a field.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "field": {"type": "column", "doc": "The categorical column whose categories become the output's columns, one each.", "input": true},
+        "value": {"type": "expression", "doc": "A numeric reduction expression filling the cells, over each group's rows in each category: sum(\"value\"), mean(\"value\") or count(). A cell with no rows gets a missing value.", "input": true},
+        "by": {"type": "column | column[]", "doc": "The columns that group the rows: an output row per group, with its keys (one row without it).", "input": true},
+        "as": {"type": "string[]", "defaultText": "the categories", "doc": "Names for the output columns, one per category of `field`, in its category order.", "input": true}
+      }
+    },
+    "Fold": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "A wide table made long: each row repeated once per chosen column, with that column's name and value.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "fields": {"type": "column[]", "doc": "The numeric columns to fold: each row appears once per column, with the column's name in `key` and its value in `value`.", "input": true},
+        "as": {"type": "{key, value}", "doc": "New names for the output columns `key` and `value`."}
+      }
+    },
+    "Join": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Columns from a second table added to each row, matched by a key.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "data": {"type": "table | transform", "doc": "The second table, whose columns are added; a new table replans the join. Or a transform (a Group of the brushed rows, ...), joined live as its output changes."},
+        "on": {"type": "column | column[]", "doc": "The key column both tables have, or several for a composite key.", "input": true},
+        "leftOn": {"type": "column | column[]", "doc": "Instead of `on`: this table's key columns.", "input": true},
+        "rightOn": {"type": "column | column[]", "doc": "Instead of `on`: the joined table's key columns, paired in order with `leftOn`.", "input": true},
+        "how": {"type": "\"left\" | \"inner\"", "default": "left", "doc": "\"left\" keeps every row, with missing values where no key matches; \"inner\" hides the rows with no match.", "input": true},
+        "fields": {"type": "column[]", "defaultText": "every column but the key", "doc": "The joined table's columns to add.", "input": true},
+        "as": {"type": "object", "doc": "New names for joined columns, by their names in the joined table ({region: \"area\"}).", "input": true}
+      }
+    },
+    "Sample": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Keeps a random subset of the rows, a number or a fraction of them, in their original order or shuffled.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "size": {"type": "number | expression", "defaultText": "every row, up to 1000 (every row with order \"random\")", "doc": "How many rows to keep."},
+        "proportion": {"type": "number | expression", "doc": "The fraction of the rows to keep, 0 to 1, instead of size."},
+        "seed": {"type": "number", "default": 42, "doc": "The random seed: the same seed picks the same rows in the same order."},
+        "order": {"type": "\"data\" | \"random\"", "default": "data", "doc": "\"data\" keeps the sampled rows in their original order; \"random\" puts them in the seed's random order, so order=\"random\" without a size shuffles every row."}
+      }
+    },
+    "Summary": {
+      "tier": "stats",
+      "container": true,
+      "group": "Transforms",
+      "summary": "An estimate per group, the mean or median, with an interval around it: the numbers behind error bars.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."},
+        "field": {"type": "column", "doc": "The numeric column summarized; the output also has its `count`, `standardDeviation` and `standardError`.", "input": true},
+        "by": {"type": "column | column[]", "doc": "The columns that group the rows: an output row per group, with its keys (one row without it).", "input": true},
+        "estimate": {"type": "\"mean\" | \"median\"", "default": "mean", "doc": "What the `estimate` column holds: each group's mean or median.", "input": true},
+        "interval": {"type": "\"none\" | \"deviation\" | \"standard-error\" | \"normal\" | \"bootstrap\"", "default": "none", "doc": "The `lower` and `upper` columns: one standard deviation or standard error either side of the mean, a normal confidence interval, or a bootstrap one (missing for \"none\"). Only a bootstrap takes the median.", "input": true},
+        "confidence": {"type": "number", "default": 0.95, "doc": "The confidence level of a normal or bootstrap interval, between 0 and 1."},
+        "samples": {"type": "number", "default": 1000, "doc": "How many resamples a bootstrap interval draws."},
+        "seed": {"type": "number", "default": 42, "doc": "The bootstrap's random seed, an integer: the same seed gives the same interval."},
+        "as": {"type": "{estimate, lower, upper, count, standardDeviation, standardError}", "doc": "New names for the output columns."}
+      }
+    },
+    "Transform": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "Run a registered transform or graph layout with its declared parameters.",
+      "options": {
+        "kind": {"type": "string", "doc": "The registered transform or layout kind."},
+        "params": {"type": "object", "doc": "Parameter values keyed by the plugin's schema; Python also accepts them as keywords.", "input": true},
+        "name": {"type": "string", "doc": "Names the transform, including its copies in a Facet."},
+        "by": {"type": "column | column[]", "doc": "Group input rows by these columns when the transform supports grouping.", "input": true},
+        "as": {"type": "{[output]: string}", "doc": "Rename output columns: an object mapping original names to published names."}
+      }
+    },
+    "Calculate": {
+      "container": true,
+      "group": "Transforms",
+      "summary": "New columns computed from expressions over the table's columns.",
+      "options": {
+        "columns": {"type": "object", "doc": "The new columns, a name mapped to an expression each, all computed from the incoming columns. Python passes each as a keyword: hm.Calculate(total=hm.col.a + hm.col.b).", "input": true},
+        "name": {"type": "string", "doc": "Names the transform, so a Facet's getTransform(name) reaches its copy in every cell."}
+      }
+    },
+    "Force": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A force-directed layout of a graph's nodes and edges, simulated live.",
+      "options": {
+        "name": {"type": "string", "doc": "Names the layout, so a Facet's settings and getTransform(name) reach it in every cell."},
+        "weight": {"type": "column", "doc": "An edge column of nonnegative weights, each multiplying its link's spring strength.", "input": true},
+        "dimensions": {"type": "2 | 3", "default": 2, "doc": "Lays the graph out in two or three dimensions."},
+        "seed": {"type": "number", "default": 42, "doc": "Seeds the random starting positions, so the same graph lays out the same way."},
+        "repulsion": {"type": "number", "default": 30, "doc": "How strongly nodes push one another apart."},
+        "linkDistance": {"type": "number", "default": 30, "units": "data units", "doc": "The length each link's spring pulls toward."},
+        "springStrength": {"type": "number", "default": 0.1, "doc": "How strongly each link pulls its ends toward linkDistance."},
+        "centering": {"type": "number", "default": 0.01, "doc": "How strongly each node is pulled toward the origin."},
+        "velocityDecay": {"type": "number", "default": 0.4, "doc": "The fraction of each node's velocity lost per tick, like friction."},
+        "alpha": {"type": "number", "default": 1, "doc": "The simulation's heat, which scales every force and cools each tick; it starts at 1, so bind it to read it rather than set it."},
+        "alphaMin": {"type": "number", "default": 0.001, "doc": "The layout stops once alpha cools below this."},
+        "alphaDecay": {"type": "number", "defaultText": "1 - 0.001^(1/300), about 0.0228 (d3's: 300 ticks to cool)", "doc": "The fraction of the way alpha moves toward alphaTarget each tick."},
+        "alphaTarget": {"type": "number", "default": 0, "doc": "The alpha the layout cools toward; above alphaMin it keeps running."},
+        "forces": {"type": "object", "defaultText": "charge, link, and x and y (z in 3D), from the options above", "doc": "Named forces, as d3's (center, manyBody, link, collide, x, y, z, radial). An entry named like a default force updates it, one with a type replaces it, and null removes it.", "input": true},
+        "fixed": {"type": "{x, y, z}", "doc": "Holds nodes at coordinates from nodes-table columns, expressions or numbers (d3's fx, fy, fz); a non-finite value leaves that node free."},
+        "initial": {"type": "{x, y, z}", "doc": "Starting coordinates from nodes-table columns, expressions or numbers; a non-finite value keeps that node's seeded start."},
+        "ticks": {"type": "number", "default": 1, "doc": "Simulation ticks per drawn step."},
+        "warmup": {"type": "number", "default": 0, "doc": "Ticks run before the layout is first drawn, so it appears already settled."},
+        "running": {"type": "boolean", "doc": "Plays (true) or pauses (false) the layout, which otherwise starts paused; a Checkbox's input can drive it."},
+        "reset": {"type": "number | string", "doc": "Each change of its value restarts the layout from its starting positions; a Button's input can drive it.", "input": true},
+        "reheat": {"type": "number | string", "doc": "Each change of its value reheats the layout (alpha back to 1), so it moves again.", "input": true},
+        "step": {"type": "number | string", "doc": "Each change of its value pauses the layout and advances it one step.", "input": true},
+        "release": {"type": "number | string", "doc": "Each change of its value frees every pinned node.", "input": true}
+      }
+    },
+    "GraphData": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A graph from edges, with nodes given or inferred from the edges' endpoints; ordinary transforms operate on the selected table.",
+      "options": {
+        "nodes": {"type": "table", "defaultText": "inferred from the edges' endpoints", "doc": "One row per node with unique IDs, including isolated nodes. Requires edges.", "input": true},
+        "edges": {"type": "table", "defaultText": "the surrounding data", "doc": "Edge rows whose source and target values identify nodes.", "input": true},
+        "nodeKey": {"type": "column", "default": "id", "doc": "The node ID column of nodes, exposed as the canonical id alias.", "input": true},
+        "source": {"type": "column", "default": "source", "doc": "The edge source ID column.", "input": true},
+        "target": {"type": "column", "default": "target", "doc": "The edge target ID column.", "input": true},
+        "nodeFrom": {"type": "\"source\" | \"target\"", "default": "source", "doc": "Which endpoint receives each edge row's reduce results.", "input": true},
+        "reduce": {"type": "object", "defaultText": "{}", "doc": "Node columns aggregated from the edge rows, mapped to {field, op}; nodes no edge reaches receive each reducer's empty result.", "input": true}
+      }
+    },
+    "DAG": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A layered layout of a directed acyclic graph, with edges routed around the nodes.",
+      "options": {
+        "orientation": {"type": "\"left\" | \"right\" | \"down\" | \"up\"", "default": "down", "doc": "The direction the layers run, from sources to sinks.", "input": true},
+        "nodeWidth": {"type": "number | column | expression", "default": 1, "units": "data units", "doc": "Each node's width, which the layout keeps clear: a number, or a nodes-table column or expression."},
+        "nodeHeight": {"type": "number | column | expression", "default": 1, "units": "data units", "doc": "Each node's height, which the layout keeps clear: a number, or a nodes-table column or expression."},
+        "nodeGap": {"type": "number", "default": 1, "units": "data units", "doc": "The space between neighboring nodes in a layer."},
+        "layerGap": {"type": "number", "default": 1, "units": "data units", "doc": "The space between layers."}
+      }
+    },
+    "Pack": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A hierarchy drawn as nested circles, each leaf's area set by its value.",
+      "options": {
+        "root": {"type": "string | number | boolean", "doc": "The ID of the node whose subtree the layout divides: the hierarchy's root, or any node below it (a drill-down), or an input a Select or a click sets. Nodes outside its subtree stay rows of the nodes table, hidden; depth counts from it (0).", "input": true},
+        "levels": {"type": "number", "defaultText": "every level", "doc": "How many levels below root to show (1: its children only); root itself is then left out, as its area is the whole layout.", "input": true},
+        "value": {"type": "column | expression", "default": 1, "doc": "Each leaf's nonnegative weight, which sets its circle's area: a nodes-table column or an expression over it. A parent holds the sum of its leaves."},
+        "width": {"type": "number", "default": 1, "units": "data units", "doc": "The width of the area the circles fill."},
+        "height": {"type": "number", "default": 1, "units": "data units", "doc": "The height of the area the circles fill."},
+        "padding": {"type": "number", "default": 0, "units": "data units", "doc": "The gap between circles."}
+      }
+    },
+    "Treemap": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A hierarchy drawn as nested rectangles, each leaf's area set by its value.",
+      "options": {
+        "paddingInner": {"type": "number", "defaultText": "padding", "units": "data units", "doc": "The gap between sibling rectangles."},
+        "paddingOuter": {"type": "number", "defaultText": "padding", "units": "data units", "doc": "The gap between a parent's edges and its children."},
+        "tile": {"type": "\"squarify\" | \"resquarify\" | \"binary\" | \"slice\" | \"dice\" | \"sliceDice\"", "default": "squarify", "doc": "How each rectangle is split among its children, by d3's tiling methods.", "input": true},
+        "root": {"type": "string | number | boolean", "doc": "The ID of the node whose subtree the layout divides: the hierarchy's root, or any node below it (a drill-down), or an input a Select or a click sets. Nodes outside its subtree stay rows of the nodes table, hidden; depth counts from it (0).", "input": true},
+        "levels": {"type": "number", "defaultText": "every level", "doc": "How many levels below root to show (1: its children only); root itself is then left out, as its area is the whole layout.", "input": true},
+        "value": {"type": "column | expression", "default": 1, "doc": "Each leaf's nonnegative weight, which sets its rectangle's area: a nodes-table column or an expression over it. A parent holds the sum of its leaves."},
+        "width": {"type": "number", "default": 1, "units": "data units", "doc": "The width of the rectangle the layout divides."},
+        "height": {"type": "number", "default": 1, "units": "data units", "doc": "The height of the rectangle the layout divides."},
+        "padding": {"type": "number", "default": 0, "units": "data units", "doc": "The gap around and between rectangles, where paddingInner and paddingOuter do not set their own."}
+      }
+    },
+    "Sankey": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A flow diagram layout, with nodes in columns and links as thick as their values.",
+      "options": {
+        "value": {"type": "column", "doc": "The edge table's column of nonnegative flows, which set the links' thickness.", "input": true},
+        "orientation": {"type": "\"left\" | \"right\" | \"down\" | \"up\"", "default": "right", "doc": "The direction the flow runs.", "input": true},
+        "nodeWidth": {"type": "number", "default": 0.025, "units": "data units", "doc": "The thickness of each node's bar along the flow; the layout spans 0 to 1."},
+        "nodePadding": {"type": "number", "default": 0.02, "units": "data units", "doc": "The gap between neighboring nodes in a column; the layout spans 0 to 1."},
+        "iterations": {"type": "number", "default": 8, "doc": "Relaxation passes that straighten the links."},
+        "align": {"type": "\"left\" | \"right\" | \"center\" | \"justify\"", "default": "justify", "doc": "Which column each node takes: its depth from the sources (left), its distance to the sinks (right), beside its targets for a source (center), or left with every sink in the last column (justify).", "input": true}
+      }
+    },
+    "Flow": {
+      "group": "Graphs",
+      "summary": "A Sankey's links drawn as bands, one per edge.",
+      "use": ["mark", "maxInstancesOption", "interpolationOption", "rotationOption", "shapeOptions", "markSettings", "transparent"],
+      "omit": ["brush", "drag", "nearby", "ondrag", "ondragend", "position", "x", "y", "z"],
+      "options": {
+        "startLower": {"type": "channel", "doc": "Where one side of each band starts, at its source node: a column of positions, Sankey's startLower."},
+        "endLower": {"type": "channel", "doc": "Where that side ends, at the target node: a column of positions, Sankey's endLower."},
+        "startUpper": {"type": "channel", "doc": "Where the other side of each band starts: a column of positions, Sankey's startUpper."},
+        "endUpper": {"type": "channel", "doc": "Where the other side ends: a column of positions, Sankey's endUpper."},
+        "opacity": {"default": 0.2, "input": false},
+        "fill": {"input": false},
+        "size": {"input": false},
+        "color": {"input": false},
+        "outlineColor": {"input": false},
+        "outlineOpacity": {"input": false},
+        "outlineWidth": {"input": false},
+        "width": {"input": false}
+      }
+    },
+    "Routes": {
+      "group": "Graphs",
+      "summary": "A DAG's edges drawn along their routed paths, bends included.",
+      "use": ["mark", "maxInstancesOption", "interpolationOption", "markSettings", "transparent"],
+      "omit": ["brush", "drag", "fill", "fillScale", "nearby", "ondrag", "ondragend", "outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "position", "size", "sizeScale", "x", "y", "z"],
+      "options": {
+        "dash": {"type": "number | boolean | [number, number]", "units": "px", "doc": "Dashes the lines: true (4 px dashes and gaps), a dash length (gaps as long), or [dash, gap], measured along the drawn path."},
+        "curve": {"type": "\"linear\" | \"step\" | \"step-before\" | \"step-after\" | \"link-horizontal\" | \"link-vertical\" | \"quadratic\" | \"cubic\"", "default": "linear", "doc": "How each piece of a route runs between its two points."},
+        "opacity": {"input": false},
+        "color": {"input": false},
+        "width": {"input": false}
+      }
+    },
+    "Nodes": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A graph's nodes, one row each, for the marks inside to draw.",
+      "options": {
+        "drag": {"type": "boolean", "default": false, "doc": "Lets the viewer drag nodes with the pointer, in a Force layout."}
+      }
+    },
+    "Edges": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A graph layout's edges, one row each with start and end positions, for the marks inside to draw."
+    },
+    "GeoJSON": {
+      "mark": true,
+      "group": "Maps and tiles",
+      "summary": "Maps of GeoJSON regions, lines and points, colored by their properties (choropleths) and optionally extruded.",
+      "use": ["mark", "markSettings", "lit", "transparent", "geoSettings"],
+      "omit": ["ondblclick", "oncontextmenu", "onpointerenter", "onpointerleave", "onpointermove", "onpointerdown", "onpointerup", "onpointercancel", "onpointerover", "onpointerout", "onpointermissed", "rows", "domains", "brush", "drag", "enterEffect", "exitEffect", "identity", "nearby", "nearest", "ondrag", "ondragend", "position", "select", "x", "y", "z"],
+      "options": {
+        "data": {"type": "object", "doc": "The shapes: a GeoJSON Geometry, Feature or FeatureCollection, in longitude and latitude on a map. Feature properties are columns for the channels."},
+        "geometry": {"type": "column", "doc": "A geometry column of the enclosing data, instead of data: a FeatureCollection given as a Plot's or Data's table has one named \"geometry\"."},
+        "featureKey": {"type": "string", "doc": "The feature property that joins each feature to a row of the enclosing table, matched against dataKey; \"$id\" uses feature.id."},
+        "dataKey": {"type": "column", "doc": "The column of the enclosing table matched against featureKey; each key may appear once."},
+        "height": {"type": "channel", "default": 0, "doc": "Each feature's extrusion: a number, or a property or column mapped through heightScale. Only polygons extrude, in 3D views.", "input": true},
+        "heightScale": {"type": "scale", "doc": "A continuous() scale from heights to extrusions: its domain (by default [0, 1]) maps onto its range (by default [0, 1], nonnegative and increasing); heights outside the domain clamp. The map is linear: a transform, a midpoint or a \"symmetric\" domain is an error."},
+        "plane": {"type": "\"xy\" | \"xz\"", "default": "xy", "doc": "In a Cartesian 3D plot, \"xz\" lays the features on the horizontal ground plane and extrudes them upward."},
+        "fit": {"type": "boolean", "default": true, "doc": "On a 2D map, zoom to the features (a city's districts fill the plot, not a speck in a world map); a Plot's own viewport wins. False keeps the whole map."},
+        "onclick": {"type": "(event) => void", "doc": "Called with the clicked feature: event.feature, event.featureIndex and, with a join, event.tableRowIndex. Python: on_click(callback).", "languages": "js"},
+        "fill": {"default": "#718b9b", "doc": "The fill of regions and points: a CSS color, or a property or column mapped to colors. null (Python None) draws only lines and polygon boundaries, using color and width."},
+        "color": {"defaultText": "the fill", "doc": "The color of LineString features and, with fill=null, polygon boundaries: a CSS color, or a property or column mapped to colors."},
+        "size": {"default": 8, "doc": "The size of Point features: a number, or a property or column mapped to sizes."},
+        "width": {"default": 1, "doc": "The width of LineString features and, with fill=null, polygon boundaries: a number, or a property or column mapped to widths."},
+        "outlineColor": {"default": "#f4f2ed", "doc": "The color of region and point outlines."},
+        "outlineWidth": {"default": 0.7, "units": "px", "doc": "The width of region and point outlines; 0 draws none."}
+      }
+    },
+    "VectorTile": {
+      "mark": true,
+      "group": "Maps and tiles",
+      "summary": "A basemap of land, water, roads, buildings and place names from vector map tiles.",
+      "options": {
+        "url": {"type": "string | ({z, x, y}) => string", "defaultText": "VersaTiles' OpenStreetMap tiles, which need no key and are credited on the plot", "doc": "Where tiles load from: a URL template with {z}, {x} and {y}, or in JavaScript a function of {z, x, y}. In Svelte markup pass the template as a JavaScript string: url={\"https://.../{z}/{x}/{y}.pbf\"}."},
+        "tile": {"type": "[number, number, number]", "doc": "One tile to load, [z, x, y]: its zoom, its column from the west and its row from the north."},
+        "tiles": {"type": "[number, number, number][]", "doc": "Several tiles to load (at most 16), each clipped to its own square."},
+        "bounds": {"type": "[number, number, number, number]", "units": "degrees", "doc": "A box [west, south, east, north]: load every tile it touches at zoom (at most 16)."},
+        "zoom": {"type": "number", "doc": "The zoom at which bounds picks its tiles."},
+        "data": {"type": "object", "doc": "Already decoded tiles to draw instead of loading any: a GeoJSON FeatureCollection whose features name their source layer in properties.layerName."},
+        "styles": {"type": "object", "doc": "Per part (water, roads, buildings, places, ...): false hides it, or {fill, color, width, size, opacity, outlineColor, outlineWidth} changes its look over the scheme."},
+        "scheme": {"type": "string | object", "defaultText": "the enclosing Theme's basemap colors (derived from its colors when it has none), else \"default\"", "doc": "The basemap's colors: a theme preset's name (\"dark\", \"sea\", ...), \"default\", or part styles as for styles."},
+        "sourceLayers": {"type": "object", "doc": "Assign a tileset's source layers to parts, {layer: part}, or hide one with false, before the built-in rules."},
+        "clip": {"type": "boolean", "default": true, "doc": "End each tile's geometry at the tile's edge (tiles overlap by a buffer)."},
+        "fit": {"type": "boolean", "default": true, "doc": "Frame the tiles when they change, in a 2D map."},
+        "origin": {"type": "[number, number]", "units": "degrees", "doc": "Draw in a local plane instead of longitude and latitude: meters east and north of this [longitude, latitude], times unitsPerMeter. For Cartesian and 3D plots."},
+        "unitsPerMeter": {"type": "number", "default": 1, "doc": "The plot units per meter in the local plane that origin sets."},
+        "plane": {"type": "\"xy\" | \"xz\"", "default": "xy", "doc": "In a Cartesian 3D plot, \"xz\" lays the tiles on the horizontal ground plane."},
+        "snapshot": {"type": "boolean", "default": true, "doc": "In an HTML export of a scene, embed the tiles on screen as tileData; false exports only the url, so the page loads its tiles when it opens."},
+        "live": {"type": "boolean", "default": true, "doc": "In a 2D view (a Cartesian plot, or a map in any projection, the globe included), and under a 3D flyover camera (with origin and plane=\"xz\"), also load the tiles the camera shows as it moves. Needs opaque styles; not inside nested Frames."},
+        "minZoom": {"type": "number", "default": 0, "doc": "The coarsest zoom live tiles load."},
+        "maxZoom": {"type": "number", "default": 14, "doc": "The finest zoom live tiles load; zoomed in further, those tiles stretch."},
+        "zoomBias": {"type": "number", "default": 0, "doc": "Live tile detail offset in zoom levels, between -4 and 4: +1 doubles linear detail at the same view scale or camera height; -1 uses coarser tiles. Zoom limits and the tile budget still apply."},
+        "attribution": {"type": "string | false", "defaultText": "the default tiles' credit when there is no url, else none", "doc": "A credit line in the plot's lower-left corner, kept in every export (most tile licenses require one); false hides it."},
+        "tileData": {"type": "object[]", "doc": "Embedded tiles instead of loading them: [{tile: [z, x, y], bytes}], bytes as base64 text or a Uint8Array (null for an empty tile). Exported pages carry their tiles this way."},
+        "extrudeBuildings": {"type": "boolean", "default": true, "doc": "Under a 3D flyover camera, stand the tiles' buildings up from their height tags (5 meters when missing) with flat roofs; false draws flat footprints. 2D maps are always flat."},
+        "name": {"type": "string", "doc": "The name of its group of parts in the settings pane."},
+        "visible": {"type": "boolean", "doc": "Show or hide every part."},
+        "opacity": {"type": "number", "doc": "A multiplier on every part's opacity; live tiles need 1."},
+        "onclick": {"type": "(event) => void", "doc": "Called with a clicked feature of an area or line part: event.feature has the tile's tags and layerName. Python: on_click(callback).", "languages": "js"},
+        "onload": {"type": "(event) => void", "doc": "Called after tiles load, with the tiles, the number of features decoded and the milliseconds taken.", "languages": "js"},
+        "onerror": {"type": "(event) => void", "doc": "Called when a load fails, with the error and, for a live tile, the tile; the previous tiles stay on screen.", "languages": "js"}
+      }
+    },
+    "Marginals": {
+      "tier": "charts",
+      "container": true,
+      "figure": true,
+      "group": "Plot and layout",
+      "summary": "A scatter plot with a histogram of each of its columns along its top and right sides.",
+      "use": [
+        "mark",
+        "shapeOptions",
+        "markSettings"
+      ],
+      "omit": [
+        "rows",
+        "position",
+        "z",
+        "width",
+        "widthScale",
+        "domains"
+      ],
+      "options": {
+        "data": {
+          "type": "table",
+          "doc": "A table or live pipeline output for the scatter and its histograms; the same as wrapping the Marginals in Data."
+        },
+        "schema": {
+          "type": "object",
+          "doc": "Column types for data, such as {\"day\": \"datetime\"}, as on Data."
+        },
+        "key": {
+          "type": "column | column[]",
+          "doc": "The column, or columns, that identify each row of data across updates, as on Data."
+        },
+        "x": {
+          "type": "column",
+          "doc": "The column the scatter plots along x, binned by the histogram above it. Required."
+        },
+        "y": {
+          "type": "column",
+          "doc": "The column the scatter plots along y, binned by the histogram to its right. Required."
+        },
+        "bins": {
+          "type": "number | number[] | \"auto\" | \"sturges\" | \"fd\" | \"scott\" | expression",
+          "default": 30,
+          "doc": "Both histograms' bins, as Histogram's bins: a count, edges, a rule or an expression."
+        },
+        "height": {
+          "type": "number",
+          "default": 450,
+          "units": "px",
+          "doc": "The height of the whole figure, at least 160: the histograms take a fifth of it (at least 48 px) across the scatter's side, and the scatter the rest."
+        },
+        "viewport": {
+          "type": "{x, y, zoom, zoomX, zoomY, center}",
+          "doc": "The scatter's 2D view, as a Plot's viewport; the histograms follow it on their axes."
+        },
+        "onviewportchange": {
+          "type": "(viewport) => void",
+          "doc": "Called when the viewer pans or zooms the scatter, with its new viewport. Python: on_event(\"viewportchange\").",
+          "languages": "js"
+        }
+      }
+    },
+    "FocusContext": {
+      "tier": "charts",
+      "container": true,
+      "figure": true,
+      "group": "Plot and layout",
+      "summary": "A line chart over a strip of the whole series: dragging across the strip zooms the chart to that x interval.",
+      "use": ["mark", "seriesOption", "markSettings"],
+      "omit": ["rows", "position", "z", "domains", "brush"],
+      "options": {
+        "data": {"type": "table", "doc": "A table or live pipeline output for both views; the same as wrapping the FocusContext in Data."},
+        "schema": {"type": "object", "doc": "Column types for data, such as {\"day\": \"datetime\"}, as on Data."},
+        "key": {"type": "column | column[]", "doc": "The column, or columns, that identify each row of data across updates, as on Data."},
+        "x": {"type": "column", "doc": "The column the lines plot along x: a drag across the strip below zooms the chart to an interval of it (its brush's bounds), and clearing the brush shows it all. Required."},
+        "y": {"type": "column", "doc": "The column the lines plot along y. Required."},
+        "height": {"type": "number", "default": 360, "units": "px", "doc": "The height of the whole figure, at least 160: the strip takes a fifth of it (at least 48 px), the chart the rest."},
+        "viewport": {"type": "{x, y, zoom, zoomX, zoomY, center}", "doc": "The chart's 2D view, as a Plot's viewport."},
+        "onviewportchange": {"type": "(viewport) => void", "doc": "Called when the viewer pans or zooms the chart, with its new viewport. Python: on_event(\"viewportchange\").", "languages": "js"}
+      }
+    },
+    "Polygon": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "Filled polygons from their vertices in order, one per series.",
+      "use": ["mark", "seriesOption"],
+      "omit": ["rows", "brush", "color", "colorScale", "drag", "nearby", "ondrag", "ondragend", "position", "size", "sizeScale", "width", "widthScale", "z"],
+      "options": {
+        "x": {"type": "column", "doc": "Each vertex's x position, one row per vertex. Leave x and y out inside Contour (bands), Voronoi or Hull: Polygon then draws the shapes they make.", "input": false},
+        "y": {"type": "column", "doc": "Each vertex's y position, one row per vertex.", "input": false},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "series": {"type": "column", "doc": "Groups the rows into polygons, each group's rows its vertices in order; without it, all the rows are one polygon."},
+        "fill": {"default": "#547ba2", "doc": "The fill color: a CSS color, or a column mapped to colors (each polygon takes its first row's value)."},
+        "outlineColor": {"default": "#ffffff"}
+      }
+    },
+    "Panels": {
+      "container": true,
+      "group": "Plot and layout",
+      "summary": "Stacks Plots over one shared x: one domain, panned and zoomed together, its axis drawn once under the stack.",
+      "options": {
+        "x": {"type": "{domain, transform, label, ...}", "doc": "Settings for the shared x axis (label, format, domain, ...), under each Plot's own x settings. Only the last Plot draws the axis; the others show their data over the same domain."},
+        "gap": {"type": "number", "default": 6, "units": "px", "doc": "Space between the Plots."}
+      }
+    },
+    "TableView": {
+      "group": "Plot and layout",
+      "summary": "The rows of the data around it as an HTML table, live: a Group's groups, a Sort's top rows, a Filter's kept rows; omitted from image exports.",
+      "options": {
+        "columns": {"type": "(column | {field, label, format})[]", "defaultText": "every column", "doc": "The columns, in order: names, or {field, label, format} with a header and a d3-format or %-pattern, as tooltip fields take."},
+        "limit": {"type": "number", "default": 100, "doc": "How many rows to show; the rest are counted below the table. A Sort above it gives a top N."},
+        "title": {"type": "string", "doc": "A caption above the table."},
+        "select": {"type": "boolean | selection | object", "doc": "Click a row: true selects its source rows in the data's selection, or give a selection(); input(\"root\").set(\"id\") writes an input (.set(literal(v)) a constant, .reset() its default), and a second click on that row restores its default."},
+        "hover": {"type": "boolean | selection | object", "doc": "Hover a row: true marks its source rows @hovered, or give a selection(); input(\"focus\").set(\"id\") shows the row's id in an input while the pointer is on it."},
+        "name": {"type": "string", "doc": "A name for the table (its element's data-name attribute)."}
+      }
+    },
+    "Title": {
+      "positional": "text",
+      "group": "Plot and layout",
+      "summary": "A heading or note beside plots, drawn as text that stays text in SVG and PDF exports.",
+      "options": {
+        "text": {"type": "string | (string | expression | {value, format})[]", "doc": "The text: \"\\n\" breaks a line and {$name} shows an input's value. Python takes it positionally: hm.Title(\"...\"). A readout shows live values: a list of parts, strings and reductions over the Data around the Title (count(where=\"@brushed\"), mean(\"fare\")), or {value, format} with a d3-format string; in Python an f-string does it, hm.Title(f\"Selected: {hm.count(where='@brushed'):,}\"). A live value follows the data and its selections, written as tooltips write numbers, \"—\" when no row has one."},
+        "size": {"type": "\"title\" | \"subtitle\" | \"caption\" | number", "default": "title", "doc": "\"title\", \"subtitle\" or \"caption\", sizes that follow the theme's text size, or pixels."},
+        "weight": {"type": "number | \"normal\" | \"bold\"", "defaultText": "600 for a title, 400 otherwise", "doc": "The font weight, as in CSS."},
+        "align": {"type": "\"left\" | \"right\" | \"center\"", "default": "left", "doc": "Where the lines sit across the block."},
+        "color": {"type": "color", "defaultText": "the theme's text color", "doc": "The text color."},
+        "font": {"type": "string", "defaultText": "the theme's", "doc": "The font, a CSS font-family."},
+        "wrap": {"type": "boolean", "default": true, "doc": "Wrap words at the block's width; false keeps each line whole."},
+        "name": {"type": "string", "doc": "A name for the block (its element's data-name attribute)."}
+      }
+    },
+    "Mapping": {
+      "container": true,
+      "inputs": "all",
+      "group": "Plot and layout",
+      "summary": "Channels (x, y, fill, size, ...) that the marks inside it share.",
+      "use": ["mark", "seriesOption", "endsOptions", "rotationOption", "shapeOptions"],
+      "omit": ["rows", "domains", "blend", "shade", "colormap", "drag", "identity", "label", "legend", "nearby", "nearest", "ondrag", "ondragend", "opacityScale", "options", "outlineColorScale", "tooltip"],
+      "options": {
+        "name": {"doc": "The Mapping's name in the settings pane; the marks inside do not take it."}
+      }
+    },
+    "Text": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "Text labels at data positions, one per row.",
+      "use": ["mark", "maxInstancesOption"],
+      "omit": ["outlineColor", "outlineColorScale", "outlineWidth", "outlineOpacity", "fill", "fillScale", "width", "widthScale"],
+      "options": {
+        "xOffset": {"type": "channel", "default": 0, "units": "data", "doc": "Moves each row along x in data units: on a categorical axis a band is one unit, so 0.25 is a quarter of the category's band (grouped bars, dodged points). A number or a column. dx moves by CSS pixels.", "input": true},
+        "yOffset": {"type": "channel", "default": 0, "units": "data", "doc": "Moves each row along y in data units: on a categorical axis a band is one unit (side-by-side horizontal bars). A number or a column. dy moves by CSS pixels.", "input": true},
+        "text": {"type": "column | string | (string | number)[]", "doc": "The text of each label: a column, one string for every label, or one value per row."},
+        "align": {"type": "\"left\" | \"center\" | \"right\" | \"auto\"", "default": "center", "doc": "Which part of each label is at its point: its left end, its center, or its right end; \"auto\" picks each row's from its dx: left of a label offset right of its point by more than 4 pixels, right of one offset left, else centered."},
+        "format": {"type": "\"axis\" | string", "doc": "How numbers in the text are written: a d3-format string (\",.0f\", \".1%\", \"$,.2f\"; default the theme's numbers.format, else as tooltips write them: four significant digits, whole numbers exact, thousands grouped from 10,000), or a %-pattern for a datetime column (\"%b %d\"). A number computed on the GPU (a Group's count, a Calculate's mean) is written the same way, with no as_category. \"axis\": the text is an axis's view-state field (\"@pointer_x\", \"@view_y_min\", ...), shown as the axis's readout writes it, finer than its ticks, as Crosshair's readouts are; \"@pointer\" shows both of the pointer's, \"x, y\". On a band axis the pointer reads as its category; the view's edges are band positions."},
+        "dx": {"type": "channel", "default": 0, "units": "px", "doc": "Moves each label right of its point, or left when negative.", "input": true},
+        "dy": {"type": "channel", "default": 0, "units": "px", "doc": "Moves each label down from its point, or up when negative.", "input": true},
+        "font": {"type": "string", "defaultText": "the plot's font", "doc": "The font, a CSS font-family."},
+        "box": {"type": "boolean | {fill, outlineColor, outlineWidth, padding, radius, opacity}", "doc": "A box behind each label: true for a white box with a gray outline, or its settings."},
+        "leader": {"type": "boolean | {color, width}", "doc": "With an offset, a line from near each point to its label: true for a 1.5 px line in the text's color, or its color and width."},
+        "data": {"type": "table", "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.", "languages": "python"},
+        "size": {"defaultText": "the theme's font size (14 in the default theme)", "doc": "The font size: a number, or a column mapped to sizes."},
+        "color": {"defaultText": "the theme's text color"}
+      }
+    },
+    "Anchor": {
+      "mark": true,
+      "group": "Marks",
+      "summary": "An invisible position that connections from a Line, Segments or Arrows attach to.",
+      "use": ["limitSettings", "axisSettings"],
+      "options": {
+        "x": {"type": "channel", "doc": "The x position of each row: a column, per-row values, or one value.", "input": true},
+        "y": {"type": "channel", "doc": "The y position of each row: a column, per-row values, or one value.", "input": true},
+        "z": {"type": "channel", "doc": "The z position, in a 3D plot: a column, per-row values, or one value.", "input": true},
+        "position": {"type": "channel", "doc": "Positions as one column or an N x 2 (or N x 3) array, instead of x, y and z.", "input": true},
+        "name": {"type": "string", "doc": "The name facet.endpoint() and partition.endpoint() select this Anchor by when a Facet or Partition repeats it (Python can pass the Anchor itself); also its label in the settings pane."},
+        "identity": {"type": "identity", "defaultText": "its data's", "doc": "Whose rows these are: connect() without a key matches the rows of endpoints that share an identity()."},
+        "enterEffect": {"type": "boolean | \"fade\" | object", "doc": "In a keyed update, arriving rows start from their channels' animate(..., {enter}) values; an Anchor draws nothing, so \"fade\" only sets the timing."},
+        "exitEffect": {"type": "boolean | \"fade\" | object", "doc": "In a keyed update, leaving rows stay in place, and connectable, until the transition ends."},
+        "animation": {"type": "boolean", "default": false, "doc": "Animate changes to the positions, so what is connected to the Anchor moves smoothly."},
+        "animationDuration": {"type": "number", "default": 300, "units": "ms", "doc": "How long an animated change takes."},
+        "animationEasing": {"type": "\"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\"", "default": "cubic-in-out", "doc": "The animation's easing."},
+        "data": {"type": "table", "doc": "A table for this Anchor alone; unlike other marks, an Anchor with data still goes inside a Plot.", "languages": "python"}
+      }
+    },
+    "Tree": {
+      "container": true,
+      "group": "Graphs",
+      "summary": "A rooted tree layout of an edge table, as a tidy tree, an icicle or a dendrogram.",
+      "options": {
+        "root": {"type": "string | number | boolean | expression", "doc": "The starting node's ID, or a scalar reduction over node columns and selection. Its depth is zero; every mode keeps only reachable nodes.", "input": true},
+        "directed": {"type": "boolean", "default": false, "doc": "Follows edges only from source to target, instead of both ways, in every mode."},
+        "orientation": {"type": "\"left\" | \"right\" | \"down\" | \"up\"", "default": "down", "doc": "The direction the tree grows from its root.", "input": true},
+        "siblingSpacing": {"type": "number", "default": 1, "units": "data units", "doc": "The distance between neighboring leaves, across the tree (tidy and cluster modes)."},
+        "depthSpacing": {"type": "number", "default": 1, "units": "data units", "doc": "The distance between levels, along the tree (tidy and cluster modes)."},
+        "mode": {"type": "\"tidy\" | \"tidy-approx\" | \"partition\" | \"cluster\"", "default": "tidy", "doc": "A compact CPU tidy tree, a GPU approximation reserving subtree intervals (tidy-approx), a GPU icicle of nested rectangles with x0, x1, y0 and y1 (partition), or a dendrogram with every leaf on one level (cluster). Every mode gives the leaves an order column, their place from left to right.", "input": true},
+        "layerHeight": {"type": "number | column | expression", "default": 1, "units": "data units", "doc": "Partition mode: nonnegative band thickness per node. Children start at their parent's end; zero collapses a layer. tween() runs before layout.", "input": true},
+        "nodeWidth": {"type": "number | column | expression", "default": 1, "units": "data units", "doc": "Each node's width, as a number or a nodes-table column or expression. Partition and tidy modes allow zero widths for collapsing branches; incoming tween() is evaluated before geometry."},
+        "childAlign": {"type": "\"left\" | \"right\" | \"center\"", "default": "center", "doc": "Partition mode with widthMode \"fixed\": where the children sit in a parent wider than they are.", "input": true},
+        "widthMode": {"type": "\"proportional\" | \"fixed\"", "default": "proportional", "doc": "Partition mode: a parent spans its children's total width (proportional), or at least its own nodeWidth (fixed).", "input": true},
+        "visualMargin": {"type": "number", "default": 0, "units": "data units", "doc": "Partition mode: a gap between neighboring rectangles, inset from each node's bounds without moving its center."},
+        "height": {"type": "column | expression", "doc": "Cluster mode: a nodes-table column of merge heights, which places each node that far from the leaves, drawn to scale as scipy's dendrogram does.", "input": true},
+        "edgeLength": {"type": "number | column | expression", "default": 1, "doc": "Tidy modes: nonnegative incoming edge lengths read from the edge table, accumulated along root paths and multiplied by depthSpacing.", "input": true},
+        "where": {"type": "boolean | column | expression", "doc": "Node-table predicate; hidden nodes disconnect descendants. The root remains present. Layout entry/exit retains departing branches until they shrink.", "input": true},
+        "enter": {"type": "{ nodeWidth?: number; layerHeight?: number; edgeLength?: number }", "doc": "Starting numeric contributions for entering branches. Omitted endpoints are zero; initial mounting rests at the target."},
+        "exit": {"type": "{ nodeWidth?: number; layerHeight?: number; edgeLength?: number }", "doc": "Departing branch contributions, reached before removal. Omitted endpoints are zero."},
+        "animationDuration": {"type": "number", "default": 300, "units": "ms", "doc": "Duration of layout-owned entry and exit; incoming tweens keep their own timing."},
+        "animationEasing": {"type": "\"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\"", "default": "cubic-in-out", "doc": "Easing of layout-owned entry and exit.", "input": true},
+        "name": {"type": "string", "doc": "The layout's name in the status its handle reports."}
+      }
+    },
+    "Frame": {
+      "container": true,
+      "group": "Plot and layout",
+      "summary": "A coordinate frame inside a Plot: its own scales for some marks (a second y axis), or a small chart placed within its parent.",
+      "options": {
+        "animationGroup": {"type": "column | column[] | null", "defaultText": "inherited; otherwise Data.key, then position", "doc": "Match animation rows by these columns within each filtered/transformed snapshot; selections keep Data.key. null restores key/position matching."},
+        "animateBounds": {"type": "boolean", "defaultText": "the parent frame's (false on Plot)", "doc": "Animate numeric domains and ranges independently of mark animation; structural changes and direction reversals snap."},
+        "boundsDuration": {"type": "number", "defaultText": "the parent frame's (300)", "units": "ms", "doc": "Duration of scale transitions, independent of mark timing."},
+        "boundsEasing": {"type": "\"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\"", "defaultText": "the parent frame's (cubic-in-out)", "doc": "Easing of scale transitions, independent of mark timing."},
+        "axisFrame": {"type": "boolean", "defaultText": "the theme's", "doc": "Draw a complete rectangular border in 2D Cartesian frames without duplicate ticks or labels."},
+        "axisMask": {"type": "boolean", "defaultText": "the theme's", "doc": "Clip marks and picking to the rectangular 2D Cartesian axes interior, intersecting ancestor masks."},
+        "placement": {"type": "\"fit\" | {anchor, size, orientation, rotation}", "doc": "Anchors a fixed-size frame at a point of its parent: anchor in parent data coordinates, size in CSS pixels (2D) or world units (3D), and an optional rotation. \"fit\" centers it in a Cartesian parent's domain, across 90% of the parent's shorter side, and refits it as the parent's view changes. It cannot combine with ranges."},
+        "rules": {"type": "{axis, value, label, color, width, dash}[]", "doc": "Reference lines in this frame's coordinates (a spoke or circle in a polar frame), as on Plot."},
+        "bands": {"type": "{axis, from, to, label, color, opacity}[]", "doc": "Shaded spans of this frame's x or y axis behind its marks, as on Plot."},
+        "coordinates": {"type": "\"cartesian\" | \"polar\" | \"spherical\"", "defaultText": "the parent's", "doc": "This frame's coordinate system. A frame that changes its parent's needs x and y ranges or a placement."},
+        "sphericalView": {"type": "\"globe\" | \"projected\"", "defaultText": "the parent's", "doc": "How a 3D spherical frame shows the sphere, as on Plot."},
+        "angleUnit": {"type": "\"degrees\" | \"radians\" | \"extent\" | \"custom\"", "defaultText": "the parent's", "doc": "The unit of this frame's polar or spherical angles, as on Plot."},
+        "anglePeriod": {"type": "number", "defaultText": "the parent's", "doc": "Angle units in one turn when angleUnit is \"custom\", as on Plot."},
+        "baseRadius": {"type": "number", "defaultText": "the parent's", "doc": "The radius at zero in a polar or spherical frame, as on Plot."},
+        "radialScale": {"type": "number", "defaultText": "the parent's", "doc": "The radius per unit in a polar or spherical frame, as on Plot."},
+        "polarAxis": {"type": "\"X\" | \"Y\" | \"Z\"", "defaultText": "the parent's", "doc": "The axis a 3D polar frame turns around, as on Plot."},
+        "projection": {"type": "\"equirectangular\" | \"mercator\" | \"equal-area\" | \"orthographic\" | \"equal-earth\" | \"natural-earth\" | \"albers\" | \"albers-usa\"", "defaultText": "the parent's", "doc": "The map projection of a spherical frame, as on Plot. A spherical frame with ranges must be a flat orthographic disk (radialScale 0)."},
+        "projectionCenter": {"type": "[number, number]", "defaultText": "the parent's", "doc": "The map's center [longitude, latitude], as on Plot."},
+        "parallels": {"type": "[number, number]", "defaultText": "the parent's", "doc": "The albers projection's two standard parallels, as on Plot."},
+        "atmosphere": {"type": "boolean | {color, thickness}", "default": false, "doc": "A glow around a spherical frame's globe in a 3D plot: true, or a CSS color (default \"#7fb2ff\") and a thickness as a fraction of the radius (default 0.1). It is not picked and has no legend. SVG and PDF exports draw the whole plot as an image."},
+        "x": {"type": "{domain, range, transform, label, ...}", "doc": "Omit it to share the parent's x scale. A domain (or \"auto\") gives the frame its own; a range places the frame within its parent, in parent data coordinates, and fits the frame's own data unless a domain is given."},
+        "y": {"type": "{domain, range, transform, label, ...}", "doc": "The frame's y, as x: a domain with side \"right\" makes a second y axis."},
+        "z": {"type": "{domain, range, transform, label, ...}", "doc": "The frame's z in a 3D plot, as x."},
+        "scaleDefaults": {"type": "{color, size, width}", "doc": "Defaults for the continuous color, size and width scales this frame's marks make, as on Plot."},
+        "name": {"type": "string", "default": "Frame", "doc": "The frame's name in the settings pane."},
+        "autoBounds": {"type": "boolean", "default": true, "doc": "Fit the frame's missing domains to its marks' data; an explicit domain always wins."}
+      }
+    },
+    "Markdown": {
+      "positional": "text",
+      "module": "./scene/markdown.svelte",
+      "group": "Plot and layout",
+      "summary": "Formatted text (emphasis, lists, tables, math) beside plots in a Python layout.",
+      "languages": "python",
+      "options": {
+        "text": {"type": "string", "doc": "The markdown: CommonMark with tables, task lists and $math$; {$name} shows an input's value. Python takes it positionally: hm.Markdown(\"...\")."},
+        "width": {"type": "number | string", "defaultText": "the container's", "doc": "The block's greatest width: pixels, or a CSS length."},
+        "fontSize": {"type": "number", "defaultText": "the theme's text size + 1", "units": "px", "doc": "The size of the body text; headings scale with it."},
+        "color": {"type": "color", "defaultText": "the theme's text color", "doc": "The text color."},
+        "font": {"type": "string", "defaultText": "the theme's", "doc": "The font, a CSS font-family."},
+        "align": {"type": "\"left\" | \"right\" | \"center\"", "default": "left", "doc": "Where the text sits across the block."},
+        "name": {"type": "string", "doc": "A name for the block, in export reports and as its element's data-name."}
+      }
+    },
+    "Scene": {
+      "inputContext": true,
+      "container": true,
+      "layout": true,
+      "group": "Plot and layout",
+      "summary": "The root of a Python display: it holds plots, layouts and inputs and stacks its children top to bottom.",
+      "languages": "python",
+      "options": {
+        "gap": {"type": "number", "default": 16, "units": "px", "doc": "Space between the children.", "languages": "python"},
+        "theme": {"type": "theme", "doc": "A theme for everything in the scene: a preset such as hm.themes.dark, hm.create_theme(...), or a definition dict.", "languages": "python"}
+      }
+    },
+    "Row": {
+      "container": true,
+      "layout": true,
+      "group": "Plot and layout",
+      "summary": "Puts its children side by side.",
+      "languages": "python",
+      "options": {
+        "gap": {"type": "number", "default": 16, "units": "px", "doc": "Space between the children.", "languages": "python"},
+        "minWidth": {"type": "number", "default": 320, "units": "px", "doc": "The width each child starts from (with widths, the narrowest share's; the others start in proportion): with wrap on, a child moves to the next line rather than get narrower.", "languages": "python"},
+        "widths": {"type": "number[]", "defaultText": "equal shares", "doc": "Each child's share of the row's width, in order: [3, 2] gives the first child three fifths and the second two fifths at every width (a child past the list takes 1).", "languages": "python"},
+        "wrap": {"type": "boolean", "default": false, "doc": "Move children to a new line when they no longer fit at min_width.", "languages": "python"}
+      }
+    },
+    "Column": {
+      "container": true,
+      "layout": true,
+      "group": "Plot and layout",
+      "summary": "Stacks its children top to bottom.",
+      "languages": "python",
+      "options": {
+        "gap": {"type": "number", "default": 16, "units": "px", "doc": "Space between the children.", "languages": "python"}
+      }
+    },
+    "LayoutGrid": {
+      "container": true,
+      "layout": true,
+      "group": "Plot and layout",
+      "summary": "Lays its children out in rows of equal columns (Python hm.Grid).",
+      "languages": "python",
+      "options": {
+        "columns": {"type": "number", "default": 2, "doc": "How many columns of equal width.", "languages": "python"},
+        "gap": {"type": "number", "default": 16, "units": "px", "doc": "Space between the children.", "languages": "python"}
+      }
+    },
+    "LinkViews": {
+      "positional": "plots",
+      "group": "Plot and layout",
+      "summary": "Makes 2D plots pan and zoom together, over one shared domain.",
+      "languages": "python",
+      "options": {
+        "axes": {"type": "\"x\" | \"y\" | \"xy\"", "default": "xy", "doc": "Which axes follow when one of the plots pans or zooms. The plots are given positionally: hm.LinkViews(first, second).", "languages": "python"},
+        "scales": {"type": "\"shared\" | \"free\"", "default": "shared", "doc": "\"shared\" shows one domain on the linked axes, the union of the plots' domains (their data, or an explicit domain), so the same value lines up in each; \"free\" keeps each plot's own. A plot's explicit domain is kept either way.", "languages": "python"}
+      }
+    },
+    "Template": {
+      "inputContext": true,
+      "container": true,
+      "passthrough": true,
+      "group": "Plot and layout",
+      "summary": "A reusable pattern of components, built by a class or function, with a slot for the caller's children.",
+      "languages": "python"
+    },
+    "Slot": {
+      "container": true,
+      "passthrough": true,
+      "group": "Plot and layout",
+      "summary": "Where a template's children go: hm.slot() marks the place in its build().",
+      "languages": "python"
+    }
+  }
+}

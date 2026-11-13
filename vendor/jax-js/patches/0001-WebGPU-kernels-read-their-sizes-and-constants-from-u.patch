@@ -1,0 +1,873 @@
+From d49a193c4bf32337fa975e485f180d6ae359ed87 Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 09:54:32 -0400
+Subject: [PATCH 1/6] WebGPU kernels read their sizes and constants from
+ uniforms
+
+A kernel's thread count and its nonzero numeric constants (thresholds,
+offsets, lengths in index arithmetic) are read from a uniform buffer
+instead of being written into the WGSL, so kernels that differ only in
+those values generate the same source and share one compiled pipeline.
+What stays in the source: the expression's structure and dtypes, the
+tuning choices (upcast, unroll, groups), zero and boolean constants,
+integer divisors (so division by a constant still compiles to shifts and
+multiplies) and reduction lengths (a literal trip count lets the shader
+compiler unroll the loop; measured 2x on a 512-long reduction).
+
+- The workgroup size of ungrouped kernels is fixed at 256, and the thread
+  index uses one formula for 1-D and 2-D grids.
+- Nullary kernels go through the same path; nullaryKernel.ts, which did
+  this for kernels without inputs, is removed.
+- Sort and argsort read the array length and the workgroups per batch
+  from their uniforms (as a shift), so lengths past two workgroups share
+  one shader.
+- Uniforms go through one shared buffer written with queue.writeBuffer()
+  before each submit, instead of a new buffer per dispatch that was never
+  destroyed.
+- The per-kernel shader cache is bounded (least recently used, 4096).
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.test.ts          | 117 +++++++++++++++++++
+ src/backend/webgpu.ts               | 171 ++++++++++++++++++----------
+ src/backend/webgpu/codegen.ts       |  81 ++++++++++++-
+ src/backend/webgpu/nullaryKernel.ts | 163 --------------------------
+ src/backend/webgpu/routines.ts      |  44 ++++---
+ 5 files changed, 333 insertions(+), 243 deletions(-)
+ create mode 100644 src/backend/webgpu.test.ts
+ delete mode 100644 src/backend/webgpu/nullaryKernel.ts
+
+diff --git a/src/backend/webgpu.test.ts b/src/backend/webgpu.test.ts
+new file mode 100644
+index 0000000..dad2b2c
+--- /dev/null
++++ b/src/backend/webgpu.test.ts
+@@ -0,0 +1,117 @@
++import { beforeEach, expect, suite, test } from "vitest";
++
++import { getBackend, init } from "../backend";
++import { numpy as np } from "../index";
++import type { WebGPUBackend } from "./webgpu";
++
++const devicesAvailable = await init();
++
++// Kernels read their sizes and constants from uniforms, so a new length or a
++// new constant reuses the compiled pipeline of an earlier kernel with the same
++// structure.
++suite("webgpu kernels are generic in sizes and values", () => {
++  beforeEach(({ skip }) => {
++    if (!devicesAvailable.includes("webgpu")) skip();
++  });
++
++  const ramp = (n: number) =>
++    np.arange(0, n, 1, { dtype: np.float32, device: "webgpu" });
++  const pipelines = () =>
++    (getBackend("webgpu") as WebGPUBackend).pipelines.cache.size;
++
++  /** Run `f` for each case; every case after the first compiles nothing. */
++  async function expectOneCompile<T>(cases: T[], f: (c: T) => Promise<void>) {
++    await f(cases[0]);
++    const before = pipelines();
++    for (const c of cases.slice(1)) await f(c);
++    expect(pipelines()).toBe(before);
++  }
++
++  test("elementwise: lengths and constants", async () => {
++    await expectOneCompile(
++      [
++        [1000, 2.5, -1],
++        [1003, 7, 3.25],
++        [5, -0.5, 100],
++      ],
++      async ([n, scale, offset]) => {
++        const x = ramp(n);
++        const y = await x.mul(scale).add(offset).data();
++        expect(y.length).toBe(n);
++        for (const i of [0, 1, n - 1])
++          expect(y[i]).toBeCloseTo(i * scale + offset, 3);
++      },
++    );
++  });
++
++  test("slices and concatenation: offsets and lengths", async () => {
++    await expectOneCompile(
++      [
++        [233, 7],
++        [1000, 13],
++        [64, 31],
++      ],
++      async ([n, shift]) => {
++        const x = ramp(n);
++        const shifted = np.concatenate([
++          np.zeros([shift], { device: "webgpu" }),
++          x.slice([0, n - shift]),
++        ]);
++        const y = await shifted.add(2.5).data();
++        expect(y.length).toBe(n);
++        expect(y[shift - 1]).toBe(2.5);
++        expect(y[shift]).toBe(2.5);
++        expect(y[n - 1]).toBe(n - 1 - shift + 2.5);
++      },
++    );
++  });
++
++  test("filled arrays: lengths and values", async () => {
++    // Long enough to fill on the device (short fills are written from the host).
++    await expectOneCompile(
++      [
++        [200, 3],
++        [1000, -7.5],
++        [777, 1e9],
++      ],
++      async ([n, value]) => {
++        const y = await np
++          .full([n], value, {
++            dtype: np.float32,
++            device: "webgpu",
++          })
++          .data();
++        expect(y.length).toBe(n);
++        expect(y[0]).toBe(Math.fround(value));
++        expect(y[n - 1]).toBe(Math.fround(value));
++      },
++    );
++  });
++
++  test("sort and argsort: lengths past one workgroup", async () => {
++    // Shorter arrays size the workgroup to a power of two at least n / 2.
++    const { device } = getBackend("webgpu") as WebGPUBackend;
++    const full = 2 * device.limits.maxComputeWorkgroupSizeX;
++    await expectOneCompile([full + 1, 2 * full, 3 * full - 7], async (n) => {
++      const x = ramp(n).mul(-1); // Descending.
++      const order = await np.argsort(x.ref).data();
++      const sorted = await np.sort(x).data();
++      expect(order[0]).toBe(n - 1);
++      expect(order[n - 1]).toBe(0);
++      expect(sorted[0]).toBe(1 - n);
++      expect(sorted[n - 1] === 0).toBe(true);
++    });
++  });
++
++  test("NaN and infinite constants survive the uniform buffer", async () => {
++    const x = np.array([1, 2, 3], { device: "webgpu" });
++    expect(Array.from(await x.ref.add(NaN).data()).every(Number.isNaN)).toBe(
++      true,
++    );
++    expect(Array.from(await x.mul(-Infinity).data())).toEqual([
++      -Infinity,
++      -Infinity,
++      -Infinity,
++    ]);
++  });
++});
+diff --git a/src/backend/webgpu.ts b/src/backend/webgpu.ts
+index 42d9693..9ad00e9 100644
+--- a/src/backend/webgpu.ts
++++ b/src/backend/webgpu.ts
+@@ -2,18 +2,19 @@ import { AluExp, AluOp, DType, Kernel } from "../alu";
+ import { Backend, Device, Executable, Slot, SlotError } from "../backend";
+ import { Routine } from "../routine";
+ import { tuneWebgpu } from "../tuner";
+-import { DEBUG, findPow2, FpHash, prod, range, strip1 } from "../utils";
++import { DEBUG, FpHash, prod, range, strip1 } from "../utils";
+ import {
+   calculateGrid,
+   constToWgsl,
+   dtypeToWgsl,
++  gridOffsetY,
+   reduceOpWgsl,
+   ShaderInfo,
++  UniformBuilder,
+   WgslBuilder,
+   WgslExpCodegen,
+ } from "./webgpu/codegen";
+ import { mapAsyncRead } from "./webgpu/firefoxPoll";
+-import { nullaryKernelSource } from "./webgpu/nullaryKernel";
+ import { SyncReader } from "./webgpu/reader";
+ import { createRoutineShader } from "./webgpu/routines";
+ import { maybeAcquireTracingSlot, recordTrace } from "./webgpu/tracing";
+@@ -25,6 +26,12 @@ interface ShaderDispatch extends ShaderInfo {
+ const MAX_REUSABLE_BUFFER_BYTES = 64 * 1024 * 1024;
+ const MAX_REUSABLE_BUFFERS_PER_SIZE = 64;
+ 
++/**
++ * Kernel shaders kept for reuse. Each is specific to its kernel's values (the
++ * uniform data); the compiled pipelines they share are cached by source.
++ */
++const MAX_CACHED_SHADERS = 4096;
++
+ /** Implementation of `Backend` that uses WebGPU in browsers. */
+ export class WebGPUBackend implements Backend {
+   readonly type: Device = "webgpu";
+@@ -44,6 +51,7 @@ export class WebGPUBackend implements Backend {
+   nextSlot: number;
+ 
+   #cachedShaderMap = new Map<bigint, ShaderInfo>();
++  #uniformPool: UniformPool;
+   #reusableZsb: GPUBuffer;
+   #bufferPool = new Map<number, GPUBuffer[]>();
+ 
+@@ -69,6 +77,7 @@ export class WebGPUBackend implements Backend {
+     // handle this is to just create a buffer of minimum size (4 bytes) and
+     // reuse that across all zero-size allocations.
+     this.#reusableZsb = this.#createBuffer(4);
++    this.#uniformPool = new UniformPool(device);
+ 
+     device.addEventListener("uncapturederror", (event) => {
+       console.error("Uncaptured error in WebGPU backend:", event.error.message);
+@@ -164,10 +173,17 @@ export class WebGPUBackend implements Backend {
+   #cachedShader(kernel: Kernel): ShaderInfo {
+     const cacheKey = FpHash.hash(kernel);
+     let result = this.#cachedShaderMap.get(cacheKey);
+-    if (!result) {
++    if (result) {
++      // Least recently used first: refresh this entry.
++      this.#cachedShaderMap.delete(cacheKey);
++    } else {
+       result = pipelineSource(this.device, kernel);
+-      this.#cachedShaderMap.set(cacheKey, result);
++      if (this.#cachedShaderMap.size >= MAX_CACHED_SHADERS) {
++        const oldest = this.#cachedShaderMap.keys().next().value!;
++        this.#cachedShaderMap.delete(oldest);
++      }
+     }
++    this.#cachedShaderMap.set(cacheKey, result);
+     return result;
+   }
+ 
+@@ -212,7 +228,13 @@ export class WebGPUBackend implements Backend {
+   ): void {
+     const inputBuffers = inputs.map((slot) => this.#getBuffer(slot).buffer);
+     const outputBuffers = outputs.map((slot) => this.#getBuffer(slot).buffer);
+-    pipelineSubmit(this.device, exe, inputBuffers, outputBuffers);
++    pipelineSubmit(
++      this.device,
++      this.#uniformPool,
++      exe,
++      inputBuffers,
++      outputBuffers,
++    );
+   }
+ 
+   #getBuffer(slot: Slot): { buffer: GPUBuffer; size: number } {
+@@ -276,16 +298,22 @@ export class WebGPUBackend implements Backend {
+   }
+ }
+ 
++/** Workgroup size of kernels without a grouped reduction. */
++const KERNEL_WORKGROUP_SIZE = 256;
++
+ /**
+  * Compiles an expression into WebGPU shader source code.
+  *
+  * Returns the shader source and the number of workgroups to dispatch along x
+  * and y axes, to run the kernel.
++ *
++ * The kernel's sizes and nonzero constants are read from uniforms, not written
++ * into the source, so kernels that differ only in those values share the same
++ * WGSL, and so the same compiled pipeline. Only the structure of the tuned
++ * expression, its dtypes and the tuning choices (upcast, unroll, groups) are
++ * in the source.
+  */
+-function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+-  const nullaryKernel = nullaryKernelSource(device, kernel);
+-  if (nullaryKernel) return nullaryKernel;
+-
++export function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+   const tune = tuneWebgpu(kernel);
+   if (DEBUG >= 3) {
+     console.info(`kernel.exp: ${kernel.exp}\ntune.exp: ${tune.exp}`);
+@@ -328,9 +356,7 @@ function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+   if (groupedReduction && groupCount > device.limits.maxComputeWorkgroupSizeX) {
+     throw new Error("WebGPU grouped reduction exceeds workgroup size limit");
+   }
+-  const workgroupSize = groupedReduction
+-    ? groupCount
+-    : findPow2(tune.threadCount, 256);
++  const workgroupSize = groupedReduction ? groupCount : KERNEL_WORKGROUP_SIZE;
+ 
+   // Determine grid size, may need to be 3D due to limits on X.
+   // maxComputeWorkgroupsPerDimension ~ 65535, so we use 16384 when exceeded.
+@@ -339,6 +365,14 @@ function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+     : Math.ceil(tune.threadCount / workgroupSize);
+   const [gridX, gridY] = calculateGrid(gridSize);
+ 
++  // Sizes are uniforms. The index formula covers both 1-D grids (y = 0) and
++  // 2-D grids (x = gridOffsetY), so the grid's shape is not in the source.
++  const uniforms = new UniformBuilder();
++  const bound = uniforms.add(
++    "u32",
++    groupedReduction ? gridSize : tune.threadCount,
++  );
++
+   if (groupedReduction) {
+     const partialTy = dtypeToWgsl(re.dtype);
+     for (let i = 0; i < (tune.size.upcast ?? 1); i++) {
+@@ -359,40 +393,27 @@ function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+       ") {",
+       wb.pushIndent,
+     );
+-    if (gridY === 1) {
+-      wb.emit(
+-        `if (wg_id.x >= ${gridSize}u) { return; }`,
+-        "let gidx: i32 = i32(wg_id.x);",
+-      );
+-    } else {
+-      wb.emit(
+-        `if (${gridX}u * wg_id.y + wg_id.x >= ${gridSize}u) { return; }`,
+-        `let gidx: i32 = i32(${gridX}u * wg_id.y + wg_id.x);`,
+-      );
+-    }
+-    wb.emit("let group: i32 = i32(lid.x);");
++    wb.emit(
++      `let gidx_u: u32 = ${gridOffsetY}u * wg_id.y + wg_id.x;`,
++      `if (gidx_u >= ${bound}) { return; }`,
++      "let gidx: i32 = i32(gidx_u);",
++      "let group: i32 = i32(lid.x);",
++    );
+   } else {
+     wb.emit(
+       "fn main(@builtin(global_invocation_id) id : vec3<u32>) {",
+       wb.pushIndent,
+     );
+-    if (gridY === 1) {
+-      wb.emit(
+-        `if (id.x >= ${tune.threadCount}) { return; }`,
+-        "let gidx: i32 = i32(id.x);",
+-      );
+-    } else {
+-      const sizeX = gridX * workgroupSize;
+-      wb.emit(
+-        `if (${sizeX} * id.y + id.x >= ${tune.threadCount}) { return; }`,
+-        `let gidx: i32 = i32(${sizeX} * id.y + id.x);`,
+-      );
+-    }
++    wb.emit(
++      `let gidx_u: u32 = ${gridOffsetY * workgroupSize}u * id.y + id.x;`,
++      `if (gidx_u >= ${bound}) { return; }`,
++      "let gidx: i32 = i32(gidx_u);",
++    );
+   }
+ 
+   wb.emitPhonyAssignments(args);
+ 
+-  const gen = new WgslExpCodegen(wb, args);
++  const gen = new WgslExpCodegen(wb, args, uniforms);
+   if (!re) {
+     gen.countReferences(tune.exp);
+     let rhs = strip1(gen.run(tune.exp));
+@@ -520,17 +541,24 @@ function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+   }
+ 
+   wb.emit(wb.popIndent, "}");
++  uniforms.emit(wb);
+   return {
+     code: wb.toString(),
+     numInputs: nargs,
+     numOutputs: 1,
+-    hasUniform: false,
+-    passes: [{ grid: [gridX, gridY] }],
++    hasUniform: uniforms.entries.length > 0,
++    passes: [
++      {
++        grid: [gridX, gridY],
++        uniform: uniforms.entries.length > 0 ? uniforms.data() : undefined,
++      },
++    ],
+   };
+ }
+ 
+ function pipelineSubmit(
+   device: GPUDevice,
++  uniformPool: UniformPool,
+   exe: Executable<ShaderDispatch[]>,
+   inputs: GPUBuffer[],
+   outputs: GPUBuffer[],
+@@ -576,7 +604,7 @@ function pipelineSubmit(
+       // This shader requires uniforms, create a shared buffer with uniform
+       // values for each pass of the shader (use dynamic offsets).
+       const uniforms = filteredPasses.map(({ uniform }) => uniform!);
+-      const [uniformBuffer, alignment] = combineUniforms(device, uniforms);
++      const [uniformBuffer, alignment] = uniformPool.write(uniforms);
+       uniformAlignment = alignment;
+       uniformBindGroup = device.createBindGroup({
+         layout: pipeline.getBindGroupLayout(1),
+@@ -617,31 +645,48 @@ function pipelineSubmit(
+   device.queue.submit([commandEncoder.finish()]);
+ }
+ 
+-function combineUniforms(
+-  device: GPUDevice,
+-  uniforms: Uint8Array<ArrayBuffer>[],
+-): [GPUBuffer, number] {
+-  for (const buf of uniforms) {
+-    if (
+-      !buf ||
+-      buf.byteLength === 0 ||
+-      buf.byteLength !== uniforms[0].byteLength
+-    ) {
+-      throw new Error("webgpu: Uniform mismatch between shader passes");
++/**
++ * One uniform buffer shared by every dispatch. Each submit writes its passes'
++ * uniforms at the start of the buffer: queue.writeBuffer() is ordered after
++ * the submits issued before it, so a write never changes what an earlier
++ * submit reads. Replaces a new uniform buffer per dispatch.
++ */
++class UniformPool {
++  #buffer: GPUBuffer | null = null;
++  #size = 0;
++
++  constructor(readonly device: GPUDevice) {}
++
++  /** Write each pass's uniforms; returns the buffer and the offset stride. */
++  write(uniforms: Uint8Array<ArrayBuffer>[]): [GPUBuffer, number] {
++    for (const buf of uniforms) {
++      if (
++        !buf ||
++        buf.byteLength === 0 ||
++        buf.byteLength !== uniforms[0].byteLength
++      ) {
++        throw new Error("webgpu: Uniform mismatch between shader passes");
++      }
++    }
++    const minAlign = this.device.limits.minUniformBufferOffsetAlignment;
++    const alignment = Math.ceil(uniforms[0].byteLength / minAlign) * minAlign;
++    const size = alignment * uniforms.length;
++    if (!this.#buffer || this.#size < size) {
++      // Destroying a buffer that submitted work still reads is allowed: the
++      // implementation frees it once that work completes.
++      this.#buffer?.destroy();
++      this.#size = Math.max(size, 64 * 1024);
++      this.#buffer = this.device.createBuffer({
++        size: this.#size,
++        usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,
++      });
+     }
++    const data = new Uint8Array(size);
++    for (let i = 0; i < uniforms.length; i++)
++      data.set(uniforms[i], i * alignment);
++    this.device.queue.writeBuffer(this.#buffer, 0, data);
++    return [this.#buffer, alignment];
+   }
+-  const minAlign = device.limits.minUniformBufferOffsetAlignment;
+-  const alignment = Math.ceil(uniforms[0].byteLength / minAlign) * minAlign;
+-  const buffer = device.createBuffer({
+-    size: alignment * uniforms.length,
+-    usage: GPUBufferUsage.UNIFORM,
+-    mappedAtCreation: true,
+-  });
+-  const bufferMapped = new Uint8Array(buffer.getMappedRange());
+-  for (let i = 0; i < uniforms.length; i++)
+-    bufferMapped.set(uniforms[i], i * alignment);
+-  buffer.unmap();
+-  return [buffer, alignment];
+ }
+ 
+ /**
+diff --git a/src/backend/webgpu/codegen.ts b/src/backend/webgpu/codegen.ts
+index 6f6953d..152b91c 100644
+--- a/src/backend/webgpu/codegen.ts
++++ b/src/backend/webgpu/codegen.ts
+@@ -144,16 +144,77 @@ export function reduceOpWgsl(
+   throw new Error(`Unsupported reduction op: ${op}`);
+ }
+ 
++type UniformType = "f32" | "i32" | "u32";
++
++/**
++ * Values a shader reads from its uniform buffer rather than from literals in
++ * its source: a kernel's sizes and constants. Two kernels that differ only in
++ * these values generate the same WGSL, so they share one compiled pipeline.
++ */
++export class UniformBuilder {
++  /** Largest struct a shader may declare (the shared binding's size). */
++  static readonly maxBytes = 4096;
++  readonly entries: { name: string; type: UniformType; value: number }[] = [];
++
++  /** Add a value; returns the WGSL expression that reads it. */
++  add(type: UniformType, value: number): string {
++    const name = `u${this.entries.length}`;
++    this.entries.push({ name, type, value });
++    return `uniforms.${name}`;
++  }
++
++  get full(): boolean {
++    return (this.entries.length + 1) * 4 > UniformBuilder.maxBytes;
++  }
++
++  /** Read a nonzero numeric constant from a uniform, or null to keep it a literal. */
++  constant(dtype: DType, value: number): string | null {
++    if (value === 0 || this.full) return null;
++    if (dtype === DType.Float32) return this.add("f32", value);
++    if (dtype === DType.Float16) return `f16(${this.add("f32", value)})`;
++    if (dtype === DType.Int32) return this.add("i32", value);
++    if (dtype === DType.Uint32) return this.add("u32", value);
++    return null; // Bool: two values, kept as literals.
++  }
++
++  /** Module-scope declarations (WGSL allows them after their uses). */
++  emit(wb: WgslBuilder): void {
++    if (this.entries.length === 0) return;
++    wb.emit(
++      "",
++      "struct Uniforms {",
++      wb.pushIndent,
++      ...this.entries.map((u) => `${u.name}: ${u.type},`),
++      wb.popIndent,
++      "}",
++      "@group(1) @binding(0) var<uniform> uniforms: Uniforms;",
++    );
++  }
++
++  data(): Uint8Array<ArrayBuffer> {
++    const data = new Uint8Array(this.entries.length * 4);
++    const view = new DataView(data.buffer);
++    this.entries.forEach(({ type, value }, i) => {
++      if (type === "f32") view.setFloat32(i * 4, value, true);
++      else if (type === "i32") view.setInt32(i * 4, value, true);
++      else view.setUint32(i * 4, value, true);
++    });
++    return data;
++  }
++}
++
+ /** Codegen for WebGPU expressions, linearizing AluOp into a kernel. */
+ export class WgslExpCodegen {
+   #gensymCount = 0;
+   #references = new Map<AluExp, number>();
+   #seen = new Set<AluExp>();
+   #context = new Map<AluExp, string>();
++  #constants = new Map<AluExp, string>();
+ 
+   constructor(
+     readonly wb: WgslBuilder,
+     readonly args: string[],
++    readonly uniforms?: UniformBuilder,
+   ) {}
+ 
+   #gensym() {
+@@ -200,7 +261,17 @@ export class WgslExpCodegen {
+     let source = "";
+     if (AluGroup.Binary.has(op) || AluGroup.Compare.has(op)) {
+       const a = this.run(src[0]);
+-      const b = this.run(src[1]);
++      // An integer divisor stays a literal: the shader compiler turns division
++      // by a constant into multiplies and shifts, where division by a uniform
++      // costs a full integer division per element. Divisors are the strides
++      // of inner dimensions, which change far less often than lengths.
++      const literalDivisor =
++        (op === AluOp.Idiv || op === AluOp.Mod) &&
++        src[1].op === AluOp.Const &&
++        !isFloatDtype(dtype);
++      const b = literalDivisor
++        ? constToWgsl(src[1].dtype, src[1].arg)
++        : this.run(src[1]);
+       if (op === AluOp.Add) {
+         if (dtype === DType.Bool) source = `(${a} || ${b})`;
+         else source = `(${a} + ${b})`;
+@@ -295,7 +366,13 @@ export class WgslExpCodegen {
+       else if (arg === 1) source = `${x}.y`;
+       else throw new UnsupportedOpError(op, dtype, "webgpu", arg);
+     } else if (op === AluOp.Const) {
+-      return constToWgsl(dtype, arg);
++      if (!this.uniforms) return constToWgsl(dtype, arg);
++      let text = this.#constants.get(exp);
++      if (text === undefined) {
++        text = this.uniforms.constant(dtype, arg) ?? constToWgsl(dtype, arg);
++        this.#constants.set(exp, text);
++      }
++      return text;
+     } else if (op === AluOp.Special) {
+       return arg[0] as string;
+     } else if (op === AluOp.Variable) {
+diff --git a/src/backend/webgpu/nullaryKernel.ts b/src/backend/webgpu/nullaryKernel.ts
+deleted file mode 100644
+index ff9b5b7..0000000
+--- a/src/backend/webgpu/nullaryKernel.ts
++++ /dev/null
+@@ -1,163 +0,0 @@
+-// Special code generation for nullary kernels, which don't take any arrays as
+-// input. This includes constructors like `arange` and `full`.
+-//
+-// It's common for these functions to be used to create new arrays. But because
+-// the constant inputs may differ, they often result in kernel recompiles, which
+-// slows down performance in browsers.
+-//
+-// To fix this, we lift all constant inputs into _uniforms_.
+-
+-import {
+-  calculateGrid,
+-  dtypeToWgsl,
+-  ShaderInfo,
+-  WgslBuilder,
+-  WgslExpCodegen,
+-} from "./codegen";
+-import { AluExp, AluOp, DType, Kernel } from "../../alu";
+-import { findPow2, strip1 } from "../../utils";
+-
+-type ConstantUniform = {
+-  name: string;
+-  dtype: DType;
+-  uniformDtype: DType;
+-  value: number;
+-};
+-
+-function uniformDtype(dtype: DType): DType {
+-  if (dtype === DType.Float16) return DType.Float32;
+-  if (dtype === DType.Bool) return DType.Int32;
+-  return dtype;
+-}
+-
+-function replacementFor({
+-  name,
+-  dtype,
+-  uniformDtype,
+-}: ConstantUniform): AluExp {
+-  const value = AluExp.variable(uniformDtype, `uniforms.${name}`);
+-  if (dtype === DType.Float16) return AluExp.cast(DType.Float16, value);
+-  if (dtype === DType.Bool) return AluExp.cmpne(value, AluExp.i32(0));
+-  return value;
+-}
+-
+-function writeUniform(
+-  view: DataView,
+-  offset: number,
+-  dtype: DType,
+-  value: number,
+-) {
+-  switch (dtype) {
+-    case DType.Float32:
+-      view.setFloat32(offset, value, true);
+-      break;
+-    case DType.Int32:
+-      view.setInt32(offset, value, true);
+-      break;
+-    case DType.Uint32:
+-      view.setUint32(offset, value, true);
+-      break;
+-    default:
+-      throw new Error(`Unsupported dtype for constant uniform: ${dtype}`);
+-  }
+-}
+-
+-function liftConstants(exp: AluExp): [AluExp, ConstantUniform[]] {
+-  const uniforms: ConstantUniform[] = [];
+-  const lifted = exp.rewrite((node) => {
+-    if (node.op !== AluOp.Const || node.arg === 0) return;
+-    const uniform: ConstantUniform = {
+-      name: `c${uniforms.length}`,
+-      dtype: node.dtype,
+-      uniformDtype: uniformDtype(node.dtype),
+-      value: node.arg,
+-    };
+-    uniforms.push(uniform);
+-    return replacementFor(uniform);
+-  });
+-  return [lifted, uniforms];
+-}
+-
+-function uniformsData(uniforms: ConstantUniform[]): Uint8Array<ArrayBuffer> {
+-  const data = new Uint8Array(uniforms.length * 4);
+-  const view = new DataView(data.buffer);
+-  uniforms.forEach((u, i) =>
+-    writeUniform(view, i * 4, u.uniformDtype, u.value),
+-  );
+-  return data;
+-}
+-
+-export function nullaryKernelSource(
+-  device: GPUDevice,
+-  kernel: Kernel,
+-): ShaderInfo | null {
+-  if (kernel.nargs !== 0 || kernel.reduction) return null;
+-
+-  let exp = kernel.exp
+-    .substitute({ gidx: AluExp.special(DType.Int32, "gidx", kernel.size) })
+-    .simplify();
+-  let uniforms: ConstantUniform[] = [];
+-  [exp, uniforms] = liftConstants(exp);
+-
+-  const wb = new WgslBuilder();
+-  wb.emitPreamble(device, [exp]);
+-
+-  if (uniforms.length > 0) {
+-    wb.emit(
+-      "struct Uniforms {",
+-      wb.pushIndent,
+-      ...uniforms.map((u) => `${u.name}: ${dtypeToWgsl(u.uniformDtype)},`),
+-      wb.popIndent,
+-      "}\n",
+-    );
+-  }
+-
+-  const resultTy = dtypeToWgsl(kernel.dtype, true);
+-  wb.emit(
+-    `@group(0) @binding(0) var<storage, read_write> result : array<${resultTy}>;`,
+-  );
+-  if (uniforms.length > 0) {
+-    wb.emit(`@group(1) @binding(0) var<uniform> uniforms: Uniforms;`);
+-  }
+-
+-  const workgroupSize = findPow2(kernel.size, 256);
+-  const gridSize = Math.ceil(kernel.size / workgroupSize);
+-  const [gridX, gridY] = calculateGrid(gridSize);
+-  wb.emit(
+-    "",
+-    `@compute @workgroup_size(${workgroupSize})`,
+-    "fn main(@builtin(global_invocation_id) id : vec3<u32>) {",
+-    wb.pushIndent,
+-  );
+-  if (gridY === 1) {
+-    wb.emit(
+-      `if (id.x >= ${kernel.size}) { return; }`,
+-      "let gidx: i32 = i32(id.x);",
+-    );
+-  } else {
+-    const sizeX = gridX * workgroupSize;
+-    wb.emit(
+-      `if (${sizeX} * id.y + id.x >= ${kernel.size}) { return; }`,
+-      `let gidx: i32 = i32(${sizeX} * id.y + id.x);`,
+-    );
+-  }
+-
+-  const gen = new WgslExpCodegen(wb, []);
+-  gen.countReferences(exp);
+-  let rhs = strip1(gen.run(exp));
+-  if (resultTy !== dtypeToWgsl(exp.dtype)) rhs = `${resultTy}(${rhs})`;
+-  wb.emit(`result[gidx] = ${rhs};`, wb.popIndent, "}");
+-
+-  return {
+-    code: wb.toString(),
+-    numInputs: 0,
+-    numOutputs: 1,
+-    hasUniform: uniforms.length > 0,
+-    passes: [
+-      {
+-        grid: [gridX, gridY],
+-        uniform: uniforms.length > 0 ? uniformsData(uniforms) : undefined,
+-      },
+-    ],
+-  };
+-}
+diff --git a/src/backend/webgpu/routines.ts b/src/backend/webgpu/routines.ts
+index bcfbc87..6dc07d2 100644
+--- a/src/backend/webgpu/routines.ts
++++ b/src/backend/webgpu/routines.ts
+@@ -26,11 +26,17 @@ type BitonicSortPass = {
+   mergeStage?: number; // stage, only used for 'merge'
+ };
+ 
+-function bitonicSortUniform(pass: BitonicSortPass): Uint8Array<ArrayBuffer> {
+-  const ar = new Uint32Array(3);
++function bitonicSortUniform(
++  pass: BitonicSortPass,
++  n: number,
++  workgroupsPerBatch: number,
++): Uint8Array<ArrayBuffer> {
++  const ar = new Uint32Array(5);
+   ar[0] = pass.kind === "sort" ? 0 : 1;
+   ar[1] = pass.mergeStep ?? 0;
+   ar[2] = pass.mergeStage ?? 0;
++  ar[3] = n;
++  ar[4] = Math.log2(workgroupsPerBatch); // A power of two.
+   return new Uint8Array(ar.buffer);
+ }
+ 
+@@ -50,6 +56,10 @@ function bitonicSortUniform(pass: BitonicSortPass): Uint8Array<ArrayBuffer> {
+  *
+  * The total number of passes is roughly `log2(n / workgroupSize)^2 / 2`.
+  *
++ * The length and the number of workgroups per batch are uniforms, so arrays
++ * of different lengths share one shader once the workgroup is full size
++ * (`n > 2 * maxComputeWorkgroupSizeX`).
++ *
+  * If `outputIndices` is true, the shader also tracks the original indices of
+  * the sorted elements (argsort) and outputs them to a separate buffer. This
+  * also makes the sorting algorithm stable.
+@@ -85,6 +95,8 @@ struct Uniforms {
+   kind: u32, // 0 = sort, 1 = merge
+   merge_step: u32, // half_block = 2^step
+   merge_stage: u32, // only used for merge
++  n: u32, // length of each sorted array
++  workgroups_per_batch_log2: u32,
+ }
+ 
+ @group(0) @binding(0) var<storage, read> input: array<${ty}>;
+@@ -137,11 +149,13 @@ fn main(
+   @builtin(local_invocation_id) local_id: vec3<u32>,
+ ) {
+   let blockid = wg_id.x + wg_id.y * ${gridOffsetY}u;
+-  let batch = blockid / ${workgroupsPerBatch}u;
+-  let wg_in_batch = blockid % ${workgroupsPerBatch}u;
++  let n = uniforms.n;
++  // Shifts, not a division by a uniform, in every thread of every pass.
++  let batch = blockid >> uniforms.workgroups_per_batch_log2;
++  let wg_in_batch = blockid & ((1u << uniforms.workgroups_per_batch_log2) - 1u);
+ 
+   let tid = local_id.x;
+-  let base = batch * ${n}u;
++  let base = batch * n;
+ 
+   if (uniforms.kind == 0u || (uniforms.kind == 1u && uniforms.merge_step == ${numLocalStages - 1}u)) {
+     let wg_base = wg_in_batch * ${workgroupSize * 2}u;
+@@ -151,8 +165,8 @@ fn main(
+     let idx1 = tid * 2u + 1u;
+     // Load from input for initial 'sort' pass, then from output (read-write) for 'merge' passes.
+     if (uniforms.kind == 0u) {
+-      shared_vals[idx0] = select(${padValue}, input[base + wg_base + idx0], wg_base + idx0 < ${n}u);
+-      shared_vals[idx1] = select(${padValue}, input[base + wg_base + idx1], wg_base + idx1 < ${n}u);
++      shared_vals[idx0] = select(${padValue}, input[base + wg_base + idx0], wg_base + idx0 < n);
++      shared_vals[idx1] = select(${padValue}, input[base + wg_base + idx1], wg_base + idx1 < n);
+ ${
+   outputIndices
+     ? `
+@@ -161,13 +175,13 @@ ${
+     : ""
+ }
+     } else {
+-      shared_vals[idx0] = select(${padValue}, output[base + wg_base + idx0], wg_base + idx0 < ${n}u);
+-      shared_vals[idx1] = select(${padValue}, output[base + wg_base + idx1], wg_base + idx1 < ${n}u);
++      shared_vals[idx0] = select(${padValue}, output[base + wg_base + idx0], wg_base + idx0 < n);
++      shared_vals[idx1] = select(${padValue}, output[base + wg_base + idx1], wg_base + idx1 < n);
+ ${
+   outputIndices
+     ? `
+-      shared_idx[idx0] = select(${n}, output_idx[base + wg_base + idx0], wg_base + idx0 < ${n}u);
+-      shared_idx[idx1] = select(${n}, output_idx[base + wg_base + idx1], wg_base + idx1 < ${n}u);`
++      shared_idx[idx0] = select(i32(n), output_idx[base + wg_base + idx0], wg_base + idx0 < n);
++      shared_idx[idx1] = select(i32(n), output_idx[base + wg_base + idx1], wg_base + idx1 < n);`
+     : ""
+ }
+     }
+@@ -190,11 +204,11 @@ ${
+       }
+     }
+ 
+-    if (wg_base + idx0 < ${n}u) {
++    if (wg_base + idx0 < n) {
+       output[base + wg_base + idx0] = shared_vals[idx0];
+       ${outputIndices ? `output_idx[base + wg_base + idx0] = shared_idx[idx0];` : ""}
+     }
+-    if (wg_base + idx1 < ${n}u) {
++    if (wg_base + idx1 < n) {
+       output[base + wg_base + idx1] = shared_vals[idx1];
+       ${outputIndices ? `output_idx[base + wg_base + idx1] = shared_idx[idx1];` : ""}
+     }
+@@ -210,7 +224,7 @@ ${
+     let j = select(i + half_block, i ^ (half_block * 2u - 1u), is_first_step);
+ 
+     // Global version of compare_and_swap()
+-    if (j < ${n}u) {
++    if (j < n) {
+       let val_i = output[base + i];
+       let val_j = output[base + j];
+ ${
+@@ -254,7 +268,7 @@ ${
+       hasUniform: true,
+       passes: passes.map((pass) => ({
+         grid,
+-        uniform: bitonicSortUniform(pass),
++        uniform: bitonicSortUniform(pass, n, workgroupsPerBatch),
+       })),
+     },
+   ];

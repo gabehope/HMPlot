@@ -1,0 +1,5 @@
+## Usage
+
+Retains all columns and original picking identities. by accepts one field or an ordered list. Default order is asc and missing values sort last. Lines follow the resulting order; no mark sorts its input implicitly.
+
+To let the viewer change a setting, read an input in it: `order={input("order")}` (Python `order=hm.input.order`), where `order` is a [Select](select) of `"asc"` and `"desc"`.

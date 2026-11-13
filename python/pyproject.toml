@@ -1,0 +1,65 @@
+[build-system]
+# 1.27: license expressions and license-files (PEP 639).
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hmplot"
+version = "0.1.0-alpha.1"
+description = "Composable WebGPU plots for Python notebooks"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24", "anywidget>=0.11,<1", "ipywidgets>=8", "traitlets>=5", "imageio-ffmpeg>=0.5"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+# No license classifier: PEP 639's `license` expression replaces it.
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Jupyter",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: JavaScript",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+
+[project.optional-dependencies]
+dataframes = ["pandas>=2", "polars>=1"]
+arrow = ["pyarrow>=18"]
+netcdf = ["xarray>=2024.10", "netCDF4>=1.7", "cftime>=1.6.4"]
+# hatchling: test_package.py builds the wheel.
+test = ["pytest", "pytest-asyncio", "hatchling>=1.27", "pandas", "polars", "pyarrow", "xarray", "netCDF4", "pillow"]
+
+[project.urls]
+Homepage = "https://gabehope.github.io/HMPlot/"
+Repository = "https://github.com/gabehope/HMPlot"
+Issues = "https://github.com/gabehope/HMPlot/issues"
+
+[project.scripts]
+# `hmplot install-chrome` downloads Chrome for Testing for exports ahead of time (chrome.py).
+hmplot = "hmplot.chrome:main"
+
+[tool.hatch.build]
+# Built by `npm run build:python` and ignored by git (R1.4): hatch_build.py builds them when a
+# checkout has none; an sdist carries them.
+artifacts = ["hmplot/static/"]
+
+[tool.hatch.build.hooks.custom]
+
+[tool.hatch.build.targets.wheel]
+packages = ["hmplot"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.hatch.build.targets.wheel.force-include]
+"examples" = "hmplot/examples"
+"PROTOCOL.md" = "hmplot/PROTOCOL.md"
+"VALIDATION.md" = "hmplot/VALIDATION.md"
+
+"LICENSE" = "hmplot/LICENSE"

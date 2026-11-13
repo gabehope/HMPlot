@@ -1,0 +1,75 @@
+From e3fc87b966326d87e54e8abc59982098dc3b6690 Mon Sep 17 00:00:00 2001
+From: HMPlot <hmplot@localhost>
+Date: Wed, 7 Oct 2026 23:23:18 -0400
+Subject: [PATCH] Avoid indexing descriptions for already realized arrays
+
+---
+ src/frontend/array.ts            |  8 +++++---
+ src/frontend/realization.test.ts | 22 ++++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 3 deletions(-)
+ create mode 100644 src/frontend/realization.test.ts
+
+diff --git a/src/frontend/array.ts b/src/frontend/array.ts
+index eb4b21c..4645f6e 100644
+--- a/src/frontend/array.ts
++++ b/src/frontend/array.ts
+@@ -682,7 +682,9 @@ export class Array extends Tracer {
+    */
+   #realize(): void {
+     this.#check();
+-    const indices = unravelAlu(this.#st.shape, AluVar.gidx);
++    // A realized contiguous source already has the required storage. Pending
++    // executions are flushed by the caller; no indexing description is needed.
++    if (!(this.#source instanceof AluExp) && this.#st.contiguous) return;
+     if (this.#source instanceof AluExp) {
+       // Fast-path: constant expression, small array, just fill it.
+       let resolvedSource: number | undefined;
+@@ -699,6 +701,7 @@ export class Array extends Tracer {
+         return;
+       }
+ 
++      const indices = unravelAlu(this.#st.shape, AluVar.gidx);
+       const exp = accessorAluExp(this.#source, this.#st, indices);
+       const kernel = new Kernel(0, this.#st.size, exp);
+       const output = this.#backend.malloc(kernel.bytes);
+@@ -712,8 +715,7 @@ export class Array extends Tracer {
+       this.#st = ShapeTracker.fromShape(this.shape);
+       this.#pendingSet = new Set([pendingItem]);
+     } else {
+-      // Only realize if the ShapeTracker is non-contiguous.
+-      if (this.#st.contiguous) return;
++      const indices = unravelAlu(this.#st.shape, AluVar.gidx);
+       const exp = accessorGlobal(this.#dtype, 0, this.#st, indices);
+       const kernel = new Kernel(1, this.#st.size, exp);
+       const output = this.#backend.malloc(kernel.bytes);
+diff --git a/src/frontend/realization.test.ts b/src/frontend/realization.test.ts
+new file mode 100644
+index 0000000..fe7f7ca
+--- /dev/null
++++ b/src/frontend/realization.test.ts
+@@ -0,0 +1,22 @@
++import { defaultDevice, devices, init, jit, numpy as np } from "../index";
++import { beforeEach, expect, suite, test } from "vitest";
++const available = await init();
++suite.each(devices)("realization device:%s", device => {
++  beforeEach(({skip}) => { if(!available.includes(device)) skip(); defaultDevice(device); });
++  test("repeated realization retains references, pending computations and transformed views", async () => {
++    const source=np.array([[1,2],[3,4]]);
++    const cases=[np.array(7),np.zeros([0]),np.ones([2]),source.ref,
++      source.ref.slice([1,2],[]),np.broadcastTo(np.array([5,6]),[2,2]),source.ref.transpose(),
++      jit((a:np.Array)=>a.mul(2).add(1))(source.ref)];
++    const expected=[[7],[],[1,1],[1,2,3,4],[3,4],[5,6,5,6],[1,3,2,4],[3,5,7,9]];
++    try {
++      for(let i=0;i<cases.length;i++) {
++        const a=cases[i], count=a.refCount, slot=a._realizeSource();
++        expect(a._realizeSource()).toBe(slot); expect(a.refCount).toBe(count);
++        expect(Array.from(await a.ref.data())).toEqual(expected[i]);
++        if(device==="webgpu") expect(await a.ref.gpuBuffer()).toBe(await a.ref.gpuBuffer());
++      }
++    } finally {cases.forEach(a=>a.dispose());source.dispose();}
++    const dead=np.array([1]);dead.dispose();expect(()=>dead._realizeSource()).toThrow();
++  });
++});
+-- 
+2.46.1
+

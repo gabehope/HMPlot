@@ -1,0 +1,93 @@
+/* Shared by the input components (TODO 41). Their look (TODO 132.3): each sets its theme's
+   accent, font and text size as --hm-theme-* (theme.js controlStyle); a page's own
+   --hm-controls-accent, --hm-controls-font, --hm-controls-font-size, --hm-controls-color and
+   --hm-controls-background win, as on the settings pane. Without a font the host's is
+   inherited; the text color is the host's unless --hm-controls-color sets one. Sizes are in em,
+   so the text size scales the whole control. The label comes first, then the control and a
+   slider's value (a checkbox's label follows its box). */
+.hm-input {
+  --hm-input-accent: var(--hm-controls-accent, var(--hm-theme-accent, #3478c7));
+  --hm-input-line: color-mix(in srgb, currentColor 20%, transparent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--hm-controls-font, var(--hm-theme-font));
+  font-size: var(--hm-controls-font-size, var(--hm-theme-font-size, 13px));
+  line-height: 1.4;
+  color: var(--hm-controls-color);
+  accent-color: var(--hm-input-accent);
+  padding: 0.3em 0;
+}
+.hm-input-label { white-space: nowrap; }
+/* Every control's em sizes are the input's text size, not the browser's control font. */
+.hm-input :is(input, select, button) { font: inherit; }
+.hm-input :is(select, button, input[type="text"], input[type="datetime-local"]) {
+  box-sizing: border-box;
+  min-height: 2.1em;
+  font: inherit;
+  color: inherit;
+  background: var(--hm-controls-background, transparent);
+  border: 1px solid var(--hm-input-line);
+  border-radius: 0.35em;
+  padding: 0.2em 0.6em;
+}
+/* A select's own option list follows the viewer's light or dark scheme, readable on any host. */
+.hm-input select { max-width: 14em; color-scheme: light dark; }
+.hm-input option { color: CanvasText; background: Canvas; }
+.hm-input select[multiple] { padding: 0.2em; }
+.hm-input button { cursor: pointer; }
+.hm-input button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--hm-input-accent) 12%, var(--hm-controls-background, transparent));
+}
+.hm-input :is(select, button, input):focus-visible {
+  outline: 2px solid var(--hm-input-accent);
+  outline-offset: 1px;
+}
+.hm-input :is(select, button, input):disabled { opacity: 0.55; cursor: default; }
+.hm-input input[type="checkbox"] { width: 1.1em; height: 1.1em; margin: 0; }
+.hm-input output { font-variant-numeric: tabular-nums; min-width: 3.5em; }
+.hm-input [role="alert"] { color: #a13939; }
+.hm-input input[type="color"] {
+  box-sizing: border-box; width: 2.6em; height: 2.1em; padding: 0.15em;
+  background: transparent; border: 1px solid var(--hm-input-line); border-radius: 0.35em;
+}
+/* A slider: a thin track, filled up to the handle in the accent (--hm-fill), and a round handle. */
+.hm-input input[type="range"] {
+  appearance: none;
+  color: inherit;
+  width: 10em;
+  height: 1.4em;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.hm-input input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--hm-input-accent) var(--hm-fill, 0%), var(--hm-input-line) var(--hm-fill, 0%));
+}
+.hm-input input[type="range"]::-moz-range-track {
+  height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--hm-input-accent) var(--hm-fill, 0%), var(--hm-input-line) var(--hm-fill, 0%));
+}
+.hm-input input[type="range"]::-webkit-slider-thumb {
+  appearance: none; width: 14px; height: 14px; margin-top: -5px; border: 0; border-radius: 50%;
+  background: var(--hm-input-accent);
+}
+.hm-input input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--hm-input-accent);
+}
+.hm-playback { gap: 0.3em; }
+.hm-playback label { display: inline-flex; align-items: center; gap: 0.5em; margin-left: 0.3em; }
+.hm-playback button { min-width: 2.1em; padding: 0.2em 0.4em; }
+/* A range slider: two handles over one track, filled between them. */
+.hm-range { position: relative; width: 10em; height: 1.4em; }
+.hm-range::before {
+  content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 2px); height: 4px; border-radius: 2px;
+  background: linear-gradient(to right, var(--hm-input-line) var(--lower), var(--hm-input-accent) var(--lower),
+    var(--hm-input-accent) var(--upper), var(--hm-input-line) var(--upper));
+}
+.hm-range input[type="range"] { position: absolute; inset: 0; height: 100%; pointer-events: none; }
+.hm-input .hm-range input[type="range"]::-webkit-slider-runnable-track { background: transparent; }
+.hm-input .hm-range input[type="range"]::-moz-range-track { background: transparent; }
+.hm-range input::-webkit-slider-thumb { pointer-events: auto; cursor: ew-resize; }
+.hm-range input::-moz-range-thumb { pointer-events: auto; cursor: ew-resize; }

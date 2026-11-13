@@ -1,0 +1,7 @@
+## Usage
+
+Outputs occupied-cell centers, width, depth, rotation, count, and `columns`: reduction expressions as in Group (`columns={{ mean_v: mean("v") }}`). Defaults to 30 cells across X and pointy orientation. radius chooses an explicit cell radius. Facets share the lattice unless sharedBins is false.
+
+The cells are regular hexagons in data units: a Plot that fills its box scales x and y independently and stretches them. Give the Plot `aspect="equal"` (as the example does) when the cells should look regular, with one data unit as long on x as on y.
+
+To let the viewer change a setting, read an input in it: `bins={input("bins")}` (Python `bins=hm.input.bins`), where `bins` is a [Slider](slider).

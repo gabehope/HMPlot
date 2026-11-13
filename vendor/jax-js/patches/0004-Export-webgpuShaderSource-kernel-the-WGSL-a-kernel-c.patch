@@ -1,0 +1,92 @@
+From 039ef855fcb1faff0b149f1b4e3efce7915ae7f3 Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 10:36:06 -0400
+Subject: [PATCH 4/6] Export webgpuShaderSource(kernel), the WGSL a kernel
+ compiles to
+
+Generates a kernel's WebGPU source without a GPU (a stand-in device with
+shader-f16 and the default limits), loading the WebGPU backend module on
+demand. Kernels with equal sources share one compiled pipeline, so a
+test on any backend (the cpu backend in Node, say) can count what a
+workload would compile on WebGPU. Internal to the heatmaptest fork.
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/shader-source.test.ts | 36 +++++++++++++++++++++++++++++++
+ src/index.ts                      | 19 +++++++++++++++-
+ 2 files changed, 54 insertions(+), 1 deletion(-)
+ create mode 100644 src/backend/shader-source.test.ts
+
+diff --git a/src/backend/shader-source.test.ts b/src/backend/shader-source.test.ts
+new file mode 100644
+index 0000000..c5f22a1
+--- /dev/null
++++ b/src/backend/shader-source.test.ts
+@@ -0,0 +1,36 @@
++import { expect, test } from "vitest";
++
++import { Kernel } from "../alu";
++import { getBackend, init } from "../backend";
++import { numpy as np, webgpuShaderSource } from "../index";
++
++await init();
++
++// webgpuShaderSource() generates a kernel's WGSL without a GPU, so a test on any backend can
++// count what WebGPU would compile: kernels with equal sources share one pipeline.
++test("webgpuShaderSource: equal WGSL for kernels differing in length and constants", async () => {
++  const backend = getBackend("cpu");
++  const prepare = backend.prepareKernelSync.bind(backend);
++  async function sources(n: number, c: number): Promise<string[]> {
++    const kernels: Kernel[] = [];
++    backend.prepareKernelSync = (kernel: Kernel) => {
++      kernels.push(kernel);
++      return prepare(kernel);
++    };
++    try {
++      const x = np.arange(0, n, 1, { dtype: np.float32, device: "cpu" });
++      await np.sum(x.mul(c).add(1)).data();
++    } finally {
++      backend.prepareKernelSync = prepare;
++    }
++    return Promise.all(kernels.map((k) => webgpuShaderSource(k)));
++  }
++  const a = await sources(1000, 2.5);
++  const b = await sources(1003, -7);
++  expect(a.length).toBeGreaterThan(0);
++  expect(a[0]).toContain("@compute");
++  expect(b).toEqual(a);
++  // A sum shorter than 64 keeps its length in the source: another shader.
++  const c = await sources(50, 2.5);
++  expect(c).not.toEqual(a);
++});
+diff --git a/src/index.ts b/src/index.ts
+index 41fd5fe..ee0764a 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,4 +1,4 @@
+-import { DType } from "./alu";
++import { DType, type Kernel } from "./alu";
+ import {
+   defaultDevice,
+   Device,
+@@ -365,3 +365,20 @@ export async function devicePut<T extends JsTree<any>>(
+   );
+   return tree.unflatten(structure, yflat) as any;
+ }
++
++/**
++ * The WGSL source the WebGPU backend compiles for a kernel, generated without a GPU (a stand-in
++ * device with shader-f16 and the default limits). Kernels whose sources are equal share one
++ * compiled pipeline, so tests can count what a workload compiles on any backend, for example
++ * from the kernels `prepareKernelSync` receives on the cpu backend.
++ *
++ * @internal Not part of upstream jax-js; added by the heatmaptest fork for its tests.
++ */
++export async function webgpuShaderSource(kernel: Kernel): Promise<string> {
++  const { pipelineSource } = await import("./backend/webgpu");
++  const device = {
++    features: new Set(["shader-f16"]),
++    limits: { maxComputeWorkgroupSizeX: 256 },
++  } as unknown as GPUDevice;
++  return pipelineSource(device, kernel).code;
++}

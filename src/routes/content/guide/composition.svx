@@ -1,0 +1,72 @@
+---
+title: "The composition model"
+section: guides
+order: 20
+summary: "Build a chart by nesting scopes. A scope changes what its children inherit; it does not necessarily draw anything. Connectors draw between other marks."
+---
+
+## Choose the smallest useful container
+
+Plot owns the renderer, camera, navigation, and export. Its implicit frame supplies coordinates for direct marks. A single top-level Frame containing all marks becomes the root coordinate frame. Use sibling Frames when marks need different coordinate domains, as in a temperature/rainfall chart with two Y axes.
+
+## Scopes are composable
+
+Data provides named columns. Mapping supplies shared channel defaults. Transforms provide derived columns to their children. These scopes can sit between a renderer and its marks without creating another renderer. A nested Data replaces the current table; it does not merge unrelated tables.
+
+## Use Scene only for a layout
+
+Python Scene groups several plots or controls into one display. Row, Column, and Grid(columns=...) arrange that display. For ordinary reusable charts, write a Python function that constructs a Plot and returns its handle, or a Svelte component. No Scene wrapper is needed for the example here.
+
+## What a Python with block owns
+
+Every component created while a `with` block is open belongs to that block's node, unless it is put somewhere else explicitly (by `add` or as a constructor argument) while that block is still open. So build an optional part inside the branch that uses it; a Legend created before the `if` would be drawn either way:
+
+```python
+with hm.Plot(data=penguins, axes2d=True) as plot:
+    points = hm.Points(x="bill_length", y="bill_depth", fill="species")
+    if show_legend:
+        hm.Legend(target=points)
+```
+
+A component has one place. To draw the same mark in two plots, build it in a function and call the function once per plot. Outside a `with` block, `plot.add(a, b)` adds several components and returns the container, and explicit construction, `hm.Plot(a, b, data=table)`, builds the same tree. Adding a component to the container it is already in moves it to the end, which is also where it draws.
+
+## Connecting marks
+
+A connector draws between other marks instead of from its own columns. Bind the endpoint marks and pass `connections={connect(first, second)}` to a Line, Segments, Arrows3D, or Arrows (Python: `connections=hm.connect(first, second)`). In the example, each observation's arrow runs from its first measurement, the points, to its second, an Anchor: a mark that holds a position and draws nothing.
+
+Both endpoints show the same table, so rows pair by observation and `color="group"` reads that table. Endpoints from separate tables pair by an explicit key, `connect(before, after, {key: "id"})`; a key missing on one side draws nothing for it, and a key that repeats within one endpoint is an error. A Line through three or more endpoints connects them in argument order, and one mark repeated in every Facet cell, passed alone, connects the cells in facet order: parallel coordinates are one Line over the points repeated in each cell of a Facet over the measurements (`fields={[...]}`, where `value` is the cell's measurement), `connect(facet.endpoint("values"))` (Python: `hm.connect(values)`, with `values` the points written inside the Facet). A Frame in each cell that sets x from 0 to 1 (`x={{domain: [0, 1], visible: false}}`) and keeps the cell's y puts the points at x = 0 on the cell's axis. Every such cell shows the same observations, so no key is needed, and brushable points (`brush={{axis: "y"}}`) brush each field on its cell's axis. The connector belongs in a frame that contains all of its endpoints, usually beside the Facet rather than inside it.
+
+## Try one change
+
+Add a second Points inside the same Frame. It shares the camera and coordinate scales. To use a different Y domain, add a sibling Frame inside Plot instead. Swap the arrows' endpoints, `connect(second, first)`, and they point the other way; replace Arrows with Segments to drop the heads.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"x2":[1.6,2.7,3.5,4.8,5.3,6.6],"y2":[3.1,4.6,4.2,6.5,6.4,7.8],"group":["A","A","A","B","B","B"]}
+
+with hm.Plot(data=data, height=340) as plot:
+    with hm.Frame(x={"label": "Measurement X"}, y={"label": "Measurement Y"}):
+        first = hm.Points(x="x", y="y", fill="group")
+        second = hm.Anchor(x="x2", y="y2")
+        hm.charts.Arrows(connections=hm.connect(first, second), color="group")
+
+plot
+```
+
+```svelte
+<script>
+  import { Plot, Frame, Points, Anchor, connect } from "hmplot";
+import { Arrows } from "hmplot/charts";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"x2":[1.6,2.7,3.5,4.8,5.3,6.6],"y2":[3.1,4.6,4.2,6.5,6.4,7.8],"group":["A","A","A","B","B","B"]};
+  let first = $state(), second = $state();
+</script>
+
+<Plot {data} height={340}>
+  <Frame x={{ label: "Measurement X" }} y={{ label: "Measurement Y" }}>
+    <Points bind:this={first} x="x" y="y" fill="group" />
+    <Anchor bind:this={second} x="x2" y="y2" />
+    <Arrows connections={connect(first, second)} color="group" />
+  </Frame>
+</Plot>
+```

@@ -1,0 +1,9 @@
+## Usage
+
+Glyph outlines are not supported. Style the border of a label box with `box={...}`.
+
+A Callout points at a value with a note a fixed distance away: `dx` and `dy` pixels from its point (right and down; the default is up and to the right), with a leader line from just short of the point to the text. The text has no box: it is drawn over a halo of the plot's background, so it reads over the data; `box` puts it in one (white with a gray outline by default), and the leader then ends at the box's nearest edge. The leader is 1.5 px in the text's color unless `leader` sets its own. The text takes the theme's size and color, as Text does, the size rule and band labels use too. Numbers and times for `x` and `y` draw one callout; columns draw one per row, and `dx`, `dy` and `text` may be columns too. The text aligns to the side of the point it sits on (`align="auto"`), row by row when `dx` is a column.
+
+Callouts do not move to avoid each other or the data: choose the offsets. It is a Text with a leader, so Text takes `box` and `leader` as well, and exports draw the leader, the box or the halo, and the text as vectors, the text searchable.
+
+Callout is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.

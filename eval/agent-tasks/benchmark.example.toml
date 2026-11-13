@@ -1,0 +1,35 @@
+# The default comparison (TODO Stage 131): HMPlot with its docs and skill against the agent's free
+# choice on every task, paired, and HMPlot cold on a sample of ten. `benchmark.py plan` prints the
+# expanded matrix and the maximum number of agent calls before anything runs.
+[benchmark]
+sources = ["hmplot", "general", "real", "matplotbench"]
+repetitions = 1
+corrections = 1
+
+[agents.codex]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[agents.claude]
+backend = "claude"
+binary = "${CLAUDE_BIN}"
+model = "claude-sonnet-5"
+
+# The first-pass visual reviewer. It runs no trials; its verdicts agree with the browser checks or
+# go to a human (benchmark.py model-review, then accept-model-reviews).
+[judge]
+backend = "claude"
+binary = "${CLAUDE_BIN}"
+model = "claude-opus-5-5"
+
+[tracks.python]
+libraries = ["hmplot", "free", "hmplot-cold"]
+
+[tracks.javascript]
+libraries = ["hmplot-js", "free-js"]
+
+# hmplot-cold (no docs, no skill) runs on this sample only: what models know of HMPlot today.
+[library_tasks]
+hmplot-cold = ["scatter", "grouped-bars", "histogram", "boxplot", "facets", "annotated-line",
+               "linked-brush", "slider-filter", "animation", "pdf-figure"]

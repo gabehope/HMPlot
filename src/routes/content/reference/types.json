@@ -1,0 +1,1373 @@
+{
+ "InspectionOptions": {
+  "doc": "",
+  "members": [
+   {
+    "name": "root",
+    "type": "ParentNode",
+    "doc": "Document, plot container or application subtree. Defaults to document."
+   },
+   {
+    "name": "timeout",
+    "type": "number",
+    "doc": "Total readiness/settling budget in milliseconds; defaults to 30000."
+   }
+  ]
+ },
+ "PlotInspection": {
+  "doc": "",
+  "members": [
+   {
+    "name": "title",
+    "type": "string",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "description",
+    "type": "string",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "ready",
+    "type": "boolean",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "completedFrame",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "pendingPreparations",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "model",
+    "type": "unknown",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "animation",
+    "type": "unknown",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "work",
+    "type": "{ markPreparations: number; transformRuns: Record<string, number>; }",
+    "required": true,
+    "doc": "What the plot did to get here (2026-10-22): mark preparations and transform runs by cause."
+   },
+   {
+    "name": "diagnostics",
+    "type": "Diagnostic[]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "exportOmissions",
+    "type": "string[]",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "InspectionReport": {
+  "doc": "",
+  "members": [
+   {
+    "name": "schema",
+    "type": "1",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "ready",
+    "type": "boolean",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "plots",
+    "type": "PlotInspection[]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "errors",
+    "type": "Diagnostic[]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "warnings",
+    "type": "Diagnostic[]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "lints",
+    "type": "Diagnostic[]",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "ScreenMapping": {
+  "doc": "A completed 2D Cartesian draw's immutable mapping. Positions are canvas-local CSS pixels.",
+  "members": [
+   {
+    "name": "width",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "height",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "revision",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "project",
+    "type": "(point: { x: number; y: number; }) => { x: number; y: number; inside: boolean; } | null",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "unproject",
+    "type": "(point: { x: number; y: number; }) => { x: number; y: number; } | null",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "LightSpec": {
+  "doc": "A scene light for lit marks. Positions use world coordinates.",
+  "members": [
+   {
+    "name": "kind",
+    "type": "\"ambient\" | \"directional\" | \"hemisphere\" | \"point\"",
+    "required": true,
+    "doc": "Ambient reaches every surface; directional aims toward the origin; hemisphere blends sky and ground; point shines from a position."
+   },
+   {
+    "name": "color",
+    "type": "string",
+    "doc": "A CSS color, default white."
+   },
+   {
+    "name": "intensity",
+    "type": "number",
+    "doc": "Light strength, at least zero; default 1."
+   },
+   {
+    "name": "position",
+    "type": "[number, number, number]",
+    "doc": "World position for directional and point lights; the up direction for hemisphere. Default [0, 1, 0], or [0, 0, 0] for point."
+   },
+   {
+    "name": "groundColor",
+    "type": "string",
+    "doc": "Hemisphere light's ground color, default white."
+   },
+   {
+    "name": "distance",
+    "type": "number",
+    "doc": "Point light's maximum reach in world units; default 0 means unlimited."
+   },
+   {
+    "name": "decay",
+    "type": "number",
+    "doc": "Point light's distance falloff exponent: default 2 is inverse square, 0 is constant."
+   }
+  ]
+ },
+ "AxisDefinition": {
+  "doc": "",
+  "members": [
+   {
+    "name": "domain",
+    "type": "[number, number] | [Date, Date] | [number | Expression | Date, number | Expression | Date] | \"auto\"",
+    "doc": "The data range the axis spans; \"auto\" (the default) spans the marks' data, widened by padding and, on a 2D linear numeric axis, rounded out to tick values. Two dates make a datetime axis over them. Ends that are reductions (extent(column, {where})) are read from the data and follow it and the selection; automatic while no row matches."
+   },
+   {
+    "name": "transform",
+    "type": "ScaleTransformName",
+    "doc": "How data maps to the axis: \"linear\" (default), \"log\", \"sqrt\" or \"symlog\"; under log a value at or below zero is missing."
+   },
+   {
+    "name": "range",
+    "type": "[number, number]",
+    "doc": "Where the domain lands in the parent frame's coordinates (a Frame's sub-range of its parent axis)."
+   },
+   {
+    "name": "constant",
+    "type": "number",
+    "doc": "symlog's constant c > 0 (default 1): the axis is linear within ±c and logarithmic beyond."
+   },
+   {
+    "name": "invert",
+    "type": "boolean",
+    "doc": "Flip the axis direction on screen (top-to-bottom for y, right-to-left for x, near-to-far for z)."
+   },
+   {
+    "name": "scale",
+    "type": "CategoricalScale",
+    "doc": "A categorical scale: the axis becomes one band per category, in the scale's order."
+   },
+   {
+    "name": "label",
+    "type": "string",
+    "doc": "The axis title. Empty (or null) means automatic: the axis is titled by a categorical position scale's label, else by the name of the one column its marks plot there (through a Facet's value/x/y aliases and transform outputs such as a Bin's edges); an axis whose marks plot several columns, only constants, raw arrays or expressions, or nothing has no title. A Frame that sets its own domain, range, transform or scale for this dimension reads only its own label."
+   },
+   {
+    "name": "visible",
+    "type": "boolean",
+    "doc": "false hides the axis (its line, ticks and labels)."
+   },
+   {
+    "name": "side",
+    "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+    "doc": "Which side the axis is drawn on; \"right\" or \"top\" for a second axis."
+   },
+   {
+    "name": "type",
+    "type": "\"numeric\" | \"datetime\"",
+    "doc": "\"datetime\" labels positions as times counted from origin in timezone; a Date or datetime64 column sets it."
+   },
+   {
+    "name": "origin",
+    "type": "number | Date",
+    "doc": "Datetime axes: the time (a Date, or Unix milliseconds) positions count from."
+   },
+   {
+    "name": "timezone",
+    "type": "string",
+    "doc": "Datetime axes: the IANA time zone labels and calendar intervals use (default UTC)."
+   },
+   {
+    "name": "format",
+    "type": "string",
+    "doc": "A d3-format string (\".1f\", \",\") or, on a datetime axis, a time pattern (\"%b %d\")."
+   },
+   {
+    "name": "majorInterval",
+    "type": "string | CalendarInterval",
+    "doc": "Datetime axes: the calendar step between major ticks (\"1 month\", \"15 minutes\")."
+   },
+   {
+    "name": "minorInterval",
+    "type": "string | CalendarInterval",
+    "doc": "Datetime axes: the calendar step between minor ticks."
+   },
+   {
+    "name": "major",
+    "type": "boolean",
+    "doc": "false hides the major ticks and their labels."
+   },
+   {
+    "name": "minor",
+    "type": "boolean",
+    "doc": "Draw minor ticks between the major ones (subdivisions of each step)."
+   },
+   {
+    "name": "step",
+    "type": "number",
+    "doc": "The spacing between major ticks, in data units, instead of an automatic choice."
+   },
+   {
+    "name": "tickCount",
+    "type": "number",
+    "doc": "About how many major ticks to draw; the axis picks round values near that count. Automatic: about one per 80 px along a 2D linear numeric x axis and per 45 px along y, else per 90 px."
+   },
+   {
+    "name": "subdivisions",
+    "type": "number",
+    "doc": "How many minor intervals each major step splits into (at least 2; default 5)."
+   },
+   {
+    "name": "minorStep",
+    "type": "number",
+    "doc": "The spacing between minor ticks, in data units, instead of subdivisions."
+   },
+   {
+    "name": "padding",
+    "type": "number",
+    "doc": "An automatic domain's margin on each side, as a fraction of its span (default 0.04); on a 2D linear numeric axis the padded ends then round out to tick values, and 0 keeps the data's ends. An explicit domain is not padded."
+   },
+   {
+    "name": "grid",
+    "type": "\"off\" | \"major\" | \"major-minor\"",
+    "doc": "Grid lines at the major ticks (\"major\") or at major and minor ticks (\"major-minor\"); \"off\" draws none."
+   },
+   {
+    "name": "line",
+    "type": "boolean",
+    "doc": "Show the baseline independently of ticks, labels, grids and arrows."
+   },
+   {
+    "name": "ticks",
+    "type": "boolean",
+    "doc": "Show tick marks independently of tick labels."
+   },
+   {
+    "name": "tickSize",
+    "type": "number",
+    "doc": "Tick length in CSS pixels; defaults to the theme's tick size."
+   },
+   {
+    "name": "tickDirection",
+    "type": "\"outside\" | \"inside\" | \"both\"",
+    "doc": "Tick direction relative to the axes interior."
+   },
+   {
+    "name": "titleFontWeight",
+    "type": "number",
+    "doc": "Numeric title font weight from 1 to 1000."
+   },
+   {
+    "name": "gridColor",
+    "type": "string",
+    "doc": "Grid stroke color; omitted adapts to the background."
+   },
+   {
+    "name": "gridWidth",
+    "type": "number",
+    "doc": "Grid stroke width in CSS pixels."
+   },
+   {
+    "name": "gridDash",
+    "type": "number[]",
+    "doc": "Alternating dash and gap lengths in CSS pixels; [] draws solid grids."
+   },
+   {
+    "name": "lineWidth",
+    "type": "number",
+    "doc": "The baseline's stroke width in CSS pixels; 0 hides the baseline and arrow shafts."
+   },
+   {
+    "name": "tickWidth",
+    "type": "number",
+    "doc": "The tick marks' stroke width in CSS pixels."
+   },
+   {
+    "name": "arrow",
+    "type": "\"both\" | \"none\" | \"start\" | \"end\"",
+    "doc": "An arrowhead at the axis's start, end or both ends."
+   },
+   {
+    "name": "arrowSize",
+    "type": "number",
+    "doc": "The arrowhead's size in CSS pixels."
+   },
+   {
+    "name": "labelOverlap",
+    "type": "\"hide\" | \"show\"",
+    "doc": "\"hide\" (default) drops tick labels that would overlap their neighbors; \"show\" keeps them all."
+   },
+   {
+    "name": "tickLabelAngle",
+    "type": "number",
+    "doc": "Rotates the tick labels, in degrees."
+   },
+   {
+    "name": "tickLabelAlign",
+    "type": "\"auto\" | \"start\" | \"end\" | \"middle\"",
+    "doc": "How tick labels align to their ticks; \"auto\" chooses by the axis side and angle."
+   },
+   {
+    "name": "tickLabelPlacement",
+    "type": "\"outside\" | \"inside\"",
+    "doc": "Tick labels outside the axes interior (default) or inside it."
+   },
+   {
+    "name": "tickLabelOffset",
+    "type": "number",
+    "doc": "Extra distance between tick labels and the axis, in CSS pixels."
+   },
+   {
+    "name": "titlePosition",
+    "type": "\"start\" | \"end\" | \"middle\"",
+    "doc": "Where the title sits along the axis: at its start, middle or end."
+   },
+   {
+    "name": "titleAngle",
+    "type": "number | \"auto\"",
+    "doc": "The title's rotation in degrees; \"auto\" reads along a vertical axis."
+   },
+   {
+    "name": "titlePlacement",
+    "type": "\"outside\" | \"inside\"",
+    "doc": "The title outside the axes interior (default) or inside it."
+   },
+   {
+    "name": "titleOffset",
+    "type": "number",
+    "doc": "Extra distance between the title and the tick labels, in CSS pixels."
+   },
+   {
+    "name": "context",
+    "type": "boolean",
+    "doc": "Datetime x axes: a second row of labels where the coarser unit changes (the date under hours, the month and year under days); default true."
+   },
+   {
+    "name": "breaks",
+    "type": "AxisBreak | AxisBreak[]",
+    "doc": "Datetime axes: intervals the axis leaves out, in its time zone (\"weekends\", { hours: [16, 9.5] } every day, { dates: [\"2026-12-25\"] } whole days, { from, to } one interval)."
+   },
+   {
+    "name": "calendar",
+    "type": "string | { name: string; units: string; }",
+    "doc": "A model calendar's axis (set from its column): \"360_day\", \"all_leap\" or \"noleap\", with the column's units (\"days since 1850-01-01\")."
+   }
+  ]
+ },
+ "ReferenceRule": {
+  "doc": "",
+  "members": [
+   {
+    "name": "axis",
+    "type": "\"x\" | \"y\"",
+    "required": true,
+    "doc": "\"x\" draws a vertical rule at an x value, \"y\" a horizontal one."
+   },
+   {
+    "name": "value",
+    "type": "string | number | Date",
+    "required": true,
+    "doc": "Where the rule is, in the axis's units: a number, a Date or an ISO date."
+   },
+   {
+    "name": "label",
+    "type": "string",
+    "doc": "Text at the rule's end."
+   },
+   {
+    "name": "color",
+    "type": "string",
+    "doc": "The rule's color; default the axis text color."
+   },
+   {
+    "name": "width",
+    "type": "number",
+    "doc": "The rule's stroke width in CSS pixels."
+   },
+   {
+    "name": "dash",
+    "type": "number[]",
+    "doc": "Alternating dash and gap lengths in CSS pixels; [] or omitted draws a solid rule."
+   }
+  ]
+ },
+ "ReferenceBand": {
+  "doc": "A shaded span of an axis, drawn behind the marks and grid lines.",
+  "members": [
+   {
+    "name": "axis",
+    "type": "\"x\" | \"y\"",
+    "required": true,
+    "doc": "\"x\" shades a vertical strip (in a polar frame, a wedge of angles), \"y\" a horizontal one (a ring of radii)."
+   },
+   {
+    "name": "from",
+    "type": "string | number | Date",
+    "required": true,
+    "doc": "One end, in the axis's units: a number, a Date, or an ISO date (\"2024-03-01\" or \"2024-03-01T09:30\" in the axis's time zone, or with an offset such as \"2024-03-01T12:00:00Z\")."
+   },
+   {
+    "name": "to",
+    "type": "string | number | Date",
+    "required": true,
+    "doc": "The other end (either order)."
+   },
+   {
+    "name": "label",
+    "type": "string",
+    "doc": "Text at the band's start, like a rule's label."
+   },
+   {
+    "name": "color",
+    "type": "string",
+    "doc": "A six-digit hex color. Default the axis text color."
+   },
+   {
+    "name": "opacity",
+    "type": "number",
+    "doc": "0 to 1. Default 0.1."
+   }
+  ]
+ },
+ "TooltipOptions": {
+  "doc": "A tooltip's settings.",
+  "members": [
+   {
+    "name": "fields",
+    "type": "TooltipField[]",
+    "doc": "The fields to list (default: the columns the mark's channels read)."
+   },
+   {
+    "name": "radius",
+    "type": "number",
+    "doc": "How near the pointer a row is found, in CSS pixels (default 16)."
+   },
+   {
+    "name": "content",
+    "type": "Snippet<[{ values: Record<string, unknown>; row: number; mark: string; lines: { label: string; text: string; }[]; }]>",
+    "doc": "Svelte only: the box's content, given { values, row, mark, lines }."
+   }
+  ]
+ },
+ "FramePlacement": {
+  "doc": "A coordinate frame. Nested ranges are expressed in parent data coordinates.",
+  "members": [
+   {
+    "name": "version",
+    "type": "1",
+    "doc": "Descriptor version. Omitted means a legacy (version 1) descriptor; any other value is rejected."
+   },
+   {
+    "name": "anchor",
+    "type": "[number, number] | [number, number, number]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "size",
+    "type": "[number, number] | [number, number, number]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "orientation",
+    "type": "\"parent\" | \"billboard\" | \"tangent\"",
+    "doc": "Defaults to tangent on spherical parents, parent otherwise."
+   },
+   {
+    "name": "rotation",
+    "type": "[number, number, number]",
+    "doc": ""
+   }
+  ]
+ },
+ "ThemeDefinition": {
+  "doc": "",
+  "members": [
+   {
+    "name": "name",
+    "type": "string",
+    "doc": "The theme's name, shown in the settings pane. A name that starts with a partial theme's group (\"axes/\", \"legend/\", \"title/\", \"controls/\", \"numbers/\", \"animation/\", \"marks/\") makes the theme a partial: it should set only that section, and warns when it sets others."
+   },
+   {
+    "name": "extends",
+    "type": "string | ThemeDefinition | ThemeResource | (string | ThemeDefinition | ThemeResource)[]",
+    "doc": "Inherit from themes: a preset name (matched ignoring case and punctuation), a partial theme's name (\"axes/minimal\", \"legend/inline-top\", \"title/centered\", \"numbers/currency\", ...), a theme definition, a theme resource, or a list of them merged left to right, as in [\"paper\", \"axes/minimal\", \"legend/inline-top\"]. This definition's keys merge over the result: objects merge key by key, lists (a palette) replace."
+   },
+   {
+    "name": "vectorTile",
+    "type": "Partial<Record<VectorTilePart, boolean | VectorTileStyle>>",
+    "doc": "VectorTile's color scheme under this theme: part -> style (or false), as VectorTile's styles."
+   },
+   {
+    "name": "view",
+    "type": "{ background?: string | undefined; }",
+    "doc": "The plot area: background is its color."
+   },
+   {
+    "name": "typography",
+    "type": "{ fontFamily?: string | undefined; fontSize?: number | undefined; color?: string | undefined; }",
+    "doc": "Text everywhere unless a part overrides it: font family, size in CSS pixels and color."
+   },
+   {
+    "name": "axes",
+    "type": "{ fontFamily?: string | undefined; fontSize?: number | undefined; color?: string | undefined; textColor?: string | undefined; line?: boolean | undefined; ticks?: boolean | undefined; tickDirection?: \"outside\" | \"inside\" | \"both\" | undefined; titleFontWeight?: number | undefined; gridColor?: string | undefined; gridWidth?: number | undefined; gridDash?: number[] | undefined; frame?: boolean | undefined; mask?: boolean | undefined; threeD?: Axes3DConfig | undefined; lineWidth?: number | undefined; tickSize?: number | undefined; grid?: \"off\" | \"major\" | \"major-minor\" | undefined; marginLeft?: number | \"auto\" | undefined; marginRight?: number | \"auto\" | undefined; marginTop?: number | \"auto\" | undefined; marginBottom?: number | \"auto\" | undefined; arrow?: \"both\" | \"none\" | \"start\" | \"end\" | undefined; arrowSize?: number | undefined; titlePosition?: \"start\" | \"end\" | \"middle\" | undefined; titleAngle?: number | \"auto\" | undefined; titlePlacement?: \"outside\" | \"inside\" | undefined; titleOffset?: number | undefined; tickLabelAngle?: number | undefined; tickLabelAlign?: \"auto\" | \"start\" | \"end\" | \"middle\" | undefined; tickLabelPlacement?: \"outside\" | \"inside\" | undefined; tickLabelOffset?: number | undefined; }",
+    "doc": "Axis lines, ticks, labels, titles, grids and margins (see AxisDefinition for each key)."
+   },
+   {
+    "name": "guides",
+    "type": "{ fontFamily?: string | undefined; fontSize?: number | undefined; textColor?: string | undefined; }",
+    "doc": "Legends and colorbars: their fonts, colors and spacing."
+   },
+   {
+    "name": "numbers",
+    "type": "{ format?: string | undefined; }",
+    "doc": "Numbers: format is a d3-format string (\",.2f\", \"$,.0f\", \".1%\") that linear axis ticks, legends and tooltips use where they set no format of their own; dates keep theirs."
+   },
+   {
+    "name": "controls",
+    "type": "{ accentColor?: string | undefined; fontSize?: number | undefined; }",
+    "doc": "Inputs (Slider, Select, Button, Checkbox, Playback, ...): accentColor colors a slider's handle and fill, a checked box and the focus ring (default palette[0]); fontSize is their text size in CSS pixels (default typography.fontSize). A page's --hm-controls-* variables win."
+   },
+   {
+    "name": "animation",
+    "type": "{ duration?: number | undefined; easing?: \"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\" | undefined; enter?: boolean | \"fade\" | { effect?: \"fade\" | undefined; duration?: number | undefined; easing?: \"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\" | undefined; } | undefined; exit?: boolean | \"fade\" | { effect?: \"fade\" | undefined; duration?: number | undefined; easing?: \"linear\" | \"quad-in\" | \"quad-out\" | \"quad-in-out\" | \"cubic-in\" | \"cubic-out\" | \"cubic-in-out\" | \"sine-in-out\" | undefined; } | undefined; }",
+    "doc": "Animated changes: duration (milliseconds) and easing are a Plot's animationDuration and animationEasing, enter and exit a mark's enterEffect and exitEffect, where those are not set. It does not turn animation on: a Plot's or mark's `animation` does."
+   },
+   {
+    "name": "marks",
+    "type": "Record<string, Record<string, string | number | boolean | null>>",
+    "doc": "Mark defaults. A null ordinary mark color/fill clears an inherited color and uses palette[0]."
+   },
+   {
+    "name": "palette",
+    "type": "string[]",
+    "doc": "The categorical colors, in order, for marks colored by a category."
+   },
+   {
+    "name": "colormap",
+    "type": "ColormapSpec",
+    "doc": "Default colormap for continuous fills and colors without an explicit colormap."
+   },
+   {
+    "name": "missing",
+    "type": "string",
+    "doc": "The color of a missing value (NaN or null) in a colormapped fill or color, unless its scale sets `missing` (default \"#92989f\", a neutral gray)."
+   },
+   {
+    "name": "shapes",
+    "type": "Record<string, string | [number, number][]>",
+    "doc": "Custom point shapes registered when the theme applies: name -> vertices in [-1, 1] or an M/L/Z path."
+   }
+  ]
+ },
+ "DocumentExportOptions": {
+  "doc": "",
+  "members": [
+   {
+    "name": "width",
+    "type": "string | number",
+    "doc": "The page width: CSS pixels, or a CSS length (\"20cm\")."
+   },
+   {
+    "name": "height",
+    "type": "string | number",
+    "doc": "The page height: CSS pixels, or a CSS length."
+   },
+   {
+    "name": "mode",
+    "type": "\"auto\" | \"vector\" | \"raster\"",
+    "doc": "\"auto\" (default) draws what has no vector form as images, \"vector\" refuses it, \"raster\" draws the whole plot as one image."
+   },
+   {
+    "name": "rasterDpi",
+    "type": "number",
+    "doc": "The images' resolution (default 300)."
+   },
+   {
+    "name": "text",
+    "type": "\"embedded\" | \"outlines\"",
+    "doc": "\"embedded\" keeps text selectable with its fonts embedded; \"outlines\" draws it as paths, so it looks the same without the fonts."
+   },
+   {
+    "name": "primitiveBudget",
+    "type": "number",
+    "doc": "The most vector pieces one export draws (default 100,000): a mark past it is drawn as an image, or refused in \"vector\" mode."
+   }
+  ]
+ },
+ "PlotHandle": {
+  "doc": "",
+  "members": [
+   {
+    "name": "getFrames",
+    "type": "() => FrameHandle[]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getDescription",
+    "type": "() => string",
+    "required": true,
+    "doc": "The plot's description as screen readers get it (description=, then the generated summary), updated when the plot settles after a change."
+   },
+   {
+    "name": "getTitle",
+    "type": "() => string",
+    "required": true,
+    "doc": "The plot's title as shown (\"\" without one)."
+   },
+   {
+    "name": "subscribeDescription",
+    "type": "(listener: (text: string) => void) => () => void",
+    "required": true,
+    "doc": "Called with the description whenever it changes, and once at once; returns a function that stops it."
+   },
+   {
+    "name": "getSelection",
+    "type": "() => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getBrush",
+    "type": "() => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "clearBrush",
+    "type": "() => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getHover",
+    "type": "() => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getOffsets",
+    "type": "() => OffsetLayer",
+    "required": true,
+    "doc": "The table's offsets (dragging)."
+   },
+   {
+    "name": "resetOffsets",
+    "type": "(columns?: string | string[] | undefined) => void",
+    "required": true,
+    "doc": "Clear the table's offsets in `columns` (every column when omitted)."
+   },
+   {
+    "name": "applyOffsets",
+    "type": "() => Record<string, unknown> | Record<string, unknown>[]",
+    "required": true,
+    "doc": "The table as given, with each column that has offsets replaced by its moved values."
+   },
+   {
+    "name": "openSettings",
+    "type": "(anchorElement?: unknown) => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "closeSettings",
+    "type": "() => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "beginUpdate",
+    "type": "() => () => Promise<void>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "whenSettled",
+    "type": "() => Promise<void>",
+    "required": true,
+    "doc": "Resolves once the changes made before the call are drawn; later changes are not waited for."
+   },
+   {
+    "name": "whenAnimationsFinished",
+    "type": "() => Promise<void>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "exportPNG",
+    "type": "(options?: { scale?: number | undefined; } | undefined) => Promise<Blob>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "exportSVG",
+    "type": "(options?: DocumentExportOptions | undefined) => Promise<DocumentExportResult>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "exportPDF",
+    "type": "(options?: DocumentExportOptions | undefined) => Promise<DocumentExportResult>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "exportVideo",
+    "type": "(options: { duration: number; fps?: number | undefined; start?: number | undefined; scale?: number | undefined; }) => Promise<Blob>",
+    "required": true,
+    "doc": "The animation as an MP4 (H.264, else VP9) encoded in the browser with WebCodecs: one PNG export per frame at a frozen clock time from `start` for `duration` ms; the clock is restored afterwards. Loads hmplot/video on first use."
+   },
+   {
+    "name": "getRenderError",
+    "type": "() => string",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "setViewport",
+    "type": "(viewport: Partial<Viewport2D>, axes?: \"xy\" | \"x\" | \"y\" | undefined) => Promise<void>",
+    "required": true,
+    "doc": "Resolves once the viewport is applied, like setCamera."
+   },
+   {
+    "name": "getViewport",
+    "type": "() => Viewport2D",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getCamera",
+    "type": "() => CameraState",
+    "required": true,
+    "doc": "The 3D camera state, or undefined for a 2D plot."
+   },
+   {
+    "name": "setCamera",
+    "type": "(camera: Partial<Omit<CameraState, \"mode\">>, options?: { animate?: boolean | undefined; } | undefined) => Promise<void>",
+    "required": true,
+    "doc": "Merge a partial 3D camera state; {animate: true} eases over the plot's animationDuration."
+   },
+   {
+    "name": "getAnimationTime",
+    "type": "() => number",
+    "required": true,
+    "doc": "The clock in milliseconds, shared by the Plots of its scope (an InputContext, a Scene, a standalone Facet or a Simulate; else the Plot's own): 0 when the scope starts, advanced by the frame time while anything in it animates, still while frozen. `@time` and every transition read it."
+   },
+   {
+    "name": "getAnimationTimeFrozen",
+    "type": "() => boolean",
+    "required": true,
+    "doc": "Whether setAnimationTime froze the clock."
+   },
+   {
+    "name": "setAnimationTime",
+    "type": "(time: number | null, options?: { freeze?: boolean | undefined; } | undefined) => Promise<void>",
+    "required": true,
+    "doc": "Set the clock of the Plot's scope. With freeze (default) it stops there until setAnimationTime(null) resumes it, so exports capture that moment: transitions and"
+   },
+   {
+    "name": "fit",
+    "type": "() => void",
+    "required": true,
+    "doc": "Reset the view: 2D returns to the full domain; 3D recomputes the camera position."
+   },
+   {
+    "name": "holdAnimations",
+    "type": "() => () => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "subscribeSettings",
+    "type": "(listener: (values: Record<string, unknown>) => void) => () => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getScreenMapping",
+    "type": "() => ScreenMapping | null",
+    "required": true,
+    "doc": "The last completed draw's mapping; null before drawing, after disposal or for unsupported coordinates."
+   },
+   {
+    "name": "subscribeScreenMapping",
+    "type": "(listener: (mapping: ScreenMapping | null) => void) => () => void",
+    "required": true,
+    "doc": "Receives the current mapping immediately and changes after completed draws. Returns an unsubscribe function."
+   }
+  ]
+ },
+ "TransformHandle": {
+  "doc": "",
+  "members": [
+   {
+    "name": "subscribe",
+    "type": "(listener: (status: TransformStatus) => void) => () => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "update",
+    "type": "(patch: Record<string, unknown>) => Promise<void>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "whenSettled",
+    "type": "() => Promise<void>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "action",
+    "type": "((id: string) => Promise<void>)",
+    "doc": "Runs one of the transform's named actions (such as a layout's reheat); resolves when its work settles."
+   },
+   {
+    "name": "read",
+    "type": "{ (options?: (ReadOptions & { rows?: false | undefined; }) | undefined): Promise<HostColumns>; (options: ReadOptions & { rows: true; }): Promise<HostRows>; }",
+    "required": true,
+    "doc": "Its output's rows on the host, once its current inputs have run: for a value code shows in the page (a total in a sentence, a breadcrumb, a list). One read per call, bounded by limit.readback; subscribe() says when the output changes, so a readout is subscribe then read. Marks draw the output without it."
+   }
+  ]
+ },
+ "DictionaryColumn": {
+  "doc": "",
+  "members": [
+   {
+    "name": "codes",
+    "type": "any",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "categories",
+    "type": "CategoryValue[]",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "ContinuousScaleConfig": {
+  "doc": "",
+  "members": [
+   {
+    "name": "normalization",
+    "type": "NormalizationResource",
+    "doc": "A shared normalization resource: scales that take the same one share its domain, transform and midpoint (configure those on it, not here)."
+   },
+   {
+    "name": "domain",
+    "type": "[number, number] | \"symmetric\"",
+    "doc": "Two numbers, or \"symmetric\": the data's extent centered on zero."
+   },
+   {
+    "name": "transform",
+    "type": "ScaleTransformName",
+    "doc": "How values map to the range: \"linear\" (default), \"log\", \"sqrt\" or \"symlog\"."
+   },
+   {
+    "name": "constant",
+    "type": "number",
+    "doc": "symlog's constant c > 0 (default 1): the transform is linear within ±c."
+   },
+   {
+    "name": "midpoint",
+    "type": "number",
+    "doc": "A diverging scale's center (d3's scaleDiverging): the domain's halves map to the range's halves, [lo, midpoint] to [0, 0.5] and [midpoint, hi] to [0.5, 1], each linearly in transformed space, so a diverging colormap's middle color falls on the midpoint and both of its ends are used. An explicit domain must contain it; an automatic one grows to. Value scales only (color, size, width), not position axes."
+   },
+   {
+    "name": "domainSource",
+    "type": "\"data\" | \"source\"",
+    "doc": "Where an automatic domain comes from: \"data\" (default), the rows the mark draws, or \"source\", the table before Filters, so colors stay put while a filter changes."
+   },
+   {
+    "name": "range",
+    "type": "[number, number]",
+    "doc": "The output range of a size or width scale, in CSS pixels."
+   },
+   {
+    "name": "colormap",
+    "type": "ColormapSpec",
+    "doc": "The colors of a color scale: a colormap name (\"Viridis\") or a list of colors."
+   },
+   {
+    "name": "quantize",
+    "type": "boolean",
+    "doc": "Step the values into `levels` colors instead of a smooth gradient."
+   },
+   {
+    "name": "levels",
+    "type": "number",
+    "doc": "How many colors quantize steps through."
+   },
+   {
+    "name": "missing",
+    "type": "string",
+    "doc": "The color a missing value (NaN or null) of a colormapped fill or color draws in, on screen, in exports and in its legend (default: the theme's `missing`, a neutral gray). A color scale only: a scale with a numeric range has no colors."
+   },
+   {
+    "name": "label",
+    "type": "string",
+    "doc": "Title of the legend guide shared by the marks using this scale."
+   }
+  ]
+ },
+ "SelectionResource": {
+  "doc": "",
+  "members": [
+   {
+    "name": "isSelection",
+    "type": "true",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "active",
+    "type": "boolean",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "by",
+    "type": "string | null",
+    "required": true,
+    "doc": "The column the selection matches rows by (selection({by: \"gene\"})): every row with a value the selected rows have is a member, in any table with that column; null for row identity."
+   },
+   {
+    "name": "revision",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "status",
+    "type": "() => { active: boolean; previewActive: boolean; count: number; revision: number; previewRevision: number; membership: number; }",
+    "required": true,
+    "doc": "`membership` counts changes of the selected rows; committing a preview (the same rows) bumps `revision` but not `membership`."
+   },
+   {
+    "name": "subscribe",
+    "type": "(listener: (status: { active: boolean; previewActive: boolean; count: number; revision: number; previewRevision: number; membership: number; }) => void) => () => void",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "rows",
+    "type": "(owner?: DataIdentity | undefined, phase?: \"committed\" | \"preview\" | undefined) => Set<number>",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "getConstraints",
+    "type": "(owner?: DataIdentity | undefined, phase?: \"committed\" | \"preview\" | undefined) => SelectionConstraint[]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "clearColumns",
+    "type": "(owner: string | string[] | DataIdentity, columns?: string | string[] | { identity: string; }[] | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "replace",
+    "type": "(owner: DataIdentity | Iterable<number>, rows?: Iterable<number> | undefined, options?: { phase?: \"committed\" | \"preview\" | undefined; activate?: boolean | undefined; } | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "add",
+    "type": "(owner: DataIdentity | Iterable<number>, rows?: Iterable<number> | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "remove",
+    "type": "(owner: DataIdentity | Iterable<number>, rows?: Iterable<number> | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "toggle",
+    "type": "(owner: DataIdentity | Iterable<number>, rows?: Iterable<number> | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "commitPreview",
+    "type": "(owner?: DataIdentity | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "cancelPreview",
+    "type": "(owner?: DataIdentity | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "clear",
+    "type": "(owner?: DataIdentity | undefined) => SelectionResource",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "DataIdentity": {
+  "doc": "",
+  "members": [
+   {
+    "name": "id",
+    "type": "string",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "length",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "selection",
+    "type": "SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "brush",
+    "type": "SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "hover",
+    "type": "SelectionResource",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "offsets",
+    "type": "OffsetLayer",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "ConnectOptions": {
+  "doc": "connect() options. key matches rows by one column's exact values (\"1\" never matches 1); without it, endpoints must show observations of one table. order: \"facet\" (the default, and the only order) applies to one endpoint passed alone, which must be a mark repeated in Facet cells or Partition groups: it connects the cells in facet order.",
+  "members": [
+   {
+    "name": "key",
+    "type": "string",
+    "doc": "A column matched by exact value in every endpoint; without it, the endpoints must show observations of one table, matched by identity."
+   },
+   {
+    "name": "order",
+    "type": "\"facet\"",
+    "doc": "\"facet\" (the default and only order): one endpoint repeated in Facet cells or Partition groups connects its cells in facet order."
+   }
+  ]
+ },
+ "CameraState": {
+  "doc": "",
+  "members": [
+   {
+    "name": "position",
+    "type": "[number, number, number]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "target",
+    "type": "[number, number, number]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "up",
+    "type": "[number, number, number]",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "fov",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "near",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "far",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "zoom",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "mode",
+    "type": "\"orbit\" | \"flyover\"",
+    "required": true,
+    "doc": ""
+   }
+  ]
+ },
+ "Viewport2D": {
+  "doc": "",
+  "members": [
+   {
+    "name": "x",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "y",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "zoom",
+    "type": "number",
+    "required": true,
+    "doc": ""
+   },
+   {
+    "name": "zoomX",
+    "type": "number",
+    "doc": "The horizontal zoom factor, when x and y zoom apart (1 fits the domain)."
+   },
+   {
+    "name": "zoomY",
+    "type": "number",
+    "doc": "The vertical zoom factor, when x and y zoom apart."
+   },
+   {
+    "name": "center",
+    "type": "[number, number]",
+    "doc": "Active root longitude and latitude in its angular units."
+   }
+  ]
+ },
+ "ReductionOptions": {
+  "doc": "Optional participation predicate; intersects visible rows rather than changing membership.",
+  "members": [
+   {
+    "name": "by",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that group the rows: each row gets its own group's value (as pandas' transform)."
+   },
+   {
+    "name": "where",
+    "type": "number | boolean | ColumnName",
+    "doc": "A condition (a boolean column or expression): only the rows where it is true are reduced."
+   }
+  ]
+ },
+ "OrderedReductionOptions": {
+  "doc": "",
+  "members": [
+   {
+    "name": "by",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that group the rows: each row gets its own group's value (as pandas' transform)."
+   },
+   {
+    "name": "where",
+    "type": "number | boolean | ColumnName",
+    "doc": "A condition (a boolean column or expression): only the rows where it is true are reduced."
+   },
+   {
+    "name": "orderBy",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that order the rows within each group for the calculation; results return to the rows' own places."
+   },
+   {
+    "name": "order",
+    "type": "\"asc\" | \"desc\"",
+    "doc": "Ascending (default) or descending orderBy."
+   }
+  ]
+ },
+ "OrderedExpressionOptions": {
+  "doc": "Local calculation order; results return to the source rows. Sort reorders whole tables.",
+  "members": [
+   {
+    "name": "by",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that group the rows: each group is calculated on its own."
+   },
+   {
+    "name": "orderBy",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that order the rows within each group for the calculation; results return to the rows' own places."
+   },
+   {
+    "name": "order",
+    "type": "\"asc\" | \"desc\"",
+    "doc": "Ascending (default) or descending orderBy."
+   }
+  ]
+ },
+ "NeighborExpressionOptions": {
+  "doc": "",
+  "members": [
+   {
+    "name": "periods",
+    "type": "number",
+    "doc": "Nonnegative row offset; zero is identity."
+   },
+   {
+    "name": "fill",
+    "type": "string | number | boolean | Date | null",
+    "doc": "Missing by default; int32 buffers require an explicit integer fill for exact values."
+   },
+   {
+    "name": "by",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that group the rows: each group is calculated on its own."
+   },
+   {
+    "name": "orderBy",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that order the rows within each group for the calculation; results return to the rows' own places."
+   },
+   {
+    "name": "order",
+    "type": "\"asc\" | \"desc\"",
+    "doc": "Ascending (default) or descending orderBy."
+   }
+  ]
+ },
+ "WindowExpressionOptions": {
+  "doc": "",
+  "members": [
+   {
+    "name": "size",
+    "type": "number | Expression",
+    "doc": "Positive integer, or scalar input expression resolving to one."
+   },
+   {
+    "name": "reduce",
+    "type": "ReducerName",
+    "doc": "The reduction over each window: mean (default), sum, min, max and the other reducers."
+   },
+   {
+    "name": "align",
+    "type": "\"center\" | \"trailing\" | \"leading\"",
+    "doc": "Where the window sits around each row: \"trailing\" (the row and those before it, default), \"center\" or \"leading\"."
+   },
+   {
+    "name": "by",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that group the rows: each group is calculated on its own."
+   },
+   {
+    "name": "orderBy",
+    "type": "ColumnName | ColumnName[]",
+    "doc": "Columns that order the rows within each group for the calculation; results return to the rows' own places."
+   },
+   {
+    "name": "order",
+    "type": "\"asc\" | \"desc\"",
+    "doc": "Ascending (default) or descending orderBy."
+   }
+  ]
+ }
+}

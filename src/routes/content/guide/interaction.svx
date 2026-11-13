@@ -1,0 +1,100 @@
+---
+title: "Interaction and updates"
+section: guides
+order: 90
+summary: "Keep observation identity separate from its current row position."
+---
+
+## Opt into interaction
+
+select makes the mark a selection source; respond="selected" makes its appearance respond to selected state. Selection belongs to the associated data identity and can coordinate marks using that identity. Separate data tables are not joined by coincident row numbers.
+
+## Virtual columns
+
+A plain click replaces the selection. Clicking the exact same source-row set again clears it;
+this includes all underlying rows of a Group aggregate or a series. Clicking a subset of a
+multi-selection replaces it with that subset. Shift, Meta and Ctrl clicks toggle membership
+as before; clicking the background clears it.
+
+For a [click drilldown recipe](/recipes.md), keep the original sales rows in one Data scope.
+Group by region in the source branch; Filter by an explicit selection with `inactive="all"`
+before grouping by product in the target branch. Selecting a region aggregate selects every
+underlying sale, so the target sums those sales without Python callbacks. The recipe uses
+`respond=False` on the source Bar to keep all region bars at full opacity while filtering.
+
+Every Data scope exposes interaction state as columns that expressions, Filter, and channels can read. `@selected`, `@brushed`, `@hovered`, `@nearby`, and `@nearest` are 1 on member rows. `@any_selected`, `@any_brushed`, `@any_hovered`, `@any_nearby`, and `@any_nearest` are 1 on every row while the matching column has any member, which lets a mark dim the rest only while something is selected:
+
+```svelte
+<Points x="x" y="y" select opacity={where("@any_selected", where("@selected", 1, 0.2), 1)} />
+```
+
+`nearby` marks rows within a radius of the pointer, like hover but for every overplotted point in reach. Use `nearby={{axis: "x", units: "data", radius: 0.5}}` to pick the observations at the pointer's x value in a time series.
+
+## Hover and highlight
+
+`hover` marks the row under the pointer as `@hovered`; by itself it changes nothing on screen. The plot asks for the emphasis it wants: `respond="hovered"` fades the mark's other rows to `selectionOpacity` while the pointer rests on one, and a channel can read the state instead:
+
+```svelte
+<Line x="day" y="value" series="city" color="city" hover width={where("@hovered", 2, 1)} />
+```
+
+A width or size whose values are all numbers you wrote, like `where("@hovered", 2, 1)`, means what those numbers mean as a constant: `width={2}` is 2 pixels, and so is the 2 here (a column's values go through the width scale). `select`, `brush` and `nearby` fade the other rows by default: `respond` omitted is the states a mark sets, except hover and nearest, and `respond={false}` turns the fading off.
+
+## Hover, nearest and nearby
+
+The pointer sets three states, and each answers a different question:
+
+- `hover` (`@hovered`) is the row exactly under the pointer: what is drawn at that pixel. Between two points, or beside a 1-pixel line, nothing is hovered.
+- `nearest` (`@nearest`) is the row a tooltip shows: the row under the pointer, else the nearest drawn row of the mark within `radius` CSS pixels (16 by default), so a small point or a thin line is easy to reach. It is one drawn row (a whole series for a Line), found in the pick buffer, so it works the same in 2D, 3D, polar and map views, and a row covered by another is never found. Use it without a tooltip to emphasize what the pointer is near.
+- `nearby` (`@nearby`) is every row within a radius of the pointer in data space, overplotted ones included: point marks in Cartesian 2D, and `units: "data"` or one axis for a time series.
+
+```svelte
+<Points x="x" y="y" nearest size={where("@nearest", 5, 2)} />
+<Line x="day" y="value" series="city" color="city" nearest={{ radius: 24 }} width={where("@nearest", 3, 1)} />
+```
+
+A mark with a tooltip marks its row `@nearest` too, so the box and the emphasis never disagree; a Plot's `nearest` is the default of its marks, as its `tooltip` is. Like hover, nearest fades nothing by itself: `respond="nearest"` fades the other rows while one is nearest.
+
+## Lines are picked by series
+
+Line, Area draw series, so hover, select, brush and nearest take whole series. Above, hovering any point of a city's line highlights every row of that city; a click selects them all (Shift-click toggles the series); a Shift-drag brushes every series with a row inside the rectangle, and `@brushed` is then 1 on all of their rows, in every view of the table. Without `series` the mark is one series. A tooltip still shows the row at the pointer.
+
+## Brushing frame strips
+
+Inside a child `Frame`, Shift-drag on the frame's tick strip to brush its own axis. The band stays on the strip, so an inset or twin axis never paints over the rest of the plot. Drag a band's edges to resize it, its middle to move it, or scroll over it; hover it for its clear control, and Escape clears the band you edited last. See the Brushing frame strips example.
+
+## Stable identity across updates
+
+Use a key such as id when rows can enter, exit, or reorder. Without a key, index-based identity follows row positions. Compatible numeric changes can animate; membership or topology changes follow their own replacement rules. Entry and exit behavior must be requested explicitly: `enterEffect="fade"` and `exitEffect="fade"` fade arriving and leaving rows, and `animate()`'s `enter` and `exit` options give the values their channels start from and end at.
+
+## Python updates and callbacks
+
+Keep the points handle to call points.update(size=16) from another notebook cell. Subscribe with points.on_click(callback) when the kernel needs a click event. Navigation, brushing, and local highlighting run in the browser. The documentation playground runs a single construction cell; persistent Python callbacks and later-cell updates belong in a real notebook.
+
+## Try one change
+
+Click different points, then Shift-click to modify the selection. See the coordinated explorer for brushing and linked views; use keyed enter/exit for topology updates.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95],"id":["point-1","point-2","point-3","point-4","point-5","point-6"]}
+
+with hm.Plot(data=data, key="id", height=340, axes2d=True) as plot:
+    points = hm.Points(x="x", y="y", fill="group", size=6,
+                              select=True, respond="selected", hover=True)
+
+plot
+```
+
+```svelte
+<script>
+  import { Plot, Points } from "hmplot";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95],"id":["point-1","point-2","point-3","point-4","point-5","point-6"]};
+</script>
+
+<Plot {data} key="id" height={340} axes2d>
+  <Points x="x" y="y" fill="group" size={6}
+    select respond="selected" hover />
+</Plot>
+```

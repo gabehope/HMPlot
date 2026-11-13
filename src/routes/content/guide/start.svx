@@ -1,0 +1,48 @@
+---
+title: "Installation and first plot"
+section: guides
+order: 10
+summary: "Plot supplies the camera, a coordinate frame, and settings. Add a mark inside it to turn data into a picture."
+---
+
+## Install for your environment
+
+For Svelte 5, install hmplot with npm and import components from the package. In SvelteKit, render the plot in the browser. For Python, install hmplot in the notebook kernel environment; evaluating a root Plot displays its anywidget view. You do not need a Scene for a single plot. Both frontends render using WebGPU, so use a supported browser or notebook webview.
+
+```text
+npm install hmplot
+```
+
+```text
+python -m pip install hmplot
+```
+
+## Read the example
+
+The table contains equal-length columns. Each row becomes one point. The strings x and y name columns; size=8 is a constant in screen pixels. Plot infers the positional domains from its data. Svelte uses nested markup; Python uses a with block to attach marks to their parent. Exiting the Python block finishes construction; the final plot expression displays it.
+
+## Try one change
+
+Set size to 14. The points become larger without changing their data coordinates. Add fill="group" to color rows by category. Next, learn which component owns data, scales, and the camera.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]}
+
+with hm.Plot(data=data, height=340, axes2d=True) as plot:
+    hm.Points(x="x", y="y", size=4)
+
+plot
+```
+
+```svelte
+<script>
+  import { Plot, Points } from "hmplot";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]};
+</script>
+
+<Plot {data} height={340} axes2d>
+  <Points x="x" y="y" size={4} />
+</Plot>
+```

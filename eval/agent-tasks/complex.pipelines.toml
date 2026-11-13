@@ -1,0 +1,20 @@
+# Fifteen hard prompts, paired across models and documentation styles: 90 trials.
+# Both HMPlot conditions use the same wheel and freshly generated docs from the same commit.
+# Only pipeline guidance differs; free offers the baseline libraries without HMPlot.
+[benchmark]
+sources = ["complex", "d3-hard"]
+repetitions = 1
+corrections = 2
+
+[agents.luna]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[agents.sol]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6.1-sol"
+
+[tracks.python]
+libraries = ["hmplot-standard", "hmplot-fluent", "free"]

@@ -1,0 +1,1 @@
+Simulated measurements for five ordered groups. value is numeric; group is a numeric baseline index (0, 1, …), not a category name. bandwidth uses value units and gain sets the vertical density multiplier. All groups share a measurement scale.

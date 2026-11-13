@@ -1,0 +1,23 @@
+# Whether agents choose HMPlot when they may (TODO 145.6d): free-js-all installs HMPlot beside
+# D3, Observable Plot and deck.gl with its docs offered but not prescribed; free-js has the others
+# only. The HMPlot-strength tasks on the JavaScript track (tasks/hmplot) and the web eval's
+# complex and d3-hard tasks. The report's "library used" column answers the question.
+# Not run by the harness's authors: each trial is a paid agent session.
+[benchmark]
+sources = ["hmplot", "complex", "d3-hard"]
+repetitions = 1
+corrections = 2
+seed = 20261022
+
+[agents.luna]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[agents.sol]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6.1-sol"
+
+[tracks.javascript]
+libraries = ["free-js-all", "free-js"]

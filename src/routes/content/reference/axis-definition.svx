@@ -1,0 +1,33 @@
+## Usage
+
+A Plot's or a [Frame](frame)'s `x`, `y` and `z` each take one of these objects: how that dimension maps data to the frame, and how its axis is drawn. Set only what you need; the rest keeps its default or the theme's. Python writes the keys in snake_case (`tick_count`, `major_interval`), and an unknown key is an error that names the nearest one.
+
+**The mapping.** `domain` fixes the data range; without it (`"auto"`) the axis spans the marks' data, widened by `padding` (a fraction of the span on each side, 0.04 by default; an explicit domain is not padded). On a 2D linear numeric axis the padded ends then round out to tick values, so both ends carry labeled ticks; an end at a bar's 0 baseline or at the bounds a Heatmap or Image is placed by stays, an end whose padding already reaches past a tick (data from 0, or up to 10) keeps its padding, and `padding: 0` keeps the data's ends. `transform` is linear, log, sqrt or symlog, with `constant` for symlog's linear band around zero. Under log a zero or negative value is missing: it is not drawn and not counted in the automatic domain. `invert` flips the axis on screen and keeps its domain, so zooming and ticks work as before. `scale`, a [categorical](categorical) scale, makes the axis a band per category in the scale's order: along x from the left, along y from the top (`invert` lists a y axis from the bottom). `axisMask` clips marks to the visible axes interior; it is enabled in HMPlot and most themes. Set `axisMask={false}` on Plot/Frame to allow overflow.
+
+**Time.** `type: "datetime"` labels positions as times, counted in milliseconds from `origin` (Unix milliseconds, as [datetimeCoordinates](datetime-coordinates) returns it) and shown in `timezone`. A column of Dates, a datetime schema or a NumPy datetime64 column sets both itself. `majorInterval` and `minorInterval` take calendar steps (`"1 month"`, `"15 minutes"`), an x axis adds a second row of dates under hours (`context`), and `breaks` leaves out weekends, nights or holidays, as in [Market hours](/examples/market-hours).
+
+**Ticks, labels and the title.** `tickCount` asks for about that many ticks (automatic: about one per 80 px along a 2D linear numeric x axis and per 45 px along y), `step` fixes their spacing, and `format` is a d3-format string (`".1f"`) or a time pattern (`"%b %d"`). `minor` with `subdivisions` adds minor ticks, and `grid` draws lines at the major (or major and minor) ticks. `label` titles the axis; left empty, it is the name of the one column the marks plot there. `visible: false` hides the line, ticks and labels but keeps the mapping, and `side` moves an axis to the right or the top, as a second y axis needs.
+
+[Axes & datetime](/examples/axes) shows a datetime axis in a time zone with minor grids, and [Twin coordinate frames](/examples/twin-axes) two y axes over one x.
+
+
+## Baselines, tick marks, and grids
+
+`line` shows the baseline, independently of `ticks` and tick labels. `tickSize` is the
+length in CSS pixels; `tickDirection` is `outside`, `inside`, or `both`. Major/minor
+controls still decide which ticks exist. `ticks: false` leaves their labels visible.
+
+```js
+x={{ line: false, ticks: true, tickSize: 4, tickDirection: "outside", arrow: "end" }}
+y={{ grid: "major", gridColor: "#dde4ed", gridWidth: 1, gridDash: [3, 3] }}
+```
+
+A baseline-free arrow has a short shaft twice `arrowSize` long and a filled head.
+`lineWidth: 0` suppresses baseline and shaft strokes while arrows remain independent.
+`titleFontWeight` sets a numeric weight from 1 to 1000. Grid color defaults to an adaptive
+blend with the background; `gridWidth` and `gridDash` affect grids, leaving reference
+`rules` independent. Explicit axis settings override matching `theme.axes` values.
+
+`axisFrame` on Plot/Frame draws the missing sides of a rectangular 2D Cartesian border
+without repeating ticks or labels. `axisMask` clips data marks and picking to the interior,
+including when baselines are hidden. Both have theme defaults (`axes.frame`, `axes.mask`).

@@ -1,0 +1,5 @@
+## Usage
+
+A component's settings (what its settings pane edits, and what Python's `update()` and theme defaults reach) are registered on an options node: `options.ensure(name, type)` names a setting and gives it a type, whose `defaultValue` is its value until something sets it, whose `ui` is the pane's control (a slider, checkbox, select, color picker or text field) and whose `transform` converts what the pane sends. A pattern written in Svelte registers its settings this way, through `getOptionsContext()` and `setOptionsContext()` from [hmplot/compound](package-compound)'s `composition`; `composition` exports `IntegerType`, `SelectType` and `FieldType` too.
+
+The constructor's params are `defaultValue`, `label` (default: from the setting's name), `ui` (an object merged into the control's spec, or `false` for no control) and `transform`; the numeric types also take `min`, `max` and `step`, and `SelectType` takes `options`. The types' other members (the GPU nodes a setting feeds, its uniform type) are internal to the marks and may change.

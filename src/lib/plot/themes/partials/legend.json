@@ -1,0 +1,35 @@
+{
+  "inline-top": {
+    "position": "top",
+    "layout": "inline"
+  },
+  "inline-bottom": {
+    "position": "bottom",
+    "layout": "inline"
+  },
+  "stacked-right": {
+    "position": "right",
+    "layout": "stacked"
+  },
+  "compact": {
+    "fontSize": 12,
+    "swatchSize": 10,
+    "titleFontSize": 12,
+    "titleFontWeight": 500
+  },
+  "generous": {
+    "fontSize": 16,
+    "swatchSize": 16,
+    "titleFontSize": 16,
+    "titleFontWeight": 600
+  },
+  "subdued-heading": {
+    "titleFontWeight": 400
+  },
+  "strong-heading": {
+    "titleFontWeight": 700
+  },
+  "mark-shapes": {
+    "swatchShape": "auto"
+  }
+}

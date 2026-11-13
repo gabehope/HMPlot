@@ -1,0 +1,11 @@
+{
+  "name": "hmplot",
+  "owner": { "name": "Gabe Hope" },
+  "plugins": [
+    {
+      "name": "hmplot",
+      "source": "./",
+      "description": "A skill for writing and checking HMPlot plots: WebGPU charts, maps, graphs and 3D scenes for Python notebooks and Svelte 5."
+    }
+  ]
+}

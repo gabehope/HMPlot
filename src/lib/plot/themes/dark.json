@@ -1,0 +1,142 @@
+{
+  "name": "Dark",
+  "view": {
+    "background": "#111827"
+  },
+  "typography": {
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, sans-serif",
+    "fontSize": 14,
+    "color": "#e5e7eb"
+  },
+  "axes": {
+    "color": "#94a3b8",
+    "lineWidth": 0.75,
+    "tickSize": 3,
+    "grid": "off",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 700,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#cbd5e1",
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, sans-serif"
+  },
+  "marks": {
+    "Line": {
+      "color": "#60a5fa",
+      "width": 1.5
+    },
+    "Points": {
+      "fill": "#60a5fa",
+      "size": 8,
+      "outlineColor": "#dbeafe",
+      "outlineWidth": 0,
+      "shape": "circle"
+    },
+    "Area": {
+      "fill": "#60a5fa",
+      "opacity": 0.22
+    },
+    "ErrorBars": {
+      "color": "#cbd5e1",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#e5e7eb",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#94a3b8",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#60a5fa",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#60a5fa",
+    "#fb923c",
+    "#4ade80",
+    "#f87171",
+    "#c084fc",
+    "#22d3ee",
+    "#facc15",
+    "#f472b6"
+  ],
+  "vectorTile": {
+    "background": {
+      "fill": "#1e2433"
+    },
+    "land": {
+      "fill": "#262d3b"
+    },
+    "green": {
+      "fill": "#285145"
+    },
+    "water": {
+      "fill": "#2a456b"
+    },
+    "waterways": {
+      "color": "#2e4c75",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#393f4c"
+    },
+    "other": {
+      "fill": "#3b414e",
+      "color": "#7b8089",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#3b414e",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#515662",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#a26434",
+      "width": 3
+    },
+    "railways": {
+      "color": "#6a6f79",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#7a59a7",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#e5e7eb",
+      "size": 13
+    }
+  },
+  "colormap": "Magma"
+}

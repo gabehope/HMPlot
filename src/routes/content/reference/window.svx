@@ -1,0 +1,15 @@
+## Usage
+
+Adds a derived column without sorting observations. Defaults to a trailing mean over five observations. align supports trailing, center, or leading; by separates groups. Sort explicitly before Window when time order is required.
+
+To let the viewer change a setting, read an input in it: `size={input("size")}` (Python `size=hm.input.size`), where `size` is a [Slider](slider).
+
+`any` and `all` reduce logical booleans or finite numeric truth values; empty/all-missing windows
+yield false and true respectively. The `window(value, {size, reduce, align, by, orderBy})`
+expression uses the same kernels and restores results to original rows after local ordering.
+Python uses `hm.window(value, size=..., order_by=...)`. See [Reductions](reductions).
+
+This template expands to [Calculate](calculate) with
+`columns={smoothed: window(field, {size, reduce, align, by})}` (using the name passed as `as`).
+It reuses the window expression's kernels and the ordinary transform lifecycle, including input
+controls, status subscriptions, updates, and error recovery.

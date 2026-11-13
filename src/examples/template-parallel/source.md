@@ -1,0 +1,1 @@
+Simulated product profiles. Supply one row per observation with a unique id, categorical group, and numeric measure columns. fields determines dimension order. Each measure is normalized across visible rows to 0–1; this is not a shared physical unit scale.

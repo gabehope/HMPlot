@@ -1,0 +1,9 @@
+## Usage
+
+shape supports rectangle, triangle, hexagon, and circle. axis defaults to z; width/depth use data units on the other axes. Rotation is degrees around the extrusion axis. Cartesian only; flat footprints can be texture children.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** extruded along x or y, or in a 3D view, where a Prism is a 3D mark (flat ones too): then SVG and PDF exports draw the prisms (in a 3D view all of that view's marks) as an image, and `mode="vector"` refuses it. In a 2D view a Prism exports its footprint, a `fill` column of numbers or categories included. See [what is not exported as vector](/docs/export).
+
+</Note>

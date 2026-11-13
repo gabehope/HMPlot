@@ -1,0 +1,79 @@
+---
+title: "Reusable charts and export"
+section: guides
+order: 110
+summary: "Keep chart definitions as ordinary functions or components and export through their handles."
+---
+
+## Return handles from reusable charts
+
+A Python function can construct the same chart for several tables and return its Plot or individual mark handles. Each call creates independent components. Svelte components provide the same reuse: expose data props and bindable handles when callers need later updates.
+
+## Choose an export format
+
+PNG preserves the rendered image. SVG and PDF keep axes, text, legends and most 2D marks as vector shapes, and draw what has no vector form as images (the list below). Output size and fallback DPI serve different purposes: size controls the document, while DPI controls raster detail. Inspect the export report when vector purity matters.
+
+## What is not exported as vector
+
+In SVG and PDF exports, axes, tick labels, titles, [Title] blocks, legends (colorbars as gradients) and 2D marks are vector shapes and searchable text, except for what this section lists. With `mode="auto"` (the default) each item listed is drawn as an image at the export's raster DPI (300 by default), in its place among the vector shapes; `mode="vector"` refuses it and names it, and `mode="raster"` draws the whole plot as one image. The export report says what happened to each mark (`markOutcomes`, `rasterLayers` and `warnings`), and each component's reference page has a note, "SVG and PDF export", saying the same. An HTML export's SVG snapshot follows the same list.
+
+Always an image:
+
+- [Heatmap], with any marks drawn into it; [Image]; [Surface]; [Points3D]; [Text3D], TeX included.
+- [GeoJSON]'s filled polygons and [VectorTile]'s filled areas. A live VectorTile (the default in a 2D view) draws its roads, paths and boundaries as an image too, and keeps place names as text.
+- A [Markdown] block, and a 2D [Minimap], in a [Scene]'s export.
+
+The whole plot as one image (all its marks, with the effect, in one image; its axes, titles and legends stay vector):
+
+- A [Plot]'s sky, fog or plugin [effects] (a bloom effect alone changes nothing), a mark's `glow`, or a [Frame]'s `atmosphere`.
+
+An image only in some cases, each for a reason a vector cannot carry:
+
+- A 3D view (a 3D [Plot] or [Frame]) holding a mark with no vector form there: a 3D mark ([Points3D], [Arrows3D], [Text3D], [Surface], a [Prism], an extruded [Rect]), a [Heatmap] or [Image], a lit or additive mark, or a globe or polar frame ([GeoJSON] boundaries on a globe too). All of that view's marks are then one image, since an image and vector shapes cannot hide one another correctly; the axes stay vector. Other 3D views are vector: their 2D marks are projected through the camera and drawn back to front by depth, which is approximate where marks intersect or cross closely (the report says so).
+- A [Prism] extruded along x or y: a 2D view sees its side, not its footprint.
+- `blend="additive"` or `"subtractive"`: PDF has no additive blend mode, and SVG's is not honored by Illustrator, Inkscape or SVG-to-PDF converters. Screen and multiply stay vector (as `mix-blend-mode`).
+- A mark with more vector pieces than the export's primitive budget (100,000 by default), a guard against huge files; raise `primitiveBudget` to keep it vector.
+- A band, [Rect] or sector cut by a Mercator map's latitude limit, or crossed by a map's seam more than once. One crossed once exports a piece on each side of the seam.
+
+Colors from a scale are vector: a `fill` or `color` column of numbers is evaluated through its scale and colormap as the GPU evaluates it, and a column of categories gives each row its category's color, on every 2D mark ([Points], [Line], [Segments], [Arrows], [Arrows3D], [Area], [ErrorBars], [Text], [Rect], [Bar], [Prism], [Polygon], [Pie], [GeoJSON] and the marks built from them, such as [BoxPlot], [Violin], [Ecdf], [DensityContour], [DensityBands], [Swarm], [RuleX] and [RuleY]). `dash` is a dash pattern ([Line], [Segments], [RuleX], [RuleY], [Routes]); every `curve` is a curve, on maps too; [Dodge] and [Swarm]'s displaced points keep their connectors.
+
+Left out of every static export (PNG, SVG and PDF): the inputs ([Slider], [Checkbox], [Select], [Button], [Playback]), a [Crosshair], a Plot's `overview` gadget, and a [Minimap] of a 3D plot (the report's warnings say so).
+
+## Notebook and headless export
+
+In a notebook, await plot.export_png("plot.png") or export_svg/export_pdf to capture an interacted view. A notebook open in a browser without WebGPU shows a static image of the scene instead, drawn by the kernel in its headless Chrome; set the environment variable HMPLOT_NOTEBOOK_SVG=1 to save that SVG in the notebook's outputs too, for viewers such as GitHub and nbviewer. With the optional export dependency installed, filename on a Plot, Facet, or Scene saves after a successful construction context exits. Context autosave uses a fresh camera, not a notebook’s current navigation.
+
+## Interactive HTML
+
+Python/declarative scenes can export self-contained HTML with accepted data and configuration. The opened file still needs WebGPU. Python callbacks do not become browser Python programs; they are omitted. Arbitrary direct-Svelte children cannot be reconstructed by this export path.
+
+## Try one change
+
+Call trend with a different table. Use background="transparent" for compositing. In a notebook, save with await plot.export_svg("trend.svg") after checking the on-screen result.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]}
+
+def trend(data):
+    with hm.Plot(data=data, height=340, axes2d=True, background="white") as plot:
+        hm.Line(x="x", y="y", color="#547ba2")
+        hm.Points(x="x", y="y", fill="#547ba2")
+    return plot
+
+plot = trend(data)
+plot
+```
+
+```svelte
+<script>
+  import { Plot, Line, Points } from "hmplot";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]};
+</script>
+
+<Plot {data} height={340} axes2d background="white">
+  <Line x="x" y="y" color="#547ba2" />
+  <Points x="x" y="y" fill="#547ba2" />
+</Plot>
+```

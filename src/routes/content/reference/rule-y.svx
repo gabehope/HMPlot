@@ -1,0 +1,15 @@
+## Usage
+
+RuleY draws a horizontal rule at `y` across the frame: a threshold, one rule per row of a column, or the pointer (`y="@pointer_y"`). By default it spans the frame's visible domain in x; `x0` and `x1` give other ends, so `x1="@pointer_x"` draws a leader from the axis to the pointer.
+
+The rule follows the frame's coordinates: a circle in a polar frame (an arc between `x0` and `x1`), a parallel on a map or a globe. Rules never widen automatic domains.
+
+RuleY is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the rules are vectors too, drawn back to front by depth (approximate where marks cross closely). `dash` and a `color` column stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+For Plotly users, this is the `add_hline` pattern. For a shaded interval, use [BandY](/reference/svelte/band-y) (the corresponding `add_hrect` pattern).

@@ -1,0 +1,92 @@
+{
+  "runs": [
+    {
+      "sourceRef": "a3667d1d + retained Stage105 patch",
+      "snapshot": "prototype105",
+      "dpr": 2,
+      "dateUTC": "2026-10-06T19:35:56.873259+00:00",
+      "command": "BENCH_URL=http://127.0.0.1:5484 npx playwright test --config tests/perf/investigations/playwright.config.mjs --grep 'same-identity|pointer geometry|Image grid'",
+      "files": {
+        "tests/perf/investigations/stage105.patch": "7545135c0b596da979a66bce80a9b0e655aea3c6248649357cb99debe7f400e5",
+        "src/routes/test/scale-summary/+page.svelte": "c5d004d426cae29ee8ac3f103c089c439b42e6d135507b10a019ec33e773c5a5",
+        "tests/browser/scale-summary.spec.js": "321692a2f9fdb9088165b408561594cb102430456d81a7bc2aaac14846756f40"
+      },
+      "passed": [
+        {
+          "test": "same-identity mutable mark arrays",
+          "seconds": 1.4,
+          "assertions": "inferred domains, actual vector geometry, live pixels, completed frames"
+        },
+        {
+          "test": "pointer geometry",
+          "seconds": 1.6,
+          "assertions": "live pink pixels move, inferred ordinary domains stay fixed, ordinary vector geometry"
+        },
+        {
+          "test": "Image grid placement",
+          "seconds": 1.5,
+          "assertions": "new cell-edge inferred domains, drawn RGB pixels, completed frames"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "sourceRef": "a3667d1d + retained Stage105 patch, units-change early-domain guard included",
+      "snapshot": "prototype105",
+      "dpr": 2,
+      "dateUTC": "2026-10-06T19:53:03.478893+00:00",
+      "command": "BENCH_URL=http://127.0.0.1:5484 npx playwright test --config tests/perf/investigations/playwright.config.mjs --grep 'changing and clearing'",
+      "files": {
+        "tests/perf/investigations/stage105.patch": "c75beb97e75cc7a27989e70c3f60bef63b912ae8cf5f9b5b83ae0749b023a0b2",
+        "src/routes/test/scale-summary/+page.svelte": "c42948090b77a16210f46fa38a9f907e3aebe78ec3ea2430cdc5506450e73f91",
+        "tests/browser/scale-summary.spec.js": "127d09be7ececbed83e958dff3e209cbf76202e6135d1044872c80091cf47cc7"
+      },
+      "passed": [
+        {
+          "test": "changing and clearing point size units",
+          "seconds": 1.8,
+          "assertions": "px/data automatic x footprints, unchanged y center domain under aspect=auto, SVG radii, live pixels, completed frames, omitted prop preserves effective local units"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "sourceRef": "Frozen integrated Stage100–105 source before subsequent Point depth-write option",
+      "snapshot": "stage101-browser",
+      "dpr": 2,
+      "dateUTC": "2026-10-06T20:28:27.543Z",
+      "logSHA256": "aa6fb3a06ea20185fc574936bcfe75b2de79f9467560d62291eca541344ce8c2",
+      "files": {
+        "src/routes/test/scale-summary/+page.svelte": "c42948090b77a16210f46fa38a9f907e3aebe78ec3ea2430cdc5506450e73f91",
+        "tests/browser/scale-summary.spec.js": "127d09be7ececbed83e958dff3e209cbf76202e6135d1044872c80091cf47cc7"
+      },
+      "passed": [
+        {
+          "test": "same-identity mutable mark arrays",
+          "seconds": 1.3
+        },
+        {
+          "test": "evolving time geometry",
+          "seconds": 1.3
+        },
+        {
+          "test": "changing and clearing point size units",
+          "seconds": 1.6
+        },
+        {
+          "test": "pointer geometry",
+          "seconds": 1.5
+        },
+        {
+          "test": "Image grid placement",
+          "seconds": 1.4
+        }
+      ],
+      "errors": [],
+      "suiteScope": "All five retained105 guards passed; the broader focused16-case run passed15/16, with a separate Force Reset screenshot assertion still under review. This is not the full rendering gate."
+    }
+  ],
+  "standalonePassed": 4,
+  "integratedPassed": 5,
+  "remainingGates": "Final full rendering suite and exports owned by root. Broad axes/facets/geometry cases are not established merely by these five guards."
+}

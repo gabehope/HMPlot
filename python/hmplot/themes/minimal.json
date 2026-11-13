@@ -1,0 +1,161 @@
+{
+  "name": "Minimal",
+  "typography": {
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, sans-serif",
+    "fontSize": 14,
+    "color": "#344054"
+  },
+  "axes": {
+    "color": "#667085",
+    "lineWidth": 0.75,
+    "tickSize": 3,
+    "grid": "off",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 14,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 7,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": false,
+    "ticks": false,
+    "tickDirection": "outside",
+    "titleFontWeight": 400,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": false,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 13,
+    "textColor": "#263244",
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, sans-serif",
+    "position": "bottom",
+    "layout": "inline",
+    "swatchSize": 12,
+    "swatchShape": "auto",
+    "titleFontSize": 13,
+    "titleFontWeight": 400
+  },
+  "marks": {
+    "Line": {
+      "color": "#4c78a8",
+      "width": 1.25
+    },
+    "Points": {
+      "fill": "#4c78a8",
+      "size": 9,
+      "outlineColor": "#64748b",
+      "outlineWidth": 1,
+      "shape": "circle",
+      "opacity": 0.85
+    },
+    "Area": {
+      "fill": "#4c78a8",
+      "opacity": 0.16
+    },
+    "ErrorBars": {
+      "color": "#667085",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#344054",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#667085",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#4c78a8",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#4c78a8",
+    "#f58518",
+    "#54a24b",
+    "#e45756",
+    "#72b7b2",
+    "#b279a2",
+    "#ff9da6",
+    "#9d755d",
+    "#bab0ac"
+  ],
+  "view": {
+    "background": "#ffffff"
+  },
+  "vectorTile": {
+    "background": {
+      "fill": "#f2efe9"
+    },
+    "land": {
+      "fill": "#e9e5dc"
+    },
+    "green": {
+      "fill": "#cfe5c0"
+    },
+    "water": {
+      "fill": "#aad3df"
+    },
+    "waterways": {
+      "color": "#8cc1d4",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#d9d0c9"
+    },
+    "other": {
+      "fill": "#d4d0c8",
+      "color": "#8f8a80",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fbfaf7",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#f7cf8e",
+      "width": 3
+    },
+    "railways": {
+      "color": "#9a9a9a",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#a19bb4",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#3d3a36",
+      "size": 13
+    }
+  },
+  "colormap": "Viridis",
+  "title": {
+    "align": "left",
+    "fontSize": 20,
+    "fontWeight": 500,
+    "subtitleFontSize": 14,
+    "captionFontSize": 12,
+    "spacing": 20
+  },
+  "controls": {
+    "fontSize": 14
+  }
+}

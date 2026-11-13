@@ -1,0 +1,5 @@
+## Usage
+
+`bands` on a Plot or a Frame shades spans of an axis behind the marks and grid lines: `[{ axis: "x", from: 40, to: 52, label: "Warm spell", color: "#d9824b", opacity: 0.16 }]`. An x band is a vertical strip and a y band a horizontal one; in a polar frame they are a wedge of angles and a ring of radii. Ends are values on the axis (numbers, Dates, or ISO dates: `"2024-03-01"` or `"2024-03-01T09:30"` in the axis's time zone, or with an offset such as `"2024-03-01T12:00:00Z"`), in either order. The label sits at the band's start, as a rule's does.
+
+A Frame takes `rules` and `bands` in its own coordinates. Bands export as vector rectangles or sectors, and the settings pane lists them beside the reference lines.

@@ -1,0 +1,33 @@
+---
+title: "Compared with other libraries"
+section: guides
+order: 120
+summary: "When hmplot fits your work, and when another library fits better."
+---
+
+hmplot draws with WebGPU. Marks draw on the GPU, and expressions, filters and simulations compute there too, to support large, interactive plots. Performance depends on the marks, transforms, update pattern and device; benchmark the intended workload. Interactions such as tooltips, brushing, selections, sliders, pointer-driven rules and linked views are declared in the chart, like its encodings, rather than written as callbacks. The same components draw statistical charts, networks and hierarchies, maps and globes, surfaces and 3D scenes. You write a chart as Svelte 5 components or in a Python notebook, with the same component names in both, and export it as PNG, SVG, PDF (from Python) or a self-contained interactive HTML file.
+
+Other libraries fit some work better. This page is meant to help you choose.
+
+## At a glance
+
+| Library | Choose it when | Choose hmplot when |
+|---|---|---|
+| **Matplotlib** | You need figures for print with fine typographic control, one of its many specialized plot types, or output from an environment with no browser. | The figure should be interactive, holds more points than a static renderer draws quickly, or is a 3D scene you navigate. |
+| **seaborn, plotnine, ggplot2** | You want an estimator hmplot lacks, such as a LOWESS or logistic fit or bootstrapped confidence intervals, or you work in R. | You want a grammar of graphics with pan, zoom, selection and linked views. Histograms, densities, violins, ECDFs, contours, pair plots and regression fits with confidence bands are built in, and a fit follows a brush as it moves. |
+| **Plotly and Dash** | You're building a web app whose callbacks run in Python on a server, want candlestick and OHLC charts ready-made, or need charts that render without WebGPU. | Interactions should be declared rather than written as callbacks, or you want transforms, not only drawing, on the GPU. |
+| **Altair and Vega-Lite** | The data is small, you want a portable JSON specification, or charts must render without a GPU. | The data runs past a few thousand rows (by default Altair embeds the data in the specification and refuses more than 5,000 rows; VegaFusion lifts that), or you need 3D, tiled basemaps or simulations. |
+| **Bokeh, HoloViews, Datashader** | The data runs to billions of points (Datashader aggregates it on a server), or you're building a Python server app. | Large data should pan, zoom and brush in the browser with no round trip to a server. |
+| **Mosaic and vgplot** | The data lives in DuckDB, is larger than a browser can hold, or several tables must filter one another. | The data fits in the browser, and you want 3D, graph layouts or simulations in the same grammar. |
+| **Observable Plot and D3** | The data is small and you want SVG in a web page with no GPU requirement, or, with D3, a fully custom graphic. | The data is large, you want 3D, or you work in Python. |
+| **deck.gl, kepler.gl, MapLibre** | The map is the product: styled basemaps, imagery and terrain, and layers built for geospatial data at scale. | A map is one view among charts. GeoJSON, vector-tile basemaps, and Mercator, equirectangular and globe projections use the same grammar as everything else. |
+| **fastplotlib, VisPy, napari** | You're viewing scientific arrays (images, volumes, streaming signals) from Python on your own machine's GPU, with no browser. | You want scales, legends, facets and a grammar of graphics, with output as web pages or files. |
+
+## Limitations to weigh
+
+- **WebGPU is required.** Charts render only in a browser or notebook webview with WebGPU ([current support](https://caniuse.com/webgpu)). There is no fallback to CPU rendering: without WebGPU, a notebook shows a static image of the plot (drawn by the kernel) and an exported HTML page its snapshot, neither interactive. The guide and reference stay readable without it.
+- **Python runs in notebooks.** Use JupyterLab, Notebook 7 or VS Code notebooks. Python callbacks run while the kernel is attached; exported HTML leaves them out. Saving files from a script, and PDFs anywhere, uses the optional `export` extra, which drives a headless Chromium.
+- **In JavaScript, charts are Svelte 5 components.** There are no React or Vue bindings.
+- **Data lives in the browser.** Tables are held in browser and GPU memory. For data larger than that, aggregate it first, or use Mosaic or Datashader.
+- **Interaction identity is explicit.** Views of one table share observation identity. A shared `selection({by: "id"})` resource links matching key values across tables; choose the key columns and membership semantics deliberately. This does not imply an arbitrary database join.
+- **The project is young.** There are fewer examples, answered questions and integrations than for the libraries above.

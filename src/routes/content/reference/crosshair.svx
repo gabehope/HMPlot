@@ -1,0 +1,13 @@
+## Usage
+
+Place a Crosshair in a Plot (or in a Frame) and it follows the pointer there: a rule each way and a readout of each value. Readouts are finer than the ticks: a time with its time of day, a number to about a thousandth of the visible span, angles and map coordinates in degrees. By default they sit just inside the frame's bottom and left edges; `readoutPosition="pointer"` puts one label beside the pointer that holds both, for a polar frame or a map, whose rules have no edge to pin to.
+
+Nothing draws while the pointer is off the frame. A still pointer costs nothing: the rules and readouts update once per animation frame with a move. `axes="x"` keeps only the vertical rule; `readout={false}` drops the text.
+
+Crosshair is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Left out.** PNG, SVG and PDF exports leave the crosshair out: it draws only where the pointer is. See [what is not exported as vector](/docs/export).
+
+</Note>

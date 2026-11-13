@@ -1,0 +1,9 @@
+## Usage
+
+for selects the source (target in Python). axes defaults to false. Source updates repaint overview content; camera-only navigation updates the viewport rectangle. 3D views use the orientation gadget. The minimap takes its plot's background and text color, and leaves text out (labels, TeX and a map's place names). A live VectorTile's minimap shows the whole world, from its zoom-0 tile.
+
+<Note title="SVG and PDF export">
+
+**Image.** In a Scene's SVG and PDF exports a 2D Minimap is an image at the export's raster DPI, and `mode="vector"` refuses it. A Minimap of a 3D plot is left out, with a warning in the report. See [what is not exported as vector](/docs/export).
+
+</Note>

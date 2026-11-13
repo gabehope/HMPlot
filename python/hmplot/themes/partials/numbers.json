@@ -1,0 +1,11 @@
+{
+  "currency": {
+    "format": "$,.0f"
+  },
+  "percent": {
+    "format": ".0%"
+  },
+  "si": {
+    "format": "~s"
+  }
+}

@@ -1,0 +1,6901 @@
+{
+  "label": "current-live-geometry-instrumented",
+  "route": "/test/gallery-example?id=sunburst",
+  "instrument": true,
+  "browser": "154.0.8037.98",
+  "summarySHA256": "513e58ca4acefaa68fea62b3f393592004e18e140d8d10300e97f046d7139147",
+  "sourceFingerprint": {
+    "sha256": "546ff34e6088287717a641e1ff0b7680b4255a06b69d8b61b5f8b6c2a52dd95d",
+    "files": 560
+  },
+  "sourceMapFingerprints": {
+    "chunk-IM2PV6P7.js.map": "126ee2dd20987d2f1173ca7b4ffe0ae86e4047e7f5bb35010c3e26506790d41f",
+    "chunk-ZHMSHE3J.js.map": "cd3badfdf0c061bccc871c6a1c08439eb09358e18ec949ff53c6fb6cceebd0a3",
+    "webgpu-BJwlieBg-P2VE4JYP.js.map": "d8512ce904742974d076d423483b8b22ad3f32d5c88d0d2f0b7cdc704b7c0324",
+    "chunk-NR6EIOXH.js.map": "2ba0f2f3281cdbbcc9df7e9e6326f7bf2ec1d5d4813c2bad8295664379b9d8ff",
+    "chunk-KWPVD4H7.js.map": "ed562b0bba7ee7214e56ac7f728054b3496bec4597c94a4eb7b4179e6f5cb1c9",
+    "chunk-ISWQPOCH.js.map": "32de73b2a7eab8593d7091e90b72869a60f86ae0e58bb7a2978179055aa00ec1",
+    "chunk-K4OIMFR7.js.map": "4fd7a0f1f727f6d2b19a2d29ef65f2e47be9912836f4d73ee522fb888ebb71c6",
+    "@hmplot_jax.js.map": "3d6dbbad3ebd8621ccd9a48c104d78911e7ca66ea4570d2cabe052da1e8fb5a3",
+    "d3.js.map": "266c196ec0d507c1f5fefb5ae465ca2ce363e60663461eebf860ef0e7cb2b129",
+    "chunk-MXL3RCYT.js.map": "87dbec92d41821963e16c85d70f45123134813b9683dac03652f9d5d406a3493",
+    "chunk-NYUZAQGG.js.map": "3a196746c592f757db64f24703bdf68f8eb7462cfc5c66b42c6687ed2ff3a184",
+    "chunk-B6TJ2Q2L.js.map": "c8c4982e99c2a7ef5a14bb8686ee7e64e1ad805faf0a4c3e00e627c032967fa9"
+  },
+  "limitations": [
+    "CPU samples and CPU conservative pending deadlines do not measure GPU execution or GPU row start times.",
+    "Async read waits overlap; their sums are not a critical-path total. Callers lost across async boundaries stay unresolved.",
+    "Historical diagnostic runs without sourceFingerprint must not be assigned later snapshot hashes.",
+    "The historical a3667d1d baseline lacks mark lifecycle fades; comparisons with it are behavior-confounded. A later correctness baseline must retain the same fade targets and durations."
+  ],
+  "flights": [
+    {
+      "flight": 1,
+      "direction": "zoom",
+      "wallMs": 1894.4,
+      "completedFrames": 51,
+      "frameP50": 16.8,
+      "frameP95": 56.5,
+      "maxGap": 636.5,
+      "gpu": {
+        "compute": 19,
+        "render": 1,
+        "shaders": 18,
+        "buffers": 576,
+        "bufferKB": 1110,
+        "readbacks": 46,
+        "readbackKinds": {
+          "jax": 38,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 603,
+        "fences": 78,
+        "readbackP50": 2.6,
+        "readbackP95": 38.5,
+        "readbackMax": 47.5,
+        "builds": 0,
+        "ms": 1922
+      },
+      "asyncReads": {
+        "src/lib/picking/readPixel.js": {
+          "count": 8,
+          "p50Ms": 1,
+          "p95Ms": 2.3,
+          "maxMs": 2.3,
+          "overlappingWaitSumMs": 9.3
+        },
+        "src/lib/plot/utils/namedData.js:1155:17": {
+          "count": 2,
+          "p50Ms": 3.6,
+          "p95Ms": 3.6,
+          "maxMs": 3.6,
+          "overlappingWaitSumMs": 4.2
+        },
+        "src/lib/plot/utils/extentSummary.js:24:25": {
+          "count": 33,
+          "p50Ms": 3.6,
+          "p95Ms": 42.4,
+          "maxMs": 47.5,
+          "overlappingWaitSumMs": 218.2
+        },
+        "src/lib/plot/utils/transforms/filter.js:209:28": {
+          "count": 1,
+          "p50Ms": 33.4,
+          "p95Ms": 33.4,
+          "maxMs": 33.4,
+          "overlappingWaitSumMs": 33.4
+        },
+        "src/lib/plot/utils/sourceRows.js:12:18": {
+          "count": 1,
+          "p50Ms": 4.9,
+          "p95Ms": 4.9,
+          "maxMs": 4.9,
+          "overlappingWaitSumMs": 4.9
+        },
+        "src/lib/plot/utils/tooltip.js:198:18": {
+          "count": 1,
+          "p50Ms": 10.4,
+          "p95Ms": 10.4,
+          "maxMs": 10.4,
+          "overlappingWaitSumMs": 10.4
+        }
+      },
+      "cpu": {
+        "profileSHA256": "ab149fae576d5259b6461eaf7ef7dd70bf6191f05180096f5ba3854903fb108e",
+        "sampledMs": 1920.408,
+        "categories": {
+          "(program)": 457.694,
+          "(idle)": 933.01,
+          "Svelte CPU/dev runtime": 76.325,
+          "HMPlot CPU runtime": 123.907,
+          "jax-js CPU construction/dispatch": 264.561,
+          "other/unresolved": 8.424,
+          "(garbage collector)": 21.698,
+          "Three CPU runtime": 34.789
+        },
+        "focusSamples": {
+          "inclusiveMs": {
+            "named channel preparation": 92.811,
+            "domain preparation": 13.869,
+            "Filter": 1.769,
+            "Tree host orchestration": 60.517,
+            "Tween evaluation": 28.418,
+            "Text atlas and footprint preparation": 20.256,
+            "procedural current fields": 20.815,
+            "keyed lifecycle": 6.29
+          },
+          "nearestMs": {
+            "named channel preparation": 92.811,
+            "Filter": 1.769,
+            "Tree host orchestration": 32.728,
+            "Tween evaluation": 27.789,
+            "Text atlas and footprint preparation": 20.256,
+            "procedural current fields": 20.18,
+            "keyed lifecycle": 6.29,
+            "domain preparation": 1.889
+          },
+          "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+        },
+        "topSelf": [
+          {
+            "selfMs": 933.01,
+            "function": "(idle)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 457.694,
+            "function": "(program)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 21.698,
+            "function": "(garbage collector)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 19.637,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "unravelAlu",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:2486"
+              },
+              {
+                "function": "realize_fn",
+                "source": "vendor/jax-js/dist/index.js:2922"
+              },
+              {
+                "function": "_realizeSource",
+                "source": "vendor/jax-js/dist/index.js:3343"
+              }
+            ]
+          },
+          {
+            "selfMs": 19.014,
+            "function": "get_stack",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:33",
+            "callers": [
+              {
+                "function": "get_error",
+                "source": "node_modules/svelte/src/internal/shared/dev.js:9"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              }
+            ]
+          },
+          {
+            "selfMs": 8.165,
+            "function": "getImageData",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "readData",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+              },
+              {
+                "function": "read",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+              },
+              {
+                "function": "readSync",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+              },
+              {
+                "function": "dataSync",
+                "source": "vendor/jax-js/dist/index.js:3027"
+              },
+              {
+                "function": "js",
+                "source": "vendor/jax-js/dist/index.js:3086"
+              }
+            ]
+          },
+          {
+            "selfMs": 5.667,
+            "function": "get_error",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:9",
+            "callers": [
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              },
+              {
+                "function": "traverse_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.098,
+            "function": "traverse_fn",
+            "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329",
+            "callers": [
+              {
+                "function": "process_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:207"
+              },
+              {
+                "function": "flush",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:410"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:577"
+              },
+              {
+                "function": "run_all",
+                "source": "node_modules/svelte/src/internal/shared/utils.js:45"
+              },
+              {
+                "function": "run_micro_tasks",
+                "source": "node_modules/svelte/src/internal/client/dom/task.js:7"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.157,
+            "function": "pipelineEncode",
+            "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211",
+            "callers": [
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "gpuBuffer",
+                "source": "vendor/jax-js/dist/index.js:3049"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 2.545,
+            "function": "createBindGroup",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "pipelineEncode",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211"
+              },
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "data",
+                "source": "vendor/jax-js/dist/index.js:2986"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 2.538,
+            "function": "",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 2.526,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a7",
+                "source": "vendor/jax-js/dist/index.js:2504"
+              },
+              {
+                "function": "execute",
+                "source": "vendor/jax-js/dist/index.js:1877"
+              },
+              {
+                "function": "",
+                "source": "vendor/jax-js/dist/index.js:3318"
+              },
+              {
+                "function": "bind",
+                "source": "vendor/jax-js/dist/index.js:1016"
+              },
+              {
+                "function": "result",
+                "source": "vendor/jax-js/dist/index.js:1822"
+              }
+            ]
+          }
+        ],
+        "synchronousReadCallers": [
+          [
+            {
+              "function": "getImageData",
+              "source": ":0"
+            },
+            {
+              "function": "readData",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+            },
+            {
+              "function": "read",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+            },
+            {
+              "function": "readSync",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+            },
+            {
+              "function": "dataSync",
+              "source": "vendor/jax-js/dist/index.js:3027"
+            },
+            {
+              "function": "js",
+              "source": "vendor/jax-js/dist/index.js:3086"
+            },
+            {
+              "function": "validateLayoutInput",
+              "source": "src/lib/plot/utils/layoutInput.js:75"
+            },
+            {
+              "function": "treeHostLayout",
+              "source": "src/lib/plot/utils/treeHost.js:62"
+            },
+            {
+              "function": "(root)",
+              "source": ":0"
+            }
+          ]
+        ]
+      },
+      "clockStart": 0,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 0,
+          "duration": 0,
+          "deadline": 0,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 467.2,
+          "lastWallMs": 1192.9,
+          "firstClockTime": 0,
+          "lastClockTime": 619.2,
+          "deadlineResets": 0,
+          "initialDeadline": 0
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 467.2,
+          "lastWallMs": 1192.9,
+          "firstClockTime": 0,
+          "lastClockTime": 619.2,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 467.2,
+          "lastWallMs": 1192.9,
+          "firstClockTime": 0,
+          "lastClockTime": 619.2,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 669.0000000178816,
+          "duration": 650,
+          "deadline": 1319.0000000178816,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 476.9,
+          "lastWallMs": 1807,
+          "firstClockTime": 0,
+          "lastClockTime": 1233.3,
+          "deadlineResets": 13,
+          "initialDeadline": 650
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 0,
+          "duration": 650,
+          "deadline": 650,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 556,
+          "lastWallMs": 1192.9,
+          "firstClockTime": 0,
+          "lastClockTime": 619.2,
+          "deadlineResets": 0,
+          "initialDeadline": 650
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 636.5,
+          "frame": 6,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 690.7999999821186,
+          "frame": 7,
+          "xbounds": [
+            0,
+            184.54481506347656
+          ],
+          "ybounds": [
+            -0.159865140914917,
+            4.156493663787842
+          ]
+        },
+        {
+          "wallMs": 743.5,
+          "frame": 8,
+          "xbounds": [
+            0,
+            181.61917114257812
+          ],
+          "ybounds": [
+            -0.15899827003479003,
+            4.133955020904541
+          ]
+        },
+        {
+          "wallMs": 788.7999999821186,
+          "frame": 9,
+          "xbounds": [
+            0,
+            175.44140625
+          ],
+          "ybounds": [
+            -0.15716782569885254,
+            4.086363468170166
+          ]
+        },
+        {
+          "wallMs": 838.4000000059605,
+          "frame": 10,
+          "xbounds": [
+            0,
+            164.205078125
+          ],
+          "ybounds": [
+            -0.15383853912353515,
+            3.999802017211914
+          ]
+        },
+        {
+          "wallMs": 887.5,
+          "frame": 11,
+          "xbounds": [
+            0,
+            146.7254180908203
+          ],
+          "ybounds": [
+            -0.14865938186645508,
+            3.865143928527832
+          ]
+        },
+        {
+          "wallMs": 944,
+          "frame": 12,
+          "xbounds": [
+            0,
+            121.34977722167969
+          ],
+          "ybounds": [
+            -0.1411406707763672,
+            3.669657440185547
+          ]
+        },
+        {
+          "wallMs": 989.9000000059605,
+          "frame": 13,
+          "xbounds": [
+            0,
+            93.44268798828125
+          ],
+          "ybounds": [
+            -0.13287190437316895,
+            3.4546695137023926
+          ]
+        },
+        {
+          "wallMs": 1039.0999999940395,
+          "frame": 14,
+          "xbounds": [
+            0,
+            74.11190032958984
+          ],
+          "ybounds": [
+            -0.1271442699432373,
+            3.30575101852417
+          ]
+        },
+        {
+          "wallMs": 1098.0999999940395,
+          "frame": 15,
+          "xbounds": [
+            0,
+            61.640438079833984
+          ],
+          "ybounds": [
+            -0.1234490203857422,
+            3.209674530029297
+          ]
+        },
+        {
+          "wallMs": 1138,
+          "frame": 16,
+          "xbounds": [
+            0,
+            54.440738677978516
+          ],
+          "ybounds": [
+            -0.12131577491760254,
+            3.154210147857666
+          ]
+        },
+        {
+          "wallMs": 1189.0999999940395,
+          "frame": 17,
+          "xbounds": [
+            0,
+            51.0644645690918
+          ],
+          "ybounds": [
+            -0.12031539916992187,
+            3.1282003784179686
+          ]
+        },
+        {
+          "wallMs": 1237.7999999821186,
+          "frame": 18,
+          "xbounds": [
+            0,
+            50.057456970214844
+          ],
+          "ybounds": [
+            -0.12001702308654785,
+            3.1204426002502443
+          ]
+        },
+        {
+          "wallMs": 1274.4000000059605,
+          "frame": 19,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1290.5999999940395,
+          "frame": 20,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1306.699999988079,
+          "frame": 21,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1323.699999988079,
+          "frame": 22,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1340.4000000059605,
+          "frame": 23,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1356.9000000059605,
+          "frame": 24,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1373.0999999940395,
+          "frame": 25,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1390.0999999940395,
+          "frame": 26,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1406.4000000059605,
+          "frame": 27,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1423.5999999940395,
+          "frame": 28,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1440.4000000059605,
+          "frame": 29,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1457,
+          "frame": 30,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1473.5,
+          "frame": 31,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1490.2999999821186,
+          "frame": 32,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1506.5,
+          "frame": 33,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1522.699999988079,
+          "frame": 34,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1540,
+          "frame": 35,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1556.699999988079,
+          "frame": 36,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1573.699999988079,
+          "frame": 37,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1590.199999988079,
+          "frame": 38,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1606.4000000059605,
+          "frame": 39,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1623.699999988079,
+          "frame": 40,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1640,
+          "frame": 41,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1656.5,
+          "frame": 42,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1673.2999999821186,
+          "frame": 43,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1690,
+          "frame": 44,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1706.2999999821186,
+          "frame": 45,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1723,
+          "frame": 46,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1739.9000000059605,
+          "frame": 47,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1756.4000000059605,
+          "frame": 48,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1773.0999999940395,
+          "frame": 49,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1789.5,
+          "frame": 50,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1807,
+          "frame": 51,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1823,
+          "frame": 52,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1839.7999999821186,
+          "frame": 53,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1856.4000000059605,
+          "frame": 54,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1873.2999999821186,
+          "frame": 55,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1890.5999999940395,
+          "frame": 56,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 15,
+        "preparationRequests": 49
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 2,
+      "direction": "reset",
+      "wallMs": 1552.6,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 54.7,
+      "maxGap": 277.1,
+      "gpu": {
+        "compute": 1,
+        "render": 0,
+        "shaders": 1,
+        "buffers": 636,
+        "bufferKB": 136,
+        "readbacks": 45,
+        "readbackKinds": {
+          "jax": 37,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 638,
+        "fences": 80,
+        "readbackP50": 3.8,
+        "readbackP95": 19.5,
+        "readbackMax": 30.6,
+        "builds": 0,
+        "ms": 1587
+      },
+      "asyncReads": {
+        "src/lib/picking/readPixel.js": {
+          "count": 8,
+          "p50Ms": 0.4,
+          "p95Ms": 14.2,
+          "maxMs": 14.2,
+          "overlappingWaitSumMs": 17.6
+        },
+        "src/lib/plot/utils/namedData.js:1155:17": {
+          "count": 1,
+          "p50Ms": 1.1,
+          "p95Ms": 1.1,
+          "maxMs": 1.1,
+          "overlappingWaitSumMs": 1.1
+        },
+        "src/lib/plot/utils/extentSummary.js:24:25": {
+          "count": 34,
+          "p50Ms": 4.6,
+          "p95Ms": 30.3,
+          "maxMs": 30.6,
+          "overlappingWaitSumMs": 183.6
+        },
+        "src/lib/plot/utils/transforms/filter.js:209:28": {
+          "count": 1,
+          "p50Ms": 19.5,
+          "p95Ms": 19.5,
+          "maxMs": 19.5,
+          "overlappingWaitSumMs": 19.5
+        },
+        "src/lib/plot/utils/sourceRows.js:12:18": {
+          "count": 1,
+          "p50Ms": 5.4,
+          "p95Ms": 5.4,
+          "maxMs": 5.4,
+          "overlappingWaitSumMs": 5.4
+        }
+      },
+      "cpu": {
+        "profileSHA256": "00ada4b80a2f9ab9dbeac47be2de700b27ea19936102f1f5a1f41f59f7a5e19e",
+        "sampledMs": 1586.479,
+        "categories": {
+          "(program)": 147.499,
+          "(idle)": 933.585,
+          "Svelte CPU/dev runtime": 79.108,
+          "HMPlot CPU runtime": 105.199,
+          "Three CPU runtime": 31.474,
+          "jax-js CPU construction/dispatch": 262.133,
+          "(garbage collector)": 19.253,
+          "other/unresolved": 8.228
+        },
+        "focusSamples": {
+          "inclusiveMs": {
+            "named channel preparation": 98.203,
+            "domain preparation": 12.635,
+            "Text atlas and footprint preparation": 39.87,
+            "Filter": 1.248,
+            "Tree host orchestration": 31.028,
+            "Tween evaluation": 2.504,
+            "keyed lifecycle": 6.304,
+            "procedural current fields": 20.141
+          },
+          "nearestMs": {
+            "named channel preparation": 98.203,
+            "domain preparation": 1.297,
+            "Text atlas and footprint preparation": 39.87,
+            "Filter": 1.248,
+            "Tree host orchestration": 28.524,
+            "Tween evaluation": 2.504,
+            "keyed lifecycle": 6.304,
+            "procedural current fields": 20.141
+          },
+          "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+        },
+        "topSelf": [
+          {
+            "selfMs": 933.585,
+            "function": "(idle)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 147.499,
+            "function": "(program)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 19.253,
+            "function": "(garbage collector)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 15.544,
+            "function": "get_stack",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:33",
+            "callers": [
+              {
+                "function": "get_error",
+                "source": "node_modules/svelte/src/internal/shared/dev.js:9"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              }
+            ]
+          },
+          {
+            "selfMs": 15.198,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "fullInternal",
+                "source": "vendor/jax-js/dist/index.js:3485"
+              },
+              {
+                "function": "full",
+                "source": "vendor/jax-js/dist/index.js:3516"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              }
+            ]
+          },
+          {
+            "selfMs": 12.031,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "fullInternal",
+                "source": "vendor/jax-js/dist/index.js:3485"
+              },
+              {
+                "function": "full",
+                "source": "vendor/jax-js/dist/index.js:3516"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              }
+            ]
+          },
+          {
+            "selfMs": 11.345,
+            "function": "get_error",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:9",
+            "callers": [
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              },
+              {
+                "function": "traverse_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.494,
+            "function": "getImageData",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "readData",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+              },
+              {
+                "function": "read",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+              },
+              {
+                "function": "readSync",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+              },
+              {
+                "function": "dataSync",
+                "source": "vendor/jax-js/dist/index.js:3027"
+              },
+              {
+                "function": "js",
+                "source": "vendor/jax-js/dist/index.js:3086"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.449,
+            "function": "",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.448,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "naryCustom_fn",
+                "source": "vendor/jax-js/dist/index.js:2766"
+              },
+              {
+                "function": "",
+                "source": "vendor/jax-js/dist/index.js:3232"
+              },
+              {
+                "function": "bind",
+                "source": "vendor/jax-js/dist/index.js:1016"
+              },
+              {
+                "function": "bind1",
+                "source": "vendor/jax-js/dist/index.js:597"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.405,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "naryCustom_fn",
+                "source": "vendor/jax-js/dist/index.js:2766"
+              },
+              {
+                "function": "",
+                "source": "vendor/jax-js/dist/index.js:3228"
+              },
+              {
+                "function": "bind",
+                "source": "vendor/jax-js/dist/index.js:1016"
+              },
+              {
+                "function": "bind1",
+                "source": "vendor/jax-js/dist/index.js:597"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.024,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_Batch",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:92"
+              },
+              {
+                "function": "ensure",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:569"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:152"
+              },
+              {
+                "function": "update",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:296"
+              }
+            ]
+          }
+        ],
+        "synchronousReadCallers": [
+          [
+            {
+              "function": "getImageData",
+              "source": ":0"
+            },
+            {
+              "function": "readData",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+            },
+            {
+              "function": "read",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+            },
+            {
+              "function": "readSync",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+            },
+            {
+              "function": "dataSync",
+              "source": "vendor/jax-js/dist/index.js:3027"
+            },
+            {
+              "function": "js",
+              "source": "vendor/jax-js/dist/index.js:3086"
+            },
+            {
+              "function": "validateLayoutInput",
+              "source": "src/lib/plot/utils/layoutInput.js:75"
+            },
+            {
+              "function": "treeHostLayout",
+              "source": "src/lib/plot/utils/treeHost.js:62"
+            },
+            {
+              "function": "(root)",
+              "source": ":0"
+            }
+          ]
+        ]
+      },
+      "clockStart": 1333.2000000000003,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 1333.2000000000003,
+          "duration": 0,
+          "deadline": 1333.2000000000003,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 180.3,
+          "lastWallMs": 865.1,
+          "firstClockTime": 1333.2,
+          "lastClockTime": 1935.2,
+          "deadlineResets": 0,
+          "initialDeadline": 1333.2
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.2000000000003,
+          "duration": 650,
+          "deadline": 1983.2000000000003,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 180.3,
+          "lastWallMs": 865.1,
+          "firstClockTime": 1333.2,
+          "lastClockTime": 1935.2,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.2
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.2000000000003,
+          "duration": 650,
+          "deadline": 1983.2000000000003,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 201.7,
+          "lastWallMs": 865.1,
+          "firstClockTime": 1333.2,
+          "lastClockTime": 1935.2,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.2
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1985.5000000178816,
+          "duration": 650,
+          "deadline": 2635.5000000178816,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 201.7,
+          "lastWallMs": 1498.2,
+          "firstClockTime": 1333.2,
+          "lastClockTime": 2583.1,
+          "deadlineResets": 13,
+          "initialDeadline": 1983.2
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.2000000000003,
+          "duration": 650,
+          "deadline": 1983.2000000000003,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 201.7,
+          "lastWallMs": 865.1,
+          "firstClockTime": 1333.2,
+          "lastClockTime": 1935.2,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.2
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 1333.2000000000003,
+          "duration": 650,
+          "deadline": 1983.2000000000003,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 218.4,
+          "lastWallMs": 865.1,
+          "firstClockTime": 1333.2,
+          "lastClockTime": 1935.2,
+          "deadlineResets": 0,
+          "initialDeadline": 1983.2
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 277.09999999403954,
+          "frame": 58,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 327.90000000596046,
+          "frame": 59,
+          "xbounds": [
+            0,
+            50.08074188232422
+          ],
+          "ybounds": [
+            -0.12002392768859864,
+            3.1206221199035644
+          ]
+        },
+        {
+          "wallMs": 379.40000000596046,
+          "frame": 60,
+          "xbounds": [
+            0,
+            51.22900390625
+          ],
+          "ybounds": [
+            -0.12036415100097657,
+            3.1294679260253906
+          ]
+        },
+        {
+          "wallMs": 429,
+          "frame": 61,
+          "xbounds": [
+            0,
+            54.91353225708008
+          ],
+          "ybounds": [
+            -0.12145586013793945,
+            3.157852363586426
+          ]
+        },
+        {
+          "wallMs": 495.59999999403954,
+          "frame": 62,
+          "xbounds": [
+            0,
+            62.55119323730469
+          ],
+          "ybounds": [
+            -0.1237188720703125,
+            3.216690673828125
+          ]
+        },
+        {
+          "wallMs": 545.4000000059605,
+          "frame": 63,
+          "xbounds": [
+            0,
+            81.50450897216797
+          ],
+          "ybounds": [
+            -0.1293346691131592,
+            3.3627013969421387
+          ]
+        },
+        {
+          "wallMs": 596.0999999940395,
+          "frame": 64,
+          "xbounds": [
+            0,
+            103.9446029663086
+          ],
+          "ybounds": [
+            -0.13598359107971192,
+            3.5355733680725097
+          ]
+        },
+        {
+          "wallMs": 646,
+          "frame": 65,
+          "xbounds": [
+            0,
+            132.80686950683594
+          ],
+          "ybounds": [
+            -0.14453536987304688,
+            3.7579196166992186
+          ]
+        },
+        {
+          "wallMs": 695.5,
+          "frame": 66,
+          "xbounds": [
+            0,
+            155.1165008544922
+          ],
+          "ybounds": [
+            -0.1511456298828125,
+            3.929786376953125
+          ]
+        },
+        {
+          "wallMs": 745.2999999821186,
+          "frame": 67,
+          "xbounds": [
+            0,
+            169.80593872070312
+          ],
+          "ybounds": [
+            -0.15549806594848634,
+            4.042949714660645
+          ]
+        },
+        {
+          "wallMs": 794.7999999821186,
+          "frame": 68,
+          "xbounds": [
+            0,
+            178.67715454101562
+          ],
+          "ybounds": [
+            -0.1581265640258789,
+            4.111290664672851
+          ]
+        },
+        {
+          "wallMs": 849.5,
+          "frame": 69,
+          "xbounds": [
+            0,
+            183.13796997070312
+          ],
+          "ybounds": [
+            -0.15944828033447267,
+            4.145655288696289
+          ]
+        },
+        {
+          "wallMs": 895.4000000059605,
+          "frame": 70,
+          "xbounds": [
+            0,
+            184.78253173828125
+          ],
+          "ybounds": [
+            -0.1599355697631836,
+            4.158324813842773
+          ]
+        },
+        {
+          "wallMs": 932,
+          "frame": 71,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 947.7999999821186,
+          "frame": 72,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 964.5,
+          "frame": 73,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 981.2999999821186,
+          "frame": 74,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 997.9000000059605,
+          "frame": 75,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1014.1999999880791,
+          "frame": 76,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1031.2999999821186,
+          "frame": 77,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1047.4000000059605,
+          "frame": 78,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1064.7999999821186,
+          "frame": 79,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1081.2999999821186,
+          "frame": 80,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1097.9000000059605,
+          "frame": 81,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1114.5999999940395,
+          "frame": 82,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1131.5999999940395,
+          "frame": 83,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1148,
+          "frame": 84,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1164,
+          "frame": 85,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1181.699999988079,
+          "frame": 86,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1197.699999988079,
+          "frame": 87,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1215,
+          "frame": 88,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1231.699999988079,
+          "frame": 89,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1247.7999999821186,
+          "frame": 90,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1264.7999999821186,
+          "frame": 91,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1281.699999988079,
+          "frame": 92,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1297.699999988079,
+          "frame": 93,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1314.199999988079,
+          "frame": 94,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1331,
+          "frame": 95,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1347.699999988079,
+          "frame": 96,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1364.199999988079,
+          "frame": 97,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1382.5,
+          "frame": 98,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1398.5,
+          "frame": 99,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1414.199999988079,
+          "frame": 100,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1433,
+          "frame": 101,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1447.5999999940395,
+          "frame": 102,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1464,
+          "frame": 103,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1480.5,
+          "frame": 104,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1498.4000000059605,
+          "frame": 105,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1517.0999999940395,
+          "frame": 106,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1532.0999999940395,
+          "frame": 107,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1549.5,
+          "frame": 108,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 3,
+      "direction": "zoom",
+      "wallMs": 1593.8,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 52.2,
+      "maxGap": 321.5,
+      "gpu": {
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 576,
+        "bufferKB": 132,
+        "readbacks": 47,
+        "readbackKinds": {
+          "jax": 39,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 638,
+        "fences": 81,
+        "readbackP50": 2.2,
+        "readbackP95": 18.8,
+        "readbackMax": 29.8,
+        "builds": 0,
+        "ms": 1615
+      },
+      "asyncReads": {
+        "src/lib/picking/readPixel.js": {
+          "count": 8,
+          "p50Ms": 0.7,
+          "p95Ms": 1.4,
+          "maxMs": 1.4,
+          "overlappingWaitSumMs": 6.2
+        },
+        "src/lib/plot/utils/namedData.js:1155:17": {
+          "count": 2,
+          "p50Ms": 1.2,
+          "p95Ms": 1.2,
+          "maxMs": 1.2,
+          "overlappingWaitSumMs": 2
+        },
+        "src/lib/plot/utils/tooltip.js:198:18": {
+          "count": 1,
+          "p50Ms": 0.7,
+          "p95Ms": 0.7,
+          "maxMs": 0.7,
+          "overlappingWaitSumMs": 0.7
+        },
+        "src/lib/plot/utils/extentSummary.js:24:25": {
+          "count": 34,
+          "p50Ms": 3.7,
+          "p95Ms": 29.6,
+          "maxMs": 29.8,
+          "overlappingWaitSumMs": 177.8
+        },
+        "src/lib/plot/utils/transforms/filter.js:209:28": {
+          "count": 1,
+          "p50Ms": 18.9,
+          "p95Ms": 18.9,
+          "maxMs": 18.9,
+          "overlappingWaitSumMs": 18.9
+        },
+        "src/lib/plot/utils/sourceRows.js:12:18": {
+          "count": 1,
+          "p50Ms": 5.1,
+          "p95Ms": 5.1,
+          "maxMs": 5.1,
+          "overlappingWaitSumMs": 5.1
+        }
+      },
+      "cpu": {
+        "profileSHA256": "d760108fb508041cf33f0350d45d704f3593fbcb1de0a453fcf43c8645bb54d9",
+        "sampledMs": 1614.92,
+        "categories": {
+          "(program)": 187.115,
+          "(idle)": 944.245,
+          "HMPlot CPU runtime": 90.954,
+          "jax-js CPU construction/dispatch": 256.105,
+          "Svelte CPU/dev runtime": 82.643,
+          "(garbage collector)": 21.301,
+          "other/unresolved": 6.888,
+          "Three CPU runtime": 25.669
+        },
+        "focusSamples": {
+          "inclusiveMs": {
+            "named channel preparation": 79.553,
+            "Filter": 2.536,
+            "Tree host orchestration": 51.625,
+            "Tween evaluation": 22.053,
+            "Text atlas and footprint preparation": 32.868,
+            "domain preparation": 11.915,
+            "keyed lifecycle": 6.269,
+            "procedural current fields": 18.53
+          },
+          "nearestMs": {
+            "named channel preparation": 79.553,
+            "Filter": 2.536,
+            "Tree host orchestration": 29.572,
+            "Tween evaluation": 22.053,
+            "Text atlas and footprint preparation": 32.868,
+            "domain preparation": 1.877,
+            "keyed lifecycle": 6.269,
+            "procedural current fields": 18.53
+          },
+          "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+        },
+        "topSelf": [
+          {
+            "selfMs": 944.245,
+            "function": "(idle)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 187.115,
+            "function": "(program)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 21.421,
+            "function": "get_stack",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:33",
+            "callers": [
+              {
+                "function": "get_error",
+                "source": "node_modules/svelte/src/internal/shared/dev.js:9"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              }
+            ]
+          },
+          {
+            "selfMs": 21.301,
+            "function": "(garbage collector)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 15.759,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "unravelAlu",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:2486"
+              },
+              {
+                "function": "realize_fn",
+                "source": "vendor/jax-js/dist/index.js:2922"
+              },
+              {
+                "function": "_realizeSource",
+                "source": "vendor/jax-js/dist/index.js:3343"
+              }
+            ]
+          },
+          {
+            "selfMs": 12.626,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "fullInternal",
+                "source": "vendor/jax-js/dist/index.js:3485"
+              },
+              {
+                "function": "full",
+                "source": "vendor/jax-js/dist/index.js:3516"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              }
+            ]
+          },
+          {
+            "selfMs": 7.61,
+            "function": "get_error",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:9",
+            "callers": [
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              },
+              {
+                "function": "traverse_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.451,
+            "function": "traverse_fn",
+            "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329",
+            "callers": [
+              {
+                "function": "process_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:207"
+              },
+              {
+                "function": "flush",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:410"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:577"
+              },
+              {
+                "function": "run_all",
+                "source": "node_modules/svelte/src/internal/shared/utils.js:45"
+              },
+              {
+                "function": "run_micro_tasks",
+                "source": "node_modules/svelte/src/internal/client/dom/task.js:7"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.426,
+            "function": "",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.843,
+            "function": "update",
+            "source": "node_modules/three/build/three.webgpu.js:28912",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.818,
+            "function": "getImageData",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "readData",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+              },
+              {
+                "function": "read",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+              },
+              {
+                "function": "readSync",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+              },
+              {
+                "function": "dataSync",
+                "source": "vendor/jax-js/dist/index.js:3027"
+              },
+              {
+                "function": "js",
+                "source": "vendor/jax-js/dist/index.js:3086"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.173,
+            "function": "beginComputePass",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "pipelineEncode",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211"
+              },
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "gpuBuffer",
+                "source": "vendor/jax-js/dist/index.js:3049"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          }
+        ],
+        "synchronousReadCallers": [
+          [
+            {
+              "function": "getImageData",
+              "source": ":0"
+            },
+            {
+              "function": "readData",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+            },
+            {
+              "function": "read",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+            },
+            {
+              "function": "readSync",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+            },
+            {
+              "function": "dataSync",
+              "source": "vendor/jax-js/dist/index.js:3027"
+            },
+            {
+              "function": "js",
+              "source": "vendor/jax-js/dist/index.js:3086"
+            },
+            {
+              "function": "validateLayoutInput",
+              "source": "src/lib/plot/utils/layoutInput.js:75"
+            },
+            {
+              "function": "treeHostLayout",
+              "source": "src/lib/plot/utils/treeHost.js:62"
+            },
+            {
+              "function": "(root)",
+              "source": ":0"
+            }
+          ]
+        ]
+      },
+      "clockStart": 2649.9000000000005,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 2649.9000000000005,
+          "duration": 0,
+          "deadline": 2649.9000000000005,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 207.8,
+          "lastWallMs": 892.2,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3269,
+          "deadlineResets": 0,
+          "initialDeadline": 2649.9
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9000000000005,
+          "duration": 650,
+          "deadline": 3299.9000000000005,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 207.8,
+          "lastWallMs": 892.2,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3269,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9000000000005,
+          "duration": 650,
+          "deadline": 3299.9000000000005,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 233.2,
+          "lastWallMs": 892.2,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3269,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3318.9000000119213,
+          "duration": 650,
+          "deadline": 3968.9000000119213,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 233.2,
+          "lastWallMs": 1524.3,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3899.9,
+          "deadlineResets": 13,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9000000000005,
+          "duration": 650,
+          "deadline": 3299.9000000000005,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 233.2,
+          "lastWallMs": 892.2,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3269,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 2649.9000000000005,
+          "duration": 650,
+          "deadline": 3299.9000000000005,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 254.6,
+          "lastWallMs": 892.2,
+          "firstClockTime": 2649.9,
+          "lastClockTime": 3269,
+          "deadlineResets": 0,
+          "initialDeadline": 3299.9
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 321.5,
+          "frame": 110,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 373.69999998807907,
+          "frame": 111,
+          "xbounds": [
+            0,
+            184.72671508789062
+          ],
+          "ybounds": [
+            -0.15991902351379395,
+            4.157894611358643
+          ]
+        },
+        {
+          "wallMs": 422.69999998807907,
+          "frame": 112,
+          "xbounds": [
+            0,
+            182.87625122070312
+          ],
+          "ybounds": [
+            -0.15937074661254882,
+            4.143639411926269
+          ]
+        },
+        {
+          "wallMs": 474.09999999403954,
+          "frame": 113,
+          "xbounds": [
+            0,
+            177.95748901367188
+          ],
+          "ybounds": [
+            -0.15791332244873046,
+            4.105746383666992
+          ]
+        },
+        {
+          "wallMs": 523.5,
+          "frame": 114,
+          "xbounds": [
+            0,
+            168.72048950195312
+          ],
+          "ybounds": [
+            -0.15517643928527833,
+            4.034587421417236
+          ]
+        },
+        {
+          "wallMs": 572.3999999761581,
+          "frame": 115,
+          "xbounds": [
+            0,
+            153.34530639648438
+          ],
+          "ybounds": [
+            -0.15062084197998046,
+            3.916141891479492
+          ]
+        },
+        {
+          "wallMs": 622.5,
+          "frame": 116,
+          "xbounds": [
+            0,
+            130.67893981933594
+          ],
+          "ybounds": [
+            -0.1439048671722412,
+            3.7415265464782714
+          ]
+        },
+        {
+          "wallMs": 673.8999999761581,
+          "frame": 117,
+          "xbounds": [
+            0,
+            101.8788070678711
+          ],
+          "ybounds": [
+            -0.1353714942932129,
+            3.519658851623535
+          ]
+        },
+        {
+          "wallMs": 737.5,
+          "frame": 118,
+          "xbounds": [
+            0,
+            79.7388916015625
+          ],
+          "ybounds": [
+            -0.12881153106689452,
+            3.349099807739258
+          ]
+        },
+        {
+          "wallMs": 789.2999999821186,
+          "frame": 119,
+          "xbounds": [
+            0,
+            65.14800262451172
+          ],
+          "ybounds": [
+            -0.12448829650878906,
+            3.2366957092285156
+          ]
+        },
+        {
+          "wallMs": 838,
+          "frame": 120,
+          "xbounds": [
+            0,
+            54.41033172607422
+          ],
+          "ybounds": [
+            -0.1213067626953125,
+            3.153975830078125
+          ]
+        },
+        {
+          "wallMs": 888.5999999940395,
+          "frame": 121,
+          "xbounds": [
+            0,
+            51.0605354309082
+          ],
+          "ybounds": [
+            -0.12031423568725587,
+            3.1281701278686525
+          ]
+        },
+        {
+          "wallMs": 937.6999999880791,
+          "frame": 122,
+          "xbounds": [
+            0,
+            50.058021545410156
+          ],
+          "ybounds": [
+            -0.12001718521118164,
+            3.120446815490723
+          ]
+        },
+        {
+          "wallMs": 975.1999999880791,
+          "frame": 123,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 990.8999999761581,
+          "frame": 124,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1007.0999999940395,
+          "frame": 125,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1023.6999999880791,
+          "frame": 126,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1040.8999999761581,
+          "frame": 127,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1057.5999999940395,
+          "frame": 128,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1073.5,
+          "frame": 129,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1091.199999988079,
+          "frame": 130,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1106.8999999761581,
+          "frame": 131,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1124.0999999940395,
+          "frame": 132,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1141,
+          "frame": 133,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1157.3999999761581,
+          "frame": 134,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1173.8999999761581,
+          "frame": 135,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1190.7999999821186,
+          "frame": 136,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1208.199999988079,
+          "frame": 137,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1224.5999999940395,
+          "frame": 138,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1241.199999988079,
+          "frame": 139,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1256.699999988079,
+          "frame": 140,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1274.2999999821186,
+          "frame": 141,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1291.0999999940395,
+          "frame": 142,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1307.199999988079,
+          "frame": 143,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1324,
+          "frame": 144,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1340.8999999761581,
+          "frame": 145,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1358,
+          "frame": 146,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1374.5,
+          "frame": 147,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1390.5999999940395,
+          "frame": 148,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1408.5999999940395,
+          "frame": 149,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1424,
+          "frame": 150,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1441.199999988079,
+          "frame": 151,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1457.8999999761581,
+          "frame": 152,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1475,
+          "frame": 153,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1490.8999999761581,
+          "frame": 154,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1507.5,
+          "frame": 155,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1524.3999999761581,
+          "frame": 156,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1541.199999988079,
+          "frame": 157,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1557.0999999940395,
+          "frame": 158,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1574.5999999940395,
+          "frame": 159,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1591,
+          "frame": 160,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 4,
+      "direction": "reset",
+      "wallMs": 1594,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 51.6,
+      "maxGap": 321.3,
+      "gpu": {
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 550,
+        "bufferKB": 131,
+        "readbacks": 45,
+        "readbackKinds": {
+          "jax": 37,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 637,
+        "fences": 81,
+        "readbackP50": 3.3,
+        "readbackP95": 17.8,
+        "readbackMax": 27.6,
+        "builds": 0,
+        "ms": 1616
+      },
+      "asyncReads": {
+        "src/lib/picking/readPixel.js": {
+          "count": 8,
+          "p50Ms": 0.9,
+          "p95Ms": 2.2,
+          "maxMs": 2.2,
+          "overlappingWaitSumMs": 8.2
+        },
+        "src/lib/plot/utils/namedData.js:1155:17": {
+          "count": 1,
+          "p50Ms": 0.7,
+          "p95Ms": 0.7,
+          "maxMs": 0.7,
+          "overlappingWaitSumMs": 0.7
+        },
+        "src/lib/plot/utils/extentSummary.js:24:25": {
+          "count": 34,
+          "p50Ms": 4.5,
+          "p95Ms": 27.3,
+          "maxMs": 27.7,
+          "overlappingWaitSumMs": 187.3
+        },
+        "src/lib/plot/utils/transforms/filter.js:209:28": {
+          "count": 1,
+          "p50Ms": 17.8,
+          "p95Ms": 17.8,
+          "maxMs": 17.8,
+          "overlappingWaitSumMs": 17.8
+        },
+        "src/lib/plot/utils/sourceRows.js:12:18": {
+          "count": 1,
+          "p50Ms": 6.2,
+          "p95Ms": 6.2,
+          "maxMs": 6.2,
+          "overlappingWaitSumMs": 6.2
+        }
+      },
+      "cpu": {
+        "profileSHA256": "0b47baaa10dd5fca4e986acd21c9c484aad7dcd512be1eb6ec0d067b3b2c565a",
+        "sampledMs": 1614.917,
+        "categories": {
+          "(program)": 203.205,
+          "(idle)": 898.504,
+          "HMPlot CPU runtime": 104.266,
+          "jax-js CPU construction/dispatch": 256.444,
+          "Svelte CPU/dev runtime": 66.373,
+          "(garbage collector)": 53.659,
+          "Three CPU runtime": 24.935,
+          "other/unresolved": 7.531
+        },
+        "focusSamples": {
+          "inclusiveMs": {
+            "named channel preparation": 81.246,
+            "Text atlas and footprint preparation": 47.444,
+            "domain preparation": 13.823,
+            "Tree host orchestration": 40.995,
+            "Filter": 1.243,
+            "Tween evaluation": 11.366,
+            "keyed lifecycle": 5.683,
+            "procedural current fields": 23.213
+          },
+          "nearestMs": {
+            "named channel preparation": 81.246,
+            "Text atlas and footprint preparation": 47.444,
+            "Tree host orchestration": 29.629,
+            "Filter": 1.243,
+            "Tween evaluation": 11.366,
+            "domain preparation": 3.781,
+            "keyed lifecycle": 5.683,
+            "procedural current fields": 21.957
+          },
+          "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+        },
+        "topSelf": [
+          {
+            "selfMs": 898.504,
+            "function": "(idle)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 203.205,
+            "function": "(program)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 53.659,
+            "function": "(garbage collector)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 27.747,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "fullInternal",
+                "source": "vendor/jax-js/dist/index.js:3485"
+              },
+              {
+                "function": "full",
+                "source": "vendor/jax-js/dist/index.js:3516"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              }
+            ]
+          },
+          {
+            "selfMs": 16.405,
+            "function": "get_stack",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:33",
+            "callers": [
+              {
+                "function": "get_error",
+                "source": "node_modules/svelte/src/internal/shared/dev.js:9"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              }
+            ]
+          },
+          {
+            "selfMs": 8.595,
+            "function": "get_error",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:9",
+            "callers": [
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              },
+              {
+                "function": "traverse_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329"
+              }
+            ]
+          },
+          {
+            "selfMs": 5.717,
+            "function": "getImageData",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "readData",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+              },
+              {
+                "function": "read",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+              },
+              {
+                "function": "readSync",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+              },
+              {
+                "function": "dataSync",
+                "source": "vendor/jax-js/dist/index.js:3027"
+              },
+              {
+                "function": "js",
+                "source": "vendor/jax-js/dist/index.js:3086"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.352,
+            "function": "",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.766,
+            "function": "createBindGroup",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "pipelineEncode",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211"
+              },
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "data",
+                "source": "vendor/jax-js/dist/index.js:2986"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 2.63,
+            "function": "traverse_fn",
+            "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329",
+            "callers": [
+              {
+                "function": "process_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:207"
+              },
+              {
+                "function": "flush",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:410"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:577"
+              },
+              {
+                "function": "run_all",
+                "source": "node_modules/svelte/src/internal/shared/utils.js:45"
+              },
+              {
+                "function": "run_micro_tasks",
+                "source": "node_modules/svelte/src/internal/client/dom/task.js:7"
+              }
+            ]
+          },
+          {
+            "selfMs": 2.526,
+            "function": "getBindGroupLayout",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "pipelineEncode",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211"
+              },
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "data",
+                "source": "vendor/jax-js/dist/index.js:2986"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 2.524,
+            "function": "_a8",
+            "source": "vendor/jax-js/dist/index.js:2572",
+            "callers": [
+              {
+                "function": "arrayFromData",
+                "source": "vendor/jax-js/dist/index.js:3424"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              },
+              {
+                "function": "block",
+                "source": "src/lib/plot/utils/deviceParams.js:23"
+              },
+              {
+                "function": "deviceArray",
+                "source": "src/lib/plot/utils/deviceParams.js:44"
+              },
+              {
+                "function": "valuesAt",
+                "source": "src/lib/plot/utils/tweenState.js:106"
+              }
+            ]
+          }
+        ],
+        "synchronousReadCallers": [
+          [
+            {
+              "function": "getImageData",
+              "source": ":0"
+            },
+            {
+              "function": "readData",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+            },
+            {
+              "function": "read",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+            },
+            {
+              "function": "readSync",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+            },
+            {
+              "function": "dataSync",
+              "source": "vendor/jax-js/dist/index.js:3027"
+            },
+            {
+              "function": "js",
+              "source": "vendor/jax-js/dist/index.js:3086"
+            },
+            {
+              "function": "validateLayoutInput",
+              "source": "src/lib/plot/utils/layoutInput.js:75"
+            },
+            {
+              "function": "treeHostLayout",
+              "source": "src/lib/plot/utils/treeHost.js:62"
+            },
+            {
+              "function": "(root)",
+              "source": ":0"
+            }
+          ]
+        ]
+      },
+      "clockStart": 3983.3,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 3983.3,
+          "duration": 0,
+          "deadline": 3983.3,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 208.5,
+          "lastWallMs": 894.2,
+          "firstClockTime": 3983.3,
+          "lastClockTime": 4586.3,
+          "deadlineResets": 0,
+          "initialDeadline": 3983.3
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3983.3,
+          "duration": 650,
+          "deadline": 4633.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 208.5,
+          "lastWallMs": 894.2,
+          "firstClockTime": 3983.3,
+          "lastClockTime": 4586.3,
+          "deadlineResets": 0,
+          "initialDeadline": 4633.3
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3983.3,
+          "duration": 650,
+          "deadline": 4633.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 235.7,
+          "lastWallMs": 894.2,
+          "firstClockTime": 3983.3,
+          "lastClockTime": 4586.3,
+          "deadlineResets": 0,
+          "initialDeadline": 4633.3
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 4635.500000017882,
+          "duration": 650,
+          "deadline": 5285.500000017882,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 235.7,
+          "lastWallMs": 1508.1,
+          "firstClockTime": 3983.3,
+          "lastClockTime": 5199.9,
+          "deadlineResets": 13,
+          "initialDeadline": 4633.3
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3983.3,
+          "duration": 650,
+          "deadline": 4633.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 235.7,
+          "lastWallMs": 894.2,
+          "firstClockTime": 3983.3,
+          "lastClockTime": 4586.3,
+          "deadlineResets": 0,
+          "initialDeadline": 4633.3
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 3983.3,
+          "duration": 650,
+          "deadline": 4633.3,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 268.2,
+          "lastWallMs": 894.2,
+          "firstClockTime": 3983.3,
+          "lastClockTime": 4586.3,
+          "deadlineResets": 0,
+          "initialDeadline": 4633.3
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 321.30000001192093,
+          "frame": 162,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 387.2000000178814,
+          "frame": 163,
+          "xbounds": [
+            0,
+            50.08358383178711
+          ],
+          "ybounds": [
+            -0.12002476692199707,
+            3.1206439399719237
+          ]
+        },
+        {
+          "wallMs": 438.5,
+          "frame": 164,
+          "xbounds": [
+            0,
+            51.56636428833008
+          ],
+          "ybounds": [
+            -0.1204641056060791,
+            3.1320667457580567
+          ]
+        },
+        {
+          "wallMs": 487.90000000596046,
+          "frame": 165,
+          "xbounds": [
+            0,
+            56.94630813598633
+          ],
+          "ybounds": [
+            -0.122058162689209,
+            3.1735122299194334
+          ]
+        },
+        {
+          "wallMs": 538,
+          "frame": 166,
+          "xbounds": [
+            0,
+            66.13507843017578
+          ],
+          "ybounds": [
+            -0.12478075981140137,
+            3.2442997550964354
+          ]
+        },
+        {
+          "wallMs": 588.3000000119209,
+          "frame": 167,
+          "xbounds": [
+            0,
+            81.46690368652344
+          ],
+          "ybounds": [
+            -0.12932353019714354,
+            3.3624117851257322
+          ]
+        },
+        {
+          "wallMs": 637.6000000238419,
+          "frame": 168,
+          "xbounds": [
+            0,
+            104.3210678100586
+          ],
+          "ybounds": [
+            -0.13609513282775879,
+            3.5384734535217284
+          ]
+        },
+        {
+          "wallMs": 688.5,
+          "frame": 169,
+          "xbounds": [
+            0,
+            133.12118530273438
+          ],
+          "ybounds": [
+            -0.14462850570678712,
+            3.760341148376465
+          ]
+        },
+        {
+          "wallMs": 738.7000000178814,
+          "frame": 170,
+          "xbounds": [
+            0,
+            155.1527099609375
+          ],
+          "ybounds": [
+            -0.15115635871887206,
+            3.930065326690674
+          ]
+        },
+        {
+          "wallMs": 789.3000000119209,
+          "frame": 171,
+          "xbounds": [
+            0,
+            169.64393615722656
+          ],
+          "ybounds": [
+            -0.15545005798339845,
+            4.0417015075683596
+          ]
+        },
+        {
+          "wallMs": 838.9000000059605,
+          "frame": 172,
+          "xbounds": [
+            0,
+            178.59974670410156
+          ],
+          "ybounds": [
+            -0.15810362815856935,
+            4.110694332122803
+          ]
+        },
+        {
+          "wallMs": 890.5,
+          "frame": 173,
+          "xbounds": [
+            0,
+            183.21092224121094
+          ],
+          "ybounds": [
+            -0.15946990966796876,
+            4.146217651367188
+          ]
+        },
+        {
+          "wallMs": 938.2000000178814,
+          "frame": 174,
+          "xbounds": [
+            0,
+            184.79583740234375
+          ],
+          "ybounds": [
+            -0.15993950843811036,
+            4.15842721939087
+          ]
+        },
+        {
+          "wallMs": 975,
+          "frame": 175,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 990.9000000059605,
+          "frame": 176,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1008.1000000238419,
+          "frame": 177,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1024.5,
+          "frame": 178,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1041.2000000178814,
+          "frame": 179,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1057.800000011921,
+          "frame": 180,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1074.5,
+          "frame": 181,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1090.9000000059605,
+          "frame": 182,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1107.6000000238419,
+          "frame": 183,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1124.300000011921,
+          "frame": 184,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1141.1000000238419,
+          "frame": 185,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1157.7000000178814,
+          "frame": 186,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1174.1000000238419,
+          "frame": 187,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1191,
+          "frame": 188,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1207.7000000178814,
+          "frame": 189,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1224.7000000178814,
+          "frame": 190,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1240.9000000059605,
+          "frame": 191,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1257.300000011921,
+          "frame": 192,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1274.5,
+          "frame": 193,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1293.2000000178814,
+          "frame": 194,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1309.300000011921,
+          "frame": 195,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1326.5,
+          "frame": 196,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1342.5,
+          "frame": 197,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1358.300000011921,
+          "frame": 198,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1374.4000000059605,
+          "frame": 199,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1390.4000000059605,
+          "frame": 200,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1407.6000000238419,
+          "frame": 201,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1424.800000011921,
+          "frame": 202,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1441.2000000178814,
+          "frame": 203,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1457.300000011921,
+          "frame": 204,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1474.2000000178814,
+          "frame": 205,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1491.1000000238419,
+          "frame": 206,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1508.1000000238419,
+          "frame": 207,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1524.800000011921,
+          "frame": 208,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1541.4000000059605,
+          "frame": 209,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1557.300000011921,
+          "frame": 210,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1574.1000000238419,
+          "frame": 211,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1591.1000000238419,
+          "frame": 212,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 5,
+      "direction": "zoom",
+      "wallMs": 1527.9,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 55.2,
+      "maxGap": 254.4,
+      "gpu": {
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 576,
+        "bufferKB": 132,
+        "readbacks": 47,
+        "readbackKinds": {
+          "jax": 39,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 641,
+        "fences": 80,
+        "readbackP50": 2.7,
+        "readbackP95": 18.9,
+        "readbackMax": 29.1,
+        "builds": 0,
+        "ms": 1549
+      },
+      "asyncReads": {
+        "src/lib/picking/readPixel.js": {
+          "count": 8,
+          "p50Ms": 0.8,
+          "p95Ms": 1.1,
+          "maxMs": 1.1,
+          "overlappingWaitSumMs": 6
+        },
+        "src/lib/plot/utils/namedData.js:1155:17": {
+          "count": 2,
+          "p50Ms": 1.3,
+          "p95Ms": 1.3,
+          "maxMs": 1.3,
+          "overlappingWaitSumMs": 2.1
+        },
+        "src/lib/plot/utils/tooltip.js:198:18": {
+          "count": 1,
+          "p50Ms": 0.8,
+          "p95Ms": 0.8,
+          "maxMs": 0.8,
+          "overlappingWaitSumMs": 0.8
+        },
+        "src/lib/plot/utils/extentSummary.js:24:25": {
+          "count": 34,
+          "p50Ms": 3.7,
+          "p95Ms": 28.9,
+          "maxMs": 29.1,
+          "overlappingWaitSumMs": 182.8
+        },
+        "src/lib/plot/utils/transforms/filter.js:209:28": {
+          "count": 1,
+          "p50Ms": 18.9,
+          "p95Ms": 18.9,
+          "maxMs": 18.9,
+          "overlappingWaitSumMs": 18.9
+        },
+        "src/lib/plot/utils/sourceRows.js:12:18": {
+          "count": 1,
+          "p50Ms": 4.9,
+          "p95Ms": 4.9,
+          "maxMs": 4.9,
+          "overlappingWaitSumMs": 4.9
+        }
+      },
+      "cpu": {
+        "profileSHA256": "a40b16c3295d6100dab491bc211e15d8274855876f683e598f926b7e1df65679",
+        "sampledMs": 1549.621,
+        "categories": {
+          "(program)": 144.988,
+          "(idle)": 955.577,
+          "Svelte CPU/dev runtime": 67.581,
+          "jax-js CPU construction/dispatch": 238.28,
+          "HMPlot CPU runtime": 93.854,
+          "Three CPU runtime": 20.438,
+          "(garbage collector)": 21.974,
+          "other/unresolved": 6.929
+        },
+        "focusSamples": {
+          "inclusiveMs": {
+            "named channel preparation": 90.259,
+            "Text atlas and footprint preparation": 35.312,
+            "domain preparation": 11.928,
+            "Tree host orchestration": 37.022,
+            "Filter": 0.634,
+            "Tween evaluation": 8.854,
+            "keyed lifecycle": 5.642,
+            "procedural current fields": 20.866
+          },
+          "nearestMs": {
+            "named channel preparation": 90.259,
+            "Text atlas and footprint preparation": 35.312,
+            "Tree host orchestration": 28.168,
+            "Filter": 0.634,
+            "Tween evaluation": 8.854,
+            "domain preparation": 1.241,
+            "keyed lifecycle": 5.642,
+            "procedural current fields": 20.866
+          },
+          "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+        },
+        "topSelf": [
+          {
+            "selfMs": 955.577,
+            "function": "(idle)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 144.988,
+            "function": "(program)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 21.974,
+            "function": "(garbage collector)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 20.907,
+            "function": "get_stack",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:33",
+            "callers": [
+              {
+                "function": "get_error",
+                "source": "node_modules/svelte/src/internal/shared/dev.js:9"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              }
+            ]
+          },
+          {
+            "selfMs": 12.608,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "fullInternal",
+                "source": "vendor/jax-js/dist/index.js:3485"
+              },
+              {
+                "function": "full",
+                "source": "vendor/jax-js/dist/index.js:3516"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              }
+            ]
+          },
+          {
+            "selfMs": 5.719,
+            "function": "getImageData",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "readData",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+              },
+              {
+                "function": "read",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+              },
+              {
+                "function": "readSync",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+              },
+              {
+                "function": "dataSync",
+                "source": "vendor/jax-js/dist/index.js:3027"
+              },
+              {
+                "function": "js",
+                "source": "vendor/jax-js/dist/index.js:3086"
+              }
+            ]
+          },
+          {
+            "selfMs": 5.631,
+            "function": "get_error",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:9",
+            "callers": [
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              },
+              {
+                "function": "traverse_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.459,
+            "function": "createBindGroup",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "pipelineEncode",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211"
+              },
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "data",
+                "source": "vendor/jax-js/dist/index.js:2986"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.409,
+            "function": "pipelineEncode",
+            "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211",
+            "callers": [
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "gpuBuffer",
+                "source": "vendor/jax-js/dist/index.js:3049"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.397,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "i32",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:611"
+              },
+              {
+                "function": "unravelAlu",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:2486"
+              },
+              {
+                "function": "realize_fn",
+                "source": "vendor/jax-js/dist/index.js:2922"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.843,
+            "function": "update",
+            "source": "node_modules/three/build/three.webgpu.js:28912",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.776,
+            "function": "",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          }
+        ],
+        "synchronousReadCallers": [
+          [
+            {
+              "function": "getImageData",
+              "source": ":0"
+            },
+            {
+              "function": "readData",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+            },
+            {
+              "function": "read",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+            },
+            {
+              "function": "readSync",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+            },
+            {
+              "function": "dataSync",
+              "source": "vendor/jax-js/dist/index.js:3027"
+            },
+            {
+              "function": "js",
+              "source": "vendor/jax-js/dist/index.js:3086"
+            },
+            {
+              "function": "validateLayoutInput",
+              "source": "src/lib/plot/utils/layoutInput.js:75"
+            },
+            {
+              "function": "treeHostLayout",
+              "source": "src/lib/plot/utils/treeHost.js:62"
+            },
+            {
+              "function": "(root)",
+              "source": ":0"
+            }
+          ]
+        ]
+      },
+      "clockStart": 5299.900000000001,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 5299.900000000001,
+          "duration": 0,
+          "deadline": 5299.900000000001,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 174.7,
+          "lastWallMs": 826.4,
+          "firstClockTime": 5299.9,
+          "lastClockTime": 5902,
+          "deadlineResets": 0,
+          "initialDeadline": 5299.9
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.900000000001,
+          "duration": 650,
+          "deadline": 5949.900000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 174.7,
+          "lastWallMs": 826.4,
+          "firstClockTime": 5299.9,
+          "lastClockTime": 5902,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.9
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.900000000001,
+          "duration": 650,
+          "deadline": 5949.900000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 198.4,
+          "lastWallMs": 826.4,
+          "firstClockTime": 5299.9,
+          "lastClockTime": 5902,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.9
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5952.300000017883,
+          "duration": 650,
+          "deadline": 6602.300000017883,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 198.4,
+          "lastWallMs": 1474.6,
+          "firstClockTime": 5299.9,
+          "lastClockTime": 6549.8,
+          "deadlineResets": 13,
+          "initialDeadline": 5949.9
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.900000000001,
+          "duration": 650,
+          "deadline": 5949.900000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 198.4,
+          "lastWallMs": 826.4,
+          "firstClockTime": 5299.9,
+          "lastClockTime": 5902,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.9
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 5299.900000000001,
+          "duration": 650,
+          "deadline": 5949.900000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 208.1,
+          "lastWallMs": 826.4,
+          "firstClockTime": 5299.9,
+          "lastClockTime": 5902,
+          "deadlineResets": 0,
+          "initialDeadline": 5949.9
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 254.39999997615814,
+          "frame": 214,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 305.69999998807907,
+          "frame": 215,
+          "xbounds": [
+            0,
+            184.91712951660156
+          ],
+          "ybounds": [
+            -0.15997544288635254,
+            4.159361515045166
+          ]
+        },
+        {
+          "wallMs": 355.59999999403954,
+          "frame": 216,
+          "xbounds": [
+            0,
+            183.77101135253906
+          ],
+          "ybounds": [
+            -0.15963584899902344,
+            4.15053207397461
+          ]
+        },
+        {
+          "wallMs": 405.5,
+          "frame": 217,
+          "xbounds": [
+            0,
+            180.10818481445312
+          ],
+          "ybounds": [
+            -0.15855056762695313,
+            4.1223147583007815
+          ]
+        },
+        {
+          "wallMs": 457.19999998807907,
+          "frame": 218,
+          "xbounds": [
+            0,
+            172.4488067626953
+          ],
+          "ybounds": [
+            -0.1562811279296875,
+            4.063309326171875
+          ]
+        },
+        {
+          "wallMs": 512.3999999761581,
+          "frame": 219,
+          "xbounds": [
+            0,
+            159.31814575195312
+          ],
+          "ybounds": [
+            -0.15239055633544923,
+            3.9621544647216798
+          ]
+        },
+        {
+          "wallMs": 556.7999999821186,
+          "frame": 220,
+          "xbounds": [
+            0,
+            139.2895965576172
+          ],
+          "ybounds": [
+            -0.14645617485046386,
+            3.8078605461120607
+          ]
+        },
+        {
+          "wallMs": 606.8999999761581,
+          "frame": 221,
+          "xbounds": [
+            0,
+            111.050048828125
+          ],
+          "ybounds": [
+            -0.13808890342712402,
+            3.5903114891052246
+          ]
+        },
+        {
+          "wallMs": 656.5999999940395,
+          "frame": 222,
+          "xbounds": [
+            0,
+            86.38568878173828
+          ],
+          "ybounds": [
+            -0.13078094482421876,
+            3.4003045654296873
+          ]
+        },
+        {
+          "wallMs": 706.1999999880791,
+          "frame": 223,
+          "xbounds": [
+            0,
+            69.37882995605469
+          ],
+          "ybounds": [
+            -0.1257418727874756,
+            3.2692886924743654
+          ]
+        },
+        {
+          "wallMs": 773.2999999821186,
+          "frame": 224,
+          "xbounds": [
+            0,
+            58.75288391113281
+          ],
+          "ybounds": [
+            -0.12259345054626465,
+            3.1874297142028807
+          ]
+        },
+        {
+          "wallMs": 823,
+          "frame": 225,
+          "xbounds": [
+            0,
+            51.839359283447266
+          ],
+          "ybounds": [
+            -0.12054499626159668,
+            3.1341699028015135
+          ]
+        },
+        {
+          "wallMs": 872.8999999761581,
+          "frame": 226,
+          "xbounds": [
+            0,
+            50.21609115600586
+          ],
+          "ybounds": [
+            -0.12006402969360352,
+            3.121664772033691
+          ]
+        },
+        {
+          "wallMs": 909.3999999761581,
+          "frame": 227,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 925.3999999761581,
+          "frame": 228,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 941.3999999761581,
+          "frame": 229,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 958.5999999940395,
+          "frame": 230,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 975,
+          "frame": 231,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 991.8999999761581,
+          "frame": 232,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1008.5,
+          "frame": 233,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1026,
+          "frame": 234,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1041.7999999821186,
+          "frame": 235,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1058.3999999761581,
+          "frame": 236,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1075.5999999940395,
+          "frame": 237,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1091.199999988079,
+          "frame": 238,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1108.5999999940395,
+          "frame": 239,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1124.7999999821186,
+          "frame": 240,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1142.199999988079,
+          "frame": 241,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1158.699999988079,
+          "frame": 242,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1174.5999999940395,
+          "frame": 243,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1191.699999988079,
+          "frame": 244,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1208.699999988079,
+          "frame": 245,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1225.2999999821186,
+          "frame": 246,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1242,
+          "frame": 247,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1258.5,
+          "frame": 248,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1275.2999999821186,
+          "frame": 249,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1291.7999999821186,
+          "frame": 250,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1307.699999988079,
+          "frame": 251,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1325.2999999821186,
+          "frame": 252,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1342.0999999940395,
+          "frame": 253,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1358.7999999821186,
+          "frame": 254,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1375.0999999940395,
+          "frame": 255,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1391.7999999821186,
+          "frame": 256,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1408.2999999821186,
+          "frame": 257,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1424.699999988079,
+          "frame": 258,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1441.0999999940395,
+          "frame": 259,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1458.7999999821186,
+          "frame": 260,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1474.5999999940395,
+          "frame": 261,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1491.5,
+          "frame": 262,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1508.5,
+          "frame": 263,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 1525.199999988079,
+          "frame": 264,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 6,
+      "direction": "reset",
+      "wallMs": 1562.1,
+      "completedFrames": 51,
+      "frameP50": 16.9,
+      "frameP95": 63.4,
+      "maxGap": 272.6,
+      "gpu": {
+        "compute": 0,
+        "render": 0,
+        "shaders": 0,
+        "buffers": 568,
+        "bufferKB": 131,
+        "readbacks": 45,
+        "readbackKinds": {
+          "jax": 37,
+          "picking": 8,
+          "three": 0,
+          "app": 0,
+          "other": 0
+        },
+        "submits": 637,
+        "fences": 80,
+        "readbackP50": 3,
+        "readbackP95": 16.9,
+        "readbackMax": 26.4,
+        "builds": 0,
+        "ms": 1583
+      },
+      "asyncReads": {
+        "src/lib/picking/readPixel.js": {
+          "count": 8,
+          "p50Ms": 0.7,
+          "p95Ms": 0.9,
+          "maxMs": 0.9,
+          "overlappingWaitSumMs": 5
+        },
+        "src/lib/plot/utils/namedData.js:1155:17": {
+          "count": 1,
+          "p50Ms": 0.5,
+          "p95Ms": 0.5,
+          "maxMs": 0.5,
+          "overlappingWaitSumMs": 0.5
+        },
+        "src/lib/plot/utils/extentSummary.js:24:25": {
+          "count": 34,
+          "p50Ms": 4.3,
+          "p95Ms": 26.2,
+          "maxMs": 26.4,
+          "overlappingWaitSumMs": 175.8
+        },
+        "src/lib/plot/utils/transforms/filter.js:209:28": {
+          "count": 1,
+          "p50Ms": 17,
+          "p95Ms": 17,
+          "maxMs": 17,
+          "overlappingWaitSumMs": 17
+        },
+        "src/lib/plot/utils/sourceRows.js:12:18": {
+          "count": 1,
+          "p50Ms": 5.2,
+          "p95Ms": 5.2,
+          "maxMs": 5.2,
+          "overlappingWaitSumMs": 5.2
+        }
+      },
+      "cpu": {
+        "profileSHA256": "41175a45e48c23db957d4938792d59ad7b447adf67999798928268a3e1d1db21",
+        "sampledMs": 1583.168,
+        "categories": {
+          "(program)": 167.713,
+          "(idle)": 978.871,
+          "HMPlot CPU runtime": 90.771,
+          "jax-js CPU construction/dispatch": 241.536,
+          "Svelte CPU/dev runtime": 65.564,
+          "Three CPU runtime": 10.261,
+          "(garbage collector)": 21.461,
+          "other/unresolved": 6.991
+        },
+        "focusSamples": {
+          "inclusiveMs": {
+            "named channel preparation": 91.43,
+            "Text atlas and footprint preparation": 30.957,
+            "domain preparation": 13.185,
+            "Filter": 1.257,
+            "Tree host orchestration": 44.733,
+            "Tween evaluation": 18.323,
+            "keyed lifecycle": 5.661,
+            "procedural current fields": 23.232
+          },
+          "nearestMs": {
+            "named channel preparation": 91.43,
+            "Text atlas and footprint preparation": 30.957,
+            "Filter": 1.257,
+            "Tree host orchestration": 26.41,
+            "Tween evaluation": 18.323,
+            "domain preparation": 4.409,
+            "keyed lifecycle": 5.661,
+            "procedural current fields": 22.604
+          },
+          "limitation": "Synchronous sampled call chains only, at most 32 frames; inclusive groups overlap and async resumes may lose their application callers."
+        },
+        "topSelf": [
+          {
+            "selfMs": 978.871,
+            "function": "(idle)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 167.713,
+            "function": "(program)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 21.461,
+            "function": "(garbage collector)",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 15.862,
+            "function": "get_stack",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:33",
+            "callers": [
+              {
+                "function": "get_error",
+                "source": "node_modules/svelte/src/internal/shared/dev.js:9"
+              },
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              }
+            ]
+          },
+          {
+            "selfMs": 15.155,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "i32",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:611"
+              },
+              {
+                "function": "unravelAlu",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:2486"
+              },
+              {
+                "function": "realize_fn",
+                "source": "vendor/jax-js/dist/index.js:2922"
+              }
+            ]
+          },
+          {
+            "selfMs": 10.71,
+            "function": "__privateAdd",
+            "source": "chunk-KWPVD4H7.js:38",
+            "callers": [
+              {
+                "function": "_a2",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:465"
+              },
+              {
+                "function": "const",
+                "source": "vendor/jax-js/dist/backend-DYcOJOqU.js:589"
+              },
+              {
+                "function": "fullInternal",
+                "source": "vendor/jax-js/dist/index.js:3485"
+              },
+              {
+                "function": "full",
+                "source": "vendor/jax-js/dist/index.js:3516"
+              },
+              {
+                "function": "array",
+                "source": "vendor/jax-js/dist/index.js:3379"
+              }
+            ]
+          },
+          {
+            "selfMs": 10.511,
+            "function": "get_error",
+            "source": "node_modules/svelte/src/internal/shared/dev.js:9",
+            "callers": [
+              {
+                "function": "internal_set",
+                "source": "node_modules/svelte/src/internal/client/reactivity/sources.js:181"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/dom/blocks/each.js:255"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "update_effect",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:430"
+              },
+              {
+                "function": "traverse_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329"
+              }
+            ]
+          },
+          {
+            "selfMs": 5.746,
+            "function": "getImageData",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "readData",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+              },
+              {
+                "function": "read",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+              },
+              {
+                "function": "readSync",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+              },
+              {
+                "function": "dataSync",
+                "source": "vendor/jax-js/dist/index.js:3027"
+              },
+              {
+                "function": "js",
+                "source": "vendor/jax-js/dist/index.js:3086"
+              }
+            ]
+          },
+          {
+            "selfMs": 4.433,
+            "function": "",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.775,
+            "function": "traverse_fn",
+            "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:329",
+            "callers": [
+              {
+                "function": "process_fn",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:207"
+              },
+              {
+                "function": "flush",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:410"
+              },
+              {
+                "function": "",
+                "source": "node_modules/svelte/src/internal/client/reactivity/batch.js:577"
+              },
+              {
+                "function": "run_all",
+                "source": "node_modules/svelte/src/internal/shared/utils.js:45"
+              },
+              {
+                "function": "run_micro_tasks",
+                "source": "node_modules/svelte/src/internal/client/dom/task.js:7"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.219,
+            "function": "createBindGroup",
+            "source": ":0",
+            "callers": [
+              {
+                "function": "pipelineEncode",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:2211"
+              },
+              {
+                "function": "dispatch",
+                "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1993"
+              },
+              {
+                "function": "submit",
+                "source": "vendor/jax-js/dist/index.js:2537"
+              },
+              {
+                "function": "gpuBuffer",
+                "source": "vendor/jax-js/dist/index.js:3049"
+              },
+              {
+                "function": "(root)",
+                "source": ":0"
+              }
+            ]
+          },
+          {
+            "selfMs": 3.167,
+            "function": "axisLayout",
+            "source": "src/lib/plot/utils/axes.js:163",
+            "callers": [
+              {
+                "function": "",
+                "source": "src/lib/plot/viewCore.svelte:2324"
+              },
+              {
+                "function": "update_reaction",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:226"
+              },
+              {
+                "function": "execute_derived",
+                "source": "node_modules/svelte/src/internal/client/reactivity/deriveds.js:345"
+              },
+              {
+                "function": "update_derived",
+                "source": "node_modules/svelte/src/internal/client/reactivity/deriveds.js:386"
+              },
+              {
+                "function": "get",
+                "source": "node_modules/svelte/src/internal/client/runtime.js:523"
+              }
+            ]
+          }
+        ],
+        "synchronousReadCallers": [
+          [
+            {
+              "function": "getImageData",
+              "source": ":0"
+            },
+            {
+              "function": "readData",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:458"
+            },
+            {
+              "function": "read",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:448"
+            },
+            {
+              "function": "readSync",
+              "source": "vendor/jax-js/dist/webgpu-BJwlieBg.js:1936"
+            },
+            {
+              "function": "dataSync",
+              "source": "vendor/jax-js/dist/index.js:3027"
+            },
+            {
+              "function": "js",
+              "source": "vendor/jax-js/dist/index.js:3086"
+            },
+            {
+              "function": "validateLayoutInput",
+              "source": "src/lib/plot/utils/layoutInput.js:75"
+            },
+            {
+              "function": "treeHostLayout",
+              "source": "src/lib/plot/utils/treeHost.js:62"
+            },
+            {
+              "function": "(root)",
+              "source": ":0"
+            }
+          ]
+        ]
+      },
+      "clockStart": 6616.400000000001,
+      "trackEpisodes": [
+        {
+          "id": 1,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": true,
+          "explicit": true,
+          "start": 6616.400000000001,
+          "duration": 0,
+          "deadline": 6616.400000000001,
+          "applied": false,
+          "suspended": false,
+          "firstWallMs": 185.5,
+          "lastWallMs": 859.7,
+          "firstClockTime": 6616.4,
+          "lastClockTime": 7234.9,
+          "deadlineResets": 0,
+          "initialDeadline": 6616.4
+        },
+        {
+          "id": 2,
+          "type": "Object",
+          "owner": "Object",
+          "label": null,
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6616.400000000001,
+          "duration": 650,
+          "deadline": 7266.400000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 185.5,
+          "lastWallMs": 859.7,
+          "firstClockTime": 6616.4,
+          "lastClockTime": 7234.9,
+          "deadlineResets": 0,
+          "initialDeadline": 7266.4
+        },
+        {
+          "id": 3,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6616.400000000001,
+          "duration": 650,
+          "deadline": 7266.400000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 195.6,
+          "lastWallMs": 859.7,
+          "firstClockTime": 6616.4,
+          "lastClockTime": 7234.9,
+          "deadlineResets": 0,
+          "initialDeadline": 7266.4
+        },
+        {
+          "id": 4,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 2",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 7284.300000023842,
+          "duration": 650,
+          "deadline": 7934.300000023842,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 195.6,
+          "lastWallMs": 1492.4,
+          "firstClockTime": 6616.4,
+          "lastClockTime": 7866.3,
+          "deadlineResets": 13,
+          "initialDeadline": 7266.4
+        },
+        {
+          "id": 5,
+          "type": "RowTransition",
+          "owner": "PolarRectObject",
+          "label": "Polar Rect 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6616.400000000001,
+          "duration": 650,
+          "deadline": 7266.400000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 195.6,
+          "lastWallMs": 859.7,
+          "firstClockTime": 6616.4,
+          "lastClockTime": 7234.9,
+          "deadlineResets": 0,
+          "initialDeadline": 7266.4
+        },
+        {
+          "id": 6,
+          "type": "RowTransition",
+          "owner": "Labels",
+          "label": "Text 1",
+          "field": null,
+          "procedural": false,
+          "explicit": true,
+          "start": 6616.400000000001,
+          "duration": 650,
+          "deadline": 7266.400000000001,
+          "applied": true,
+          "suspended": false,
+          "firstWallMs": 225.9,
+          "lastWallMs": 859.7,
+          "firstClockTime": 6616.4,
+          "lastClockTime": 7234.9,
+          "deadlineResets": 0,
+          "initialDeadline": 7266.4
+        }
+      ],
+      "frameGeometry": [
+        {
+          "wallMs": 272.59999999403954,
+          "frame": 266,
+          "xbounds": [
+            0,
+            50
+          ],
+          "ybounds": [
+            -0.12,
+            3.12
+          ]
+        },
+        {
+          "wallMs": 342.2999999821186,
+          "frame": 267,
+          "xbounds": [
+            0,
+            50.08358383178711
+          ],
+          "ybounds": [
+            -0.12002476692199707,
+            3.1206439399719237
+          ]
+        },
+        {
+          "wallMs": 390.69999998807907,
+          "frame": 268,
+          "xbounds": [
+            0,
+            52.10515594482422
+          ],
+          "ybounds": [
+            -0.1206237506866455,
+            3.136217517852783
+          ]
+        },
+        {
+          "wallMs": 440.69999998807907,
+          "frame": 269,
+          "xbounds": [
+            0,
+            56.837406158447266
+          ],
+          "ybounds": [
+            -0.12202589988708497,
+            3.172673397064209
+          ]
+        },
+        {
+          "wallMs": 490.59999999403954,
+          "frame": 270,
+          "xbounds": [
+            0,
+            66.2313003540039
+          ],
+          "ybounds": [
+            -0.12480927467346192,
+            3.2450411415100096
+          ]
+        },
+        {
+          "wallMs": 539.7999999821186,
+          "frame": 271,
+          "xbounds": [
+            0,
+            81.54206085205078
+          ],
+          "ybounds": [
+            -0.12934579849243164,
+            3.3629907608032226
+          ]
+        },
+        {
+          "wallMs": 590.4000000059605,
+          "frame": 272,
+          "xbounds": [
+            0,
+            104.26725769042969
+          ],
+          "ybounds": [
+            -0.13607918739318847,
+            3.5380588722229005
+          ]
+        },
+        {
+          "wallMs": 639.4000000059605,
+          "frame": 273,
+          "xbounds": [
+            0,
+            133.01658630371094
+          ],
+          "ybounds": [
+            -0.14459751129150392,
+            3.7595352935791015
+          ]
+        },
+        {
+          "wallMs": 689.6999999880791,
+          "frame": 274,
+          "xbounds": [
+            0,
+            154.86244201660156
+          ],
+          "ybounds": [
+            -0.15107035636901855,
+            3.9278292655944824
+          ]
+        },
+        {
+          "wallMs": 741,
+          "frame": 275,
+          "xbounds": [
+            0,
+            169.5974884033203
+          ],
+          "ybounds": [
+            -0.15543628692626954,
+            4.041343460083008
+          ]
+        },
+        {
+          "wallMs": 804.4000000059605,
+          "frame": 276,
+          "xbounds": [
+            0,
+            178.62559509277344
+          ],
+          "ybounds": [
+            -0.1581112861633301,
+            4.110893440246582
+          ]
+        },
+        {
+          "wallMs": 856.0999999940395,
+          "frame": 277,
+          "xbounds": [
+            0,
+            183.1663055419922
+          ],
+          "ybounds": [
+            -0.15945667266845703,
+            4.145873489379883
+          ]
+        },
+        {
+          "wallMs": 905.5,
+          "frame": 278,
+          "xbounds": [
+            0,
+            184.9385223388672
+          ],
+          "ybounds": [
+            -0.15998178482055664,
+            4.159526405334472
+          ]
+        },
+        {
+          "wallMs": 943.9000000059605,
+          "frame": 279,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 959.6999999880791,
+          "frame": 280,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 976,
+          "frame": 281,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 992.1999999880791,
+          "frame": 282,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1009.4000000059605,
+          "frame": 283,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1026.2999999821186,
+          "frame": 284,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1043.5,
+          "frame": 285,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1060.0999999940395,
+          "frame": 286,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1076.7999999821186,
+          "frame": 287,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1093.0999999940395,
+          "frame": 288,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1109.699999988079,
+          "frame": 289,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1126,
+          "frame": 290,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1143,
+          "frame": 291,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1159.5999999940395,
+          "frame": 292,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1175.4000000059605,
+          "frame": 293,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1192.4000000059605,
+          "frame": 294,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1209.699999988079,
+          "frame": 295,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1226.2999999821186,
+          "frame": 296,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1242.5,
+          "frame": 297,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1259.699999988079,
+          "frame": 298,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1276.0999999940395,
+          "frame": 299,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1293,
+          "frame": 300,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1309.699999988079,
+          "frame": 301,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1326.2999999821186,
+          "frame": 302,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1342.5999999940395,
+          "frame": 303,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1358.9000000059605,
+          "frame": 304,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1375.2999999821186,
+          "frame": 305,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1392.4000000059605,
+          "frame": 306,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1409.2999999821186,
+          "frame": 307,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1425.5999999940395,
+          "frame": 308,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1442.199999988079,
+          "frame": 309,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1459.5,
+          "frame": 310,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1476.4000000059605,
+          "frame": 311,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1492.4000000059605,
+          "frame": 312,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1509.7999999821186,
+          "frame": 313,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1526.4000000059605,
+          "frame": 314,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1543.199999988079,
+          "frame": 315,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        },
+        {
+          "wallMs": 1559.5,
+          "frame": 316,
+          "xbounds": [
+            0,
+            185
+          ],
+          "ybounds": [
+            -0.16,
+            4.16
+          ]
+        }
+      ],
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48
+      },
+      "errors": [],
+      "renderError": ""
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,88 @@
+[
+  {
+    "label": "baseline-timing",
+    "instrument": false,
+    "kind": "numeric",
+    "samples": [
+      {
+        "rep": 1,
+        "wallMs": 1037.300000011921,
+        "completedFrames": 61,
+        "frameP50": 16.69999998807907,
+        "frameP95": 17.599999994039536,
+        "maxGap": 34.79999998211861,
+        "writes": 0,
+        "error": "",
+        "gpuErrors": [],
+        "errors": []
+      },
+      {
+        "rep": 2,
+        "wallMs": 1015.0999999940395,
+        "completedFrames": 60,
+        "frameP50": 16.69999998807907,
+        "frameP95": 18.299999982118607,
+        "maxGap": 35.400000005960464,
+        "writes": 0,
+        "error": "",
+        "gpuErrors": [],
+        "errors": []
+      },
+      {
+        "rep": 3,
+        "wallMs": 1030.9000000059605,
+        "completedFrames": 61,
+        "frameP50": 16.69999998807907,
+        "frameP95": 17.400000005960464,
+        "maxGap": 20.80000001192093,
+        "writes": 0,
+        "error": "",
+        "gpuErrors": [],
+        "errors": []
+      }
+    ]
+  },
+  {
+    "label": "baseline-timing",
+    "instrument": false,
+    "kind": "tree",
+    "samples": [
+      {
+        "rep": 1,
+        "wallMs": 1048.300000011921,
+        "completedFrames": 61,
+        "frameP50": 16.69999998807907,
+        "frameP95": 17.5,
+        "maxGap": 36.5,
+        "writes": 0,
+        "error": "",
+        "gpuErrors": [],
+        "errors": []
+      },
+      {
+        "rep": 2,
+        "wallMs": 1046.199999988079,
+        "completedFrames": 61,
+        "frameP50": 16.700000017881393,
+        "frameP95": 18.400000005960464,
+        "maxGap": 37.80000001192093,
+        "writes": 0,
+        "error": "",
+        "gpuErrors": [],
+        "errors": []
+      },
+      {
+        "rep": 3,
+        "wallMs": 1048,
+        "completedFrames": 61,
+        "frameP50": 16.700000017881393,
+        "frameP95": 19.400000005960464,
+        "maxGap": 36.20000001788139,
+        "writes": 0,
+        "error": "",
+        "gpuErrors": [],
+        "errors": []
+      }
+    ]
+  }
+]

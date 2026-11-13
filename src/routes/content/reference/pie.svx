@@ -1,0 +1,17 @@
+## Usage
+
+A sector per row, its angle its `value`'s share of the total, clockwise from 12 o'clock (d3.pie's convention, with angles in degrees). `category` fills the sectors, so `<Legend for={pie} channel="fill">` (Python `hm.Legend(target=pie, channel="fill")`) lists the categories. `innerRadius` above 0 makes a donut; `startAngle` and `endAngle` make a partial pie; `padAngle` separates the sectors; `sort` orders them by value or by a list of categories. `sectorLabel` writes each sector's `"category"`, `"value"`, `"percent"`, a column, or an expression at its centroid; a label that would overlap a larger sector's is hidden.
+
+In a polar Plot or Frame the pie fills the disk. In a Cartesian one (the default Plot) the Pie places a polar Frame of its own: centered in the frame's domain and across 90% of its shorter side, or where `placement` puts it (`anchor` in data coordinates, `size` in pixels), so a pie can sit beside other marks as an inset.
+
+A negative value is a data error naming its row; a zero, missing or hidden value draws nothing. Put a `key` on the data and turn on `animation` to tween the sectors when the values change. `by` draws one pie per group as concentric rings; in row order, a ring's sectors start and end where the inner sectors whose values they sum do (a sunburst), each sector's `padAngle` coming out of its own share (at most half its width, so a very small sector gets a narrower gap). A `sort` sorts each ring on its own, which breaks that alignment. For pies side by side, put the Pie in a Facet:
+
+See the [complete example](/examples/pie-facet).
+
+Pie is a built-in template (TODO 130.3): the PieGeometry transform, a Rect for the sectors and a Text for their labels, importable from `hmplot/charts`. See "Writing a pattern" in docs/USAGE.md.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view, where SVG and PDF exports draw the pie (a polar frame) with all of that view's marks as one image and `mode="vector"` refuses it. A `fill` column of numbers or categories stays vector. See [what is not exported as vector](/docs/export).
+
+</Note>

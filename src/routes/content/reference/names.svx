@@ -1,0 +1,3 @@
+## Usage
+
+A value in a column's place (a mark channel, an expression's argument, a column-name parameter such as Sort's `by`) is a column, an input, state or a literal. `col.weight` reads a column and fails if it is missing, as the string `":weight"` does; a plain `"weight"` in a mark channel is the column when there is one, else the literal. `input.bins` (or `"$bins"`) reads an input and `view.time` (or `"@time"`) view and interaction state. Inside an expression and in a column-name parameter a plain string is always a column, never an input, so a column added later cannot change what a slider read means.

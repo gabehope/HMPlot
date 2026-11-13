@@ -1,0 +1,7 @@
+## Usage
+
+Enter a string. The value updates on each keystroke; clearing the box publishes an empty string. `placeholder` supplies a hint while the box is empty and does not become its value. A string used as a mark channel can name a column; the example uses it as a plot title.
+
+Place the control beside the plot in an `InputContext` (JavaScript) or `Scene` (Python). Readers use `input("name")` or `hm.input.name`. The name must be unique in that context.
+
+Static image exports show the plot at the current values and omit the controls.

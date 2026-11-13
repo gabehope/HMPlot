@@ -1,0 +1,78 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.6 / 122.15: checked adaptive curve boundary",
+  "scope": "Strict checking, named ownership/request/backend/scene-capability records, refinement-stage comments, coordinate callback annotations and operationTable formatting. No runtime logic change.",
+  "checkedCoreImplementations": {
+    "completed": 5,
+    "total": 9,
+    "remaining": [
+      "expressions",
+      "interaction",
+      "proputils",
+      "namedData"
+    ]
+  },
+  "strictModuleFloor": 60,
+  "method": {
+    "compiler": "esbuild.transform",
+    "options": {
+      "loader": "js",
+      "minify": true,
+      "target": "esnext"
+    },
+    "comparisonSnapshot": "<tmp>/hmplot-readability-core-b",
+    "reference": "tests/perf/investigations/results/stages122-core-readability.json",
+    "claim": "Each modified runtime module emits byte-identical minified code to the measured candidate. Previous rendering/performance evidence is carried forward; no new measurements or speedup claims.",
+    "records": [
+      {
+        "path": "src/lib/plot/utils/curvedPaths.js",
+        "comparison": "identical",
+        "minifiedSHA256": "bf0ad7609e8a08fa37efa3cbe52c18a41e28546a99b7c0dae21c1105f1760b25",
+        "sourceSHA256": "32c8c0b2e9af6a39fcee643b0371f509bb12f72f8909f1ecde2ac9703c73319e"
+      },
+      {
+        "path": "src/lib/plot/utils/coordinateOperations.js",
+        "comparison": "identical",
+        "minifiedSHA256": "c72ded6a8b817e2b7eb714265fb0dfd0a87a32bec78b53be8abae4e2eba41a68",
+        "sourceSHA256": "2c4a886d2d9156a6ea12717bd2e46e10e41fc8b93f7266b595de155c45d0d86c"
+      },
+      {
+        "path": "src/lib/plot/utils/operationTable.js",
+        "comparison": "identical",
+        "minifiedSHA256": "6299ebbdd4bdb1d8f074979c475e7a4e7a9500f0daef4cd1491d489c0435c9cc",
+        "sourceSHA256": "eba4810499202241609773c477134c8c46df6e3490156a612414c81a6a08c846"
+      }
+    ],
+    "typeModuleEmits": ""
+  },
+  "validation": {
+    "focusedUnits": {
+      "passed": 60,
+      "failed": 0,
+      "files": [
+        "coordinate-operations",
+        "operation-table",
+        "frame-model",
+        "frame-mapping",
+        "composition",
+        "refactor-ratchet"
+      ]
+    },
+    "check": {
+      "command": "npm run check",
+      "errors": 0,
+      "warnings": 0
+    },
+    "format": "npm run format:check passed",
+    "api": "npm run check:api passed; no public API change",
+    "pythonSignatures": "npm run check:python-signatures passed; 112 components",
+    "browser": "No new browser run: modified runtime modules are identical to the already validated candidate.",
+    "pythonBundles": "Not rebuilt for this type/comment/formatting slice; no runtime import, asset move or public signature changes."
+  },
+  "limitations": [
+    "proputils field-state producers and the strict namedMark Svelte boundary remain unchecked.",
+    "This types the existing lazy GPU-resource lifetime; it does not make partial resource initialization transactional.",
+    "Request/execution modularization and Stage 124 fallback delivery remain open."
+  ]
+}

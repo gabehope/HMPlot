@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "checkJs": false
+  },
+  "include": [
+    "src/lib/plot/viewCore.svelte",
+    "src/lib/plot/scenes/brushOverlay.svelte",
+    "src/lib/plot/scenes/tooltipOverlay.svelte"
+  ]
+}

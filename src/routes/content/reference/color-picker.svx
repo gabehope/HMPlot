@@ -1,0 +1,7 @@
+## Usage
+
+Choose an opaque RGB color using the browser's native picker. Supply a six-digit hexadecimal value, such as `#4f7dff`; the control publishes lowercase `#rrggbb`. Use the named input for a mark's `fill` or `color`. Alpha values and CSS color names are not accepted; set the mark's opacity separately.
+
+Place the control beside the plot in an `InputContext` (JavaScript) or `Scene` (Python). Readers use `input("name")` or `hm.input.name`. The name must be unique in that context.
+
+Static image exports show the plot at the current values and omit the controls.

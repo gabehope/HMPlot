@@ -1,0 +1,855 @@
+{
+  "source": "summary.json",
+  "summarySHA256": "3b839b49b24f9bf2cbc06d6c98dc8b45190f4768708943936ed60ef8e7c85074",
+  "sourceFingerprint": {
+    "sha256": "423d27256dee583da0d8b30aac72798711006872e23176d2e458937abdd3a98e",
+    "files": 562
+  },
+  "sourceVerification": {
+    "method": "App-relative Vite raw modules/source downloads compared with local bytes",
+    "scope": "Representative source files; this does not fingerprint every executed compiled chunk.",
+    "verified": true,
+    "files": [
+      {
+        "path": "src/lib/plot/bound/namedMark.svelte",
+        "localSHA256": "2fc68bdad50893a6560719b1886e6ce2ed49696457b1be52a4da54758de73d04",
+        "servedSHA256": "2fc68bdad50893a6560719b1886e6ce2ed49696457b1be52a4da54758de73d04"
+      },
+      {
+        "path": "src/lib/plot/marks/labels.svelte",
+        "localSHA256": "d76586b99ddeebdf0afa07663ac5e2c0ee5b3d141a13a80c8ee9966ef1dce352",
+        "servedSHA256": "d76586b99ddeebdf0afa07663ac5e2c0ee5b3d141a13a80c8ee9966ef1dce352"
+      },
+      {
+        "path": "src/lib/plot/utils/expressions.js",
+        "localSHA256": "c65dae162e71e8b60f82d3520d31ce863ab13d2a595ea995e35ff9b7d9c4ecd7",
+        "servedSHA256": "c65dae162e71e8b60f82d3520d31ce863ab13d2a595ea995e35ff9b7d9c4ecd7"
+      },
+      {
+        "path": "src/lib/plot/utils/namedData.js",
+        "localSHA256": "26bced4e90f02306c76e94f605047cc314722c8f0b118ce369fbb89d566cb873",
+        "servedSHA256": "26bced4e90f02306c76e94f605047cc314722c8f0b118ce369fbb89d566cb873"
+      },
+      {
+        "path": "src/examples/sunburst/sunburst.svelte",
+        "localSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080",
+        "servedSHA256": "4fb54784c984886ca42844c7ae7e533607ed58e9c205a13ae30b11cab3da8080"
+      },
+      {
+        "path": "src/lib/plot/utils/extentSummary.js",
+        "localSHA256": "4bf3f6e08ea0b281455f30757f3ddf1fbc3e2022af9cb7c12f2fe1c30d7729b4",
+        "servedSHA256": "4bf3f6e08ea0b281455f30757f3ddf1fbc3e2022af9cb7c12f2fe1c30d7729b4"
+      }
+    ]
+  },
+  "browser": "154.0.8037.98",
+  "limitation": "Observer records host timestamps and allocations. Awaited spans overlap, include CPU construction/GPU waits, and do not measure GPU kernel time or establish a speed gain.",
+  "flights": [
+    {
+      "flight": 1,
+      "direction": "zoom",
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 15,
+        "preparationRequests": 49,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "ownerFlushes": 33,
+      "readsStarted": 33,
+      "readsCompleted": 33,
+      "multipleMaskOwnerFlushes": 0,
+      "alreadyReadyReadMergeUpperBound": 0,
+      "multipleMaskGroups": [],
+      "owners": {
+        "1": {
+          "flushes": 33,
+          "reads": 33,
+          "multipleMaskGroups": 0,
+          "groupsHistogram": {
+            "1": 33
+          }
+        }
+      },
+      "queuedRequests": 198,
+      "cacheHits": 4,
+      "requestsPerRead": {
+        "p50": 6,
+        "p95": 6
+      },
+      "readyToReadMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.20000001788139343,
+        "max": 0.29999998211860657
+      },
+      "readAwaitMs": {
+        "p50": 3.699999988079071,
+        "p95": 27,
+        "sumOverlapping": 197.60000002384186,
+        "union": 160.00000002980232
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 2,
+      "direction": "reset",
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 15,
+        "preparationRequests": 51,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "ownerFlushes": 34,
+      "readsStarted": 36,
+      "readsCompleted": 36,
+      "multipleMaskOwnerFlushes": 2,
+      "alreadyReadyReadMergeUpperBound": 2,
+      "multipleMaskGroups": [
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 0,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 29.299999982118607
+            },
+            {
+              "mask": 168,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 29.19999998807907
+            }
+          ]
+        },
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 27.400000005960464,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 27
+            },
+            {
+              "mask": 178,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 26.5
+            }
+          ]
+        }
+      ],
+      "owners": {
+        "1": {
+          "flushes": 34,
+          "reads": 36,
+          "multipleMaskGroups": 2,
+          "groupsHistogram": {
+            "1": 32,
+            "2": 2
+          }
+        }
+      },
+      "queuedRequests": 212,
+      "cacheHits": 0,
+      "requestsPerRead": {
+        "p50": 6,
+        "p95": 6
+      },
+      "readyToReadMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.5999999940395355,
+        "max": 7.300000011920929
+      },
+      "readAwaitMs": {
+        "p50": 3.9000000059604645,
+        "p95": 29.19999998807907,
+        "sumOverlapping": 246.69999998807907,
+        "union": 157.00000005960464
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 3,
+      "direction": "zoom",
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 15,
+        "preparationRequests": 51,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "ownerFlushes": 34,
+      "readsStarted": 36,
+      "readsCompleted": 36,
+      "multipleMaskOwnerFlushes": 2,
+      "alreadyReadyReadMergeUpperBound": 2,
+      "multipleMaskGroups": [
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 0,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 35.5
+            },
+            {
+              "mask": 320,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 35.400000005960464
+            }
+          ]
+        },
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 32.70000001788139,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 12.199999988079071
+            },
+            {
+              "mask": 330,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 11.699999988079071
+            }
+          ]
+        }
+      ],
+      "owners": {
+        "1": {
+          "flushes": 34,
+          "reads": 36,
+          "multipleMaskGroups": 2,
+          "groupsHistogram": {
+            "1": 32,
+            "2": 2
+          }
+        }
+      },
+      "queuedRequests": 212,
+      "cacheHits": 0,
+      "requestsPerRead": {
+        "p50": 6,
+        "p95": 6
+      },
+      "readyToReadMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.5999999940395355,
+        "max": 10.300000011920929
+      },
+      "readAwaitMs": {
+        "p50": 3.4000000059604645,
+        "p95": 35.400000005960464,
+        "sumOverlapping": 218.4000000357628,
+        "union": 138.30000004172325
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 4,
+      "direction": "reset",
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 15,
+        "preparationRequests": 51,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "ownerFlushes": 34,
+      "readsStarted": 36,
+      "readsCompleted": 36,
+      "multipleMaskOwnerFlushes": 2,
+      "alreadyReadyReadMergeUpperBound": 2,
+      "multipleMaskGroups": [
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 0,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 29.30000001192093
+            },
+            {
+              "mask": 472,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 29.099999994039536
+            }
+          ]
+        },
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 27.200000017881393,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 9.900000005960464
+            },
+            {
+              "mask": 482,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 9.5
+            }
+          ]
+        }
+      ],
+      "owners": {
+        "1": {
+          "flushes": 34,
+          "reads": 36,
+          "multipleMaskGroups": 2,
+          "groupsHistogram": {
+            "1": 32,
+            "2": 2
+          }
+        }
+      },
+      "queuedRequests": 212,
+      "cacheHits": 0,
+      "requestsPerRead": {
+        "p50": 6,
+        "p95": 6
+      },
+      "readyToReadMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.5,
+        "max": 5.300000011920929
+      },
+      "readAwaitMs": {
+        "p50": 4,
+        "p95": 29.099999994039536,
+        "sumOverlapping": 215.30000007152557,
+        "union": 142.10000005364418
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 5,
+      "direction": "zoom",
+      "markWork": {
+        "liveGeometryWrites": 14,
+        "staticMarkReuses": 14,
+        "preparationRequests": 48,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "ownerFlushes": 32,
+      "readsStarted": 34,
+      "readsCompleted": 34,
+      "multipleMaskOwnerFlushes": 2,
+      "alreadyReadyReadMergeUpperBound": 2,
+      "multipleMaskGroups": [
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 0,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 28.900000005960464
+            },
+            {
+              "mask": 624,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 28.700000017881393
+            }
+          ]
+        },
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 26.099999994039536,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 10.900000005960464
+            },
+            {
+              "mask": 634,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 10.5
+            }
+          ]
+        }
+      ],
+      "owners": {
+        "1": {
+          "flushes": 32,
+          "reads": 34,
+          "multipleMaskGroups": 2,
+          "groupsHistogram": {
+            "1": 30,
+            "2": 2
+          }
+        }
+      },
+      "queuedRequests": 200,
+      "cacheHits": 0,
+      "requestsPerRead": {
+        "p50": 6,
+        "p95": 6
+      },
+      "readyToReadMs": {
+        "p50": 0.09999999403953552,
+        "p95": 0.5,
+        "max": 5.4000000059604645
+      },
+      "readAwaitMs": {
+        "p50": 3.5999999940395355,
+        "p95": 28.700000017881393,
+        "sumOverlapping": 203.20000010728836,
+        "union": 126.60000005364418
+      },
+      "errors": [],
+      "renderError": ""
+    },
+    {
+      "flight": 6,
+      "direction": "reset",
+      "markWork": {
+        "liveGeometryWrites": 15,
+        "staticMarkReuses": 15,
+        "preparationRequests": 51,
+        "numericExpressionsCompiled": 0,
+        "numericExpressionsFallback": 0
+      },
+      "ownerFlushes": 34,
+      "readsStarted": 36,
+      "readsCompleted": 36,
+      "multipleMaskOwnerFlushes": 2,
+      "alreadyReadyReadMergeUpperBound": 2,
+      "multipleMaskGroups": [
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 0,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 28.5
+            },
+            {
+              "mask": 768,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 28.299999982118607
+            }
+          ]
+        },
+        {
+          "groups": 2,
+          "relativeToFirstReadMs": 26,
+          "reads": [
+            {
+              "mask": null,
+              "requests": 4,
+              "shapes": [
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ],
+                [
+                  28
+                ]
+              ],
+              "readAwaitMs": 10.700000017881393
+            },
+            {
+              "mask": 778,
+              "requests": 6,
+              "shapes": [
+                [
+                  29,
+                  2
+                ],
+                [
+                  29,
+                  2
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ],
+                [
+                  29
+                ]
+              ],
+              "readAwaitMs": 10.300000011920929
+            }
+          ]
+        }
+      ],
+      "owners": {
+        "1": {
+          "flushes": 34,
+          "reads": 36,
+          "multipleMaskGroups": 2,
+          "groupsHistogram": {
+            "1": 32,
+            "2": 2
+          }
+        }
+      },
+      "queuedRequests": 212,
+      "cacheHits": 0,
+      "requestsPerRead": {
+        "p50": 6,
+        "p95": 6
+      },
+      "readyToReadMs": {
+        "p50": 0,
+        "p95": 0.4000000059604645,
+        "max": 5.299999982118607
+      },
+      "readAwaitMs": {
+        "p50": 4,
+        "p95": 28.299999982118607,
+        "sumOverlapping": 217.50000002980232,
+        "union": 137.7000000178814
+      },
+      "errors": [],
+      "renderError": ""
+    }
+  ]
+}

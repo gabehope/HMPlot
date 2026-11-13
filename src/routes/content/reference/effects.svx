@@ -1,0 +1,29 @@
+## Usage
+
+A Plot's `effects` are composited over the whole plot after its marks are drawn: each is `{ kind, ...parameters }` (in Python, `hm.effect(kind, ...)`), and a kind appears once. The library's kinds are `sky`, `bloom` and `fog` (the sky is a plugin of the library's own, registered as it loads, built on the same [plugin API](/reference/svelte/plugins) as anyone's); any other kind is a [plugin's](/reference/svelte/plugins), drawn once its plugin is registered. A kind no plugin registers is a warning (`plugin.missing`), and the plot draws without it.
+
+**sky** (a 3D plot): an `image` (an equirectangular map, longitude across and north up, such as a star map) or a gradient: `zenith` straight up (default `#4a7cc4`), `horizon` at the horizon (default `#d6e4f2`) and `ground` straight down (default the horizon's), blended by the view direction's height. The sky is drawn around the camera, so it turns as the camera turns and does not move as the camera moves; `rotation` ([x, y, z] in degrees) turns it, and its up is the camera's up. It shows its colors as given, not through the plot's tone mapping, and it covers the plot's background. The plot waits for an image to load (`aria-busy` and `whenSettled()`); a failed load is the plot's error, naming the URL. In Svelte, `image` is a URL, an `ImageBitmap`, an `<img>` or a `<canvas>`; in Python a URL, which the browser loads, or a file path, bytes or a PIL image, which go to the browser encoded (a JPEG stays a JPEG). `visible: false` hides the sky with its image still loaded, so a switch (`visible=hm.input.stars` in Python) shows it again at once.
+
+**bloom**: how glowing marks look. A mark glows when its `glow` is above 0: its own color times `glow` blooms around it. `strength` is how bright (at least 0, default 1) and `radius` how far it spreads (0 to 1, default 0.5). Without a bloom effect these defaults apply; a bloom alone does nothing until a mark glows. Only the marks that glow contribute, so an equally bright mark beside a glowing one stays crisp, and an opaque mark in front hides the glow behind it. The glow adds light: it shows best on a dark background or sky. Marks drawn onto a Surface do not glow.
+
+**fog** (a 3D plot): the scene blends toward `color` from `near` to `far`, distances from the camera in world units (`0 <= near < far`, independent of `cameraNear` and `cameraFar`). `color` defaults to the plot's background, or the theme's when the plot is transparent. Fog is blended before the tone mapper; without one, full fog is exactly `color`.
+
+The effects are composited after the scene pass, so picking, the minimap and the axes' automatic domains never see them. A sky or fog in a 2D plot is an error. The settings pane edits fog and bloom; `effects` sets them again when it changes.
+
+```svelte
+<Plot type="3d" effects={[{ kind: "sky", image: "/stars_milky_way.jpg" }, { kind: "bloom", strength: 1.2 }]}>
+  <Points3D x="x" y="y" z="z" glow={1} />
+</Plot>
+```
+
+```python
+with hm.Plot(type="3d", effects=[hm.effect("sky", image="stars_milky_way.jpg"),  # a local file, sent as a JPEG
+                                 hm.effect("bloom", strength=1.2)]):
+    hm.Points3D(x="x", y="y", z="z", glow=1)
+```
+
+<Note title="SVG and PDF export">
+
+**Image.** While an effect shows (a sky, fog, a plugin's effect, or a mark's glow), SVG and PDF exports draw all of the plot's marks, with the effects, as one image (its axes, titles and legends stay vector), and `mode="vector"` refuses it, naming the effects. A bloom effect alone changes nothing. PNG exports include them. See [what is not exported as vector](/docs/export).
+
+</Note>

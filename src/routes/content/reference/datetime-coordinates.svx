@@ -1,0 +1,3 @@
+## Usage
+
+Returns values and origin. Subtracting an epoch origin preserves float32 precision. Use that same origin in the datetime axis definition. Python can subtract the origin before supplying numerical columns.

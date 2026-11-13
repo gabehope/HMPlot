@@ -1,0 +1,48 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "template": {
+    "version": 1,
+    "parameters": {
+      "x": {},
+      "y": {},
+      "color": {
+        "default": "#2468a0"
+      }
+    },
+    "slot": "82aa77c5c58e4270aec1e288b8dcfb4e-slot-7"
+  },
+  "root": {
+    "id": "82aa77c5c58e4270aec1e288b8dcfb4e-template-1",
+    "kind": "Template",
+    "props": {},
+    "events": [],
+    "children": [
+      {
+        "id": "82aa77c5c58e4270aec1e288b8dcfb4e-line-3",
+        "kind": "Line",
+        "props": {
+          "x": {
+            "$param": "x"
+          },
+          "y": {
+            "$param": "y"
+          },
+          "color": {
+            "$param": "color"
+          },
+          "name": "series"
+        },
+        "events": [],
+        "children": []
+      },
+      {
+        "id": "82aa77c5c58e4270aec1e288b8dcfb4e-slot-7",
+        "kind": "Slot",
+        "props": {},
+        "events": [],
+        "children": []
+      }
+    ]
+  }
+}

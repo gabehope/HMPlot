@@ -1,0 +1,160 @@
+{
+  "name": "Notebook",
+  "view": {
+    "background": "#f7f8fb"
+  },
+  "typography": {
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, sans-serif",
+    "fontSize": 12,
+    "color": "#344054"
+  },
+  "axes": {
+    "color": "#667085",
+    "lineWidth": 0.75,
+    "tickSize": 3,
+    "grid": "off",
+    "fontSize": 12,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 6,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 3,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 400,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 12,
+    "textColor": "#263244",
+    "fontFamily": "\"Source Sans 3\", system-ui, -apple-system, sans-serif",
+    "position": "top",
+    "layout": "inline",
+    "swatchSize": 10,
+    "swatchShape": "auto",
+    "titleFontSize": 12,
+    "titleFontWeight": 500
+  },
+  "marks": {
+    "Line": {
+      "color": "#547ba2",
+      "width": 1.25
+    },
+    "Points": {
+      "fill": "#547ba2",
+      "size": 5,
+      "outlineWidth": 0,
+      "outlineColor": "#344054",
+      "shape": "circle",
+      "opacity": 0.7
+    },
+    "Area": {
+      "fill": "#547ba2",
+      "opacity": 0.2
+    },
+    "ErrorBars": {
+      "color": "#667085",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#344054",
+      "size": 12
+    },
+    "Segments": {
+      "color": "#667085",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#547ba2",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#547ba2",
+    "#cf8955",
+    "#7b9865",
+    "#a66f8c",
+    "#6f9da8",
+    "#c4a44e",
+    "#8a78b0",
+    "#bf6b65"
+  ],
+  "vectorTile": {
+    "background": {
+      "fill": "#f0f2f5"
+    },
+    "land": {
+      "fill": "#e8eaee"
+    },
+    "green": {
+      "fill": "#cdd7ca"
+    },
+    "water": {
+      "fill": "#b3c4d6"
+    },
+    "waterways": {
+      "color": "#a6bacf",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#dadce2"
+    },
+    "other": {
+      "fill": "#d0d3da",
+      "color": "#969ca8",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fbfbfc",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#dbca9c",
+      "width": 3
+    },
+    "railways": {
+      "color": "#a9aeb8",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#bbb2d2",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#344054",
+      "size": 13
+    }
+  },
+  "colormap": "Viridis",
+  "title": {
+    "align": "left",
+    "fontSize": 16,
+    "fontWeight": 600,
+    "subtitleFontSize": 12,
+    "captionFontSize": 11,
+    "spacing": 6
+  },
+  "controls": {
+    "fontSize": 12
+  }
+}

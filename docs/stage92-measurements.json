@@ -1,0 +1,4201 @@
+{
+  "date": "2026-10-04",
+  "baseline": "7a62be92",
+  "deviceScaleFactor": 2,
+  "fixture": "dense local Amsterdam replay; orthographic projection; labels and click picking enabled",
+  "devOrder": [
+    "before-1",
+    "after-1",
+    "before-2",
+    "after-2",
+    "before-3",
+    "after-3"
+  ],
+  "notes": [
+    "All retained runs assert zero uncaptured GPU validation errors, zero page errors and visible restyled water pixels.",
+    "Earlier measurements were discarded: unused stock-material instance matrices remained bound after growth, producing invalid draws. Completed-frame counters alone did not catch this.",
+    "Each dev repetition starts a fresh server; the baseline runs in an isolated archive, with the same measurement harness.",
+    "CPU profile sampling is inclusive and approximate. First-observed instrumentation starts after load and does not prove first use versus buffer growth.",
+    "GPU bytes count created buffers minus explicit destroys, not resident memory.",
+    "Raw CPU profiles, screenshots and logs retained locally in /tmp/hmplot-stage92-corrected.",
+    "Gallery replay includes actual USGS overlays and controlled tile arrivals; its first zoom/seam maximum gaps remain distinct from the dense controlled replay budget."
+  ],
+  "runs": {
+    "dev-after-1": {
+      "dev": true,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 3614,
+        "render": 6,
+        "liveMB": 87,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0.1,
+        "settledMs": 6,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 87,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 447
+        },
+        "nodes": {},
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 232,
+        "rafs": 234,
+        "p50": 16.7,
+        "mean": 17.2,
+        "p95": 16.8,
+        "max": 50,
+        "longTasks": 1,
+        "longMs": 62,
+        "longMax": 62,
+        "missingMs": 867,
+        "coveredMs": 0,
+        "settledMs": 19,
+        "builds": 13,
+        "render": 0,
+        "allocMB": 9,
+        "liveMB": 78,
+        "jobs": 62,
+        "cpu": {
+          "nodeBuilderMs": 279,
+          "pickingMs": 0,
+          "markBuildMs": 6,
+          "uploadMs": 15,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 851
+        },
+        "nodes": {
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "6 250ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 35ms"
+        },
+        "submits": 485,
+        "writes": 2716,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 235,
+        "rafs": 236,
+        "p50": 16.7,
+        "mean": 17,
+        "p95": 16.8,
+        "max": 66.6,
+        "longTasks": 2,
+        "longMs": 130,
+        "longMax": 65,
+        "missingMs": 233,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": 8,
+        "render": 0,
+        "allocMB": 3,
+        "liveMB": 81,
+        "jobs": 30,
+        "cpu": {
+          "nodeBuilderMs": 113,
+          "pickingMs": 0,
+          "markBuildMs": 4,
+          "uploadMs": 4,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 624
+        },
+        "nodes": {
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 37ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "2 81ms"
+        },
+        "submits": 474,
+        "writes": 2484,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 117,
+        "coveredMs": 0.1,
+        "settledMs": 19,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 81,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 13,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 3,
+          "placesMs": 1,
+          "labelMs": 4,
+          "busyMs": 751
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 517,
+        "writes": 2730,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 241,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 6,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 10,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 231
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 7ms"
+        },
+        "submits": 490,
+        "writes": 2697,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 67,
+        "coveredMs": 0,
+        "settledMs": 23,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 31,
+        "cpu": {
+          "nodeBuilderMs": 1,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 1,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 543
+        },
+        "nodes": {},
+        "submits": 497,
+        "writes": 2637,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 3,
+          "busyMs": 27
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 8,
+        "writes": 46,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 1
+        },
+        "nodes": {},
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 28,
+        "frames": 1,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 10
+        },
+        "nodes": {},
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "dev-after-2": {
+      "dev": true,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 3790,
+        "render": 6,
+        "liveMB": 87,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 6,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 87,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 399
+        },
+        "nodes": {},
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 229,
+        "rafs": 230,
+        "p50": 16.7,
+        "mean": 17.5,
+        "p95": 16.8,
+        "max": 66.7,
+        "longTasks": 2,
+        "longMs": 117,
+        "longMax": 66,
+        "missingMs": 900,
+        "coveredMs": 0,
+        "settledMs": 23,
+        "builds": 13,
+        "render": 0,
+        "allocMB": 10,
+        "liveMB": 79,
+        "jobs": 68,
+        "cpu": {
+          "nodeBuilderMs": 299,
+          "pickingMs": 0,
+          "markBuildMs": 3,
+          "uploadMs": 13,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 856
+        },
+        "nodes": {
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "6 263ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 37ms"
+        },
+        "submits": 479,
+        "writes": 2672,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 236,
+        "rafs": 237,
+        "p50": 16.7,
+        "mean": 17,
+        "p95": 16.8,
+        "max": 66.7,
+        "longTasks": 2,
+        "longMs": 128,
+        "longMax": 65,
+        "missingMs": 167,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": 13,
+        "render": 1,
+        "allocMB": 18,
+        "liveMB": 81,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 127,
+          "pickingMs": 0,
+          "markBuildMs": 4,
+          "uploadMs": 5,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 687
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 36ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "2 82ms"
+        },
+        "submits": 507,
+        "writes": 2794,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 117,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 16,
+        "liveMB": 81,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 10,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 1,
+          "placesMs": 1,
+          "labelMs": 4,
+          "busyMs": 633
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 517,
+        "writes": 2735,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0.1,
+        "settledMs": 5,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 9,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 174
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 488,
+        "writes": 2684,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 100,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 42,
+        "cpu": {
+          "nodeBuilderMs": 3,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 4,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 595
+        },
+        "nodes": {},
+        "submits": 511,
+        "writes": 2696,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 9,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 3,
+          "busyMs": 18
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 8,
+        "writes": 46,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 1
+        },
+        "nodes": {},
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 30,
+        "frames": 1,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 12
+        },
+        "nodes": {},
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "dev-after-3": {
+      "dev": true,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 3784,
+        "render": 6,
+        "liveMB": 87,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 6,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 87,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 402
+        },
+        "nodes": {},
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 228,
+        "rafs": 229,
+        "p50": 16.7,
+        "mean": 17.5,
+        "p95": 16.8,
+        "max": 50,
+        "longTasks": 3,
+        "longMs": 180,
+        "longMax": 66,
+        "missingMs": 883,
+        "coveredMs": 0,
+        "settledMs": 22,
+        "builds": 12,
+        "render": 0,
+        "allocMB": 9,
+        "liveMB": 78,
+        "jobs": 62,
+        "cpu": {
+          "nodeBuilderMs": 292,
+          "pickingMs": 0,
+          "markBuildMs": 4,
+          "uploadMs": 9,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 878
+        },
+        "nodes": {
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "6 259ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 36ms"
+        },
+        "submits": 477,
+        "writes": 2659,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 236,
+        "rafs": 236,
+        "p50": 16.7,
+        "mean": 17,
+        "p95": 16.8,
+        "max": 66.7,
+        "longTasks": 2,
+        "longMs": 129,
+        "longMax": 65,
+        "missingMs": 217,
+        "coveredMs": 0,
+        "settledMs": 24,
+        "builds": 13,
+        "render": 1,
+        "allocMB": 19,
+        "liveMB": 81,
+        "jobs": 27,
+        "cpu": {
+          "nodeBuilderMs": 133,
+          "pickingMs": 0,
+          "markBuildMs": 4,
+          "uploadMs": 6,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 733
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 36ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "2 83ms"
+        },
+        "submits": 493,
+        "writes": 2733,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 83,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 81,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 11,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 667
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 7ms"
+        },
+        "submits": 517,
+        "writes": 2735,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 5,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 9,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 3,
+          "busyMs": 197
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 488,
+        "writes": 2684,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 83,
+        "coveredMs": 0,
+        "settledMs": 24,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 42,
+        "cpu": {
+          "nodeBuilderMs": 2,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 1,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 633
+        },
+        "nodes": {},
+        "submits": 511,
+        "writes": 2697,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 3,
+          "busyMs": 24
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 8,
+        "writes": 46,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 1
+        },
+        "nodes": {},
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 32,
+        "frames": 1,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 11
+        },
+        "nodes": {},
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "dev-before-1": {
+      "dev": true,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 4360,
+        "render": 6,
+        "liveMB": 156,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 7,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 156,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 378
+        },
+        "nodes": {},
+        "submits": 484,
+        "writes": 5566,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 205,
+        "rafs": 207,
+        "p50": 16.7,
+        "mean": 19.4,
+        "p95": 50,
+        "max": 83.4,
+        "longTasks": 5,
+        "longMs": 349,
+        "longMax": 73,
+        "missingMs": 1083,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": 26,
+        "render": 0,
+        "allocMB": 12,
+        "liveMB": 150,
+        "jobs": 54,
+        "cpu": {
+          "nodeBuilderMs": 725,
+          "pickingMs": 0,
+          "markBuildMs": 9,
+          "uploadMs": 13,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 1301
+        },
+        "nodes": {
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "6 114ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "15 627ms"
+        },
+        "submits": 431,
+        "writes": 2688,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 233,
+        "rafs": 234,
+        "p50": 16.7,
+        "mean": 17.2,
+        "p95": 16.8,
+        "max": 66.7,
+        "longTasks": 2,
+        "longMs": 132,
+        "longMax": 66,
+        "missingMs": 200,
+        "coveredMs": 0.1,
+        "settledMs": 21,
+        "builds": 15,
+        "render": 1,
+        "allocMB": 19,
+        "liveMB": 153,
+        "jobs": 25,
+        "cpu": {
+          "nodeBuilderMs": 212,
+          "pickingMs": 0,
+          "markBuildMs": 3,
+          "uploadMs": 3,
+          "placesMs": 1,
+          "labelMs": 5,
+          "busyMs": 759
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "4 164ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 36ms"
+        },
+        "submits": 501,
+        "writes": 2796,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 239,
+        "rafs": 240,
+        "p50": 16.7,
+        "mean": 16.8,
+        "p95": 16.8,
+        "max": 33.3,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 150,
+        "coveredMs": 0.1,
+        "settledMs": 22,
+        "builds": 6,
+        "render": 1,
+        "allocMB": 16,
+        "liveMB": 154,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 56,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 3,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 779
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 7ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "1 46ms"
+        },
+        "submits": 513,
+        "writes": 2738,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 6,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 118,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 13,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 257
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 492,
+        "writes": 2708,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 19,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 222,
+        "rafs": 223,
+        "p50": 16.7,
+        "mean": 18,
+        "p95": 16.8,
+        "max": 83.3,
+        "longTasks": 6,
+        "longMs": 398,
+        "longMax": 69,
+        "missingMs": 333,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": 24,
+        "render": 0,
+        "allocMB": 8,
+        "liveMB": 112,
+        "jobs": 31,
+        "cpu": {
+          "nodeBuilderMs": 346,
+          "pickingMs": 0,
+          "markBuildMs": 7,
+          "uploadMs": 3,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 848
+        },
+        "nodes": {
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "6 108ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "6 244ms"
+        },
+        "submits": 459,
+        "writes": 2781,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 110,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 5,
+          "busyMs": 34
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 12,
+        "writes": 68,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 110,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 1
+        },
+        "nodes": {},
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 28,
+        "frames": 1,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 110,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 11
+        },
+        "nodes": {},
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "dev-before-2": {
+      "dev": true,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 3692,
+        "render": 6,
+        "liveMB": 156,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 7,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 156,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 7,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 486
+        },
+        "nodes": {},
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 209,
+        "rafs": 211,
+        "p50": 16.7,
+        "mean": 19,
+        "p95": 50,
+        "max": 66.7,
+        "longTasks": 5,
+        "longMs": 335,
+        "longMax": 70,
+        "missingMs": 966,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": 25,
+        "render": 0,
+        "allocMB": 12,
+        "liveMB": 150,
+        "jobs": 62,
+        "cpu": {
+          "nodeBuilderMs": 656,
+          "pickingMs": 0,
+          "markBuildMs": 7,
+          "uploadMs": 11,
+          "placesMs": 1,
+          "labelMs": 0,
+          "busyMs": 1204
+        },
+        "nodes": {
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "6 110ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "14 566ms"
+        },
+        "submits": 439,
+        "writes": 2695,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 231,
+        "rafs": 232,
+        "p50": 16.7,
+        "mean": 17.4,
+        "p95": 16.7,
+        "max": 66.7,
+        "longTasks": 2,
+        "longMs": 130,
+        "longMax": 67,
+        "missingMs": 250,
+        "coveredMs": 0,
+        "settledMs": 23,
+        "builds": 16,
+        "render": 1,
+        "allocMB": 19,
+        "liveMB": 153,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 247,
+          "pickingMs": 0,
+          "markBuildMs": 3,
+          "uploadMs": 3,
+          "placesMs": 1,
+          "labelMs": 4,
+          "busyMs": 861
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "5 206ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 36ms"
+        },
+        "submits": 497,
+        "writes": 2807,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 239,
+        "rafs": 240,
+        "p50": 16.7,
+        "mean": 16.8,
+        "p95": 16.8,
+        "max": 49.9,
+        "longTasks": 1,
+        "longMs": 50,
+        "longMax": 50,
+        "missingMs": 133,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": 6,
+        "render": 1,
+        "allocMB": 16,
+        "liveMB": 154,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 57,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 3,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 833
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 7ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "1 46ms"
+        },
+        "submits": 513,
+        "writes": 2733,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 5,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 127,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 12,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 253
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 492,
+        "writes": 2708,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 20,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 227,
+        "rafs": 228,
+        "p50": 16.7,
+        "mean": 17.7,
+        "p95": 16.8,
+        "max": 83.3,
+        "longTasks": 5,
+        "longMs": 330,
+        "longMax": 67,
+        "missingMs": 300,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": 20,
+        "render": 0,
+        "allocMB": 7,
+        "liveMB": 119,
+        "jobs": 42,
+        "cpu": {
+          "nodeBuilderMs": 291,
+          "pickingMs": 0,
+          "markBuildMs": 9,
+          "uploadMs": 7,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 836
+        },
+        "nodes": {
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "5 92ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "5 202ms"
+        },
+        "submits": 483,
+        "writes": 2808,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 117,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 6,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 27
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 7ms"
+        },
+        "submits": 12,
+        "writes": 68,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 117,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 2
+        },
+        "nodes": {},
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 28,
+        "frames": 1,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 117,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 11
+        },
+        "nodes": {},
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "dev-before-3": {
+      "dev": true,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 3659,
+        "render": 6,
+        "liveMB": 156,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 239,
+        "rafs": 240,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 33.4,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 7,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 156,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 6,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 359
+        },
+        "nodes": {},
+        "submits": 480,
+        "writes": 5520,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 206,
+        "rafs": 208,
+        "p50": 16.7,
+        "mean": 19.3,
+        "p95": 49.9,
+        "max": 83.3,
+        "longTasks": 5,
+        "longMs": 348,
+        "longMax": 72,
+        "missingMs": 1050,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": 26,
+        "render": 0,
+        "allocMB": 12,
+        "liveMB": 150,
+        "jobs": 62,
+        "cpu": {
+          "nodeBuilderMs": 728,
+          "pickingMs": 0,
+          "markBuildMs": 9,
+          "uploadMs": 16,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 1223
+        },
+        "nodes": {
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "6 114ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "15 632ms"
+        },
+        "submits": 433,
+        "writes": 2719,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 232,
+        "rafs": 233,
+        "p50": 16.7,
+        "mean": 17.3,
+        "p95": 16.8,
+        "max": 66.8,
+        "longTasks": 2,
+        "longMs": 133,
+        "longMax": 69,
+        "missingMs": 217,
+        "coveredMs": 0,
+        "settledMs": 23,
+        "builds": 15,
+        "render": 1,
+        "allocMB": 19,
+        "liveMB": 153,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 211,
+          "pickingMs": 0,
+          "markBuildMs": 3,
+          "uploadMs": 4,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 841
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 12ms",
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "4 167ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "2 36ms"
+        },
+        "submits": 499,
+        "writes": 2799,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 100,
+        "coveredMs": 0,
+        "settledMs": 23,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 153,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 11,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 1,
+          "placesMs": 1,
+          "labelMs": 4,
+          "busyMs": 602
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 517,
+        "writes": 2735,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0.1,
+        "settledMs": 5,
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 118,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 9,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 4,
+          "busyMs": 165
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 492,
+        "writes": 2708,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 19,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 221,
+        "rafs": 222,
+        "p50": 16.7,
+        "mean": 18.1,
+        "p95": 16.8,
+        "max": 83.3,
+        "longTasks": 6,
+        "longMs": 402,
+        "longMax": 74,
+        "missingMs": 384,
+        "coveredMs": 0,
+        "settledMs": 28,
+        "builds": 25,
+        "render": 0,
+        "allocMB": 9,
+        "liveMB": 112,
+        "jobs": 31,
+        "cpu": {
+          "nodeBuilderMs": 390,
+          "pickingMs": 0,
+          "markBuildMs": 10,
+          "uploadMs": 7,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 976
+        },
+        "nodes": {
+          "GeoSegments:Line2NodeMaterial:draw:first-observed": "7 286ms",
+          "GeoFaces:MeshStandardNodeMaterial:draw:first-observed": "6 110ms"
+        },
+        "submits": 459,
+        "writes": 2793,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": 5,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 110,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 1,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 5,
+          "busyMs": 29
+        },
+        "nodes": {
+          "Labels:MeshBasicNodeMaterial:draw:first-observed": "1 8ms"
+        },
+        "submits": 12,
+        "writes": 68,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 110,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 0
+        },
+        "nodes": {},
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 36,
+        "frames": 1,
+        "builds": 0,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 110,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 12
+        },
+        "nodes": {},
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "production-after-1": {
+      "dev": false,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 1300,
+        "render": 4,
+        "liveMB": 72,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 6,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 87,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 454
+        },
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 733,
+        "coveredMs": 0,
+        "settledMs": 19,
+        "builds": null,
+        "render": 0,
+        "allocMB": 9,
+        "liveMB": 78,
+        "jobs": 60,
+        "cpu": {
+          "nodeBuilderMs": 69,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 699
+        },
+        "submits": 501,
+        "writes": 2848,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 22,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 100,
+        "coveredMs": 0,
+        "settledMs": 26,
+        "builds": null,
+        "render": 0,
+        "allocMB": 3,
+        "liveMB": 81,
+        "jobs": 19,
+        "cpu": {
+          "nodeBuilderMs": 51,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 548
+        },
+        "submits": 484,
+        "writes": 2599,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 67,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 27,
+        "cpu": {
+          "nodeBuilderMs": 4,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 628
+        },
+        "submits": 484,
+        "writes": 2409,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0.1,
+        "settledMs": 5,
+        "builds": null,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 9,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 302
+        },
+        "submits": 488,
+        "writes": 2686,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 67,
+        "coveredMs": 0,
+        "settledMs": 24,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 31,
+        "cpu": {
+          "nodeBuilderMs": 1,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 467
+        },
+        "submits": 499,
+        "writes": 2655,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": null,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 5,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 25
+        },
+        "submits": 8,
+        "writes": 46,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 5
+        },
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 26,
+        "frames": 1,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 11
+        },
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "production-after-2": {
+      "dev": false,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 1329,
+        "render": 6,
+        "liveMB": 87,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 7,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 87,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 14,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 447
+        },
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 750,
+        "coveredMs": 0,
+        "settledMs": 20,
+        "builds": null,
+        "render": 0,
+        "allocMB": 10,
+        "liveMB": 79,
+        "jobs": 60,
+        "cpu": {
+          "nodeBuilderMs": 82,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 744
+        },
+        "submits": 501,
+        "writes": 2927,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 133,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": null,
+        "render": 1,
+        "allocMB": 17,
+        "liveMB": 81,
+        "jobs": 33,
+        "cpu": {
+          "nodeBuilderMs": 38,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 615
+        },
+        "submits": 517,
+        "writes": 2870,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 67,
+        "coveredMs": 0,
+        "settledMs": 21,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 27,
+        "cpu": {
+          "nodeBuilderMs": 1,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 603
+        },
+        "submits": 484,
+        "writes": 2412,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 5,
+        "builds": null,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 318
+        },
+        "submits": 488,
+        "writes": 2686,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 33,
+        "coveredMs": 0,
+        "settledMs": 22,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 31,
+        "cpu": {
+          "nodeBuilderMs": 1,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 468
+        },
+        "submits": 497,
+        "writes": 2641,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": null,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 6,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 25
+        },
+        "submits": 8,
+        "writes": 46,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 1
+        },
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 25,
+        "frames": 1,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 12
+        },
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    },
+    "production-after-3": {
+      "dev": false,
+      "labels": true,
+      "click": true,
+      "delay": 0,
+      "projection": "orthographic",
+      "load": {
+        "ms": 1200,
+        "render": 4,
+        "liveMB": 72,
+        "jobs": 41
+      },
+      "pan": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 5,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 87,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 8,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 420
+        },
+        "submits": 482,
+        "writes": 5543,
+        "live": {
+          "zoom": 14,
+          "selected": 14,
+          "shown": 14,
+          "failed": 0,
+          "ring": 20,
+          "previous": 0,
+          "overview": 4,
+          "slots": 21,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 717,
+        "coveredMs": 0.1,
+        "settledMs": 20,
+        "builds": null,
+        "render": 0,
+        "allocMB": 10,
+        "liveMB": 79,
+        "jobs": 68,
+        "cpu": {
+          "nodeBuilderMs": 80,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 691
+        },
+        "submits": 501,
+        "writes": 2927,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 23,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom again": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 133,
+        "coveredMs": 0,
+        "settledMs": 22,
+        "builds": null,
+        "render": 1,
+        "allocMB": 18,
+        "liveMB": 81,
+        "jobs": 27,
+        "cpu": {
+          "nodeBuilderMs": 37,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 521
+        },
+        "submits": 505,
+        "writes": 2847,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "zoom warmed": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 67,
+        "coveredMs": 0.1,
+        "settledMs": 21,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 27,
+        "cpu": {
+          "nodeBuilderMs": 1,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 636
+        },
+        "submits": 484,
+        "writes": 2407,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "pan again": {
+        "frames": 240,
+        "rafs": 241,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 0,
+        "coveredMs": 0,
+        "settledMs": 9,
+        "builds": null,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 4,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 263
+        },
+        "submits": 488,
+        "writes": 2686,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "fresh zoom": {
+        "frames": 241,
+        "rafs": 242,
+        "p50": 16.7,
+        "mean": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "longTasks": 0,
+        "longMs": 0,
+        "longMax": 0,
+        "missingMs": 50,
+        "coveredMs": 0,
+        "settledMs": 22,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 81,
+        "jobs": 30,
+        "cpu": {
+          "nodeBuilderMs": 2,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 456
+        },
+        "submits": 499,
+        "writes": 2674,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle": {
+        "builds": null,
+        "render": 1,
+        "allocMB": 15,
+        "liveMB": 96,
+        "jobs": 8,
+        "cpu": {
+          "nodeBuilderMs": 2,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 23
+        },
+        "submits": 8,
+        "writes": 46,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "idle settled": {
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 0
+        },
+        "submits": 0,
+        "writes": 0,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 14,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "restyle": {
+        "settledMs": 27,
+        "frames": 1,
+        "builds": null,
+        "render": 0,
+        "allocMB": 0,
+        "liveMB": 96,
+        "jobs": 0,
+        "cpu": {
+          "nodeBuilderMs": 0,
+          "pickingMs": 0,
+          "markBuildMs": 0,
+          "uploadMs": 0,
+          "placesMs": 0,
+          "labelMs": 0,
+          "busyMs": 11
+        },
+        "submits": 6,
+        "writes": 40,
+        "live": {
+          "zoom": 13,
+          "selected": 6,
+          "shown": 6,
+          "failed": 0,
+          "ring": 0,
+          "previous": 0,
+          "overview": 2,
+          "slots": 25,
+          "requests": 0,
+          "center": [
+            4.888916015625,
+            52.368891196701675
+          ]
+        }
+      },
+      "errors": [],
+      "gpuErrors": []
+    }
+  },
+  "gallery": {
+    "liveNetwork": false,
+    "requests": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        3,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        4,
+        14,
+        6
+      ],
+      [
+        4,
+        13,
+        6
+      ],
+      [
+        4,
+        14,
+        5
+      ],
+      [
+        4,
+        13,
+        5
+      ],
+      [
+        4,
+        15,
+        6
+      ],
+      [
+        4,
+        15,
+        5
+      ],
+      [
+        5,
+        28,
+        12
+      ],
+      [
+        5,
+        28,
+        13
+      ],
+      [
+        5,
+        27,
+        12
+      ],
+      [
+        5,
+        29,
+        12
+      ],
+      [
+        5,
+        28,
+        11
+      ],
+      [
+        5,
+        27,
+        13
+      ],
+      [
+        5,
+        29,
+        13
+      ],
+      [
+        5,
+        27,
+        11
+      ],
+      [
+        5,
+        29,
+        11
+      ],
+      [
+        3,
+        7,
+        3
+      ],
+      [
+        3,
+        6,
+        3
+      ],
+      [
+        6,
+        56,
+        25
+      ],
+      [
+        6,
+        57,
+        25
+      ],
+      [
+        6,
+        56,
+        24
+      ],
+      [
+        6,
+        57,
+        24
+      ],
+      [
+        6,
+        55,
+        25
+      ],
+      [
+        6,
+        55,
+        24
+      ],
+      [
+        7,
+        113,
+        50
+      ],
+      [
+        7,
+        114,
+        50
+      ],
+      [
+        7,
+        113,
+        49
+      ],
+      [
+        7,
+        112,
+        50
+      ],
+      [
+        7,
+        114,
+        49
+      ],
+      [
+        7,
+        112,
+        49
+      ],
+      [
+        8,
+        227,
+        100
+      ],
+      [
+        8,
+        227,
+        101
+      ],
+      [
+        8,
+        226,
+        100
+      ],
+      [
+        8,
+        226,
+        101
+      ],
+      [
+        8,
+        228,
+        100
+      ],
+      [
+        8,
+        228,
+        101
+      ],
+      [
+        9,
+        454,
+        201
+      ],
+      [
+        9,
+        455,
+        201
+      ],
+      [
+        9,
+        454,
+        202
+      ],
+      [
+        9,
+        455,
+        202
+      ],
+      [
+        9,
+        454,
+        200
+      ],
+      [
+        9,
+        453,
+        201
+      ],
+      [
+        9,
+        455,
+        200
+      ],
+      [
+        9,
+        453,
+        202
+      ],
+      [
+        9,
+        453,
+        200
+      ],
+      [
+        7,
+        113,
+        51
+      ],
+      [
+        7,
+        114,
+        51
+      ],
+      [
+        7,
+        112,
+        51
+      ],
+      [
+        3,
+        7,
+        2
+      ],
+      [
+        3,
+        6,
+        2
+      ],
+      [
+        3,
+        0,
+        3
+      ],
+      [
+        3,
+        0,
+        2
+      ],
+      [
+        3,
+        5,
+        3
+      ],
+      [
+        3,
+        5,
+        2
+      ],
+      [
+        2,
+        3,
+        2
+      ],
+      [
+        2,
+        0,
+        1
+      ],
+      [
+        2,
+        2,
+        1
+      ],
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        2,
+        0,
+        2
+      ],
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        1,
+        1
+      ],
+      [
+        2,
+        1,
+        2
+      ],
+      [
+        2,
+        1,
+        0
+      ]
+    ],
+    "phases": {
+      "zoom": {
+        "frames": 163,
+        "rafs": 164,
+        "p95": 16.800000000000182,
+        "max": 283.4000000000001,
+        "gpu": {
+          "compute": 0,
+          "render": 1,
+          "shaders": 2,
+          "buffers": 96,
+          "bufferKB": 3849,
+          "readbacks": 0,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 0
+          },
+          "submits": 328,
+          "fences": 1,
+          "readbackP50": null,
+          "readbackP95": null,
+          "readbackMax": null,
+          "builds": 0,
+          "ms": 3034
+        }
+      },
+      "warm": {
+        "frames": 181,
+        "rafs": 181,
+        "p95": 16.799999999999272,
+        "max": 16.80000000000109,
+        "gpu": {
+          "compute": 0,
+          "render": 0,
+          "shaders": 0,
+          "buffers": 8,
+          "bufferKB": 768,
+          "readbacks": 0,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 0
+          },
+          "submits": 364,
+          "fences": 1,
+          "readbackP50": null,
+          "readbackP95": null,
+          "readbackMax": null,
+          "builds": 0,
+          "ms": 3032
+        }
+      },
+      "seam": {
+        "frames": 155,
+        "rafs": 155,
+        "p95": 16.799999999999272,
+        "max": 433.2999999999993,
+        "gpu": {
+          "compute": 0,
+          "render": 0,
+          "shaders": 0,
+          "buffers": 33,
+          "bufferKB": 7,
+          "readbacks": 0,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 0
+          },
+          "submits": 312,
+          "fences": 1,
+          "readbackP50": null,
+          "readbackP95": null,
+          "readbackMax": null,
+          "builds": 0,
+          "ms": 3033
+        }
+      },
+      "pole": {
+        "frames": 180,
+        "rafs": 181,
+        "p95": 16.700000000000728,
+        "max": 16.80000000000109,
+        "gpu": {
+          "compute": 0,
+          "render": 0,
+          "shaders": 0,
+          "buffers": 4,
+          "bufferKB": 4096,
+          "readbacks": 0,
+          "readbackKinds": {
+            "jax": 0,
+            "picking": 0,
+            "three": 0,
+            "app": 0,
+            "other": 0
+          },
+          "submits": 362,
+          "fences": 1,
+          "readbackP50": null,
+          "readbackP95": null,
+          "readbackMax": null,
+          "builds": 0,
+          "ms": 3033
+        }
+      }
+    },
+    "exports": {
+      "svgImages": 1,
+      "pdf": "%PDF-",
+      "pngBytes": 182119
+    },
+    "errors": [],
+    "gpuErrors": []
+  },
+  "realNetworkZoomReproduction": {
+    "phases": [
+      {
+        "frames": 232,
+        "start": {
+          "x": 0.5,
+          "y": 0.5,
+          "zoom": 1.637840078875711,
+          "zoomX": 1.637840078875711,
+          "zoomY": 1.637840078875711,
+          "center": [
+            135,
+            33.25663022155593
+          ]
+        },
+        "end": {
+          "x": 0.5,
+          "y": 0.5,
+          "zoom": 1.6378400788757121,
+          "zoomX": 1.6378400788757121,
+          "zoomY": 1.6378400788757121,
+          "center": [
+            135,
+            33.25663022155593
+          ]
+        },
+        "issue": ""
+      },
+      {
+        "frames": 245,
+        "start": {
+          "x": 0.5,
+          "y": 0.5,
+          "zoom": 1.6378400788757121,
+          "zoomX": 1.6378400788757121,
+          "zoomY": 1.6378400788757121,
+          "center": [
+            135,
+            33.25663022155593
+          ]
+        },
+        "end": {
+          "x": 0.5,
+          "y": 0.5,
+          "zoom": 1.6378400788757133,
+          "zoomX": 1.6378400788757133,
+          "zoomY": 1.6378400788757133,
+          "center": [
+            135,
+            33.25663022155593
+          ]
+        },
+        "issue": ""
+      },
+      {
+        "frames": 242,
+        "start": {
+          "x": 0.5,
+          "y": 0.5,
+          "zoom": 1.6378400788757133,
+          "zoomX": 1.6378400788757133,
+          "zoomY": 1.6378400788757133,
+          "center": [
+            135,
+            33.25663022155593
+          ]
+        },
+        "end": {
+          "x": 0.5,
+          "y": 0.5,
+          "zoom": 1.6378400788757144,
+          "zoomX": 1.6378400788757144,
+          "zoomY": 1.6378400788757144,
+          "center": [
+            135,
+            33.25663022155593
+          ]
+        },
+        "issue": ""
+      }
+    ],
+    "messages": [],
+    "gpu": []
+  }
+}

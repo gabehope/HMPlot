@@ -1,0 +1,37 @@
+---
+title: Html
+---
+
+`Html` anchors native HTML at a scalar numeric position in the nearest 2D Cartesian
+Frame. Its top-left corner follows the displayed scales and camera; `dx` and `dy`
+are CSS-pixel offsets. Use CSS on your content for additional alignment.
+
+Attachments preserve Svelte context and state. They do not set domains or reserve
+layout space. Use a keyed Svelte loop for a small collection of attachments; use
+marks for data-sized collections. Invalid or clipped anchors hide their content
+and remove it from keyboard navigation. Content can extend into margins but is
+clipped at the canvas boundary.
+
+Native controls retain their normal semantics and events. Provide accessible
+names and keyboard behavior for custom controls. If a focused attachment becomes
+hidden or is removed, focus returns to the plot canvas. The overlay background is
+pointer-transparent, and plot navigation ignores events originating in attachments.
+Positions update after resize, navigation and scale animation. Destruction removes
+the wrapper and subscription; SSR creates neither.
+
+HTML is excluded from plot PNG/SVG/PDF exports. Browser screenshots include it.
+Categorical frames, 3D, and following an animated mark endpoint are not supported.
+
+For external overlays, the Plot and Frame handles expose `getScreenMapping()` and
+`subscribeScreenMapping(listener)`. A mapping snapshot has `width`, `height`,
+`revision`, `project({x,y})`, and `unproject({x,y})`. Pixel coordinates are local to
+the canvas in CSS pixels, independent of device pixel ratio. To convert an event,
+subtract the canvas bounding rectangle's `left` and `top` from `clientX/clientY`.
+Do not apply CSS transforms to the canvas when using that simple subtraction.
+
+Snapshots describe completed draws and remain unchanged during subsequent updates.
+The subscription immediately receives the current mapping, then changed mappings
+after draws; its return value unsubscribes. A mapping is null before drawing, after
+disposal, or for unsupported geometry. Invalid coordinates map to null. Projected
+points outside the visible frame retain their coordinates with `inside: false`;
+inverse mapping does not clamp.

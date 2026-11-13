@@ -1,0 +1,118 @@
+---
+title: Write documentation
+section: guides
+order: 130
+summary: Pages, navigation, runnable examples, and reference links come from one Markdown file.
+---
+
+## Add a page
+
+Create `src/routes/content/guide/my-page.md` (existing `.svx` files work too). Its filename is the URL: `/docs/my-page`. Start with front matter:
+
+```yaml
+---
+title: My page
+section: guides
+order: 40
+summary: A short description of what the reader will learn.
+---
+```
+
+`section` is `introduction`, `tutorial`, or `guides`. Navigation sorts by section, then numeric `order`, then filename. No script, import, or manifest entry is needed. The introduction and tutorial are reserved for the maintainer.
+
+## Write a runnable example
+
+Put a complete Python program in a `python example` fence, immediately followed by its complete `svelte` program. Keep the same data, settings, and marks in both. Each example must create one display root; use [Plot] for one chart and [hm.Scene] for a layout. Both languages should draw the same scene.
+
+````markdown
+```python example {4}
+import hmplot as hm
+
+with hm.Plot(data={"x": [1, 2, 3], "y": [2, 1, 4]}) as plot:
+    hm.Points(x="x", y="y")
+
+plot
+```
+
+```svelte {6}
+<script>
+  import { Plot, Points } from "hmplot";
+  const data = { x: [1, 2, 3], y: [2, 1, 4] };
+</script>
+<Plot {data}>
+  <Points x="x" y="y" />
+</Plot>
+```
+````
+
+The optional `{4}` or `{2,4-6}` marks changed lines for a tutorial step. Every step is still a complete program; highlighted lines do not change what runs. Ordinary fences without `example` stay ordinary code blocks.
+
+Here is that pair, running:
+
+```python example {4}
+import hmplot as hm
+
+with hm.Plot(data={"x": [1, 2, 3], "y": [2, 1, 4]}) as plot:
+    hm.Points(x="x", y="y")
+
+plot
+```
+
+```svelte {6}
+<script>
+  import { Plot, Points } from "hmplot";
+  const data = { x: [1, 2, 3], y: [2, 1, 4] };
+</script>
+<Plot {data}>
+  <Points x="x" y="y" />
+</Plot>
+```
+
+The page arrives with the example's preview, a picture of the Python build's scene, and its source; the interactive plot replaces the preview once it has drawn. Readers can switch source languages, copy or download the program, show its component tree, or edit and run Python in place. Python and its packages download only when Run is pressed.
+
+## Preview and validate
+
+Run `npm run dev`. Saving prose updates the page immediately; saving a pair updates its Svelte preview while the Python snapshot rebuilds in the background. Build failures name the Markdown page and source line. The last successful snapshot remains available while a replacement builds, and a page waiting for an example that has never been built gets it next, without waiting for the others.
+
+A running dev server needs no restart after a pull or a new example. A folder added to `src/examples/` is built when it appears; after the Python package changes, each example is built again when a page shows it. A gallery card without a thumbnail shows the example's tags while its thumbnail is made in the background, then the image, without a reload.
+
+Run `npm run build:examples` to build Python snapshots. Run `npx playwright test tests/browser/docs-site.spec.js` to check the site and compare the Svelte and Python exports, including every inline pair. A mismatch names the page and example line. These commands need the Python environment described in CONTRIBUTING.md and Chrome for exports.
+
+Generated `src/examples/docs--*/` folders and `pages.generated.json` are caches. Edit the Markdown, never the generated files. For larger examples with local data files, put both programs and their data in `src/examples/<id>/` and use `<Example id="id" />` without an import. Relative data files are copied into the Python editor; remote URLs must allow browser requests through CORS.
+
+## How a page loads
+
+Docs pages are rendered when the site is built, so their prose, navigation, example source and preview are in the first HTML, and the browser fetches the preview image at once. Each piece has one place:
+
+- A route's server load returns `docsPage(...)` from `src/routes/examples/docsPages.js` (the page's entry, navigation, options and related examples, read from the API entries, the options table and the gallery catalog) with `withExamples(...)` from `exampleData.server.js` (each example's sources and its build's manifest record). `DocsPage.svelte` renders that data and imports none of the manifests; each guide or reference page loads only its own Markdown.
+- `Example.svelte` is the example's shell: the preview image, the source and the controls. The live plot comes from `live.js` (the scene runtime, the renderer and the GPU), which the shell imports only when the example comes near the viewport in a browser with WebGPU, two examples at a time. Without WebGPU the preview stays.
+- `scripts/build_examples.py` writes each example's scene, its full-quality `snapshot.svg` and its web preview, named by a hash of their contents, and lists them in `static/example-builds/manifest.json` by example id. A small SVG export is the preview; a large one, such as a 3D scene or a map, becomes WebP images at one and two times the column's width. Each kind of preview is an entry in its `PREVIEWS`: the gallery's thumbnails are another, small WebP images of the plot (or of one panel, `THUMBNAIL_PANELS`).
+- The gallery's cards (`ExampleCard.svelte`, on the home and examples pages) show those thumbnails, never a live plot. A gallery program without a Python pair gets its thumbnail from `npm run build:thumbnails` (`scripts/build-thumbnails.mjs`), which draws it in Chrome with WebGPU on a dev server and exports its largest plot through the plot's own export panel, into `static/example-builds/gallery.json`. `npm run build` runs both; an unchanged example is skipped. On a dev server, the page's server load reports the cards that have no thumbnail, and `scripts/vite-examples.js` makes them in the background: it builds a program pair, or runs that capture on the running server, one at a time.
+
+`node tests/perf/docs-loading.mjs` measures how the built site loads (`npm run build` first).
+
+## Link to the API
+
+Write `[Points]`, `[Frame]`, or `[hm.visualize_tree]` to link to the matching reference. Unknown API names fail validation. Use normal Markdown links for other pages, such as `[data guide](/docs/data)`.
+
+## Notes, columns, images, and math
+
+Use `Note`, `Warning`, `Columns`, and `Math` without imports. Markdown images use the usual `![alt text](/images/example.png)` form; supply meaningful alternative text.
+
+<Note>
+
+Keep examples small enough that the reader can see which option changed the picture.
+
+</Note>
+
+<Columns>
+<div>Columns stack on a narrow screen.</div>
+<div><Math tex="y = mx + b" /></div>
+</Columns>
+
+```svelte
+<Warning title="Data requirements">
+  <p>Both columns must have the same number of rows.</p>
+</Warning>
+<Math tex="y = mx + b" display />
+```

@@ -1,0 +1,638 @@
+{
+  "BandX": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Rect",
+    "group": "Marks",
+    "summary": "A vertical shaded reference interval spanning the visible frame.",
+    "module": "./charts/generated/BandX.svelte",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "x",
+      "y",
+      "z",
+      "position",
+      "rows",
+      "domains",
+      "color",
+      "colorScale",
+      "colormap",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x0": {
+        "type": "channel",
+        "doc": "The interval's starting x coordinate: a number, date or column.",
+        "input": true
+      },
+      "x1": {
+        "type": "channel",
+        "doc": "The interval's ending x coordinate: a number, date or column.",
+        "input": true
+      },
+      "opacity": {
+        "type": "number",
+        "doc": "The band's opacity, 0 to 1.",
+        "default": 0.15
+      },
+      "legend": {
+        "type": "boolean",
+        "doc": "Include the band in a legend.",
+        "default": false
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this band alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "BandY": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Rect",
+    "group": "Marks",
+    "summary": "A horizontal shaded reference interval spanning the visible frame.",
+    "module": "./charts/generated/BandY.svelte",
+    "use": [
+      "mark",
+      "maxInstancesOption",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "x",
+      "y",
+      "z",
+      "position",
+      "rows",
+      "domains",
+      "color",
+      "colorScale",
+      "colormap",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "y0": {
+        "type": "channel",
+        "doc": "The interval's starting y coordinate: a number, date or column.",
+        "input": true
+      },
+      "y1": {
+        "type": "channel",
+        "doc": "The interval's ending y coordinate: a number, date or column.",
+        "input": true
+      },
+      "opacity": {
+        "type": "number",
+        "doc": "The band's opacity, 0 to 1.",
+        "default": 0.15
+      },
+      "legend": {
+        "type": "boolean",
+        "doc": "Include the band in a legend.",
+        "default": false
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this band alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "BulletChart": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Bar",
+    "group": "Marks",
+    "summary": "Actual values, target ticks and supplied qualitative ranges on categorical rows.",
+    "module": "./charts/generated/BulletChart.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "z",
+      "position",
+      "rows",
+      "color",
+      "colorScale",
+      "colormap",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The actual value for each bullet.",
+        "input": true
+      },
+      "y": {
+        "type": "channel",
+        "doc": "Each bullet's category along y.",
+        "input": true
+      },
+      "target": {
+        "type": "channel",
+        "doc": "Optional target value for each bullet."
+      },
+      "fields": {
+        "type": "column[]",
+        "doc": "Columns of cumulative qualitative upper bounds, all at or above baseline."
+      },
+      "baseline": {
+        "type": "number",
+        "doc": "The common starting value for actual and range bars.",
+        "default": 0
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of a category band occupied by the actual bar.",
+        "default": 0.3
+      },
+      "ranges": {
+        "type": "object",
+        "doc": "Props of the background Bar part, such as fill, fillScale and opacity."
+      },
+      "tick": {
+        "type": "object",
+        "doc": "Props of the target Prism part, such as fill, width and depth."
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this chart alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "Candlestick": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Bar",
+    "group": "Marks",
+    "summary": "Prices over time as candles: a wick from each period's low to its high, and a body from its open to its close.",
+    "module": "./charts/generated/Candlestick.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "y",
+      "z",
+      "position",
+      "rows",
+      "color",
+      "colorScale",
+      "colormap",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "x": {
+        "type": "column",
+        "doc": "The column of the periods along x, one candle each.",
+        "input": true
+      },
+      "open": {
+        "type": "column",
+        "doc": "The column of each period's opening price.",
+        "input": true
+      },
+      "high": {
+        "type": "column",
+        "doc": "The column of each period's highest price.",
+        "input": true
+      },
+      "low": {
+        "type": "column",
+        "doc": "The column of each period's lowest price.",
+        "input": true
+      },
+      "close": {
+        "type": "column",
+        "doc": "The column of each period's closing price.",
+        "input": true
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of its period's band each body fills, 0 to 1; on a numeric or date axis, the body's width in the axis's units (milliseconds for dates).",
+        "default": 0.7
+      },
+      "wick": {
+        "type": "object",
+        "doc": "The wicks' own props, as one object: {color: \"black\", width: 2}. They are a Segments, gray and 1 px wide by default."
+      }
+    }
+  },
+  "Dumbbell": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Points",
+    "group": "Marks",
+    "summary": "Two values per category, as points joined by a stem: before and after, or two groups.",
+    "module": "./charts/generated/Dumbbell.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "detail",
+      "transparent"
+    ],
+    "omit": [
+      "x",
+      "z",
+      "position",
+      "rows",
+      "color",
+      "colorScale",
+      "colormap",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The categories along y, one dumbbell each.",
+        "input": true
+      },
+      "x0": {
+        "type": "column",
+        "doc": "The column of each dumbbell's first value.",
+        "input": true
+      },
+      "x1": {
+        "type": "column",
+        "doc": "The column of each dumbbell's second value.",
+        "input": true
+      },
+      "stem": {
+        "type": "object",
+        "doc": "The stems' own props, as one object: {color: \"black\", width: 1}. They are a Segments, gray and 2 px wide by default."
+      }
+    }
+  },
+  "EndLabels": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Text",
+    "group": "Marks",
+    "summary": "Labels at the ends of lines: each series' name or value beside its last (or first) point.",
+    "module": "./charts/generated/EndLabels.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "z",
+      "position",
+      "rows",
+      "fill",
+      "fillScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The line's x: the label sits beside the end point's.",
+        "input": true
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The line's y.",
+        "input": true
+      },
+      "series": {
+        "type": "column",
+        "doc": "The column naming each line, as the Line's series; without it, one label at the data's end."
+      },
+      "text": {
+        "type": "channel",
+        "doc": "What each label says: a column (numbers are written as Text writes them) or a literal.",
+        "defaultText": "the series' name"
+      },
+      "format": {
+        "type": "string",
+        "doc": "How numbers in the text are written: a d3-format string (\",.0f\", \".1%\"), or a %-pattern for dates."
+      },
+      "at": {
+        "type": "\"last\" | \"first\"",
+        "doc": "Which end of each series is labelled.",
+        "default": "last"
+      },
+      "dx": {
+        "type": "number",
+        "doc": "How far right of its point each label starts (left of it when negative; at the first end, its default is -6 and the label ends there).",
+        "units": "px",
+        "defaultText": "6 at the last end, -6 at the first"
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "ForestPlot": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Points",
+    "group": "Marks",
+    "summary": "Point estimates with horizontal confidence intervals on categorical rows.",
+    "module": "./charts/generated/ForestPlot.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "detail",
+      "transparent"
+    ],
+    "omit": [
+      "z",
+      "position",
+      "rows",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "Each row's point estimate.",
+        "input": true
+      },
+      "y": {
+        "type": "channel",
+        "doc": "Each estimate's category along y.",
+        "input": true
+      },
+      "lower": {
+        "type": "channel",
+        "doc": "Each interval's absolute lower x endpoint.",
+        "input": true
+      },
+      "upper": {
+        "type": "channel",
+        "doc": "Each interval's absolute upper x endpoint.",
+        "input": true
+      },
+      "reference": {
+        "type": "channel",
+        "doc": "Optional reference value along x; omitted means no reference line."
+      },
+      "interval": {
+        "type": "object",
+        "doc": "Props of the horizontal ErrorBars part, such as color, width and capSize."
+      },
+      "referenceLine": {
+        "type": "object",
+        "doc": "Props of the optional RuleX part, such as color and width."
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this chart alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "IntervalTimeline": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Prism",
+    "group": "Marks",
+    "summary": "Task intervals on categorical rows, with optional milestone points.",
+    "module": "./charts/generated/IntervalTimeline.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "x",
+      "z",
+      "position",
+      "rows",
+      "color",
+      "colorScale",
+      "colormap",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "y": {
+        "type": "channel",
+        "doc": "The categorical task or lane for each interval.",
+        "input": true
+      },
+      "x0": {
+        "type": "channel",
+        "doc": "The start of each interval, as numeric or datetime values.",
+        "input": true
+      },
+      "x1": {
+        "type": "channel",
+        "doc": "The end of each interval, in the same units as x0.",
+        "input": true
+      },
+      "milestone": {
+        "type": "channel",
+        "doc": "Optional milestone x values, one per task; missing values draw no point."
+      },
+      "milestones": {
+        "type": "object",
+        "doc": "Props of the milestone Points part, such as shape, size and fill."
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of each task's category band filled by its interval.",
+        "default": 0.6
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this chart alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "Sparkline": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Line",
+    "group": "Marks",
+    "summary": "A compact line with an optional reference band and final-value label.",
+    "module": "./charts/generated/Sparkline.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "z",
+      "position",
+      "rows",
+      "fill",
+      "fillScale",
+      "size",
+      "sizeScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "x": {
+        "type": "channel",
+        "doc": "The ordered x coordinates of the line.",
+        "input": true
+      },
+      "y": {
+        "type": "channel",
+        "doc": "The line's values along y.",
+        "input": true
+      },
+      "lower": {
+        "type": "channel",
+        "doc": "Optional reference band's lower y bound; supply upper too."
+      },
+      "upper": {
+        "type": "channel",
+        "doc": "Optional reference band's upper y bound; supply lower too."
+      },
+      "text": {
+        "type": "channel",
+        "doc": "Optional column, dictionary text or literal for the final finite row; numbers are written as Text writes them."
+      },
+      "band": {
+        "type": "object",
+        "doc": "Props of the BandY reference part, such as fill and opacity."
+      },
+      "last": {
+        "type": "object",
+        "doc": "Props of the final-row Text part, such as color, dx, dy and size."
+      },
+      "data": {
+        "type": "table",
+        "doc": "A table for this chart alone.",
+        "languages": "python"
+      }
+    }
+  },
+  "Waterfall": {
+    "tier": "charts",
+    "mark": true,
+    "mainKind": "Bar",
+    "group": "Marks",
+    "summary": "A running total built from changes: each bar steps from the total before it to the total after it.",
+    "module": "./charts/generated/Waterfall.svelte",
+    "use": [
+      "mark",
+      "markSettings",
+      "transparent"
+    ],
+    "omit": [
+      "z",
+      "position",
+      "rows",
+      "color",
+      "colorScale",
+      "colormap",
+      "size",
+      "sizeScale",
+      "width",
+      "widthScale",
+      "brush",
+      "drag",
+      "nearby",
+      "ondrag",
+      "ondragend"
+    ],
+    "options": {
+      "data": {
+        "type": "table",
+        "doc": "A table for this mark alone: a mark with data displays on its own, in a Plot of its own.",
+        "languages": "python"
+      },
+      "x": {
+        "type": "column",
+        "doc": "The column of the steps along x, one bar each, in row order.",
+        "input": true
+      },
+      "y": {
+        "type": "column",
+        "doc": "The column of each step's change: positive steps up, negative steps down.",
+        "input": true
+      },
+      "bandFraction": {
+        "type": "number",
+        "doc": "The share of its step's band each bar fills, 0 to 1; on a numeric axis, the bar's width in data units.",
+        "default": 0.8
+      }
+    }
+  }
+}

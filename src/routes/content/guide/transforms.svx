@@ -1,0 +1,67 @@
+---
+title: "Transforms"
+section: guides
+order: 60
+summary: "A transform creates a new data scope for its children while its siblings keep the original table."
+---
+
+## Follow the output columns
+
+Bin partitions score and emits x0, x1, a center, and count. Rect consumes the generated bounds. It cannot refer to an arbitrary original row because each bin summarizes several observations. Histogram is a convenience composition of this same bin-and-rectangle pattern.
+
+## Reduce, then compare
+
+A reduction such as `mean`, `std`, `median`, or `count` collapses a column to one value that broadcasts over every row, so Calculate can standardize a column in one line: `(score - mean(score)) / std(score)`. Pass `by=` to reduce within each category instead. The same reductions work as Filter conditions and as transform parameters, so `bins={power(count(col.x), 0.5)}` and `bandwidth={multiply(std(col.x), 0.3)}` follow the data.
+
+## Choose the operation
+
+Filter keeps matching rows, Sort changes their order, and Window computes rolling summaries. Group reduces each key group; Density estimates a distribution. Grid interpolates into a regular grid, while Slice interpolates between times for matched entities. Chain transforms by nesting them in the order they should run.
+
+## Values instead of columns
+
+A transform's numeric fields take one number per row of its data as well as a column name, as a mark's channels do: `Regression x={days} y={weights}` fits the arrays without adding them to the table. Bin's x, y, z and weight, Density's x, y and weight, Regression's x and y, Window's and Normalize's field and Stack's y take values. The values follow the data's rows in order, also under a Filter, and a missing value is NaN; any other count is an error. A named pandas Series titles the axis as its column would.
+
+## Group explicitly
+
+A transform computes over all its rows unless it is grouped. A color mapping does not split it, as it would in ggplot2 or seaborn: `Density x="length"` makes one curve over every species, and `fill="species"` on an Area below it is an error, because the density's rows have no species. Group with the transform's `by="species"` (Density, Group, Normalize, Pivot, Slice, Sort, Summary and Window take one, as does a reduction such as `mean("x", {by: "species"})`), which computes every group in one transform and keeps the key column, or wrap the transform and its marks in `Partition by="species"`, which runs everything inside once per group. Grouped densities share one grid and bandwidth, so they compare directly; partitioned ones each get their own, as partitioned Bins get their own edges.
+
+## Place transforms relative to facets
+
+A transform outside Facet runs globally. Inside a facet cell, it works on that subset. Shared bin edges make histograms comparable across cells; independent bins answer a different question. Keep this distinction explicit.
+
+## Let the viewer change a setting
+
+Put an input beside the plot and read it in the setting: a `Slider name="bins"` and `bins={input("bins")}` on the Bin (Python `bins=hm.input.bins`). Moving the slider re-runs the Bin and what is under it; camera panning does not. Expose only the settings a reader needs. Failed preparation retains the previous completed result.
+
+## Try one change
+
+Set bins to 3, then 12. The counts and rectangles update together. Replace Bin and Rect with Histogram x="score" bins={5} when you do not need the intermediate columns.
+
+```python example
+import hmplot as hm
+
+data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]}
+
+with hm.Plot(data=data, height=340, axes2d=True) as plot:
+    with hm.Calculate(z=(hm.col.score - hm.mean("score")) / hm.std("score")):
+        with hm.stats.Bin(x="z", bins=5):
+            hm.Rect(x0="x0", x1="x1", y0=0, y1="count", fill="#547ba2")
+
+plot
+```
+
+```svelte
+<script>
+  import { Plot, Calculate, Rect, col, subtract, divide, mean, std } from "hmplot";
+import { Bin } from "hmplot/stats";
+  const data = {"x":[1,2,3,4,5,6],"y":[2,4,3,6,5,7],"group":["A","A","A","B","B","B"],"score":[10,25,40,60,75,95]};
+</script>
+
+<Plot {data} height={340} axes2d>
+  <Calculate columns={{ z: divide(subtract(col("score"), mean("score")), std("score")) }}>
+    <Bin x="z" bins={5}>
+      <Rect x0="x0" x1="x1" y0={0} y1="count" fill="#547ba2" />
+    </Bin>
+  </Calculate>
+</Plot>
+```

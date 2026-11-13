@@ -1,0 +1,152 @@
+From 8bc2626ef66735c989a9c603d2f6464b630b6aed Mon Sep 17 00:00:00 2001
+From: Gabe Hope <15705900+gabehope@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 09:54:59 -0400
+Subject: [PATCH 2/6] Strided workgroup reductions for reductions into few
+ outputs
+
+A reduction of at least 64 elements into at most 256 outputs runs one
+workgroup of 256 threads per output: thread g visits ridx = g, g + 256,
+... below the reduction length (read from a uniform), then the threads
+combine their partial results in workgroup memory. It works for any
+reduction op, any dtype but bool, and any length, and lengths share one
+shader; the existing grouped path needed float32 Add, contiguous inputs,
+a length of 512+ divisible by 2-16, and used 16 threads.
+
+Measured on an M-series GPU against one thread per output with a literal
+trip count (the path these reductions took before): within ~2 us per
+dispatch at 64-100 elements, 30% faster at 300-400; max of 93,250 int32
+values from ~3.1 ms to under 66 us; a masked sum of 93,248 float32 values
+from ~2 ms to under 66 us. (A uniform trip count in the one-thread loop
+would have been 2-4x slower than either: the compiler cannot unroll it.)
+
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+---
+ src/backend/webgpu.test.ts | 23 ++++++++++++++++++++++
+ src/backend/webgpu.ts      | 16 ++++++++++++----
+ src/tuner.ts               | 39 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 74 insertions(+), 4 deletions(-)
+
+diff --git a/src/backend/webgpu.test.ts b/src/backend/webgpu.test.ts
+index dad2b2c..be7ddeb 100644
+--- a/src/backend/webgpu.test.ts
++++ b/src/backend/webgpu.test.ts
+@@ -66,6 +66,29 @@ suite("webgpu kernels are generic in sizes and values", () => {
+     );
+   });
+ 
++  test("reductions into few outputs: any length from 64, one shader", async () => {
++    // A workgroup per output strides over the reduction, whose length is a
++    // uniform. (Shorter reductions, and reductions into many outputs, keep
++    // their length in the source, where the compiler unrolls the loop.)
++    await expectOneCompile([64, 100, 1024, 1001, 93_247], async (n) => {
++      const total = (await np.sum(ramp(n)).data())[0];
++      expect(total).toBeCloseTo((n * (n - 1)) / 2, -Math.log10(n * n) + 5);
++    });
++    await expectOneCompile([65, 600, 93_250], async (n) => {
++      const x = ramp(n).mul(-0.5);
++      expect((await np.min(x.ref).data())[0]).toBe((n - 1) * -0.5);
++      expect((await np.argmax(x).data())[0]).toBe(0);
++    });
++    await expectOneCompile([80, 513, 4000], async (n) => {
++      // Two outputs, each reducing a row; one masked element per row.
++      const rows = np.broadcastTo(ramp(n), [2, n]);
++      const kept = np.where(rows.ref.notEqual(5), rows, 0);
++      const sums = await np.sum(kept, 1).data();
++      expect(sums[0]).toBeCloseTo((n * (n - 1)) / 2 - 5, -2);
++      expect(sums[1]).toBe(sums[0]);
++    });
++  });
++
+   test("filled arrays: lengths and values", async () => {
+     // Long enough to fill on the device (short fills are written from the host).
+     await expectOneCompile(
+diff --git a/src/backend/webgpu.ts b/src/backend/webgpu.ts
+index 9ad00e9..1fed323 100644
+--- a/src/backend/webgpu.ts
++++ b/src/backend/webgpu.ts
+@@ -430,10 +430,18 @@ export function pipelineSource(device: GPUDevice, kernel: Kernel): ShaderInfo {
+       ); // Initialize accumulators.
+     }
+ 
+-    wb.emit(
+-      `for (var ridx: i32 = 0; ridx < ${tune.size.reduce}; ridx++) {`,
+-      wb.pushIndent,
+-    );
++    if (tune.strided) {
++      const length = uniforms.add("i32", tune.size.reduce);
++      wb.emit(
++        `for (var ridx: i32 = group; ridx < ${length}; ridx += ${groupCount}) {`,
++        wb.pushIndent,
++      );
++    } else {
++      wb.emit(
++        `for (var ridx: i32 = 0; ridx < ${tune.size.reduce}; ridx++) {`,
++        wb.pushIndent,
++      );
++    }
+ 
+     // Now generate (shared) expressions for each accumulator and unroll value.
+     const exps: AluExp[][] = [];
+diff --git a/src/tuner.ts b/src/tuner.ts
+index 7af9968..ef4b7ec 100644
+--- a/src/tuner.ts
++++ b/src/tuner.ts
+@@ -56,8 +56,26 @@ export interface TuneResult {
+     /** Amount to upcast in non-reduce dimensions, set via `AluVar.upcast`. */
+     upcast?: number;
+   };
++
++  /**
++   * The `groups` threads of an output split its reduction by striding: thread
++   * `group` visits ridx = group, group + groups, ... below `size.reduce`,
++   * which is read from a uniform, so lengths share one shader.
++   */
++  strided?: boolean;
+ }
+ 
++/** Long reductions into this many outputs or fewer use a strided workgroup. */
++export const STRIDED_MAX_OUTPUTS = 256;
++/**
++ * Reductions at least this long use a strided workgroup. Measured against one
++ * thread per output with a literal trip count: within ~2 us at 64-100 elements,
++ * faster from ~300; and the length is a uniform, so lengths share one shader.
++ */
++export const STRIDED_MIN_REDUCE = 64;
++/** Threads per output in a strided workgroup (the default WebGPU limit). */
++export const STRIDED_GROUPS = 256;
++
+ /** Stores dimensions of the kernel's applied shape. Globals start at 0. */
+ class TuneDims {
+   st: ShapeTracker; // Shape tracker including reduction axes.
+@@ -239,10 +257,31 @@ export function tuneNullopt(kernel: Kernel): TuneResult {
+   };
+ }
+ 
++/**
++ * Tuning for a long reduction into few outputs: one workgroup per output,
++ * whose threads split the reduction by striding (so the reduction's length
++ * needn't divide by anything, and any op and dtype work).
++ */
++function tuneStrided(kernel: Kernel): TuneResult {
++  const tune = tuneNullopt(kernel);
++  return {
++    ...tune,
++    threadCount: kernel.size * STRIDED_GROUPS,
++    size: { groups: STRIDED_GROUPS, reduce: kernel.reduction!.size },
++    strided: true,
++  };
++}
++
+ /** Tuning for WebGPU kernels. */
+ export function tuneWebgpu(kernel: Kernel): TuneResult {
+   const reduction = kernel.reduction;
+   if (!reduction) return tuneNullopt(kernel);
++  if (
++    reduction.size >= STRIDED_MIN_REDUCE &&
++    kernel.size <= STRIDED_MAX_OUTPUTS &&
++    reduction.dtype !== DType.Bool
++  )
++    return tuneStrided(kernel);
+ 
+   const exp = AluExp.cast(reduction.dtype, kernel.exp);
+   const globalIndexes = exp.collect((exp) => exp.op === AluOp.GlobalIndex);

@@ -1,0 +1,3 @@
+WARNING: proceeding, even though we could not create PATH aliases: Operation not permitted (os error 1)
+WARN codex_state::runtime: failed to open state DB: attempt to write a readonly database
+Error: failed to initialize in-process app-server client: Operation not permitted (os error 1)

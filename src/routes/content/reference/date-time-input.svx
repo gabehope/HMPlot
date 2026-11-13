@@ -1,0 +1,9 @@
+## Usage
+
+Edit a date and time in `timezone` (UTC by default). The value is a JavaScript `Date` or Python `datetime`, representing an instant; changing the editing zone does not change that instant. Use `min` and `max` to bound the date, and `step` in milliseconds to set its precision (default: one minute). Clearing the input publishes `null` in JavaScript or `None` in Python.
+
+Daylight-saving transitions can make a local time nonexistent or ambiguous. Such edits show an error and keep the last valid value; choose an unambiguous time, or edit in UTC. Timezone-aware Python datetimes make the intended instant explicit.
+
+Place the control beside the plot in an `InputContext` (JavaScript) or `Scene` (Python). Readers use `input("name")` or `hm.input.name`. The name must be unique in that context.
+
+Static image exports show the plot at the current values and omit the controls.

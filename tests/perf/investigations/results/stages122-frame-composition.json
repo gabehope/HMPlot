@@ -1,0 +1,245 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.15 / R17: strict frame publication and coordinate composition",
+  "baseline": "a0cb7321",
+  "runtimeProof": {
+    "baseline": "a0cb7321",
+    "method": "Production Svelte compile, then esbuild with minifySyntax/minifyWhitespace and erased types/comments; identifier minification disabled to exclude TS symbol-allocation differences.",
+    "toolVersions": {
+      "svelte": "5.54.0",
+      "esbuild": "0.25.12"
+    },
+    "files": [
+      {
+        "file": "src/lib/plot/bound/namedMark.svelte",
+        "sourceSHA256": [
+          "da85f50c777c4cf2dd7dee4483575647a92df5fcbae9416ae11e4cce31ff097a",
+          "31cea5e809e7604f286da7fbff9452fd35f1e8b0a3f20310710273ff98d8676a"
+        ],
+        "executableSHA256": [
+          "3145b8ed410fc145e5f4eed3c32a1fdefc5a66fc847bfcb65e411c5df3422080",
+          "3145b8ed410fc145e5f4eed3c32a1fdefc5a66fc847bfcb65e411c5df3422080"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/marks/line.svelte",
+        "sourceSHA256": [
+          "8e6e8f314eb6188e95e429ad23870ed9bf69df4079e2d4bbaca02278a340863b",
+          "ca4ba7029a8c4813b8dd25630092146aa3b8dbd5549e5a3143a4882446e6ef28"
+        ],
+        "executableSHA256": [
+          "f4a42ac7a6d41fa9752fae7ea125546a000be392d49c1f29b93bf6eff365252a",
+          "f4a42ac7a6d41fa9752fae7ea125546a000be392d49c1f29b93bf6eff365252a"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/viewCore.svelte",
+        "sourceSHA256": [
+          "892c20aad46471f11dee751ab318fe4ed9c4f9051fd8170b441b585044281b39",
+          "8d3b77d47acc6c121b533d726d9d2310a3cefbae5dbaeae12a182b5f556490c2"
+        ],
+        "executableSHA256": [
+          "697c0e4159084fc8e2a67d646b5a3773e2df0f81e7907605da16fdac881c6062",
+          "697c0e4159084fc8e2a67d646b5a3773e2df0f81e7907605da16fdac881c6062"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/scenes/brushOverlay.svelte",
+        "sourceSHA256": [
+          "35076816e7fff2c4e1d9f01dc900c3bb160bd4fac33e94b2adfc564f2b739fef",
+          "16c8a6e97eea76322cd9d2ad1662aec66354acc44a08f14e481e2bb020586bc1"
+        ],
+        "executableSHA256": [
+          "e416b380a93f085aeb09cbdac7150ddd584fed4a029600631f2a70c2e56c21df",
+          "e416b380a93f085aeb09cbdac7150ddd584fed4a029600631f2a70c2e56c21df"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/scenes/tooltipOverlay.svelte",
+        "sourceSHA256": [
+          "425247843271bb0525f57715ac327495ccd2447058e815b76c0074d10cab08fb",
+          "afca424ae771e1811100cece0dca72e85be47ac959a289c1237215e776523a16"
+        ],
+        "executableSHA256": [
+          "8c8e0f5673322d32dac8472e7f7710f28b44c6c52999104ecc609d4d9fe9c8a9",
+          "8c8e0f5673322d32dac8472e7f7710f28b44c6c52999104ecc609d4d9fe9c8a9"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/options/inspector.js",
+        "sourceSHA256": [
+          "8f96a0c5e1a40b701d2d6bae99af866a4e35bb06b58d5f3e015d862096642ac7",
+          "33286af86d6450843c483b3fc30371d1785586f43a83d78c98837feef3f15929"
+        ],
+        "executableSHA256": [
+          "35874a6498d9af58546ec54700bc4a92f1648fef2fe72b7bd9a502739e6d6fb5",
+          "35874a6498d9af58546ec54700bc4a92f1648fef2fe72b7bd9a502739e6d6fb5"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/brushController.svelte.ts",
+        "sourceSHA256": [
+          "dd2f8cca5c3c0336656fc690fd91f756427d6895c1634e6b3b1439aa60858a24",
+          "5482e8ebbdf7137d8ce77851d8581feb9075b8c851876410c35ee52980e73d21"
+        ],
+        "executableSHA256": [
+          "2a35d0e8bb98b80e6f2900f7b7d8236ab62c456025c265ec8b9699e77d62bf3b",
+          "2a35d0e8bb98b80e6f2900f7b7d8236ab62c456025c265ec8b9699e77d62bf3b"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/data.js",
+        "sourceSHA256": [
+          "765803d9a8c6eda652d2e3f622e7c3928b0b4be3e6bd682c065db9da20219103",
+          "fcf9e223690c6643e5bf278e6b834eed7a43c1a02b0853fd7d08026d647b4532"
+        ],
+        "executableSHA256": [
+          "f2f228904fde0bab2f851316464e80ae262d8e3b5cd7cdc36a66b7c98280d248",
+          "f2f228904fde0bab2f851316464e80ae262d8e3b5cd7cdc36a66b7c98280d248"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/frameNodes.js",
+        "sourceSHA256": [
+          "746f3166a2e310f0299c70e9a2c5f1a1993f3eb4fa83fc86643edf5c29f750be",
+          "3b123e84f8e9baba92cca3da9edea315ec38bb4a47eb881939df3cb51567366b"
+        ],
+        "executableSHA256": [
+          "f53ff25be80dd46997a6606bd093586ed03a1c09623fd7ecee1e1c26edda72e6",
+          "f53ff25be80dd46997a6606bd093586ed03a1c09623fd7ecee1e1c26edda72e6"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/namedData.js",
+        "sourceSHA256": [
+          "76252b0ae38e9cebb7f9bd1e88f05f2970553b9852d7aae27ea8467963db8c24",
+          "2328d8bf3668e0e3154df8a500af6fe383647db5ccf173abe7a76effdfdce1ab"
+        ],
+        "executableSHA256": [
+          "797f3e44f4be50b299e7f2a78e2349b623fec4679f3c026d88efd62d6ed44459",
+          "797f3e44f4be50b299e7f2a78e2349b623fec4679f3c026d88efd62d6ed44459"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/mapProjections.js",
+        "sourceSHA256": [
+          "6c1bab317890dd999a8607e727f07b8f571a41e93f61d0e14a786714813cef53",
+          "3d0cdef0e053bf388e4cff76e003aac94204651cc4a35b112dd9296da4ae57a7"
+        ],
+        "executableSHA256": [
+          "e68af775e6502e0663c4da4c80a44559a2cf91e17cfa82369b2b6ff2705baa9b",
+          "e68af775e6502e0663c4da4c80a44559a2cf91e17cfa82369b2b6ff2705baa9b"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/scaleTransforms.js",
+        "sourceSHA256": [
+          "a1e4937013328685a7ba526b8307af09b2b7556573a63914d3ffef4cb97d559a",
+          "b9917a0c340a82fd54aa399a340d1744b1e9875478fca509127bc9cff608af5b"
+        ],
+        "executableSHA256": [
+          "312810a49627bd3e0590edcd11824dae6ac05b4eeb9bc888753dcab779271336",
+          "312810a49627bd3e0590edcd11824dae6ac05b4eeb9bc888753dcab779271336"
+        ],
+        "identical": true
+      },
+      {
+        "file": "src/lib/plot/utils/coordinateNodes.js",
+        "sourceSHA256": [
+          "722cd8f2b59ea5c4d30129613c66da9fd99e26247a546bf16b1a8f24516945ac",
+          "a9584eaf134f11612ad4187e00f7e89cd615643d3ced7179163dfab5a5f3fd39"
+        ],
+        "executableSHA256": [
+          "c3bde659fb0abde69c38d4e50159ded95bd5613d5835e2f614668ef9f17c3027",
+          "c3bde659fb0abde69c38d4e50159ded95bd5613d5835e2f614668ef9f17c3027"
+        ],
+        "identical": true
+      }
+    ]
+  },
+  "performance": {
+    "newTiming": false,
+    "reference": "tests/perf/investigations/results/stages122-strict-preparation.json",
+    "reason": "All 13 touched source modules emit identical executable JavaScript to the preceding measured preparation commit. No runtime composition or refinement changes are introduced."
+  },
+  "gates": {
+    "strictDefaultSvelte": "zero errors and warnings",
+    "strictInternalTypeScript": "passes, including the actual data.js and frameNodes.js bodies",
+    "strictPreparationSvelte": "zero errors and warnings",
+    "strictFrameSvelte": "zero errors and warnings; tsconfig.frames.json checks viewCore.svelte, brushOverlay.svelte and tooltipOverlay.svelte",
+    "strictModuleFloor": 75,
+    "namedMarkLineCeiling": 2765,
+    "focusedUnitCases": {
+      "passed": 89,
+      "failed": 0,
+      "leakHarnessPreload": "tests/unit/helpers/leakHarness.js",
+      "files": [
+        "data.test.js",
+        "constant-data.test.js",
+        "map-projections.test.js",
+        "coordinate-operations.test.js",
+        "frame-mapping.test.js",
+        "frame-model.test.js",
+        "root-frame-selection.test.js",
+        "refactor-ratchet.test.js"
+      ]
+    },
+    "affectedBrowserCases": {
+      "distinctPassed": 38,
+      "failed": 0,
+      "devicePixelRatio": 2,
+      "specs": [
+        "stage14-root.spec.js",
+        "stage14-root-pending.spec.js",
+        "root-coordinates.spec.js",
+        "nested-frames.spec.js",
+        "frame-brush.spec.js"
+      ],
+      "newCases": [
+        "superseded queued root selection retains promoted coordinates, revision and rendered blue marks",
+        "unmount cancels queued root publication, advances no root revision and removes the canvas"
+      ],
+      "runs": [
+        "37-case affected suite before adding unmount cancellation",
+        "two-case final cancellation run: supersession and unmount"
+      ]
+    },
+    "apiReport": "unchanged; check passes",
+    "pythonSignatures": "112 components; check passes",
+    "formatting": "full allowlist passes",
+    "finalRatchet": "15 cases pass"
+  },
+  "mechanicalCommits": [
+    "c689c5dd1113398fb0659ac79f208987253f68f2",
+    "5ea2c26aced448622f10ef1194f87367c63b9f05"
+  ],
+  "contracts": [
+    "Unresolved logical selection retains the active root; null means the resolved implicit root.",
+    "Svelte effect cleanup cancels queued activation after supersession or unmount.",
+    "Root changes cancel the old brush before activation, advance the revision and refresh geometry in the following task.",
+    "whenPublished waits for resolved selection matching the active root.",
+    "JAX composition borrows input arrays, releases intermediates and returns an owned result.",
+    "Shader composition retains live references to the existing option owners.",
+    "Primitive field dispatch borrows validated channels; sliced Line attributes own arrays when their identity differs from the input."
+  ],
+  "limits": [
+    "No new node capabilities, coordinate builder, scheduler or state registry.",
+    "Shared projection/render-scale helper call signatures are typed, but their entire implementations are not newly strict-checked.",
+    "The whole axis.svelte Frame component and public Plot forwarding wrapper are not newly strict-checked.",
+    "Existing non-strict upstream contexts are not claimed as a whole-program strict conversion.",
+    "The final type-only consumer annotations reuse the rendered suite by the recorded executable-JS equivalence proof; no final browser run of every historical scenario is claimed.",
+    "Column shape handling assumes the existing indexed typed-array protocol; DataView was and remains outside that protocol."
+  ]
+}

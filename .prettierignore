@@ -1,0 +1,47 @@
+# Generated or vendored: never reformat.
+dist/
+vendor/
+static/
+artifacts/
+test-results/
+python/dist/
+python/hmplot/static/
+src/lib/scene/registry.json
+python/hmplot/registry.json
+python/hmplot/signatures.json
+
+# Also generated (AGENTS.md "Generated, never edited by hand"; each generator owns its format).
+# scripts/generate-python-signatures.mjs
+src/lib/scene/components.js
+src/routes/content/reference/types.json
+# npm run api:report (check:api compares bytes)
+api/hmplot.api.md
+# scripts/third-party-notices.mjs (CI runs git diff --exit-code on it after build:python)
+THIRD_PARTY_NOTICES.md
+# scripts/audit-stabilization.py
+docs/stabilization/COVERAGE.md
+# scripts/docs-pages.mjs (also in .gitignore; repeated so this file stands alone)
+src/lib/docs/pages.generated.json
+src/examples/docs--*/
+# scripts/normalize-themes.py writes json.dumps(indent=2); scripts/sync-themes.py copies them
+src/lib/plot/themes/*.json
+!src/lib/plot/themes/theme.schema.json
+python/hmplot/themes/
+# Data and recorded results written by scripts, Python exports or measurement runs
+src/examples/*/*.json
+src/routes/examples/composition/*.json
+tests/perf/investigations/results/
+tests/unit/fixtures-*.json
+tests/unit/fixtures/
+docs/stabilization/*.json
+docs/stage92-measurements.json
+package-lock.json
+
+# Build output (also in .gitignore)
+build/
+.svelte-kit/
+playwright-report/
+
+# Written by the maintainer: never reformat (AGENTS.md).
+src/routes/content/guide/introduction.md
+src/routes/content/guide/tutorial.md

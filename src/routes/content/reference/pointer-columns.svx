@@ -1,0 +1,7 @@
+## Usage
+
+`"@pointer_x"` and `"@pointer_y"` are the pointer in the data of the frame that reads them, and `"@view_x_min"`, `"@view_x_max"`, `"@view_y_min"` and `"@view_y_max"` that frame's visible domain. They are view state, as `"@time"` is: a mark channel can name one, and any expression can read one with `view.pointer_x`, in a mark, a Filter, a Calculate or a transform parameter.
+
+The pointer is missing off the frame and before it arrives, so a `where(is_missing("@pointer_x"), ...)` chooses what to show then. Over a band axis it is the category under the pointer, which compares with a categorical column by value. On a datetime axis it counts from the axis's time origin, as the marks on it do.
+
+A mark that reads only the pointer steps as it moves and never on the clock, so a still pointer runs nothing. RuleX, RuleY and Crosshair are built on these values.

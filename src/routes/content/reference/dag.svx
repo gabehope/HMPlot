@@ -1,0 +1,3 @@
+## Usage
+
+DAG consumes GraphData and uses d3-dag's Sugiyama layout to place an acyclic directed graph. It exposes node positions and bounds, edge endpoints, and complete routed paths. `Routes` draws the paths; ordinary edge marks can use `start` and `end`. The layout runs when input changes.

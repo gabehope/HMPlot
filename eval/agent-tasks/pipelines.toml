@@ -1,0 +1,26 @@
+# The data-pipeline comparison (TODO 144): the same tasks with two doc sets that differ only in how
+# Python data pipelines are written, nested transform blocks (hmplot-standard) or chains as in
+# polars (hmplot-fluent: hm.Data(df).filter(...).group_by(...).agg(...)). Both read the same
+# package; the tasks are the ones whose reference solutions filter, group, calculate or join live.
+# Before running: npm run build:llm-docs (both doc sets) and node scripts/generate-patterns.mjs.
+# Compare pass rate under review and tokens per success between the two libraries.
+[benchmark]
+tasks = ["click-drilldown", "crossfilter", "linked-brush", "slider-filter", "flights-airports",
+         "million-slider", "overview-detail", "flight-network", "taxi-explorer", "rent-map-linked",
+         "rebased-returns", "clustered-expression", "epidemic-network", "galaxy-slices",
+         "wealth-health-trails", "sensor-wall", "quake-globe"]
+repetitions = 2
+corrections = 1
+
+[agents.claude]
+backend = "claude"
+binary = "${CLAUDE_BIN}"
+model = "claude-opus-5-5"
+
+[judge]
+backend = "claude"
+binary = "${CLAUDE_BIN}"
+model = "claude-opus-5-5"
+
+[tracks.python]
+libraries = ["hmplot-standard", "hmplot-fluent"]

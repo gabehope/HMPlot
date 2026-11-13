@@ -1,0 +1,7355 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "components": {
+    "Plot": {
+      "module": "./plot/plot.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "anglePeriod",
+        "angleUnit",
+        "animateBounds",
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "animationGroup",
+        "antialias",
+        "aspect",
+        "autoBounds",
+        "axes2d",
+        "axes3d",
+        "axisFrame",
+        "axisMarginZoom",
+        "axisMask",
+        "axisTickLabels",
+        "axisTitles",
+        "background",
+        "bands",
+        "baseRadius",
+        "boundsDuration",
+        "boundsEasing",
+        "cameraFar",
+        "cameraFov",
+        "cameraMode",
+        "cameraNear",
+        "cameraPosition",
+        "cameraTarget",
+        "cameraUp",
+        "caption",
+        "coordinates",
+        "data",
+        "describe",
+        "description",
+        "dynamicMargins",
+        "effects",
+        "flySpeed",
+        "flyoverMomentum",
+        "globeBackground",
+        "height",
+        "interactive",
+        "interpolation",
+        "key",
+        "legend",
+        "lights",
+        "loading",
+        "name",
+        "nearest",
+        "orientation3d",
+        "overview",
+        "overviewAxes",
+        "overviewMaxInstances",
+        "overviewScale",
+        "parallels",
+        "polarAxis",
+        "projection",
+        "projectionCenter",
+        "radialScale",
+        "responsive",
+        "rules",
+        "scaleDefaults",
+        "schema",
+        "settings",
+        "sphericalView",
+        "subdivisionTolerance",
+        "subtitle",
+        "title",
+        "toneMapping",
+        "tooltip",
+        "type",
+        "viewport",
+        "width",
+        "x",
+        "y",
+        "z",
+        "zScale",
+        "zoomAxis"
+      ],
+      "runtimeOptions": [
+        "axisFontSize",
+        "axisFontFamily",
+        "axisLineWidth",
+        "axisTickSize",
+        "axisMarginLeft",
+        "axisMarginRight",
+        "axisMarginTop",
+        "axisMarginBottom"
+      ]
+    },
+    "Html": {
+      "module": "./plot/html.svelte",
+      "container": true,
+      "languages": "js",
+      "group": "Plot and layout",
+      "properties": [
+        "dx",
+        "dy",
+        "x",
+        "y"
+      ]
+    },
+    "TableView": {
+      "module": "./plot/tableView.svelte",
+      "container": false,
+      "group": "Plot and layout",
+      "properties": [
+        "columns",
+        "hover",
+        "limit",
+        "name",
+        "select",
+        "title"
+      ]
+    },
+    "Heatmap": {
+      "module": "./plot/bound/heatmap.svelte",
+      "container": true,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "opacity",
+        "opacityScale",
+        "options",
+        "pixelated",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "textureResolution",
+        "tooltip",
+        "visible",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent",
+        "sizeAttenuation",
+        "zScale",
+        "surfaceMode",
+        "surface3d",
+        "depthtest"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Points3D": {
+      "module": "./plot/bound/scatter3d.svelte",
+      "container": false,
+      "group": "3D marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "brush",
+        "colormap",
+        "data",
+        "depthWrite",
+        "domains",
+        "drag",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearby",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "position",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent",
+        "sizeAttenuation"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "position",
+        "size",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Points": {
+      "module": "./plot/bound/scatterPoints.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "brush",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "depthWrite",
+        "domains",
+        "drag",
+        "dx",
+        "dy",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearby",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "respond",
+        "rotation",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "sizeUnits",
+        "tooltip",
+        "visible",
+        "x",
+        "xOffset",
+        "y",
+        "yOffset",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "dx",
+        "dy",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "x",
+        "xOffset",
+        "y",
+        "yOffset",
+        "z"
+      ]
+    },
+    "Segments": {
+      "module": "./plot/bound/segments.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "cap",
+        "capSize",
+        "color",
+        "colorScale",
+        "colormap",
+        "connections",
+        "control1",
+        "control2",
+        "curve",
+        "dash",
+        "data",
+        "domains",
+        "end",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "headLength",
+        "headWidth",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "start",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "control1",
+        "control2",
+        "end",
+        "opacity",
+        "start",
+        "width"
+      ]
+    },
+    "Line": {
+      "module": "./plot/bound/line.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "brush",
+        "color",
+        "colorScale",
+        "colormap",
+        "connections",
+        "curve",
+        "curveAlpha",
+        "dash",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "position",
+        "respond",
+        "rows",
+        "sampling",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shade",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "opacity",
+        "position",
+        "width",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Surface": {
+      "module": "./plot/bound/surface.svelte",
+      "container": false,
+      "group": "3D marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "height",
+        "hover",
+        "identity",
+        "indices",
+        "label",
+        "legend",
+        "name",
+        "opacity",
+        "opacityScale",
+        "options",
+        "position",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "position",
+        "x",
+        "y"
+      ]
+    },
+    "Arrows3D": {
+      "module": "./plot/bound/arrows.svelte",
+      "container": false,
+      "group": "3D marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "connections",
+        "control1",
+        "control2",
+        "curve",
+        "data",
+        "domains",
+        "end",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "start",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent",
+        "lit",
+        "headLength",
+        "headWidth"
+      ],
+      "stringReads": [
+        "color",
+        "control1",
+        "control2",
+        "end",
+        "opacity",
+        "start",
+        "width"
+      ]
+    },
+    "Text3D": {
+      "module": "./plot/bound/text.svelte",
+      "container": false,
+      "group": "3D marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "data",
+        "domains",
+        "glow",
+        "label",
+        "legend",
+        "name",
+        "opacity",
+        "options",
+        "position",
+        "rows",
+        "size",
+        "sizeScale",
+        "tex",
+        "text",
+        "visible"
+      ],
+      "runtimeOptions": [
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "font",
+        "align",
+        "billboard"
+      ],
+      "stringReads": [
+        "color",
+        "opacity",
+        "position",
+        "size"
+      ]
+    },
+    "Image": {
+      "module": "./plot/bound/image.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "lit",
+        "name",
+        "opacity",
+        "opacityScale",
+        "options",
+        "pixelated",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Theme": {
+      "module": "./plot/theme.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "value"
+      ]
+    },
+    "Minimap": {
+      "module": "./plot/minimap.svelte",
+      "container": false,
+      "group": "Interaction",
+      "properties": [
+        "axes",
+        "axis",
+        "displayScale",
+        "for",
+        "height",
+        "maxInstances",
+        "width"
+      ]
+    },
+    "Legend": {
+      "module": "./plot/legend.svelte",
+      "container": false,
+      "group": "Scales and legends",
+      "properties": [
+        "channel",
+        "for",
+        "label",
+        "position"
+      ]
+    },
+    "Area": {
+      "module": "./plot/bound/area.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "brush",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "lower",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shade",
+        "tooltip",
+        "upper",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "lower",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "upper",
+        "width",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Data": {
+      "module": "./plot/data.svelte",
+      "container": true,
+      "positional": "value",
+      "group": "Data sources",
+      "properties": [
+        "animationGroup",
+        "key",
+        "rows",
+        "schema",
+        "value"
+      ]
+    },
+    "Provider": {
+      "module": "./plot/provider.svelte",
+      "container": true,
+      "group": "Data sources",
+      "properties": [
+        "accumulate",
+        "columns",
+        "debounce",
+        "format",
+        "initial",
+        "key",
+        "name",
+        "params",
+        "path",
+        "refresh",
+        "refreshInterval",
+        "schema",
+        "snapshot",
+        "url"
+      ]
+    },
+    "Interaction": {
+      "module": "./plot/interaction.svelte",
+      "container": true,
+      "group": "Interaction",
+      "properties": [
+        "columns"
+      ]
+    },
+    "Filter": {
+      "module": "./plot/filter.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "inactive",
+        "name",
+        "where"
+      ],
+      "stringReads": [
+        "inactive",
+        "where"
+      ]
+    },
+    "Sort": {
+      "module": "./plot/sort.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "by",
+        "name",
+        "order"
+      ],
+      "stringReads": [
+        "by",
+        "order"
+      ]
+    },
+    "Shift": {
+      "module": "./plot/shift.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "field",
+        "interval",
+        "name"
+      ],
+      "stringReads": [
+        "field"
+      ]
+    },
+    "Group": {
+      "module": "./plot/group.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "by",
+        "columns",
+        "name"
+      ],
+      "stringReads": [
+        "as",
+        "by",
+        "columns"
+      ]
+    },
+    "Stack": {
+      "module": "./plot/stack.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "name",
+        "offset",
+        "order",
+        "series",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "as",
+        "offset",
+        "order",
+        "series",
+        "x",
+        "y"
+      ]
+    },
+    "Rect": {
+      "module": "./plot/bound/rect.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "rotation",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "x0",
+        "x1",
+        "y0",
+        "y1",
+        "z0",
+        "z1"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "x0",
+        "x1",
+        "y0",
+        "y1",
+        "z0",
+        "z1"
+      ]
+    },
+    "Prism": {
+      "module": "./plot/bound/prism.svelte",
+      "container": false,
+      "group": "3D marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "axis",
+        "blend",
+        "colormap",
+        "data",
+        "depth",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "respond",
+        "rotation",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "x0",
+        "x1",
+        "xOffset",
+        "y",
+        "y0",
+        "y1",
+        "yOffset",
+        "z",
+        "z0",
+        "z1"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "depth",
+        "fill",
+        "opacity",
+        "rotation",
+        "width",
+        "x",
+        "x0",
+        "x1",
+        "xOffset",
+        "y",
+        "y0",
+        "y1",
+        "yOffset",
+        "z",
+        "z0",
+        "z1"
+      ]
+    },
+    "Facet": {
+      "module": "./plot/facet.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "as",
+        "bandPadding",
+        "cacheSize",
+        "caption",
+        "column",
+        "columnOrder",
+        "data",
+        "diagonal",
+        "fields",
+        "gap",
+        "key",
+        "layout",
+        "legend",
+        "link",
+        "name",
+        "pairs",
+        "resolve",
+        "row",
+        "rowOrder",
+        "scales",
+        "schema",
+        "settings",
+        "subtitle",
+        "title",
+        "triangle",
+        "wrap"
+      ],
+      "stringReads": [
+        "caption",
+        "column",
+        "columnOrder",
+        "fields",
+        "filename",
+        "layout",
+        "legend",
+        "link",
+        "pairs",
+        "row",
+        "rowOrder",
+        "scales",
+        "subtitle",
+        "triangle"
+      ]
+    },
+    "Partition": {
+      "module": "./plot/partition.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "by",
+        "legendGroups",
+        "limit",
+        "name"
+      ],
+      "stringReads": [
+        "by"
+      ]
+    },
+    "Dodge": {
+      "module": "./plot/dodge.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "axis",
+        "columns",
+        "count",
+        "mode",
+        "name",
+        "padding",
+        "seed",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "as",
+        "axis",
+        "count",
+        "mode",
+        "x",
+        "y"
+      ]
+    },
+    "InputContext": {
+      "module": "./plot/inputs/inputContext.svelte",
+      "container": true,
+      "group": "Inputs",
+      "properties": []
+    },
+    "TextInput": {
+      "module": "./plot/inputs/textInput.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "label",
+        "name",
+        "placeholder",
+        "value"
+      ]
+    },
+    "ColorPicker": {
+      "module": "./plot/inputs/colorPicker.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "label",
+        "name",
+        "value"
+      ]
+    },
+    "DateTimeInput": {
+      "module": "./plot/inputs/dateTimeInput.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "label",
+        "max",
+        "min",
+        "name",
+        "step",
+        "timezone",
+        "value"
+      ]
+    },
+    "Slider": {
+      "module": "./plot/inputs/slider.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "format",
+        "label",
+        "max",
+        "min",
+        "name",
+        "step",
+        "timezone",
+        "value"
+      ]
+    },
+    "Checkbox": {
+      "module": "./plot/inputs/checkbox.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "label",
+        "name",
+        "value"
+      ]
+    },
+    "Button": {
+      "module": "./plot/inputs/button.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "label",
+        "name",
+        "set",
+        "value"
+      ]
+    },
+    "Select": {
+      "module": "./plot/inputs/select.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "label",
+        "multiple",
+        "name",
+        "options",
+        "value"
+      ]
+    },
+    "Playback": {
+      "module": "./plot/inputs/playback.svelte",
+      "container": false,
+      "group": "Inputs",
+      "properties": [
+        "autoplay",
+        "format",
+        "label",
+        "loop",
+        "max",
+        "min",
+        "name",
+        "playing",
+        "rate",
+        "reset",
+        "step",
+        "timezone",
+        "value"
+      ]
+    },
+    "Simulate": {
+      "module": "./plot/simulate.svelte",
+      "container": true,
+      "group": "Inputs",
+      "properties": [
+        "initial",
+        "maxSteps",
+        "name",
+        "reset",
+        "running",
+        "step",
+        "stop",
+        "update"
+      ]
+    },
+    "Interpolate": {
+      "module": "./plot/interpolate.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "bounds",
+        "method",
+        "name",
+        "resolution",
+        "values",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "method",
+        "values",
+        "x",
+        "y"
+      ]
+    },
+    "Slice": {
+      "module": "./plot/slice.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "at",
+        "by",
+        "field",
+        "name",
+        "values"
+      ],
+      "stringReads": [
+        "by",
+        "field",
+        "values"
+      ]
+    },
+    "Density": {
+      "module": "./plot/density.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "bandwidth",
+        "bounds",
+        "by",
+        "name",
+        "normalization",
+        "resolution",
+        "weight",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "bandwidth",
+        "by",
+        "normalization",
+        "weight",
+        "x",
+        "y"
+      ]
+    },
+    "Pivot": {
+      "module": "./plot/pivot.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "by",
+        "field",
+        "name",
+        "value"
+      ],
+      "stringReads": [
+        "as",
+        "by",
+        "field",
+        "value"
+      ]
+    },
+    "Fold": {
+      "module": "./plot/fold.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "fields",
+        "name"
+      ],
+      "stringReads": [
+        "fields"
+      ]
+    },
+    "Join": {
+      "module": "./plot/join.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "data",
+        "fields",
+        "how",
+        "leftOn",
+        "name",
+        "on",
+        "rightOn"
+      ],
+      "stringReads": [
+        "as",
+        "fields",
+        "how",
+        "leftOn",
+        "on",
+        "rightOn"
+      ]
+    },
+    "Regression": {
+      "module": "./plot/regression.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "band",
+        "extent",
+        "method",
+        "name",
+        "order",
+        "samples",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "method",
+        "x",
+        "y"
+      ]
+    },
+    "Contour": {
+      "module": "./plot/contour.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "field",
+        "mode",
+        "name",
+        "thresholds",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "field",
+        "mode",
+        "x",
+        "y"
+      ]
+    },
+    "Delaunay": {
+      "module": "./plot/delaunay.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "name",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "x",
+        "y"
+      ]
+    },
+    "Voronoi": {
+      "module": "./plot/voronoi.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "extent",
+        "name",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "x",
+        "y"
+      ]
+    },
+    "Hull": {
+      "module": "./plot/hull.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "by",
+        "name",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "by",
+        "x",
+        "y"
+      ]
+    },
+    "Sample": {
+      "module": "./plot/sample.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "name",
+        "order",
+        "proportion",
+        "seed",
+        "size"
+      ]
+    },
+    "Transform": {
+      "module": "./plot/pluginTransform.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "by",
+        "kind",
+        "name",
+        "params"
+      ],
+      "stringReads": [
+        "by",
+        "params"
+      ]
+    },
+    "Calculate": {
+      "module": "./plot/calculate.svelte",
+      "container": true,
+      "group": "Transforms",
+      "properties": [
+        "columns",
+        "name"
+      ],
+      "stringReads": [
+        "columns"
+      ]
+    },
+    "Force": {
+      "module": "./plot/force.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "alpha",
+        "alphaDecay",
+        "alphaMin",
+        "alphaTarget",
+        "centering",
+        "dimensions",
+        "fixed",
+        "forces",
+        "initial",
+        "linkDistance",
+        "name",
+        "reheat",
+        "release",
+        "repulsion",
+        "reset",
+        "running",
+        "seed",
+        "springStrength",
+        "step",
+        "ticks",
+        "velocityDecay",
+        "warmup",
+        "weight"
+      ],
+      "stringReads": [
+        "forces",
+        "reheat",
+        "release",
+        "reset",
+        "step",
+        "weight"
+      ]
+    },
+    "GraphData": {
+      "module": "./plot/graphData.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "edges",
+        "nodeFrom",
+        "nodeKey",
+        "nodes",
+        "reduce",
+        "source",
+        "target"
+      ],
+      "stringReads": [
+        "edges",
+        "nodeFrom",
+        "nodeKey",
+        "nodes",
+        "reduce",
+        "source",
+        "target"
+      ]
+    },
+    "DAG": {
+      "module": "./plot/dag.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "layerGap",
+        "nodeGap",
+        "nodeHeight",
+        "nodeWidth",
+        "orientation"
+      ],
+      "stringReads": [
+        "orientation"
+      ]
+    },
+    "Pack": {
+      "module": "./plot/pack.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "height",
+        "levels",
+        "padding",
+        "root",
+        "value",
+        "width"
+      ],
+      "stringReads": [
+        "levels",
+        "root"
+      ]
+    },
+    "Treemap": {
+      "module": "./plot/treemap.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "height",
+        "levels",
+        "padding",
+        "paddingInner",
+        "paddingOuter",
+        "root",
+        "tile",
+        "value",
+        "width"
+      ],
+      "stringReads": [
+        "levels",
+        "root",
+        "tile"
+      ]
+    },
+    "Sankey": {
+      "module": "./plot/sankey.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "align",
+        "iterations",
+        "nodePadding",
+        "nodeWidth",
+        "orientation",
+        "value"
+      ],
+      "stringReads": [
+        "align",
+        "orientation",
+        "value"
+      ]
+    },
+    "Flow": {
+      "module": "./plot/flow.svelte",
+      "container": false,
+      "group": "Graphs",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "domains",
+        "endLower",
+        "endUpper",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "rotation",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "startLower",
+        "startUpper",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ]
+    },
+    "Routes": {
+      "module": "./plot/routes.svelte",
+      "container": false,
+      "group": "Graphs",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "curve",
+        "dash",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ]
+    },
+    "Nodes": {
+      "module": "./plot/nodes.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "drag"
+      ]
+    },
+    "Edges": {
+      "module": "./plot/edges.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": []
+    },
+    "GeoJSON": {
+      "module": "./plot/geojson.svelte",
+      "container": false,
+      "group": "Maps and tiles",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "dataKey",
+        "featureKey",
+        "fill",
+        "fillScale",
+        "fit",
+        "geometry",
+        "glow",
+        "height",
+        "heightScale",
+        "hover",
+        "label",
+        "legend",
+        "name",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "plane",
+        "respond",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent",
+        "missingColor"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "height",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "width"
+      ]
+    },
+    "VectorTile": {
+      "module": "./plot/vectorTile.svelte",
+      "container": false,
+      "group": "Maps and tiles",
+      "properties": [
+        "attribution",
+        "bounds",
+        "clip",
+        "data",
+        "extrudeBuildings",
+        "fit",
+        "live",
+        "maxZoom",
+        "minZoom",
+        "name",
+        "opacity",
+        "origin",
+        "plane",
+        "scheme",
+        "snapshot",
+        "sourceLayers",
+        "styles",
+        "tile",
+        "tileData",
+        "tiles",
+        "unitsPerMeter",
+        "url",
+        "visible",
+        "zoom",
+        "zoomBias"
+      ]
+    },
+    "Polygon": {
+      "module": "./plot/bound/polygon.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shade",
+        "tooltip",
+        "visible",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth"
+      ]
+    },
+    "Title": {
+      "module": "./plot/title.svelte",
+      "container": false,
+      "positional": "text",
+      "group": "Plot and layout",
+      "properties": [
+        "align",
+        "color",
+        "font",
+        "name",
+        "size",
+        "text",
+        "weight",
+        "wrap"
+      ]
+    },
+    "Panels": {
+      "module": "./plot/panels.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "gap",
+        "x"
+      ]
+    },
+    "Mapping": {
+      "module": "./plot/mapping.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "brush",
+        "color",
+        "colorScale",
+        "end",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "name",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "respond",
+        "rotation",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "start",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "align",
+        "baseline",
+        "box",
+        "capSize",
+        "control1",
+        "control2",
+        "curve",
+        "curveAlpha",
+        "depth",
+        "dx",
+        "dy",
+        "font",
+        "headLength",
+        "headWidth",
+        "leader",
+        "lower",
+        "text",
+        "upper",
+        "x0",
+        "x1",
+        "y0",
+        "y1",
+        "z0",
+        "z1"
+      ],
+      "stringReads": [
+        "align",
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "baseline",
+        "box",
+        "brush",
+        "capSize",
+        "color",
+        "colorScale",
+        "control1",
+        "control2",
+        "curve",
+        "curveAlpha",
+        "depth",
+        "dx",
+        "dy",
+        "end",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "font",
+        "glow",
+        "headLength",
+        "headWidth",
+        "hover",
+        "leader",
+        "lower",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "respond",
+        "rotation",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "start",
+        "text",
+        "upper",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "x0",
+        "x1",
+        "y",
+        "y0",
+        "y1",
+        "z",
+        "z0",
+        "z1"
+      ]
+    },
+    "Text": {
+      "module": "./plot/bound/label.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "align",
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "box",
+        "brush",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "drag",
+        "dx",
+        "dy",
+        "enterEffect",
+        "exitEffect",
+        "font",
+        "format",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "leader",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearby",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "position",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "text",
+        "tooltip",
+        "visible",
+        "x",
+        "xOffset",
+        "y",
+        "yOffset",
+        "z"
+      ],
+      "stringReads": [
+        "color",
+        "dx",
+        "dy",
+        "opacity",
+        "position",
+        "size",
+        "x",
+        "xOffset",
+        "y",
+        "yOffset",
+        "z"
+      ]
+    },
+    "Anchor": {
+      "module": "./plot/bound/anchor.svelte",
+      "container": false,
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "data",
+        "enterEffect",
+        "exitEffect",
+        "identity",
+        "name",
+        "position",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange"
+      ],
+      "stringReads": [
+        "position",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Tree": {
+      "module": "./plot/tree.svelte",
+      "container": true,
+      "group": "Graphs",
+      "properties": [
+        "animationDuration",
+        "animationEasing",
+        "childAlign",
+        "depthSpacing",
+        "directed",
+        "edgeLength",
+        "enter",
+        "exit",
+        "height",
+        "layerHeight",
+        "mode",
+        "name",
+        "nodeWidth",
+        "orientation",
+        "root",
+        "siblingSpacing",
+        "visualMargin",
+        "where",
+        "widthMode"
+      ],
+      "stringReads": [
+        "animationEasing",
+        "childAlign",
+        "edgeLength",
+        "height",
+        "layerHeight",
+        "mode",
+        "orientation",
+        "root",
+        "where",
+        "widthMode"
+      ]
+    },
+    "Frame": {
+      "module": "./plot/frame.svelte",
+      "container": true,
+      "group": "Plot and layout",
+      "properties": [
+        "anglePeriod",
+        "angleUnit",
+        "animateBounds",
+        "animationGroup",
+        "atmosphere",
+        "autoBounds",
+        "axisFrame",
+        "axisMask",
+        "bands",
+        "baseRadius",
+        "boundsDuration",
+        "boundsEasing",
+        "coordinates",
+        "name",
+        "parallels",
+        "placement",
+        "polarAxis",
+        "projection",
+        "projectionCenter",
+        "radialScale",
+        "rules",
+        "scaleDefaults",
+        "sphericalView",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Arrows": {
+      "module": "./compound/arrows.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "connections",
+        "control1",
+        "control2",
+        "curve",
+        "data",
+        "domains",
+        "end",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "start",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent",
+        "headLength",
+        "headWidth"
+      ],
+      "stringReads": [
+        "color",
+        "control1",
+        "control2",
+        "end",
+        "opacity",
+        "start",
+        "width"
+      ]
+    },
+    "Bar": {
+      "module": "./compound/bar.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "arrange",
+        "bandFraction",
+        "baseline",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "respond",
+        "rotation",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "arrange",
+        "baseline",
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "BoxPlot": {
+      "module": "./compound/boxPlot.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandFraction",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "outlierSize",
+        "outliers",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "respond",
+        "rotation",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "whisker",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Callout": {
+      "module": "./compound/callout.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "align",
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "box",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "dx",
+        "dy",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "font",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "leader",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "text",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "color",
+        "dx",
+        "dy",
+        "fill",
+        "opacity",
+        "size",
+        "width",
+        "x",
+        "y"
+      ]
+    },
+    "Crosshair": {
+      "module": "./compound/crosshair.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "axes",
+        "color",
+        "dash",
+        "name",
+        "readout",
+        "readoutPosition",
+        "textColor",
+        "width"
+      ]
+    },
+    "DensityBands": {
+      "module": "./compound/densityBands.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandwidth",
+        "blend",
+        "bounds",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "resolution",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "thresholds",
+        "tooltip",
+        "visible",
+        "weight",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth"
+      ]
+    },
+    "DensityContour": {
+      "module": "./compound/densityContour.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandwidth",
+        "blend",
+        "bounds",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "interpolation",
+        "label",
+        "legend",
+        "maxInstances",
+        "mode",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "resolution",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "thresholds",
+        "tooltip",
+        "visible",
+        "weight",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "width",
+        "z"
+      ]
+    },
+    "Ecdf": {
+      "module": "./compound/ecdf.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "by",
+        "color",
+        "colorScale",
+        "colormap",
+        "complementary",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "normalize",
+        "opacity",
+        "opacityScale",
+        "options",
+        "position",
+        "respond",
+        "sampling",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "position",
+        "size",
+        "width",
+        "y",
+        "z"
+      ]
+    },
+    "ErrorBars": {
+      "module": "./compound/errorBars.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "capSize",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "lower",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "position",
+        "respond",
+        "rows",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "upper",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "lower",
+        "opacity",
+        "position",
+        "upper",
+        "width",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Histogram": {
+      "module": "./compound/histogram.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bins",
+        "blend",
+        "brush",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "normalization",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "rotation",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "brush",
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "width",
+        "x",
+        "y"
+      ]
+    },
+    "Lollipop": {
+      "module": "./compound/lollipop.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "baseline",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "respond",
+        "rotation",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "sizeUnits",
+        "stem",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "baseline",
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "width",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Pie": {
+      "module": "./compound/pie.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "by",
+        "category",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "endAngle",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "fontSize",
+        "glow",
+        "hover",
+        "identity",
+        "innerRadius",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outerRadius",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "padAngle",
+        "placement",
+        "respond",
+        "sectorLabel",
+        "sectorLabelFormat",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "sort",
+        "startAngle",
+        "textColor",
+        "tooltip",
+        "value",
+        "visible"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "value"
+      ]
+    },
+    "RuleX": {
+      "module": "./compound/ruleX.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "dash",
+        "data",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "opacity",
+        "respond",
+        "select",
+        "shade",
+        "visible",
+        "width",
+        "x",
+        "y0",
+        "y1"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "x",
+        "y0",
+        "y1"
+      ]
+    },
+    "RuleY": {
+      "module": "./compound/ruleY.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "dash",
+        "data",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "opacity",
+        "respond",
+        "select",
+        "shade",
+        "visible",
+        "width",
+        "x0",
+        "x1",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "x0",
+        "x1",
+        "y"
+      ]
+    },
+    "Smooth": {
+      "module": "./compound/smooth.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "band",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "extent",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "method",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "order",
+        "position",
+        "respond",
+        "samples",
+        "sampling",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "position",
+        "size",
+        "width",
+        "z"
+      ]
+    },
+    "Swarm": {
+      "module": "./compound/swarm.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "brush",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "drag",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearby",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "padding",
+        "position",
+        "respond",
+        "rotation",
+        "seed",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "sizeUnits",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "width",
+        "z"
+      ]
+    },
+    "Violin": {
+      "module": "./compound/violin.svelte",
+      "container": false,
+      "tier": "charts",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandFraction",
+        "bandwidth",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "orientation",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "resolution",
+        "respond",
+        "scale",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "side",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "visible",
+        "x",
+        "y",
+        "z"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "lit",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "position",
+        "size",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Marginals": {
+      "module": "./figures/marginals.svelte",
+      "container": true,
+      "tier": "charts",
+      "figure": true,
+      "group": "Plot and layout",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bins",
+        "blend",
+        "brush",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "drag",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "height",
+        "hover",
+        "identity",
+        "key",
+        "label",
+        "legend",
+        "name",
+        "nearby",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "schema",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "shape",
+        "shapeScale",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "viewport",
+        "visible",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "x",
+        "y"
+      ]
+    },
+    "FocusContext": {
+      "module": "./figures/focusContext.svelte",
+      "container": true,
+      "tier": "charts",
+      "figure": true,
+      "group": "Plot and layout",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "drag",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "height",
+        "hover",
+        "identity",
+        "key",
+        "label",
+        "legend",
+        "name",
+        "nearby",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "schema",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "viewport",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "width",
+        "x",
+        "y"
+      ]
+    },
+    "Bin": {
+      "module": "./plot/bin.svelte",
+      "container": true,
+      "tier": "stats",
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "bins",
+        "columns",
+        "empty",
+        "interval",
+        "mode",
+        "name",
+        "normalization",
+        "sharedBins",
+        "tz",
+        "weight",
+        "x",
+        "y",
+        "z"
+      ],
+      "stringReads": [
+        "as",
+        "bins",
+        "columns",
+        "mode",
+        "normalization",
+        "weight",
+        "x",
+        "y",
+        "z"
+      ]
+    },
+    "Normalize": {
+      "module": "./plot/normalize.svelte",
+      "container": true,
+      "tier": "stats",
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "by",
+        "field",
+        "method",
+        "name"
+      ],
+      "stringReads": [
+        "as",
+        "by",
+        "field",
+        "method"
+      ]
+    },
+    "Window": {
+      "module": "./plot/window.svelte",
+      "container": true,
+      "tier": "stats",
+      "group": "Transforms",
+      "properties": [
+        "align",
+        "as",
+        "by",
+        "field",
+        "name",
+        "reduce",
+        "size"
+      ],
+      "stringReads": [
+        "align",
+        "as",
+        "by",
+        "field",
+        "reduce"
+      ]
+    },
+    "Hexbin": {
+      "module": "./plot/hexbin.svelte",
+      "container": true,
+      "tier": "stats",
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "bins",
+        "bounds",
+        "columns",
+        "name",
+        "orientation",
+        "radius",
+        "sharedBins",
+        "x",
+        "y"
+      ],
+      "stringReads": [
+        "as",
+        "columns",
+        "orientation",
+        "x",
+        "y"
+      ]
+    },
+    "Summary": {
+      "module": "./plot/summary.svelte",
+      "container": true,
+      "tier": "stats",
+      "group": "Transforms",
+      "properties": [
+        "as",
+        "by",
+        "confidence",
+        "estimate",
+        "field",
+        "interval",
+        "name",
+        "samples",
+        "seed"
+      ],
+      "stringReads": [
+        "by",
+        "estimate",
+        "field",
+        "interval"
+      ]
+    },
+    "Markdown": {
+      "module": "./scene/markdown.svelte",
+      "container": false,
+      "languages": "python",
+      "positional": "text",
+      "group": "Plot and layout",
+      "properties": [
+        "align",
+        "color",
+        "font",
+        "fontSize",
+        "name",
+        "text",
+        "width"
+      ]
+    },
+    "BandX": {
+      "module": "./charts/generated/BandX.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Rect",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "data",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "x0",
+        "x1"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "x0",
+        "x1"
+      ]
+    },
+    "BandY": {
+      "module": "./charts/generated/BandY.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Rect",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "data",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "maxInstances",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "y0",
+        "y1"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "y0",
+        "y1"
+      ]
+    },
+    "BulletChart": {
+      "module": "./charts/generated/BulletChart.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Bar",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandFraction",
+        "baseline",
+        "blend",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fields",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "ranges",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "target",
+        "tick",
+        "tooltip",
+        "visible",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "x",
+        "y"
+      ]
+    },
+    "Candlestick": {
+      "module": "./charts/generated/Candlestick.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Bar",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandFraction",
+        "blend",
+        "close",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "high",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "low",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "open",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "wick",
+        "x"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "close",
+        "fill",
+        "high",
+        "low",
+        "opacity",
+        "open",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "x"
+      ]
+    },
+    "Dumbbell": {
+      "module": "./charts/generated/Dumbbell.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Points",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "stem",
+        "tooltip",
+        "visible",
+        "x0",
+        "x1",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "x0",
+        "x1",
+        "y"
+      ]
+    },
+    "EndLabels": {
+      "module": "./charts/generated/EndLabels.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Text",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "at",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "dx",
+        "enterEffect",
+        "exitEffect",
+        "format",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "series",
+        "shade",
+        "size",
+        "sizeScale",
+        "text",
+        "tooltip",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "width",
+        "x",
+        "y"
+      ]
+    },
+    "ForestPlot": {
+      "module": "./charts/generated/ForestPlot.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Points",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "interval",
+        "label",
+        "legend",
+        "lower",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "reference",
+        "referenceLine",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "size",
+        "sizeScale",
+        "tooltip",
+        "upper",
+        "visible",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "detail",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "fill",
+        "lower",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "size",
+        "upper",
+        "x",
+        "y"
+      ]
+    },
+    "IntervalTimeline": {
+      "module": "./charts/generated/IntervalTimeline.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Prism",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandFraction",
+        "blend",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "milestone",
+        "milestones",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "x0",
+        "x1",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "x0",
+        "x1",
+        "y"
+      ]
+    },
+    "Sparkline": {
+      "module": "./charts/generated/Sparkline.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Line",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "band",
+        "blend",
+        "color",
+        "colorScale",
+        "colormap",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "last",
+        "legend",
+        "lower",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "text",
+        "tooltip",
+        "upper",
+        "visible",
+        "width",
+        "widthScale",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "color",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "width",
+        "x",
+        "y"
+      ]
+    },
+    "Waterfall": {
+      "module": "./charts/generated/Waterfall.svelte",
+      "container": false,
+      "tier": "charts",
+      "mainKind": "Bar",
+      "group": "Marks",
+      "properties": [
+        "animation",
+        "animationDuration",
+        "animationEasing",
+        "bandFraction",
+        "blend",
+        "data",
+        "domains",
+        "enterEffect",
+        "exitEffect",
+        "fill",
+        "fillScale",
+        "glow",
+        "hover",
+        "identity",
+        "label",
+        "legend",
+        "name",
+        "nearest",
+        "opacity",
+        "opacityScale",
+        "options",
+        "outlineColor",
+        "outlineColorScale",
+        "outlineOpacity",
+        "outlineWidth",
+        "respond",
+        "select",
+        "selectionOpacity",
+        "shade",
+        "tooltip",
+        "visible",
+        "x",
+        "y"
+      ],
+      "runtimeOptions": [
+        "legendFontSize",
+        "legendFontFamily",
+        "legendTextColor",
+        "legendTickFormat",
+        "quantize",
+        "levels",
+        "maxElements",
+        "xTransform",
+        "xInvert",
+        "xbounds",
+        "xrange",
+        "yTransform",
+        "yInvert",
+        "ybounds",
+        "yrange",
+        "zTransform",
+        "zInvert",
+        "zbounds",
+        "zrange",
+        "transparent"
+      ],
+      "stringReads": [
+        "fill",
+        "opacity",
+        "outlineColor",
+        "outlineOpacity",
+        "outlineWidth",
+        "x",
+        "y"
+      ]
+    },
+    "Scene": {
+      "container": true,
+      "languages": "python",
+      "layout": true,
+      "group": "Plot and layout",
+      "properties": [
+        "gap",
+        "theme"
+      ]
+    },
+    "Row": {
+      "container": true,
+      "languages": "python",
+      "layout": true,
+      "group": "Plot and layout",
+      "properties": [
+        "gap",
+        "minWidth",
+        "widths",
+        "wrap"
+      ]
+    },
+    "Column": {
+      "container": true,
+      "languages": "python",
+      "layout": true,
+      "group": "Plot and layout",
+      "properties": [
+        "gap"
+      ]
+    },
+    "LayoutGrid": {
+      "container": true,
+      "languages": "python",
+      "layout": true,
+      "group": "Plot and layout",
+      "properties": [
+        "columns",
+        "gap"
+      ]
+    },
+    "LinkViews": {
+      "container": false,
+      "languages": "python",
+      "positional": "plots",
+      "group": "Plot and layout",
+      "properties": [
+        "axes",
+        "scales"
+      ]
+    },
+    "Template": {
+      "container": true,
+      "languages": "python",
+      "passthrough": true,
+      "group": "Plot and layout",
+      "properties": []
+    },
+    "Slot": {
+      "container": true,
+      "languages": "python",
+      "passthrough": true,
+      "group": "Plot and layout",
+      "properties": []
+    }
+  },
+  "properties": [
+    "accumulate",
+    "align",
+    "alpha",
+    "alphaDecay",
+    "alphaMin",
+    "alphaTarget",
+    "anglePeriod",
+    "angleUnit",
+    "animateBounds",
+    "animation",
+    "animationDuration",
+    "animationEasing",
+    "animationGroup",
+    "antialias",
+    "arrange",
+    "as",
+    "aspect",
+    "at",
+    "atmosphere",
+    "attribution",
+    "autoBounds",
+    "autoplay",
+    "axes",
+    "axes2d",
+    "axes3d",
+    "axis",
+    "axisFontFamily",
+    "axisFontSize",
+    "axisFrame",
+    "axisLineWidth",
+    "axisMarginBottom",
+    "axisMarginLeft",
+    "axisMarginRight",
+    "axisMarginTop",
+    "axisMarginZoom",
+    "axisMask",
+    "axisTickLabels",
+    "axisTickSize",
+    "axisTitles",
+    "background",
+    "band",
+    "bandFraction",
+    "bandPadding",
+    "bands",
+    "bandwidth",
+    "baseRadius",
+    "baseline",
+    "billboard",
+    "bins",
+    "blend",
+    "bounds",
+    "boundsDuration",
+    "boundsEasing",
+    "box",
+    "brush",
+    "by",
+    "cacheSize",
+    "cameraFar",
+    "cameraFov",
+    "cameraMode",
+    "cameraNear",
+    "cameraPosition",
+    "cameraTarget",
+    "cameraUp",
+    "cap",
+    "capSize",
+    "caption",
+    "category",
+    "centering",
+    "channel",
+    "childAlign",
+    "clip",
+    "close",
+    "color",
+    "colorScale",
+    "colormap",
+    "column",
+    "columnOrder",
+    "columns",
+    "complementary",
+    "confidence",
+    "connections",
+    "control1",
+    "control2",
+    "coordinates",
+    "count",
+    "curve",
+    "curveAlpha",
+    "dash",
+    "data",
+    "dataKey",
+    "debounce",
+    "depth",
+    "depthSpacing",
+    "depthWrite",
+    "depthtest",
+    "describe",
+    "description",
+    "detail",
+    "diagonal",
+    "dimensions",
+    "directed",
+    "displayScale",
+    "domains",
+    "drag",
+    "dx",
+    "dy",
+    "dynamicMargins",
+    "edgeLength",
+    "edges",
+    "effects",
+    "empty",
+    "end",
+    "endAngle",
+    "endLower",
+    "endUpper",
+    "enter",
+    "enterEffect",
+    "estimate",
+    "exit",
+    "exitEffect",
+    "extent",
+    "extrudeBuildings",
+    "featureKey",
+    "field",
+    "fields",
+    "fill",
+    "fillScale",
+    "fit",
+    "fixed",
+    "flySpeed",
+    "flyoverMomentum",
+    "font",
+    "fontSize",
+    "for",
+    "forces",
+    "format",
+    "gap",
+    "geometry",
+    "globeBackground",
+    "glow",
+    "headLength",
+    "headWidth",
+    "height",
+    "heightScale",
+    "high",
+    "hover",
+    "how",
+    "identity",
+    "inactive",
+    "indices",
+    "initial",
+    "innerRadius",
+    "interactive",
+    "interpolation",
+    "interval",
+    "iterations",
+    "key",
+    "kind",
+    "label",
+    "last",
+    "layerGap",
+    "layerHeight",
+    "layout",
+    "leader",
+    "leftOn",
+    "legend",
+    "legendFontFamily",
+    "legendFontSize",
+    "legendGroups",
+    "legendTextColor",
+    "legendTickFormat",
+    "levels",
+    "lights",
+    "limit",
+    "link",
+    "linkDistance",
+    "lit",
+    "live",
+    "loading",
+    "loop",
+    "low",
+    "lower",
+    "max",
+    "maxElements",
+    "maxInstances",
+    "maxSteps",
+    "maxZoom",
+    "method",
+    "milestone",
+    "milestones",
+    "min",
+    "minWidth",
+    "minZoom",
+    "missingColor",
+    "mode",
+    "multiple",
+    "name",
+    "nearby",
+    "nearest",
+    "nodeFrom",
+    "nodeGap",
+    "nodeHeight",
+    "nodeKey",
+    "nodePadding",
+    "nodeWidth",
+    "nodes",
+    "normalization",
+    "normalize",
+    "offset",
+    "on",
+    "opacity",
+    "opacityScale",
+    "open",
+    "options",
+    "order",
+    "orientation",
+    "orientation3d",
+    "origin",
+    "outerRadius",
+    "outlierSize",
+    "outliers",
+    "outlineColor",
+    "outlineColorScale",
+    "outlineOpacity",
+    "outlineWidth",
+    "overview",
+    "overviewAxes",
+    "overviewMaxInstances",
+    "overviewScale",
+    "padAngle",
+    "padding",
+    "paddingInner",
+    "paddingOuter",
+    "pairs",
+    "parallels",
+    "params",
+    "path",
+    "pixelated",
+    "placeholder",
+    "placement",
+    "plane",
+    "playing",
+    "polarAxis",
+    "position",
+    "projection",
+    "projectionCenter",
+    "proportion",
+    "quantize",
+    "radialScale",
+    "radius",
+    "ranges",
+    "rate",
+    "readout",
+    "readoutPosition",
+    "reduce",
+    "reference",
+    "referenceLine",
+    "refresh",
+    "refreshInterval",
+    "reheat",
+    "release",
+    "repulsion",
+    "reset",
+    "resolution",
+    "resolve",
+    "respond",
+    "responsive",
+    "rightOn",
+    "root",
+    "rotation",
+    "row",
+    "rowOrder",
+    "rows",
+    "rules",
+    "running",
+    "samples",
+    "sampling",
+    "scale",
+    "scaleDefaults",
+    "scales",
+    "schema",
+    "scheme",
+    "sectorLabel",
+    "sectorLabelFormat",
+    "seed",
+    "select",
+    "selectionOpacity",
+    "series",
+    "set",
+    "settings",
+    "shade",
+    "shape",
+    "shapeScale",
+    "sharedBins",
+    "siblingSpacing",
+    "side",
+    "size",
+    "sizeAttenuation",
+    "sizeScale",
+    "sizeUnits",
+    "snapshot",
+    "sort",
+    "source",
+    "sourceLayers",
+    "sphericalView",
+    "springStrength",
+    "start",
+    "startAngle",
+    "startLower",
+    "startUpper",
+    "stem",
+    "step",
+    "stop",
+    "styles",
+    "subdivisionTolerance",
+    "subtitle",
+    "surface3d",
+    "surfaceMode",
+    "target",
+    "tex",
+    "text",
+    "textColor",
+    "textureResolution",
+    "theme",
+    "thresholds",
+    "tick",
+    "ticks",
+    "tile",
+    "tileData",
+    "tiles",
+    "timezone",
+    "title",
+    "toneMapping",
+    "tooltip",
+    "transparent",
+    "triangle",
+    "type",
+    "tz",
+    "unitsPerMeter",
+    "update",
+    "upper",
+    "url",
+    "value",
+    "values",
+    "velocityDecay",
+    "viewport",
+    "visible",
+    "visualMargin",
+    "warmup",
+    "weight",
+    "where",
+    "whisker",
+    "wick",
+    "width",
+    "widthMode",
+    "widthScale",
+    "widths",
+    "wrap",
+    "x",
+    "x0",
+    "x1",
+    "xInvert",
+    "xOffset",
+    "xTransform",
+    "xbounds",
+    "xrange",
+    "y",
+    "y0",
+    "y1",
+    "yInvert",
+    "yOffset",
+    "yTransform",
+    "ybounds",
+    "yrange",
+    "z",
+    "z0",
+    "z1",
+    "zInvert",
+    "zScale",
+    "zTransform",
+    "zbounds",
+    "zoom",
+    "zoomAxis",
+    "zoomBias",
+    "zrange"
+  ],
+  "expressionParams": {
+    "Sample": [
+      "proportion",
+      "size"
+    ],
+    "Window": [
+      "size"
+    ],
+    "Bin": [
+      "bins"
+    ],
+    "Hexbin": [
+      "bins",
+      "radius"
+    ],
+    "Dodge": [
+      "columns"
+    ],
+    "Interpolate": [
+      "resolution"
+    ],
+    "Density": [
+      "bandwidth",
+      "resolution"
+    ]
+  },
+  "colormaps": [
+    "Viridis",
+    "BrBG",
+    "BuGn",
+    "BuPu",
+    "Cividis",
+    "Cool",
+    "CubehelixDefault",
+    "GnBu",
+    "Greys",
+    "Inferno",
+    "Magma",
+    "OrRd",
+    "PRGn",
+    "PiYG",
+    "Plasma",
+    "PuBu",
+    "PuBuGn",
+    "PuOr",
+    "PuRd",
+    "RdBu",
+    "RdGy",
+    "RdPu",
+    "RdYlBu",
+    "RdYlGn",
+    "Sinebow",
+    "Spectral",
+    "Turbo",
+    "Warm",
+    "YlGn",
+    "YlGnBu",
+    "YlOrBr",
+    "White"
+  ],
+  "shapes": {
+    "builtin": [
+      "circle",
+      "triangle",
+      "diamond",
+      "square",
+      "hexagon",
+      "plus",
+      "cross",
+      "star",
+      "triangle-down",
+      "triangle-left",
+      "triangle-right",
+      "pentagon",
+      "octagon",
+      "wye",
+      "arrow",
+      "chevron",
+      "circle-open",
+      "square-open",
+      "diamond-open",
+      "triangle-open",
+      "heart",
+      "pin",
+      "drop"
+    ],
+    "maxSegments": 4096,
+    "maxShapes": 256
+  },
+  "legendChannels": [
+    "fill",
+    "color",
+    "shape",
+    "outlineColor",
+    "size",
+    "width",
+    "opacity"
+  ],
+  "legendPositions": [
+    "top",
+    "bottom",
+    "left",
+    "right"
+  ],
+  "marks": [
+    "Anchor",
+    "Area",
+    "Arrows",
+    "Arrows3D",
+    "BandX",
+    "BandY",
+    "Bar",
+    "BoxPlot",
+    "BulletChart",
+    "Callout",
+    "Candlestick",
+    "Crosshair",
+    "DensityBands",
+    "DensityContour",
+    "Dumbbell",
+    "Ecdf",
+    "EndLabels",
+    "ErrorBars",
+    "ForestPlot",
+    "GeoJSON",
+    "Heatmap",
+    "Histogram",
+    "Image",
+    "IntervalTimeline",
+    "Line",
+    "Lollipop",
+    "Pie",
+    "Points",
+    "Points3D",
+    "Polygon",
+    "Prism",
+    "Rect",
+    "RuleX",
+    "RuleY",
+    "Segments",
+    "Smooth",
+    "Sparkline",
+    "Surface",
+    "Swarm",
+    "Text",
+    "Text3D",
+    "VectorTile",
+    "Violin",
+    "Waterfall"
+  ],
+  "inputs": [
+    "Button",
+    "Checkbox",
+    "ColorPicker",
+    "DateTimeInput",
+    "Playback",
+    "Select",
+    "Slider",
+    "TextInput"
+  ],
+  "inputContexts": [
+    "InputContext",
+    "Scene",
+    "Template"
+  ],
+  "objects": {
+    "TooltipField": {
+      "field": [],
+      "label": [],
+      "format": []
+    },
+    "TooltipOptions": {
+      "fields": [
+        "TooltipField"
+      ],
+      "radius": [],
+      "content": []
+    },
+    "NearestOptions": {
+      "selection": [],
+      "radius": []
+    },
+    "AxisDefinition": {
+      "domain": [],
+      "transform": [],
+      "range": [],
+      "constant": [],
+      "invert": [],
+      "scale": [],
+      "label": [],
+      "visible": [],
+      "side": [],
+      "type": [],
+      "origin": [],
+      "timezone": [],
+      "format": [],
+      "majorInterval": [
+        "CalendarInterval"
+      ],
+      "minorInterval": [
+        "CalendarInterval"
+      ],
+      "major": [],
+      "minor": [],
+      "step": [],
+      "tickCount": [],
+      "subdivisions": [],
+      "minorStep": [],
+      "padding": [],
+      "grid": [],
+      "line": [],
+      "ticks": [],
+      "tickSize": [],
+      "tickDirection": [],
+      "titleFontWeight": [],
+      "gridColor": [],
+      "gridWidth": [],
+      "gridDash": [],
+      "lineWidth": [],
+      "tickWidth": [],
+      "arrow": [],
+      "arrowSize": [],
+      "labelOverlap": [],
+      "tickLabelAngle": [],
+      "tickLabelAlign": [],
+      "tickLabelPlacement": [],
+      "tickLabelOffset": [],
+      "titlePosition": [],
+      "titleAngle": [],
+      "titlePlacement": [],
+      "titleOffset": [],
+      "context": [],
+      "breaks": [
+        "AxisDefinitionBreaksHours",
+        "AxisDefinitionBreaksDates"
+      ],
+      "calendar": [
+        "AxisDefinitionCalendar"
+      ]
+    },
+    "CalendarInterval": {
+      "unit": [],
+      "step": []
+    },
+    "AxisDefinitionBreaksHours": {
+      "hours": []
+    },
+    "AxisDefinitionBreaksDates": {
+      "dates": []
+    },
+    "AxisDefinitionCalendar": {
+      "name": [],
+      "units": []
+    },
+    "PlotLegendOptions": {
+      "position": []
+    },
+    "LightSpec": {
+      "kind": [],
+      "color": [],
+      "intensity": [],
+      "position": [],
+      "groundColor": [],
+      "distance": [],
+      "decay": []
+    },
+    "Axes3DConfig": {
+      "style": [],
+      "gridPlanes": []
+    },
+    "PlotOverviewAxesOptions": {
+      "x": [],
+      "y": []
+    },
+    "ReferenceRule": {
+      "axis": [],
+      "value": [],
+      "label": [],
+      "color": [],
+      "width": [],
+      "dash": []
+    },
+    "PlotViewportOptions": {
+      "x": [],
+      "y": [],
+      "zoom": [],
+      "zoomX": [],
+      "zoomY": [],
+      "center": []
+    },
+    "PlotSettings": {
+      "showTrigger": [],
+      "showExport": [],
+      "menu": [],
+      "allowSharedDefaults": []
+    },
+    "TableViewColumn": {
+      "field": [],
+      "label": [],
+      "format": []
+    },
+    "InputWrite": {
+      "input": [],
+      "column": [],
+      "value": [],
+      "reset": [],
+      "default": []
+    },
+    "ColormapOptions": {
+      "colors": [],
+      "space": [],
+      "positions": []
+    },
+    "EnterEffectOptions": {
+      "effect": [],
+      "duration": [],
+      "easing": []
+    },
+    "ExitEffectOptions": {
+      "effect": [],
+      "duration": [],
+      "easing": []
+    },
+    "BrushOptions": {
+      "selection": [],
+      "axis": []
+    },
+    "NearbyOptions": {
+      "selection": [],
+      "radius": [],
+      "units": [],
+      "axis": []
+    },
+    "DictionaryColumn": {
+      "codes": [],
+      "categories": []
+    },
+    "MinimapAxesOptions": {
+      "x": [],
+      "y": []
+    },
+    "ProviderAccumulateOptions": {
+      "maxRows": []
+    },
+    "FilterCondition": {
+      "field": [],
+      "op": [],
+      "value": []
+    },
+    "ShiftAsOptions": {
+      "shifted": [],
+      "original": []
+    },
+    "FacetFieldsRow": {
+      "row": []
+    },
+    "FacetFieldsColumn": {
+      "column": []
+    },
+    "FacetPairsOptions": {
+      "x": [],
+      "y": []
+    },
+    "FacetAsValue": {
+      "value": [],
+      "field": []
+    },
+    "FacetAsX": {
+      "x": [],
+      "y": []
+    },
+    "FacetLegendOptions": {
+      "position": []
+    },
+    "SimulateStopOptions": {
+      "tolerance": [],
+      "every": [],
+      "columns": []
+    },
+    "InterpolateBoundsOptions": {
+      "x": [],
+      "y": []
+    },
+    "DensityBoundsOptions": {
+      "x": [],
+      "y": []
+    },
+    "DensityAsOptions": {
+      "x": [],
+      "y": [],
+      "density": []
+    },
+    "FoldAsOptions": {
+      "key": [],
+      "value": []
+    },
+    "RegressionAsOptions": {
+      "x": [],
+      "y": [],
+      "lower": [],
+      "upper": []
+    },
+    "ForceSpec": {
+      "type": [],
+      "strength": [],
+      "distance": [],
+      "radius": [],
+      "x": [],
+      "y": [],
+      "z": [],
+      "theta": [],
+      "distanceMin": [],
+      "distanceMax": [],
+      "iterations": []
+    },
+    "ReducerSpec": {
+      "op": [],
+      "field": []
+    },
+    "VectorTileTileDataOptions": {
+      "tile": [],
+      "bytes": []
+    },
+    "TitleTextOptions": {
+      "value": [],
+      "format": []
+    },
+    "LabelBox": {
+      "fill": [],
+      "outlineColor": [],
+      "outlineWidth": [],
+      "padding": [],
+      "radius": [],
+      "opacity": []
+    },
+    "LabelLeader": {
+      "color": [],
+      "width": []
+    },
+    "TreeEnterOptions": {
+      "nodeWidth": [],
+      "layerHeight": [],
+      "edgeLength": []
+    },
+    "TreeExitOptions": {
+      "nodeWidth": [],
+      "layerHeight": [],
+      "edgeLength": []
+    },
+    "FramePlacement": {
+      "version": [],
+      "anchor": [],
+      "size": [],
+      "orientation": [],
+      "rotation": []
+    },
+    "FrameAtmosphereOptions": {
+      "color": [],
+      "thickness": []
+    },
+    "HistogramBrushOptions": {
+      "selection": [],
+      "axis": []
+    },
+    "Viewport2D": {
+      "x": [],
+      "y": [],
+      "zoom": [],
+      "zoomX": [],
+      "zoomY": [],
+      "center": []
+    },
+    "HexbinBoundsOptions": {
+      "x": [],
+      "y": []
+    },
+    "BulletChartRangesOptions": {
+      "fill": [],
+      "fillScale": [],
+      "opacity": [],
+      "outlineColor": [],
+      "outlineWidth": [],
+      "visible": [],
+      "label": []
+    },
+    "BulletChartTickOptions": {
+      "fill": [],
+      "width": [],
+      "depth": [],
+      "opacity": [],
+      "visible": [],
+      "label": []
+    },
+    "ForestPlotIntervalOptions": {
+      "color": [],
+      "width": [],
+      "capSize": [],
+      "opacity": [],
+      "visible": [],
+      "label": []
+    },
+    "ForestPlotReferenceLineOptions": {
+      "color": [],
+      "width": [],
+      "opacity": [],
+      "visible": [],
+      "label": []
+    },
+    "IntervalTimelineMilestonesOptions": {
+      "fill": [],
+      "shape": [
+        "DictionaryColumn"
+      ],
+      "size": [],
+      "opacity": [],
+      "outlineColor": [],
+      "outlineWidth": [],
+      "visible": [],
+      "label": []
+    },
+    "SparklineBandOptions": {
+      "fill": [],
+      "opacity": [],
+      "outlineColor": [],
+      "outlineWidth": [],
+      "visible": [],
+      "label": []
+    },
+    "SparklineLastOptions": {
+      "color": [],
+      "opacity": [],
+      "size": [],
+      "dx": [],
+      "dy": [],
+      "align": [],
+      "visible": [],
+      "label": []
+    }
+  },
+  "objectProps": {
+    "Plot": {
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "x": [
+        "AxisDefinition"
+      ],
+      "y": [
+        "AxisDefinition"
+      ],
+      "z": [
+        "AxisDefinition"
+      ],
+      "legend": [
+        "PlotLegendOptions"
+      ],
+      "lights": [
+        "LightSpec"
+      ],
+      "axes3d": [
+        "Axes3DConfig"
+      ],
+      "overviewAxes": [
+        "PlotOverviewAxesOptions"
+      ],
+      "rules": [
+        "ReferenceRule"
+      ],
+      "viewport": [
+        "PlotViewportOptions"
+      ],
+      "settings": [
+        "PlotSettings"
+      ]
+    },
+    "TableView": {
+      "columns": [
+        "TableViewColumn"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ]
+    },
+    "Heatmap": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Points3D": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearby": [
+        "NearbyOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Points": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearby": [
+        "NearbyOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Segments": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Line": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Surface": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Arrows3D": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Image": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Minimap": {
+      "axes": [
+        "MinimapAxesOptions"
+      ]
+    },
+    "Area": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Provider": {
+      "accumulate": [
+        "ProviderAccumulateOptions"
+      ]
+    },
+    "Filter": {
+      "where": [
+        "FilterCondition"
+      ]
+    },
+    "Shift": {
+      "as": [
+        "ShiftAsOptions"
+      ]
+    },
+    "Rect": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Prism": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Facet": {
+      "settings": [
+        "PlotSettings"
+      ],
+      "fields": [
+        "FacetFieldsRow",
+        "FacetFieldsColumn"
+      ],
+      "pairs": [
+        "FacetPairsOptions"
+      ],
+      "as": [
+        "FacetAsValue",
+        "FacetAsX"
+      ],
+      "legend": [
+        "FacetLegendOptions"
+      ]
+    },
+    "Slider": {
+      "step": [
+        "CalendarInterval"
+      ]
+    },
+    "Button": {
+      "set": [
+        "InputWrite"
+      ]
+    },
+    "Playback": {
+      "rate": [
+        "CalendarInterval"
+      ],
+      "step": [
+        "CalendarInterval"
+      ]
+    },
+    "Simulate": {
+      "stop": [
+        "SimulateStopOptions"
+      ]
+    },
+    "Interpolate": {
+      "bounds": [
+        "InterpolateBoundsOptions"
+      ]
+    },
+    "Density": {
+      "bounds": [
+        "DensityBoundsOptions"
+      ],
+      "as": [
+        "DensityAsOptions"
+      ]
+    },
+    "Fold": {
+      "as": [
+        "FoldAsOptions"
+      ]
+    },
+    "Regression": {
+      "as": [
+        "RegressionAsOptions"
+      ]
+    },
+    "Flow": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Routes": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "GeoJSON": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ]
+    },
+    "VectorTile": {
+      "tileData": [
+        "VectorTileTileDataOptions"
+      ]
+    },
+    "Polygon": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Title": {
+      "text": [
+        "TitleTextOptions"
+      ]
+    },
+    "Panels": {
+      "x": [
+        "AxisDefinition"
+      ]
+    },
+    "Mapping": {
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Text": {
+      "box": [
+        "LabelBox"
+      ],
+      "leader": [
+        "LabelLeader"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearby": [
+        "NearbyOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Anchor": {
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Tree": {
+      "enter": [
+        "TreeEnterOptions"
+      ],
+      "exit": [
+        "TreeExitOptions"
+      ]
+    },
+    "Frame": {
+      "placement": [
+        "FramePlacement"
+      ],
+      "rules": [
+        "ReferenceRule"
+      ],
+      "atmosphere": [
+        "FrameAtmosphereOptions"
+      ],
+      "x": [
+        "AxisDefinition"
+      ],
+      "y": [
+        "AxisDefinition"
+      ],
+      "z": [
+        "AxisDefinition"
+      ]
+    },
+    "Arrows": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Bar": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "BoxPlot": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Callout": {
+      "box": [
+        "LabelBox"
+      ],
+      "leader": [
+        "LabelLeader"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "DensityBands": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "DensityContour": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Ecdf": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "ErrorBars": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Histogram": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "HistogramBrushOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Lollipop": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Pie": {
+      "placement": [
+        "FramePlacement"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Smooth": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Swarm": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearby": [
+        "NearbyOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Violin": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Marginals": {
+      "viewport": [
+        "Viewport2D"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "brush": [
+        "BrushOptions"
+      ],
+      "nearby": [
+        "NearbyOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "FocusContext": {
+      "viewport": [
+        "Viewport2D"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearby": [
+        "NearbyOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Hexbin": {
+      "bounds": [
+        "HexbinBoundsOptions"
+      ]
+    },
+    "BandX": {
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "BandY": {
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "BulletChart": {
+      "ranges": [
+        "BulletChartRangesOptions"
+      ],
+      "tick": [
+        "BulletChartTickOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Candlestick": {
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Dumbbell": {
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "EndLabels": {
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "ForestPlot": {
+      "interval": [
+        "ForestPlotIntervalOptions"
+      ],
+      "referenceLine": [
+        "ForestPlotReferenceLineOptions"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "IntervalTimeline": {
+      "milestones": [
+        "IntervalTimelineMilestonesOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Sparkline": {
+      "band": [
+        "SparklineBandOptions"
+      ],
+      "last": [
+        "SparklineLastOptions"
+      ],
+      "colormap": [
+        "ColormapOptions"
+      ],
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    },
+    "Waterfall": {
+      "select": [
+        "InputWrite"
+      ],
+      "hover": [
+        "InputWrite"
+      ],
+      "tooltip": [
+        "TooltipField",
+        "TooltipOptions"
+      ],
+      "nearest": [
+        "NearestOptions"
+      ],
+      "enterEffect": [
+        "EnterEffectOptions"
+      ],
+      "exitEffect": [
+        "ExitEffectOptions"
+      ]
+    }
+  },
+  "connections": {
+    "version": 1,
+    "kinds": [
+      "Line",
+      "Segments",
+      "Arrows3D",
+      "Arrows"
+    ],
+    "endpointKinds": [
+      "Anchor",
+      "Points",
+      "Points3D",
+      "Text",
+      "Rect",
+      "Prism",
+      "Segments",
+      "Arrows3D"
+    ],
+    "compoundEndpointKinds": [
+      "Arrows",
+      "Bar",
+      "BoxPlot",
+      "Histogram",
+      "Pie"
+    ],
+    "channels": [
+      "x",
+      "y",
+      "z",
+      "position",
+      "start",
+      "end"
+    ],
+    "orders": [
+      "facet"
+    ],
+    "attachments": {
+      "Anchor": {
+        "default": "center",
+        "names": [
+          "center"
+        ]
+      },
+      "Points": {
+        "default": "center",
+        "names": [
+          "center"
+        ]
+      },
+      "Points3D": {
+        "default": "center",
+        "names": [
+          "center"
+        ]
+      },
+      "Text": {
+        "default": "anchor",
+        "names": [
+          "anchor"
+        ]
+      },
+      "Rect": {
+        "default": "center",
+        "names": [
+          "center",
+          "left",
+          "right",
+          "bottom",
+          "top"
+        ]
+      },
+      "Prism": {
+        "default": "center",
+        "names": [
+          "center",
+          "left",
+          "right",
+          "bottom",
+          "top"
+        ]
+      },
+      "Arrows": {
+        "default": null,
+        "names": [
+          "start",
+          "end"
+        ]
+      },
+      "Bar": {
+        "default": "center",
+        "names": [
+          "center",
+          "left",
+          "right",
+          "bottom",
+          "top",
+          "baseline",
+          "value"
+        ]
+      },
+      "BoxPlot": {
+        "default": "center",
+        "names": [
+          "center",
+          "left",
+          "right",
+          "bottom",
+          "top",
+          "q1",
+          "q3",
+          "median"
+        ]
+      },
+      "Histogram": {
+        "default": "center",
+        "names": [
+          "center",
+          "left",
+          "right",
+          "bottom",
+          "top",
+          "baseline",
+          "value"
+        ]
+      },
+      "Pie": {
+        "default": "center",
+        "names": [
+          "center",
+          "left",
+          "right",
+          "bottom",
+          "top",
+          "outer",
+          "inner"
+        ]
+      },
+      "Segments": {
+        "default": null,
+        "names": [
+          "start",
+          "end"
+        ]
+      },
+      "Arrows3D": {
+        "default": null,
+        "names": [
+          "start",
+          "end"
+        ]
+      }
+    },
+    "deferred": {
+      "Line": "general line vertices",
+      "Area": "boundary intersections",
+      "ErrorBars": "boundary intersections",
+      "Violin": "boundary intersections",
+      "GeoJSON": "GeoJSON representatives",
+      "Surface": "surface samples",
+      "Heatmap": "solid-surface attachments",
+      "Image": "raster cells",
+      "Text3D": "a single label with no data rows; use Text"
+    }
+  },
+  "themeKinds": [
+    "Area",
+    "Arrows",
+    "Arrows3D",
+    "Bar",
+    "BoxPlot",
+    "Callout",
+    "Crosshair",
+    "DensityBands",
+    "DensityContour",
+    "Ecdf",
+    "ErrorBars",
+    "GeoJSON",
+    "Heatmap",
+    "Histogram",
+    "Image",
+    "Line",
+    "Lollipop",
+    "Pie",
+    "Points",
+    "Points3D",
+    "Polygon",
+    "Prism",
+    "Rect",
+    "RuleX",
+    "RuleY",
+    "Segments",
+    "Smooth",
+    "Surface",
+    "Swarm",
+    "Text",
+    "Text3D",
+    "Violin"
+  ],
+  "facet": {
+    "errors": {
+      "required": "Facet requires a row or column field, fields, or pairs.",
+      "wrap": "Facet wrap takes a positive integer (cells per line) with one facet field, row or column.",
+      "fields": "Facet fields takes a nonempty list of distinct column names, or {row: [...]} or {column: [...]}.",
+      "fieldsDimension": "Facet fields lays its cells out along {dimension}s, so it cannot combine with {dimension}=\"{field}\"; use fields={{{other}: [...]}} or {other}=\"{field}\".",
+      "pairs": "Facet pairs takes a nonempty list of distinct column names, or {x: [...], y: [...]}.",
+      "pairsCombine": "Facet pairs cannot combine with row, column, or fields.",
+      "triangle": "Facet triangle must be full, upper, or lower.",
+      "triangleXY": "Facet triangle applies to pairs={[...]} (one list); with {x, y} lists only diagonal applies.",
+      "diagonal": "Facet diagonal must be true or false.",
+      "pairsOnly": "Facet triangle and diagonal apply only with pairs.",
+      "as": "Facet as renames the value/field aliases (fields) or x/y (pairs).",
+      "asNames": "Facet as names must be distinct, nonempty, and not start with \"@\".",
+      "pairOrder": "Pair facet order must contain distinct selected fields.",
+      "order": "Facet order must contain unique category values.",
+      "pairsNumeric": "Facet pairs requires numeric columns; \"{field}\" is not one.",
+      "missingField": "Facet {prop}: the data has no column \"{field}\"."
+    },
+    "triangles": [
+      "full",
+      "upper",
+      "lower"
+    ]
+  }
+}

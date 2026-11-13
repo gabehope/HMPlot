@@ -1,0 +1,314 @@
+diff --git a/src/lib/plot/utils/extentSummary.js b/src/lib/plot/utils/extentSummary.js
+new file mode 100644
+--- /dev/null
++++ b/src/lib/plot/utils/extentSummary.js
+@@ -0,0 +1,92 @@
++import { Array as JaxArray, numpy as np } from "@hmplot/jax";
++import { asArray } from "./data.js";
++import { finiteExtents } from "./dataView.js";
++
++const NO_MASK = {}, UNSCOPED = {};
++
++/**
++ * Bounded investigation helper: share ready/in-flight extent work, keeping only the latest
++ * revision for each input/mask/transform/column. Cache values are host numbers, never retained
++ * device arrays. Mutable producers must supply revisions; an ordinary JAX value is immutable.
++ * A batch groups requests already ready in one microtask, with the same publication owner and
++ * mask. It never waits for another plot, a future preparation, or an optional consumer.
++ */
++export function createExtentSummary({ read = finiteExtents, schedule = queueMicrotask } = {}) {
++  const cache = new WeakMap();
++  let pending = new Map();
++  const same = (a, b) => a.length === b.length && a.every((value, i) => Object.is(value, b[i]));
++
++  async function flush() {
++    const ready = pending;
++    pending = new Map();
++    await Promise.all([...ready.values()].flatMap((masks) => [...masks.values()]).map(async (requests) => {
++      try {
++        const extents = await read(requests.map(({ array, transform, column }) => ({ array, transform, column })),
++          requests[0].valid, { missing: null });
++        requests.forEach((request, i) => request.resolve(extents[i]));
++      } catch (error) {
++        requests.forEach((request) => request.reject(error));
++      } finally {
++        for (const { array, valid } of requests) { array.dispose(); valid?.dispose(); }
++      }
++    }));
++  }
++
++  return {
++    request(input, { transform = "linear", column = null, valid = null,
++      valueRevision, maskRevision, batch = UNSCOPED } = {}) {
++      if (input instanceof JaxArray && input.refCount <= 0)
++        return Promise.reject(Error("Cannot infer an extent from a disposed column."));
++      const mutableInput = !(input instanceof JaxArray);
++      const mutableMask = valid && !(valid instanceof JaxArray);
++      const eligible = input && typeof input === "object" &&
++        (!mutableInput || valueRevision !== undefined) && (!mutableMask || maskRevision !== undefined);
++      const key = JSON.stringify([transform, column]);
++      const revision = [valueRevision, maskRevision];
++      let entries, previous;
++      if (eligible) {
++        let masks = cache.get(input);
++        if (!masks) cache.set(input, masks = new WeakMap());
++        entries = masks.get(valid ?? NO_MASK);
++        if (!entries) masks.set(valid ?? NO_MASK, entries = new Map());
++        previous = entries.get(key);
++        if (previous && same(previous.revision, revision)) return previous.work;
++      }
++
++      // Retain immediately, before yielding: superseded/disposed preparations may release their
++      // inputs while another consumer still awaits this shared summary.
++      let array = asArray(input), heldMask = valid ? asArray(valid) : null;
++      if (column === null && array.shape.length !== 1) {
++        const shape = array.shape;
++        if (heldMask && shape.length === 0) {
++          const previous = heldMask;
++          heldMask = np.any(previous.ref.greater(0)).reshape([1]);
++          previous.dispose();
++        } else if (heldMask && shape.length > 1 && heldMask.shape[0] === shape[0]) {
++          const previous = heldMask;
++          heldMask = np.repeat(previous.ref, shape.slice(1).reduce((a, b) => a * b, 1));
++          previous.dispose();
++        }
++        array = array.reshape([-1]);
++      }
++      let resolve, reject;
++      const work = new Promise((yes, no) => { resolve = yes; reject = no; });
++      const entry = { revision, work };
++      if (eligible) {
++        entries.set(key, entry);
++        work.catch(() => { if (entries.get(key) === entry) entries.delete(key); });
++      }
++      const first = pending.size === 0;
++      let masks = pending.get(batch);
++      if (!masks) pending.set(batch, masks = new Map());
++      const maskKey = valid ?? NO_MASK;
++      let requests = masks.get(maskKey);
++      if (!requests) masks.set(maskKey, requests = []);
++      requests.push({ array, valid: heldMask, column, transform, resolve, reject });
++      if (first) schedule(flush);
++      return work;
++    },
++  };
++}
++
++export const extentSummary = createExtentSummary();
+diff --git a/src/lib/plot/utils/scaleBindings.js b/src/lib/plot/utils/scaleBindings.js
+--- a/src/lib/plot/utils/scaleBindings.js
++++ b/src/lib/plot/utils/scaleBindings.js
+@@ -1,8 +1,9 @@
+-import { jaxTransformValid, scaleTransform } from "./scaleTransforms.js";
++import { scaleTransform } from "./scaleTransforms.js";
+ import { Array as JaxArray, numpy as np } from "@hmplot/jax";
+ import { asArray, shapeOf, isChannelScalar } from "./data.js";
+ import { diagnostic } from "./diagnostics.js";
+ import { kindsWith } from "./markKinds.js";
++import { extentSummary } from "./extentSummary.js";
+ 
+ const channels = {
+   fill: "color",
+@@ -20,7 +21,6 @@
+   size: ["scaleRange"],
+   width: ["widthRange"],
+ };
+-const extentCache = new WeakMap();
+ // Prism and Rect read `width` (like `depth`) as a size in data units, not as a stroke width:
+ // they have no width scale, and binding one would set options they do not have.
+ const GEOMETRIC_WIDTH_KINDS = new Set(kindsWith("geometricWidth"));
+@@ -51,52 +51,20 @@
+ 
+ /**
+  * The finite extent of `input` under `transform`. `rows` (a padded view's valid mask, int32 0/1)
+- * leaves out rows that are not shown; such extents are not cached, since the rows change while
+- * the column does not.
++ * leaves out rows that are not shown. Immutable/current-revision summaries share in-flight
++ * work, including masked summaries; output encoding is independent of this domain inference.
+  */
+-export async function numericExtent(input, transform, signal, rows = null) {
+-  const cached = input && typeof input === "object" && !rows;
+-  const prior = cached ? extentCache.get(input)?.get(transform) : undefined;
+-  if (prior !== undefined) return prior;
++export async function numericExtent(input, transform, signal, rows = null, revision = {}) {
++  if (signal?.aborted) throw new DOMException("Canceled", "AbortError");
+   const host = isChannelScalar(input) ? input.value : input;
+   if (!shapeOf(input).length && typeof host !== "number" && !(input instanceof JaxArray))
+     throw Error("Continuous scales require numeric array data.");
+   if (typeof host === "number" && !rows)
+     return Number.isFinite(host) && scaleTransform(transform ?? "linear").inDomain(host) ? [host, host] : null;
+   if (shapeOf(input).some((dimension) => dimension === 0)) return null;
+-  const source = asArray(input);
+-  let valid, lo, hi, lowValues, highValues;
+-  try {
+-    valid = np.isfinite(source.ref);
+-    if (rows && (rows.shape[0] === source.shape[0] || source.shape.length === 0)) {
+-      const finite = valid;
+-      valid = np.logicalAnd(finite, source.shape.length === 0 ? np.any(rows.ref.greater(0)) : rows.ref.greater(0));
+-    }
+-    // Values outside the transform's domain are missing: auto extents leave them out (TODO 39.1).
+-    const inside = jaxTransformValid(transform, source);
+-    if (inside) {
+-      const previous = valid;
+-      valid = np.logicalAnd(previous.ref, inside);
+-      previous.dispose();
+-    }
+-    lowValues = np.where(valid.ref, source.ref, Infinity);
+-    highValues = np.where(valid.ref, source.ref, -Infinity);
+-    lo = np.min(lowValues.ref);
+-    hi = np.max(highValues.ref);
+-    const [low, high] = await Promise.all([lo.ref.data(), hi.ref.data()]);
+-    if (signal?.aborted) throw new DOMException("Canceled", "AbortError");
+-    const result = Number.isFinite(low[0]) && Number.isFinite(high[0])
+-      ? [Number(low[0]), Number(high[0])] : null;
+-    if (cached) {
+-      let saved = extentCache.get(input);
+-      if (!saved) extentCache.set(input, saved = new Map());
+-      saved.set(transform, result);
+-    }
+-    return result;
+-  } finally {
+-    hi?.dispose(); lo?.dispose(); lowValues?.dispose(); highValues?.dispose();
+-    valid?.dispose(); source.dispose();
+-  }
++  const result = await extentSummary.request(host, { ...revision, transform: transform ?? "linear", valid: rows });
++  if (signal?.aborted) throw new DOMException("Canceled", "AbortError");
++  return result;
+ }
+ 
+ const missingCache = new WeakMap();
+@@ -196,10 +164,16 @@
+         ? sourceScopeFor(scope, field, fullSource) : scope;
+       const pipeline = scale.normalization.domainSource === "source"
+         ? origin?.pipeline ?? [] : scope?.pipeline ?? [];
++      const extentInput = field && origin !== scope ? origin.get(field) : input;
++      const extentRows = origin === scope || !field ? prepared.valid : null;
+       const extent = field && sharedFacet && pipeline.length
+         ? await frame.facetExtent?.(pipeline, field, scale.normalization.transform)
+-        : await numericExtent(field && origin !== scope ? origin.get(field) : input,
+-            scale.normalization.transform, signal, origin === scope || !field ? prepared.valid : null);
++        : await numericExtent(extentInput, scale.normalization.transform, signal, extentRows, {
++              valueRevision: field && !(extentInput instanceof JaxArray)
++                ? origin.columnRevision?.(field) ?? origin.version ?? origin.view?.version ?? origin.identity?.generation : undefined,
++              maskRevision: extentRows && !(extentRows instanceof JaxArray) ? scope?.view?.version ?? scope?.version : undefined,
++              batch: frame ?? scope,
++            });
+       if (signal?.aborted) throw new DOMException("Canceled", "AbortError");
+       const owner = owners[channel] ??= {};
+       preview = scale.normalization.preview(owner, extent);
+diff --git a/src/lib/plot/utils/markDomains.js b/src/lib/plot/utils/markDomains.js
+--- a/src/lib/plot/utils/markDomains.js
++++ b/src/lib/plot/utils/markDomains.js
+@@ -3,6 +3,31 @@
+ import { rectangleDomainArrays } from "./rectangles.js";
+ 
+ const CURVES_WITH_CONTROLS = ["catmull-rom", "monotone-x", "monotone-y"];
++
++/**
++ * Inputs to numeric domain summaries, separate from paint and CSS-sized glyph styling.
++ * A consumer may resolve authored column names to their current immutable column identities.
++ * Returning null from that resolver disables reuse for a dependency it cannot certify (for
++ * example a view-state expression). Text's alignment/box/displayScale are applied to retained
++ * metrics afterwards by labelInsets; text, font and numeric footprint inputs belong here.
++ */
++export function domainInputs(kind, props, { glyphs = null, resolve = value => value } = {}) {
++  const names = ["position", "x", "y", "z", "x0", "x1", "y0", "y1", "z0", "z1",
++    "lower", "upper", "baseline", "start", "end", "control1", "control2", "axis"];
++  if (kind === "Prism") names.push("width", "depth", "rotation", "shape");
++  if (kind === "Line") names.push("curve", "curveAlpha");
++  if (kind === "Text") names.push("text", "font", "size", "offsetX", "offsetY");
++  if (glyphs && Object.values(glyphs).some(Boolean)) names.push("size");
++  const inputs = { glyphX: Boolean(glyphs?.x), glyphY: Boolean(glyphs?.y), glyphZ: Boolean(glyphs?.z) };
++  for (const name of names) {
++    const value = props[name];
++    if (value === undefined) continue;
++    const dependency = resolve(value, name);
++    if (dependency === null) return null;
++    inputs[name] = dependency;
++  }
++  return inputs;
++}
+ 
+ /**
+  * The arrays whose extents set a mark's automatic axis domains (TODO 17.2a/b; out of
+diff --git a/src/lib/plot/bound/namedMark.svelte b/src/lib/plot/bound/namedMark.svelte
+--- a/src/lib/plot/bound/namedMark.svelte
++++ b/src/lib/plot/bound/namedMark.svelte
+@@ -5,7 +5,8 @@
+   import {validateCurveInput} from "../utils/curves.js";
+   import {MAPPING_CONTEXT,resolveMappings} from "../utils/mapping.js";
+   import {THEME_CONTEXT,markTheme} from "../utils/theme.js";
+-  import { domainFields as kindDomainFields, emptyDomain } from "../utils/markDomains.js";
++  import { domainFields as kindDomainFields, domainInputs, emptyDomain } from "../utils/markDomains.js";
++  import { extentSummary } from "../utils/extentSummary.js";
+   import { labelMetricFields, labelInsets } from "../utils/labelBounds.js";
+   import {AXIS_CONTEXT,VIEW_CONTEXT} from "../utils/axisFrame.js";
+   import { ROOT_CONTENT_CONTEXT } from "../utils/rootFrameSelection.js";
+@@ -17,7 +18,7 @@
+   import { useThrelte, useTask } from "@threlte/core";
+   import { getOptionsContext } from "../utils/context.js";
+   import { prepareDodge } from "../utils/dodge.js";
+-  import { FACET_CONTEXT, finiteExtents, scalar, sameRows } from "../utils/dataView.js";
++  import { FACET_CONTEXT, scalar, sameRows } from "../utils/dataView.js";
+   import { asArray, shapeOf } from "../utils/data.js";
+   import { markCapacity } from "../utils/proputils.js";
+   import { DATA_CONTEXT, literal, isLiteral, axisCategory } from "../utils/categorical.js";
+@@ -980,7 +981,9 @@
+       ? labelMetricFields(props, markOptions, valid) : { fields: [], valid: null };
+     try {
+       // A padded view's invalid rows are not shown: they do not widen the domain (17.3b).
+-      const extents = arrays.length || metrics.length ? await finiteExtents([...arrays, ...metrics], labelRows ?? valid, { missing: null }) : [];
++      const extents = await Promise.all([...arrays, ...metrics].map((field) => extentSummary.request(field.array ?? field,
++        { transform: field.transform ?? "linear", column: field.column ?? null,
++          valid: labelRows ?? valid, batch: frame ?? facet ?? renderer })));
+       const screenMetrics = metrics.length ? extents.slice(arrays.length) : null;
+       let at = 0;
+       return collected.map(({ axis, fields }) => {
+@@ -1537,20 +1540,41 @@
+       // connection, an iterative scope, a series (next is rebuilt) or a Heatmap (its bounds are
+       // props): those read after publishing, as before.
+       untrack(() => {
+-        const mark = child?.getMark?.();
+-        if (!mark || connection || kind === "Heatmap" || next.iterative || series !== undefined || values._autoBounds === false) return;
++        const mark = currentMark();
++        if (!mark || connection || kind === "Heatmap" || kind === "Image" && next.gridPlacement || next.iterative || series !== undefined || values._autoBounds === false) return;
++        // Published options still describe the previous footprint. Changing authored units
++        // (including clearing them) waits for the child to publish its next effective units.
++        if (kind === "Points" && !Object.is(current?.request?.channels?.sizeUnits, next.request.channels.sizeUnits)) return;
+         if (!(frame ? frame.collect() : facet || renderer.plotCollectDomain)) return;
+-        // A resize may republish the same data scope. Text's numeric summaries still apply;
+-        // its pixel reservation is resolved later against the new frame and current alignment.
++        // Paint and CSS-sized point changes do not change position summaries. Retain just the
++        // previous preparation's host summary; current immutable column identities invalidate
++        // it when a live producer changes geometry. Expressions remain conservative here.
++        const inputs = domainInputs(kind, next.request.channels, {
++          glyphs: glyphAxes(mark.options),
++          resolve: (value, channel) => {
++            const reads = viewStateReads(value);
++            if (isExpression(value) || reads.live || reads.stepped || reads.tracked) return null;
++            // Geometry options are literals even when a table happens to have that name.
++            if (["axis", "shape", "curve", "curveAlpha", "font"].includes(channel)) return value;
++            if (typeof value === "string" && markScope?.has?.(value)) return markScope.get(value);
++            // Source generations certify named host columns; directly authored mutable arrays
++            // have no revision and may be edited without changing their object identity.
++            if (value && typeof value === "object" && !(value instanceof JaxArray) && !isLiteral(value)) return null;
++            if (isLiteral(value) && value.value && typeof value.value === "object") return null;
++            return value;
++          },
++        });
++        if (inputs) for (const axis of "xyz") inputs[axis + "Transform"] = options.get(axis + "Transform");
+         const previous = current, prior = previous?.request;
+-        const reuse = kind === "Text" && previous?.domains &&
++        const reuse = inputs && previous?.domainInputs && previous?.domains &&
+           previous.domainsRevision === (frame?.domainRevision ?? 0) &&
+           prior?.generation === next.request.generation && prior?.revision === next.request.revision &&
+           sameRows(prior?.markScope, next.request.markScope) && previous.valid === next.valid &&
+-          sameChannels(prior.channels, next.request.channels);
++          sameChannels(previous.domainInputs, inputs);
+         const domainWork = reuse ? previous.domains : readDomains(domainFields(next, mark.options), next.valid, next.props, mark.options);
+         domainWork.catch(() => {});
+         next.domains = domainWork;
++        next.domainInputs = inputs;
+         next.domainsRevision = frame?.domainRevision ?? 0;
+         scaleWork = scaleWork ? Promise.all([scaleWork, domainWork]).then(() => {}) : domainWork.then(() => {});
+       });

@@ -1,0 +1,11 @@
+## Usage
+
+Retains source columns and adds the as column. Methods are deviation (default), extent, sum, first, and max. by sets groups. Constant-feature deviation normalization produces zero.
+
+To let the viewer change a setting, read an input in it: `method={input("method")}` (Python `method=hm.input.method`), where `method` is a [Select](select) of methods.
+
+This is a template over [Calculate](calculate), not a separate normalization kernel. The
+`deviation` method expands to `(field - mean(field)) / where(std(field) > 0, std(field), 1)`;
+`extent` uses the minimum and maximum, and `sum`, `first`, and `max` divide by that reduction.
+Reductions ignore hidden and nonfinite values. With `by`, the runner prepares the grouping keys
+once for the expression, including numeric keys. The caller's children read the resulting column.

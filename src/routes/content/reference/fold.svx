@@ -1,0 +1,5 @@
+## Usage
+
+Outputs key and value plus retained source columns and identities. as can rename key and value. Fold expands each observation once per requested field; it does not aggregate. Use a categorical X scale for the key channel.
+
+To let the viewer change a setting, read an input in it: `fields={input("fields")}` (Python `fields=hm.input.fields`), where `fields` is a [Select with multiple=true](select) of column names.

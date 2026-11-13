@@ -1,0 +1,311 @@
+{
+ "description": "Scene states and export targets the HTML export closure must agree on in both runtimes: src/lib/scene/exportClosure.js (tests/unit/export-closure.test.js) and python/hmplot/exporter.py _closure (python/tests/test_export_closure.py). Stage 115.3.",
+ "state": {
+  "root": {
+   "id": "scene",
+   "kind": "Scene",
+   "props": {},
+   "events": [],
+   "children": [
+    {
+     "id": "plotA",
+     "kind": "Plot",
+     "props": {
+      "data": {
+       "$table": "t1"
+      },
+      "theme": {
+       "$theme": "th1"
+      }
+     },
+     "events": [
+      "onclick"
+     ],
+     "children": [
+      {
+       "id": "pointsA",
+       "kind": "Points",
+       "props": {
+        "fill": {
+         "$scale": "s1"
+        },
+        "interaction": {
+         "$identity": "i1"
+        }
+       },
+       "events": [],
+       "children": []
+      }
+     ]
+    },
+    {
+     "id": "plotB",
+     "kind": "Plot",
+     "props": {
+      "data": {
+       "$table": "t2"
+      }
+     },
+     "events": [],
+     "children": [
+      {
+       "id": "legendB",
+       "kind": "Legend",
+       "props": {
+        "target": {
+         "$ref": "pointsA"
+        }
+       },
+       "events": [],
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  "tables": {
+   "t1": {
+    "version": 1,
+    "key": "id",
+    "columns": {
+     "x": {
+      "$column": "c1"
+     }
+    },
+    "grid": {
+     "dims": [
+      {
+       "name": "lat",
+       "coords": {
+        "$column": "c2"
+       },
+       "edges": {
+        "$column": "c3"
+       }
+      }
+     ],
+     "positions": null
+    },
+    "selection": {
+     "$selection": "sel1"
+    }
+   },
+   "t2": {
+    "version": 1,
+    "columns": {
+     "y": {
+      "$column": "c4"
+     }
+    }
+   },
+   "t3": {
+    "version": 1,
+    "columns": {
+     "z": {
+      "$column": "c5"
+     }
+    }
+   }
+  },
+  "columns": {
+   "c1": {
+    "dtype": "float32",
+    "shape": [
+     3
+    ]
+   },
+   "c2": {
+    "dtype": "float32",
+    "shape": [
+     3
+    ]
+   },
+   "c3": {
+    "dtype": "float32",
+    "shape": [
+     3
+    ]
+   },
+   "c4": {
+    "dtype": "float32",
+    "shape": [
+     3
+    ]
+   },
+   "c5": {
+    "dtype": "float32",
+    "shape": [
+     3
+    ]
+   },
+   "ck": {
+    "dtype": "float32",
+    "shape": [
+     3
+    ]
+   }
+  },
+  "scales": {
+   "s1": {
+    "kind": "continuous",
+    "normalization": {
+     "$normalization": "n1"
+    }
+   },
+   "s2": {
+    "kind": "continuous",
+    "normalization": {
+     "$normalization": "n2"
+    }
+   }
+  },
+  "normalizations": {
+   "n1": {
+    "domain": [
+     0,
+     1
+    ]
+   },
+   "n2": {
+    "domain": [
+     0,
+     1
+    ]
+   }
+  },
+  "themes": {
+   "th1": {
+    "version": 1,
+    "value": {}
+   },
+   "th2": {
+    "version": 1,
+    "value": {}
+   }
+  },
+  "selections": {
+   "sel1": {
+    "version": 0,
+    "active": false,
+    "owners": {},
+    "constraints": {}
+   },
+   "sel2": {
+    "version": 0,
+    "active": false,
+    "owners": {},
+    "constraints": {}
+   },
+   "sel3": {
+    "version": 0,
+    "active": false,
+    "owners": {},
+    "constraints": {}
+   }
+  },
+  "identities": {
+   "i1": {
+    "keys": {
+     "$column": "ck"
+    },
+    "brush": {
+     "$selection": "sel2"
+    }
+   },
+   "i2": {
+    "keys": {
+     "$column": "c5"
+    }
+   }
+  }
+ },
+ "cases": [
+  {
+   "name": "the whole scene keeps every referenced resource and drops the rest",
+   "target": "scene",
+   "keeps": {
+    "nodes": [
+     "legendB",
+     "plotA",
+     "plotB",
+     "pointsA",
+     "scene"
+    ],
+    "tables": [
+     "t1",
+     "t2"
+    ],
+    "columns": [
+     "c1",
+     "c2",
+     "c3",
+     "c4",
+     "ck"
+    ],
+    "scales": [
+     "s1"
+    ],
+    "normalizations": [
+     "n1"
+    ],
+    "themes": [
+     "th1"
+    ],
+    "selections": [
+     "sel1",
+     "sel2"
+    ],
+    "identities": [
+     "i1"
+    ],
+    "omitted": [
+     "Plot.onclick"
+    ]
+   }
+  },
+  {
+   "name": "a Plot keeps its subtree, its grid's coordinates and edges, its identity's key column and brush, and its scale's normalization",
+   "target": "plotA",
+   "keeps": {
+    "nodes": [
+     "plotA",
+     "pointsA",
+     "scene"
+    ],
+    "tables": [
+     "t1"
+    ],
+    "columns": [
+     "c1",
+     "c2",
+     "c3",
+     "ck"
+    ],
+    "scales": [
+     "s1"
+    ],
+    "normalizations": [
+     "n1"
+    ],
+    "themes": [
+     "th1"
+    ],
+    "selections": [
+     "sel1",
+     "sel2"
+    ],
+    "identities": [
+     "i1"
+    ],
+    "omitted": [
+     "Plot.onclick"
+    ]
+   }
+  },
+  {
+   "name": "a Plot whose Legend targets a mark outside it is refused",
+   "target": "plotB",
+   "rejects": "references a component outside"
+  }
+ ]
+}

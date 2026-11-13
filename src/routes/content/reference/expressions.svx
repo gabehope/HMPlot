@@ -1,0 +1,30 @@
+## Usage
+
+An expression is computed for every row on the GPU, wherever a column goes: a mark channel, a `Calculate` column, a `Filter` condition or a transform parameter. Its arguments are columns, other expressions, numbers, [input reads and state](names) such as `input("threshold")` and `view.time`. Inside an expression a string is always a column, so `greater("mass", 50)` compares the column mass with 50, and text or a category is written `literal("Adelie")`. One expression holds at most 256 operations, nested at most 64 deep.
+
+Python writes most of them as operators on columns: `hm.col.mass / hm.col.volume`, `hm.col.x >= 1`, `(hm.col.a > 0) & (hm.col.b > 0)`, `~hm.is_missing("x")`. Use `&`, `|` and `~` with parentheses around comparisons: `and`, `or`, `not` and chained comparisons are errors. `hm.round` (like `hm.min`, `hm.max` and `hm.sum`, the [reductions](reductions)) is left out of `from hmplot import *`, which would hide Python's own.
+
+Values are float32. Comparisons, the logic functions, `is_missing`, `is_finite` and `is_in` give booleans: a `Filter` keeps the rows where its condition is true, and in arithmetic true is 1. A missing number is NaN: arithmetic with it is NaN and a comparison with it is false, so `coalesce(x, 0)` or `where(is_missing(x), 0, x)` give it a value. A category column compares by its categories, `equal(col.species, literal("Adelie"))` (Python `hm.col.species == hm.literal("Adelie")`) or `is_in("species", ["Adelie", "Gentoo"])`; a number or boolean names a category of a numeric or boolean category column directly. A datetime column takes part in milliseconds: adding a number keeps it a datetime, and two datetimes subtract to milliseconds.
+
+A changed number in an expression (a slider's value, a new threshold) reaches the GPU as a value, not as new code, so moving it compiles nothing. See [Reductions](reductions) for whole-column values, [Calendar functions](calendar-functions) for dates and [Casts](casts) for types.
+
+### Seeded random values
+
+`random({seed: 7, distribution: "normal"})` (Python:
+`hm.random(seed=7, distribution="normal")`) produces one float32 draw per input row. The
+default distribution is `"uniform"` in [0, 1); `"normal"` has mean 0 and variance 1, and
+`"exponential"` has mean 1. Multiply or add ordinary expressions to scale or shift them.
+
+The default seed is 0. The same seed, distribution and input row count reproduce the same
+values, including in exports. Use different seeds for independent streams. Seeds must be
+integers from 0 to 4294967295 and may read a scalar input; table columns cannot supply seeds.
+Reading the expression again does not advance a random generator. A changed seed,
+distribution or row count produces new values; an unchanged configuration reuses its cached
+GPU array in `Calculate`.
+
+Values are assigned by input row position. Calculate them before `Filter`, `Sort` or `Sample`
+when they should follow the original observations through those transforms. A masked
+`Calculate` evaluates every physical row, including hidden rows, rather than resampling a
+smaller selection bucket. Rewriting a grid coordinate with per-row randomness drops the
+coordinate grid; random value fields preserve it. [Ten million stars](/examples/ten-million-stars)
+uses seeded uniform, normal and exponential streams to generate both linked views on the GPU.

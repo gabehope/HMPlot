@@ -1,0 +1,21 @@
+# Stage 131.4's pilot: ten tasks covering all eight categories, HMPlot against free choice, Python
+# only, one agent. 20 trials, at most 40 agent sessions, plus up to 20 review calls. Read its report
+# before running benchmark.example.toml.
+[benchmark]
+tasks = ["scatter", "grouped-bars", "boxplot", "annotated-line", "map-points",
+         "linked-brush", "slider-filter", "million-slider", "animation", "pdf-figure"]
+repetitions = 1
+corrections = 1
+
+[agents.codex]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[judge]
+backend = "claude"
+binary = "${CLAUDE_BIN}"
+model = "claude-opus-5-5"
+
+[tracks.python]
+libraries = ["hmplot", "free"]

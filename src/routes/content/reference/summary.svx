@@ -1,0 +1,5 @@
+## Usage
+
+Outputs estimate, lower, upper, count, standardDeviation, and standardError. Default estimate is mean and interval is none. Analytic intervals require mean; bootstrap supports mean or median with 1,000 replicates and seed 42 by default. A singleton has no defined sample variability.
+
+To let the viewer change a setting, read an input in it: `interval={input("interval")}` (Python `interval=hm.input.interval`), where `interval` is a [Select](select) of interval names.

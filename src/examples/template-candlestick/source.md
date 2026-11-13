@@ -1,0 +1,1 @@
+Deterministic simulated prices, not investment data. One row per day, with numeric day, open, close, low and high columns. width uses the x coordinate units. The empty slot accepts caller annotations.

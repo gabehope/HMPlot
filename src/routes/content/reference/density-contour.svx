@@ -1,0 +1,13 @@
+## Usage
+
+Density, Contour, then Segments colored by level, as d3's contourDensity draws its lines. For filled bands use [DensityBands](/reference/svelte/density-bands). `mode="bands"` still draws a DensityBands, with a warning; it is deprecated and will be removed.
+
+DensityContour is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the contours are vectors too, drawn back to front by depth (approximate where marks cross closely). Colored by level (the default) they stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+The lines take color, width and opacity; they have no second outline stroke.

@@ -1,0 +1,5 @@
+## Usage
+
+The built-in templates, built from transforms and simpler marks, are exported from `hmplot/charts` (`hm.charts` in Python). `hmplot/compound` adds `composition`, everything a pattern written in Svelte may use: the `Transform` component that runs a named transform around its children, `DataBoundary`, `ThemeDefaults`, `Undescribed` (a helper part left out of the plot's description), the options and data contexts, the data-bound primitive marks (Rect, Points, Line, ErrorBars, Polygon, ...), the transforms the built-in templates wrap, `planeRule` and `framePointer`, and expression and input helpers.
+
+`composition` is **experimental**: its names and behavior may change in any release, unlike the rest of the package. Its complete list, with what each part is for, a worked Lollipop and the conventions a pattern written in Svelte follows (forward the remaining props to the mark that carries color and interaction, re-export `getLegendSource` and `getMark`, give secondary parts `legend={false}`), is in docs/USAGE.md, "Writing a pattern". In Python a [template](template) packages a pattern of existing components.

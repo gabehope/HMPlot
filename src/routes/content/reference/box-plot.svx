@@ -1,0 +1,11 @@
+## Usage
+
+Uses Tukey whiskers at 1.5×IQR by default. Outliers retain source observation identities. Configure orientation, box width, whisker multiplier, outlier visibility/size, fill, and outline.
+
+BoxPlot is a built-in template (TODO 130.3): BoxStats places each box, whisker and median, drawn by a Rect and two Segments, and BoxOutliers keeps the rows past the whiskers, drawn as Points. Import it from `hmplot/charts`.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the boxes and whiskers are vectors too, drawn back to front by depth (approximate where marks cross closely). A `fill` column stays vector. See [what is not exported as vector](/docs/export).
+
+</Note>

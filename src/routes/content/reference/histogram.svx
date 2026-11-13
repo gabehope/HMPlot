@@ -1,0 +1,9 @@
+## Usage
+
+Exactly one of x or y selects orientation. Defaults to 30 bins and count.
+
+`brush` (`brush=True` in Python) lets a Shift-drag brush an interval of the binned column along its axis: the rows in it are `@brushed` in every view of the data, so a `Filter(where="@brushed")` around another mark follows it (a crossfilter), and `respond="brushed"` fades this histogram's other bins. `brush={ selection }` writes a named selection instead, for a crossfilter whose views each filter by the others' brushes. proportion divides by included observations; density also divides by bin width. Empty bins and zero on the count axis are included.
+
+`bins` takes a count, explicit edges, a rule name (`"auto"`, `"sturges"`, `"fd"`, `"scott"`), or an expression such as `power(count("x"), 0.5)`, which the settings pane shows read-only. In a Facet, a rule or expression is resolved once over every cell, so the cells share their edges.
+
+Histogram is a built-in template, built from transforms and simpler marks: import it from `hmplot/charts`.

@@ -1,0 +1,7 @@
+## Usage
+
+JavaScript uses normalization, Python hm.normalization. One normalization can drive a color encoding and a separate size encoding without making those outputs identical. Supply an explicit domain for cross-dataset comparisons.
+
+A normalization's transform is linear, log, sqrt, or symlog (d3's scaleSymlog, linear within ±`constant` and logarithmic beyond, for data that crosses zero). A value outside the transform's domain, such as a zero under log, is missing: it is not drawn and not counted in automatic domains. `midpoint` makes a diverging scale: the domain's halves map to the range's halves, so a diverging colormap's middle color falls on the midpoint and both ends are used. An explicit domain must contain the midpoint; an automatic one grows to include it.
+
+See the [complete example](/examples/symlog-diverging).

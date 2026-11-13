@@ -1,0 +1,3 @@
+## Usage
+
+Await initialization before constructing JAX-JS arrays in browser code. Plain named-column plots handle their own preparation. The notebook and documentation adapters initialize their runtime before publishing a scene. Python users do not call this JavaScript helper.

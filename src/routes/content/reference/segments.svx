@@ -1,0 +1,15 @@
+## Usage
+
+Each start/end pair is one observation. Independent segments do not infer neighboring rows. Curve controls may be supplied per segment; source identities survive subdivision. `cap="bar"` draws a bar `capSize` pixels long (6 by default) across each segment at both ends, as ErrorBars' caps; a curved segment's bars stand across its direction at its ends, and a segment cut at a horizon or seam has no bar at the cut.
+
+`cap="arrow"` draws an arrowhead at the true end. `headLength` (10) and `headWidth` (8) are CSS pixels; the head follows a curve's final segment. These settings also appear in the settings pane. Zooming keeps the head's pixel size.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the segments are vectors too, drawn back to front by depth (approximate where marks cross closely). A `color` column, `dash` and every `curve`, on maps too, stay vector. See [what is not exported as vector](/docs/export).
+
+</Note>
+
+### Connections
+
+With `connections={connect(a, b)}` Segments draw one segment per matched key between the positions of two other marks; `connect(a, b, c)` draws a to b and b to c. See [connect()](connect).

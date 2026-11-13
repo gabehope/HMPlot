@@ -1,0 +1,1 @@
+Simulated profiles; dimension is an ordered index 0–count (repeat the first score at count to close the outline), score is already normalized to 0–1, and profile identifies each polygon. The host supplies a square equal-aspect frame and optional rings, spokes and labels; the template does not infer comparable units.

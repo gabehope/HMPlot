@@ -1,0 +1,6 @@
+## Usage
+
+JavaScript uses createTheme(definition); Python uses hm.create_theme(**definition). `extends` starts from a preset by name (matched ignoring case and punctuation: `"finance-terminal"` is `financeTerminal`) or from another theme, and the definition's sections override it. `themes` holds the 32 presets listed below as frozen definitions: pass one straight to Theme's `value`, or read its colors. Explicit scale ranges remain independent of a theme palette.
+
+
+`hmplot` is the default. `minimal` is an airy presentation with quiet outside labels; `ink` uses charcoal-led ink colors. Each preset includes a categorical palette and a continuous colormap. Python discovers the same names through `hm.themes.names()`, including `hm.themes.hmplot` and `hm.themes.ink`.

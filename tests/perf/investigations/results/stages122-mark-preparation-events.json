@@ -1,0 +1,2010 @@
+{
+  "author": "Codex-generated",
+  "date": "2026-10-11",
+  "stage": "122.16 / R6: checked mark interaction event routing; full Svelte preparation boundary remains open",
+  "baseline": "4f2be717766bff11fb7a51b6602a7a7cc5ee3793; mechanical formatting with runtime identical to 91f29e22",
+  "acceptedChange": "Selection/hover/nearest handler installation is a strictly checked borrowed operation. Row mapping, tooltip publication, request capture, planner actions and resource retirement remain with their existing owners. No new node contract or resource holds.",
+  "method": {
+    "reference": "tests/perf/investigations/README.md",
+    "serving": "Frozen production snapshots served simultaneously from separate static directories. One warm-up per build discarded, then six A/B or B/A rounds alternating which runs first. GPU work serial; owned builds/test suites stopped before measurements.",
+    "viewport": [
+      1500,
+      1100
+    ],
+    "devicePixelRatio": 2,
+    "cpu": "Active sampled time counts everything except (idle), using timeDeltas[i+1]. Native Sunburst compares each capture's median across warmed flights 2\u20136.",
+    "sunburstRoute": "/test/gallery-example?id=sunburst",
+    "lorenzRoute": "/examples/lorenz-attractor (current three-canvas Simulate runtime; not the legacy gallery fixture)",
+    "counters": "Separate Sunburst instrumented captures retain integer readbacks per flight. Lorenz records whole six-second counter windows on pages separate from CPU timing and GPU timestamps.",
+    "rawResults": "<tmp>/hmplot-mark-events-accepted",
+    "browser": "154.0.8037.98"
+  },
+  "accepted": {
+    "sunburst-native": {
+      "metrics": {
+        "cpu": {
+          "baseline": {
+            "median": 3.7282,
+            "min": 3.5843,
+            "max": 4.0923,
+            "rounds": [
+              3.6255,
+              3.5843,
+              3.8308,
+              3.6118,
+              4.0923,
+              3.8491
+            ]
+          },
+          "candidate": {
+            "median": 3.7158,
+            "min": 3.6546,
+            "max": 4.1617,
+            "rounds": [
+              3.7255,
+              3.7945,
+              3.706,
+              3.6739,
+              4.1617,
+              3.6546
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": 0.0657,
+            "min": -0.1946,
+            "max": 0.2102,
+            "rounds": [
+              0.0999,
+              0.2102,
+              -0.1248,
+              0.0621,
+              0.0694,
+              -0.1946
+            ]
+          },
+          "pairedSampleSD": 0.1508,
+          "pairedMedianPercentOfBaseline": 1.763
+        },
+        "p50": {
+          "baseline": {
+            "median": 16.65,
+            "min": 16.6,
+            "max": 16.7,
+            "rounds": [
+              16.6,
+              16.6,
+              16.7,
+              16.7,
+              16.7,
+              16.6
+            ]
+          },
+          "candidate": {
+            "median": 16.7,
+            "min": 16.7,
+            "max": 16.7,
+            "rounds": [
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.7
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": 0.05,
+            "min": 0.0,
+            "max": 0.1,
+            "rounds": [
+              0.1,
+              0.1,
+              0.0,
+              0.0,
+              0.0,
+              0.1
+            ]
+          },
+          "pairedSampleSD": 0.0548,
+          "pairedMedianPercentOfBaseline": 0.3
+        },
+        "p95": {
+          "baseline": {
+            "median": 17.75,
+            "min": 17.4,
+            "max": 18.1,
+            "rounds": [
+              17.9,
+              17.6,
+              17.6,
+              17.4,
+              18.1,
+              18
+            ]
+          },
+          "candidate": {
+            "median": 17.75,
+            "min": 17.7,
+            "max": 18.1,
+            "rounds": [
+              17.7,
+              17.8,
+              17.7,
+              17.7,
+              18.1,
+              17.9
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": 0.05,
+            "min": -0.2,
+            "max": 0.3,
+            "rounds": [
+              -0.2,
+              0.2,
+              0.1,
+              0.3,
+              0.0,
+              -0.1
+            ]
+          },
+          "pairedSampleSD": 0.1871,
+          "pairedMedianPercentOfBaseline": 0.282
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              78,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 40,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 2,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 40,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 3,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              78,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 40,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 4,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              79
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 5,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          },
+          {
+            "round": 6,
+            "completedFramesPerFlight": [
+              79,
+              79,
+              79,
+              79,
+              79,
+              78
+            ],
+            "markWorkPerFlight": [
+              {
+                "liveGeometryWrites": 81,
+                "staticMarkReuses": 41,
+                "preparationRequests": 127,
+                "numericExpressionsCompiled": 3,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 80,
+                "staticMarkReuses": 40,
+                "preparationRequests": 126,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              },
+              {
+                "liveGeometryWrites": 78,
+                "staticMarkReuses": 39,
+                "preparationRequests": 123,
+                "numericExpressionsCompiled": 4,
+                "numericExpressionsFallback": 0
+              }
+            ]
+          }
+        ]
+      },
+      "errors": []
+    },
+    "lorenz": {
+      "metrics": {
+        "cpu": {
+          "baseline": {
+            "median": 5.9195,
+            "min": 5.747,
+            "max": 6.209,
+            "rounds": [
+              5.908,
+              6.209,
+              5.931,
+              5.747,
+              5.955,
+              5.798
+            ]
+          },
+          "candidate": {
+            "median": 5.972,
+            "min": 5.763,
+            "max": 6.169,
+            "rounds": [
+              6.169,
+              6.024,
+              5.92,
+              5.892,
+              6.053,
+              5.763
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": 0.0435,
+            "min": -0.185,
+            "max": 0.261,
+            "rounds": [
+              0.261,
+              -0.185,
+              -0.011,
+              0.145,
+              0.098,
+              -0.035
+            ]
+          },
+          "pairedSampleSD": 0.1561,
+          "pairedMedianPercentOfBaseline": 0.735
+        },
+        "p50": {
+          "baseline": {
+            "median": 16.7,
+            "min": 16.7,
+            "max": 16.7,
+            "rounds": [
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.7
+            ]
+          },
+          "candidate": {
+            "median": 16.7,
+            "min": 16.7,
+            "max": 16.7,
+            "rounds": [
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.7
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "rounds": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "pairedSampleSD": 0.0,
+          "pairedMedianPercentOfBaseline": 0.0
+        },
+        "p95": {
+          "baseline": {
+            "median": 16.8,
+            "min": 16.7,
+            "max": 16.8,
+            "rounds": [
+              16.8,
+              16.8,
+              16.8,
+              16.8,
+              16.7,
+              16.8
+            ]
+          },
+          "candidate": {
+            "median": 16.7,
+            "min": 16.7,
+            "max": 16.8,
+            "rounds": [
+              16.7,
+              16.7,
+              16.7,
+              16.7,
+              16.8,
+              16.7
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": -0.1,
+            "min": -0.1,
+            "max": 0.1,
+            "rounds": [
+              -0.1,
+              -0.1,
+              -0.1,
+              -0.1,
+              0.1,
+              -0.1
+            ]
+          },
+          "pairedSampleSD": 0.0816,
+          "pairedMedianPercentOfBaseline": -0.595
+        },
+        "gpu": {
+          "baseline": {
+            "median": 3.9645,
+            "min": 3.718,
+            "max": 4.034,
+            "rounds": [
+              3.787,
+              3.936,
+              4.018,
+              3.718,
+              3.993,
+              4.034
+            ]
+          },
+          "candidate": {
+            "median": 3.824,
+            "min": 3.67,
+            "max": 4.005,
+            "rounds": [
+              3.778,
+              3.813,
+              4.005,
+              3.947,
+              3.835,
+              3.67
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": -0.068,
+            "min": -0.364,
+            "max": 0.229,
+            "rounds": [
+              -0.009,
+              -0.123,
+              -0.013,
+              0.229,
+              -0.158,
+              -0.364
+            ]
+          },
+          "pairedSampleSD": 0.1966,
+          "pairedMedianPercentOfBaseline": -1.715
+        },
+        "fps": {
+          "baseline": {
+            "median": 59.9745,
+            "min": 59.97,
+            "max": 59.993,
+            "rounds": [
+              59.993,
+              59.971,
+              59.982,
+              59.972,
+              59.977,
+              59.97
+            ]
+          },
+          "candidate": {
+            "median": 59.976,
+            "min": 59.973,
+            "max": 59.984,
+            "rounds": [
+              59.984,
+              59.979,
+              59.973,
+              59.975,
+              59.977,
+              59.973
+            ]
+          },
+          "pairedCandidateMinusBaseline": {
+            "median": 0.0015,
+            "min": -0.009,
+            "max": 0.008,
+            "rounds": [
+              -0.009,
+              0.008,
+              -0.009,
+              0.003,
+              0.0,
+              0.003
+            ]
+          },
+          "pairedSampleSD": 0.0069,
+          "pairedMedianPercentOfBaseline": 0.003
+        }
+      },
+      "captures": {
+        "a": [
+          {
+            "round": 1,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 359,
+              "frames": 360,
+              "wallMs": 6002.5,
+              "submitsPerFrame": 30.925,
+              "builds": 0,
+              "liveMB": 138.3
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 2,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 359,
+              "frames": 360,
+              "wallMs": 6001.3,
+              "submitsPerFrame": 30.925,
+              "builds": 0,
+              "liveMB": 133.3
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 3,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6001.2,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 134.2
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 4,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6001.6,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 133.3
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 5,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6002.9,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 136
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 6,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 359,
+              "frames": 360,
+              "wallMs": 6002.3,
+              "submitsPerFrame": 30.925,
+              "builds": 0,
+              "liveMB": 136
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          }
+        ],
+        "b": [
+          {
+            "round": 1,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6002.1,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 133.3
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 2,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6002.7,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 134.9
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 3,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6001.7,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 134.9
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 4,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6002.1,
+              "submitsPerFrame": 30.983,
+              "builds": 0,
+              "liveMB": 134.9
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 5,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 359,
+              "frames": 360,
+              "wallMs": 6002.7,
+              "submitsPerFrame": 30.925,
+              "builds": 0,
+              "liveMB": 134.2
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          },
+          {
+            "round": 6,
+            "plainTiming": {
+              "frames": 360,
+              "presentedFramesPerCanvas": [
+                360,
+                360,
+                360
+              ]
+            },
+            "gpuCounterWindow": {
+              "readbacks": 360,
+              "frames": 360,
+              "wallMs": 6001.5,
+              "submitsPerFrame": 31,
+              "builds": 0,
+              "liveMB": 134.2
+            },
+            "gpuTimestampErrors": {
+              "dropped": 0,
+              "readbackErrors": 0
+            }
+          }
+        ]
+      },
+      "errors": []
+    }
+  },
+  "rejectedLargerCandidate": {
+    "paired": {
+      "baseline": {
+        "median": 3.8945,
+        "min": 3.5353,
+        "max": 4.0577,
+        "rounds": [
+          3.9737,
+          3.8781,
+          3.911,
+          4.0577,
+          3.9739,
+          3.8081,
+          3.6612,
+          3.5353
+        ]
+      },
+      "candidate": {
+        "median": 4.0407,
+        "min": 3.7943,
+        "max": 4.181,
+        "rounds": [
+          3.7943,
+          4.181,
+          4.0813,
+          4.1371,
+          4.1687,
+          3.9614,
+          3.9319,
+          4.0002
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": 0.1825,
+        "min": -0.1795,
+        "max": 0.4649,
+        "rounds": [
+          -0.1795,
+          0.303,
+          0.1702,
+          0.0794,
+          0.1948,
+          0.1533,
+          0.2707,
+          0.4649
+        ]
+      },
+      "pairedSampleSD": 0.187,
+      "pairedMedianPercentOfBaseline": 4.687
+    },
+    "confirm": {
+      "baseline": {
+        "median": 3.9421,
+        "min": 3.8016,
+        "max": 4.1914,
+        "rounds": [
+          3.8016,
+          4.1914,
+          3.8469,
+          3.9773,
+          4.0281,
+          4.0164,
+          3.9068,
+          3.8018
+        ]
+      },
+      "candidate": {
+        "median": 4.0779,
+        "min": 3.8488,
+        "max": 4.2872,
+        "rounds": [
+          4.1213,
+          3.9991,
+          4.1607,
+          4.0346,
+          4.1998,
+          3.8488,
+          4.0257,
+          4.2872
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": 0.1453,
+        "min": -0.1923,
+        "max": 0.4854,
+        "rounds": [
+          0.3197,
+          -0.1923,
+          0.3138,
+          0.0573,
+          0.1717,
+          -0.1675,
+          0.1189,
+          0.4854
+        ]
+      },
+      "pairedSampleSD": 0.2376,
+      "pairedMedianPercentOfBaseline": 3.686
+    },
+    "description": "Added full-request builder and validated-entry planner actions as well as event routing. Backed out after repeated positive native Sunburst CPU signal; its correctness tests passed. These captures are retained, not discarded as timing noise.",
+    "combinedCPU": {
+      "baseline": {
+        "median": 3.9089,
+        "min": 3.5353,
+        "max": 4.1914,
+        "rounds": [
+          3.9737,
+          3.8781,
+          3.911,
+          4.0577,
+          3.9739,
+          3.8081,
+          3.6612,
+          3.5353,
+          3.8016,
+          4.1914,
+          3.8469,
+          3.9773,
+          4.0281,
+          4.0164,
+          3.9068,
+          3.8018
+        ]
+      },
+      "candidate": {
+        "median": 4.0579,
+        "min": 3.7943,
+        "max": 4.2872,
+        "rounds": [
+          3.7943,
+          4.181,
+          4.0813,
+          4.1371,
+          4.1687,
+          3.9614,
+          3.9319,
+          4.0002,
+          4.1213,
+          3.9991,
+          4.1607,
+          4.0346,
+          4.1998,
+          3.8488,
+          4.0257,
+          4.2872
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": 0.171,
+        "min": -0.1923,
+        "max": 0.4854,
+        "rounds": [
+          -0.1795,
+          0.303,
+          0.1702,
+          0.0794,
+          0.1948,
+          0.1533,
+          0.2707,
+          0.4649,
+          0.3197,
+          -0.1923,
+          0.3138,
+          0.0573,
+          0.1717,
+          -0.1675,
+          0.1189,
+          0.4854
+        ]
+      },
+      "pairedSampleSD": 0.2078,
+      "pairedMedianPercentOfBaseline": 4.374
+    }
+  },
+  "isolationDiagnostic": {
+    "method": "Six three-condition rounds; every build runs first/second/third twice. Diagnostic only; accepted version receives its own alternating two-build gate.",
+    "rawResults": "<tmp>/hmplot-mark-events-ablation",
+    "eventRoutingOnlyCPU": {
+      "baseline": {
+        "median": 3.8196,
+        "min": 3.739,
+        "max": 4.1192,
+        "rounds": [
+          3.8392,
+          4.1192,
+          3.739,
+          3.834,
+          3.8053,
+          3.7685
+        ]
+      },
+      "candidate": {
+        "median": 3.7321,
+        "min": 3.6478,
+        "max": 3.8855,
+        "rounds": [
+          3.6478,
+          3.8855,
+          3.6734,
+          3.8378,
+          3.7086,
+          3.7557
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": -0.0812,
+        "min": -0.2338,
+        "max": 0.0039,
+        "rounds": [
+          -0.1914,
+          -0.2338,
+          -0.0656,
+          0.0039,
+          -0.0967,
+          -0.0128
+        ]
+      },
+      "pairedSampleSD": 0.0957,
+      "pairedMedianPercentOfBaseline": -2.125
+    },
+    "requestActionsOnlyCPU": {
+      "baseline": {
+        "median": 3.8196,
+        "min": 3.739,
+        "max": 4.1192,
+        "rounds": [
+          3.8392,
+          4.1192,
+          3.739,
+          3.834,
+          3.8053,
+          3.7685
+        ]
+      },
+      "candidate": {
+        "median": 3.8383,
+        "min": 3.7865,
+        "max": 4.2757,
+        "rounds": [
+          3.9151,
+          4.2757,
+          3.8182,
+          3.8583,
+          3.7865,
+          3.7972
+        ]
+      },
+      "pairedCandidateMinusBaseline": {
+        "median": 0.0523,
+        "min": -0.0188,
+        "max": 0.1564,
+        "rounds": [
+          0.0759,
+          0.1564,
+          0.0792,
+          0.0243,
+          -0.0188,
+          0.0287
+        ]
+      },
+      "pairedSampleSD": 0.0606,
+      "pairedMedianPercentOfBaseline": 1.37
+    }
+  },
+  "snapshots": {
+    "a": {
+      "sunburstSourceFingerprint": {
+        "sha256": "8ef234819d94fb8ec2c8f9ac473c7aff5984a5beda6d58685282f5e3dc90eb2f",
+        "files": 613
+      },
+      "root": "<tmp>/hmplot-mark-events-base",
+      "changedSourceSHA256": {
+        "src/lib/plot/bound/namedMark.svelte": "3b407f212b7467d6b35bb04ab8dbb7bb2da66b804a8a6cc5477e696b14a69bdf",
+        "src/lib/plot/binding/markInteractionEvents.ts": null
+      }
+    },
+    "b": {
+      "sunburstSourceFingerprint": {
+        "sha256": "e3807968c82b397e2c11023fd48e6f28f5aa926228eba99a19a2b9ca58d93122",
+        "files": 616
+      },
+      "root": "<tmp>/hmplot-mark-events-events-only",
+      "changedSourceSHA256": {
+        "src/lib/plot/bound/namedMark.svelte": "a2b7d7a2e909c0596e7df076c9119bfbb3c13e443f0f9291bfe42c94e2a0826f",
+        "src/lib/plot/binding/markInteractionEvents.ts": "dab8a7a7d5ab9814c27096c22ff74954de62b46dda84bfd66364c36dd25f8cd4"
+      }
+    },
+    "finalWorkspaceRuntimeProof": {
+      "namedMarkProductionMinifiedSHA256": [
+        "c198f460a3c7824e10e59797a4043079ab4e1ba6273abaaeccadeb8e4c2bbe87",
+        "c198f460a3c7824e10e59797a4043079ab4e1ba6273abaaeccadeb8e4c2bbe87"
+      ],
+      "identical": true,
+      "otherRuntimeFiles": {
+        "src/lib/plot/utils/markUpdatePlan.js": [
+          "df5d75daffb7733823007fa22c339e5d26bbd3241948d894e7350a79a7300385",
+          "df5d75daffb7733823007fa22c339e5d26bbd3241948d894e7350a79a7300385"
+        ],
+        "src/lib/plot/utils/markPlanTypes.ts": [
+          "098b2abc1cbeeced656e0a9f5514aec583b3efe11e489401cd9ecb33b7bb31a4",
+          "098b2abc1cbeeced656e0a9f5514aec583b3efe11e489401cd9ecb33b7bb31a4"
+        ],
+        "src/lib/plot/binding/preparationDependencies.js": [
+          "cf10adba702a838e3798da0dbdb87893bd9b493ab9e6d011e87e5bfbd2d628d1",
+          "cf10adba702a838e3798da0dbdb87893bd9b493ab9e6d011e87e5bfbd2d628d1"
+        ],
+        "src/lib/plot/binding/markInteractionEvents.ts": [
+          "dab8a7a7d5ab9814c27096c22ff74954de62b46dda84bfd66364c36dd25f8cd4",
+          "dab8a7a7d5ab9814c27096c22ff74954de62b46dda84bfd66364c36dd25f8cd4"
+        ]
+      }
+    },
+    "mechanicalFormattingProof": {
+      "hashes": [
+        "91dcff91313a0ce08e65f2e54f3fca649f58365ab23b3e4d34997293e37ab5aa",
+        "91dcff91313a0ce08e65f2e54f3fca649f58365ab23b3e4d34997293e37ab5aa"
+      ],
+      "identical": true
+    }
+  },
+  "validation": {
+    "unit": {
+      "passed": 1385,
+      "failed": 0,
+      "log": "<tmp>/hmplot-mark-events-final-unit.log"
+    },
+    "browser": {
+      "passed": 12,
+      "failed": 0,
+      "devicePixelRatio": 2,
+      "scope": "connections before-after/implicit/keyed/missing-duplicate/shared-owner hover; warmed point hover; opacity-only Filter brush; moving-particles mask/play; keyed selection; hover size; whole-series Line selection/brush; nearest versus exact hover",
+      "log": "<tmp>/hmplot-mark-events-final-browser.log"
+    },
+    "typeChecking": {
+      "svelteErrors": 0,
+      "svelteWarnings": 0,
+      "strictHelperCheck": "pass",
+      "strictModuleFloor": 67,
+      "coreImplementations": {
+        "checked": 9,
+        "target": 9
+      },
+      "fullStrictSveltePreparationBoundary": "pending",
+      "log": "<tmp>/hmplot-mark-events-final-check.log"
+    },
+    "format": "pass",
+    "apiReport": "current, no public API diff",
+    "pythonSignatures": {
+      "components": 112,
+      "current": true
+    },
+    "installedPackageSmoke": {
+      "result": "pass",
+      "scope": "installed declarations, SSR, production rendering, settings, fonts, remounts and JAX inputs through hmplot/vite",
+      "log": "<tmp>/hmplot-mark-events-final-package.log",
+      "baselineNotices": "Existing private Vec3Function declaration and packaging/chunk advisories persist."
+    }
+  },
+  "limitations": [
+    "Round-level values and source fingerprints are retained; large profiles/builds remain local. Timing results do not prove exact equivalence or a speedup.",
+    "The rejected larger candidate had brief offline compile/profile analysis early in its confirmation session; the accepted gate runs without that work. No unrelated user processes are stopped.",
+    "Source trees include ignored .DS_Store / Python bytecode files in addition to the listed runtime changes; those incidental fingerprint entries are not code differences.",
+    "Native Sunburst verifies executed JavaScript bytes against each snapshot. The Lorenz driver does not implement byte-response verification; controlled static servers serve frozen builds and each uses its own compiled SceneRuntime with identical frozen scene payloads.",
+    "Legacy Lorenz gallery diagnostics animated only one canvas, so they are excluded from acceptance and retained under <tmp>/hmplot-mark-events-paired/lorenz-legacy-diagnostic.",
+    "CPU profiles, presented-frame/counter windows and GPU timestamps are separate captures; do not combine their frame counts. Settled lifecycle/leak correctness is covered by the unit and rendered gates; live-window GPU bytes alone are not proof of no long-term growth.",
+    "Production cold compile time is not measured; shader generation does not change in this slice. Full strict Svelte producer/consumer typing remains pending."
+  ],
+  "sunburstCounterDiagnostic": {
+    "a": [
+      {
+        "flight": 1,
+        "direction": "zoom",
+        "completedFrames": 79,
+        "readbacks": 98,
+        "submits": 1041,
+        "builds": 0,
+        "liveBytesBefore": 75297092,
+        "liveBytesAfter": 76326200,
+        "markWork": {
+          "liveGeometryWrites": 81,
+          "staticMarkReuses": 41,
+          "preparationRequests": 127,
+          "numericExpressionsCompiled": 3,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 2,
+        "direction": "reset",
+        "completedFrames": 79,
+        "readbacks": 97,
+        "submits": 1100,
+        "builds": 0,
+        "liveBytesBefore": 76326200,
+        "liveBytesAfter": 76328480,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 3,
+        "direction": "zoom",
+        "completedFrames": 79,
+        "readbacks": 99,
+        "submits": 1092,
+        "builds": 0,
+        "liveBytesBefore": 76328480,
+        "liveBytesAfter": 76328888,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 4,
+        "direction": "reset",
+        "completedFrames": 79,
+        "readbacks": 97,
+        "submits": 1088,
+        "builds": 0,
+        "liveBytesBefore": 76328888,
+        "liveBytesAfter": 76328936,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 5,
+        "direction": "zoom",
+        "completedFrames": 79,
+        "readbacks": 99,
+        "submits": 1092,
+        "builds": 0,
+        "liveBytesBefore": 76328936,
+        "liveBytesAfter": 76328984,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 6,
+        "direction": "reset",
+        "completedFrames": 79,
+        "readbacks": 95,
+        "submits": 1070,
+        "builds": 0,
+        "liveBytesBefore": 76328984,
+        "liveBytesAfter": 76329032,
+        "markWork": {
+          "liveGeometryWrites": 78,
+          "staticMarkReuses": 39,
+          "preparationRequests": 123,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      }
+    ],
+    "b": [
+      {
+        "flight": 1,
+        "direction": "zoom",
+        "completedFrames": 79,
+        "readbacks": 99,
+        "submits": 1059,
+        "builds": 0,
+        "liveBytesBefore": 75297156,
+        "liveBytesAfter": 76326552,
+        "markWork": {
+          "liveGeometryWrites": 81,
+          "staticMarkReuses": 40,
+          "preparationRequests": 127,
+          "numericExpressionsCompiled": 3,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 2,
+        "direction": "reset",
+        "completedFrames": 80,
+        "readbacks": 97,
+        "submits": 1095,
+        "builds": 0,
+        "liveBytesBefore": 76326552,
+        "liveBytesAfter": 76329024,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 3,
+        "direction": "zoom",
+        "completedFrames": 79,
+        "readbacks": 99,
+        "submits": 1092,
+        "builds": 0,
+        "liveBytesBefore": 76329024,
+        "liveBytesAfter": 76329024,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 4,
+        "direction": "reset",
+        "completedFrames": 79,
+        "readbacks": 97,
+        "submits": 1091,
+        "builds": 0,
+        "liveBytesBefore": 76329024,
+        "liveBytesAfter": 76329048,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 5,
+        "direction": "zoom",
+        "completedFrames": 79,
+        "readbacks": 99,
+        "submits": 1095,
+        "builds": 0,
+        "liveBytesBefore": 76329048,
+        "liveBytesAfter": 76329096,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      },
+      {
+        "flight": 6,
+        "direction": "reset",
+        "completedFrames": 79,
+        "readbacks": 97,
+        "submits": 1088,
+        "builds": 0,
+        "liveBytesBefore": 76329096,
+        "liveBytesAfter": 76329144,
+        "markWork": {
+          "liveGeometryWrites": 80,
+          "staticMarkReuses": 40,
+          "preparationRequests": 126,
+          "numericExpressionsCompiled": 4,
+          "numericExpressionsFallback": 0
+        },
+        "errors": [],
+        "renderError": ""
+      }
+    ]
+  },
+  "interpretation": {
+    "cpu": "Accepted native Sunburst paired median +0.0657 ms/frame versus paired sample SD 0.1508; event-only isolation paired median -0.0812. Lorenz +0.0435 versus SD 0.1561, three positive/three negative pairs. The accepted change does not reproduce the larger candidate's repeated positive CPU signal. No exact equivalence or speedup is claimed.",
+    "counters": "Warmed builds and GPU timing errors are zero. Matched-flight Sunburst counts are retained, not normalized away: final reset baseline/candidate readbacks 95/97 alongside live writes 78/80. The candidate completes two more existing writes in that flight; no new device-read or synchronization path is introduced by the handler installer. One measured diagnostic pair does not establish exact counter or memory equivalence.",
+    "scope": "Accept the checked borrowed event-routing operation; preserve request capture, planner payloads and prepared-result publication. Full strict Svelte preparation typing remains open."
+  },
+  "sunburstCounterDiagnosticWarmupExcludedFromTiming": {
+    "a": [
+      {
+        "flight": 1,
+        "readbacks": 98,
+        "completedFrames": 79,
+        "liveWrites": 81
+      },
+      {
+        "flight": 2,
+        "readbacks": 97,
+        "completedFrames": 79,
+        "liveWrites": 80
+      },
+      {
+        "flight": 3,
+        "readbacks": 99,
+        "completedFrames": 79,
+        "liveWrites": 80
+      },
+      {
+        "flight": 4,
+        "readbacks": 97,
+        "completedFrames": 79,
+        "liveWrites": 80
+      },
+      {
+        "flight": 5,
+        "readbacks": 99,
+        "completedFrames": 79,
+        "liveWrites": 80
+      },
+      {
+        "flight": 6,
+        "readbacks": 95,
+        "completedFrames": 78,
+        "liveWrites": 78
+      }
+    ],
+    "b": [
+      {
+        "flight": 1,
+        "readbacks": 98,
+        "completedFrames": 79,
+        "liveWrites": 81
+      },
+      {
+        "flight": 2,
+        "readbacks": 97,
+        "completedFrames": 80,
+        "liveWrites": 80
+      },
+      {
+        "flight": 3,
+        "readbacks": 99,
+        "completedFrames": 80,
+        "liveWrites": 80
+      },
+      {
+        "flight": 4,
+        "readbacks": 97,
+        "completedFrames": 79,
+        "liveWrites": 80
+      },
+      {
+        "flight": 5,
+        "readbacks": 99,
+        "completedFrames": 79,
+        "liveWrites": 80
+      },
+      {
+        "flight": 6,
+        "readbacks": 97,
+        "completedFrames": 79,
+        "liveWrites": 80
+      }
+    ]
+  }
+}

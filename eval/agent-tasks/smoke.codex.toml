@@ -1,0 +1,12 @@
+[benchmark]
+tasks = ["scatter"]
+repetitions = 1
+corrections = 1
+
+[agents.codex]
+backend = "codex"
+binary = "${CODEX_BIN}"
+model = "gpt-6-luna"
+
+[tracks.python]
+libraries = ["hmplot"]

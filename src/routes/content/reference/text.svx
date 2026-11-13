@@ -1,0 +1,29 @@
+## Usage
+
+Glyph outlines are not supported. Style the border of a label box with `box={...}`.
+
+Defaults to 12px, centered alignment, and zero offsets. `align="auto"` puts each label on the side of its point it is offset to: it starts at the point when dx is more than 4px right, ends there when more than 4px left, and is centered otherwise. `format="axis"` with `text="@pointer_x"` (or `@pointer_y`, `@view_x_min`, `@view_y_max`, ...) shows that value as the axis's readout writes it, finer than the ticks, following the pointer and the view, as Crosshair's readouts do. Positive offsets move right/down; size stays independent of zoom. Text of numbers is written as tooltips write them: four significant digits, whole numbers exact, thousands grouped from 10,000; `format` takes a d3-format string instead (`",.0f"`, `".1%"`, `"$,.2f"`), or a %-pattern for a datetime column (`"%b %d"`). That holds for a number computed on the GPU too, a Group's count or a Calculate's value: it is read back when it changes, with no `as_category`. A live total is a Group without `by` (one row, a count of 0 when nothing is selected):
+
+```python
+with hm.Filter(where="@brushed", inactive="all"):
+    with hm.Group(columns={"fare": hm.mean("fare")}):
+        hm.Text(x=0.5, y=0.5, text="count", format=",")
+```
+
+Missing values draw no label.
+
+Automatic bounds in rectangular 2D Cartesian frames reserve room for text, pixel offsets,
+alignment, label boxes and leaders. In the plot's own frame that room is pixel padding inside the
+plot area, so the domain and its ticks stay the data's; nested or ranged Frames widen their domain
+instead. The reservation uses conservative per-mark maxima and
+updates on resize; filtered, empty or missing labels contribute no bounds. Explicit domains,
+categorical axes and view-following labels keep their authored bounds. Zooming can still clip
+labels with the other data. Labels wider than the drawable frame cannot fit, and sqrt axes
+cannot pad below zero. Polar, spherical and 3D views retain position-based fitting; Text3D/TeX
+geometry is separate from Text's pixel-sized labels. Set `axisMask={false}` to allow overflow.
+
+<Note title="SVG and PDF export">
+
+**Vector, except** in a 3D view that holds a mark with no vector form there (Points3D, Surface or another 3D mark, a Heatmap or Image, a lit or additive mark, a globe or polar frame): then SVG and PDF exports draw all of that view's marks as one image, and `mode="vector"` refuses it. In other 3D views the labels are drawn back to front by depth with the view's other marks. Otherwise each label is searchable text, in its row's color for a `color` column, its box and leader vector shapes. See [what is not exported as vector](/docs/export).
+
+</Note>

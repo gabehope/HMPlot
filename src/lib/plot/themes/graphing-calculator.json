@@ -1,0 +1,146 @@
+{
+  "name": "Graphing calculator",
+  "view": {
+    "background": "#ffffff"
+  },
+  "typography": {
+    "fontFamily": "Arial, Helvetica, sans-serif",
+    "fontSize": 14,
+    "color": "#333333"
+  },
+  "axes": {
+    "color": "#555555",
+    "lineWidth": 1,
+    "tickSize": 3,
+    "grid": "major-minor",
+    "fontSize": 14,
+    "titlePosition": "middle",
+    "titleAngle": "auto",
+    "titlePlacement": "outside",
+    "titleOffset": 10,
+    "tickLabelAngle": 0,
+    "tickLabelAlign": "auto",
+    "tickLabelPlacement": "outside",
+    "tickLabelOffset": 5,
+    "arrow": "none",
+    "arrowSize": 5,
+    "line": true,
+    "ticks": true,
+    "tickDirection": "outside",
+    "titleFontWeight": 700,
+    "gridWidth": 1,
+    "gridDash": [],
+    "frame": false,
+    "mask": true,
+    "threeD": {
+      "style": "box",
+      "gridPlanes": []
+    }
+  },
+  "guides": {
+    "fontSize": 14,
+    "textColor": "#444444",
+    "fontFamily": "Arial, Helvetica, sans-serif"
+  },
+  "marks": {
+    "Line": {
+      "color": "#c74440",
+      "width": 2.25
+    },
+    "Points": {
+      "fill": "#c74440",
+      "size": 8,
+      "outlineWidth": 0,
+      "outlineColor": "#333333",
+      "shape": "circle"
+    },
+    "Area": {
+      "fill": "#c74440",
+      "opacity": 0.18
+    },
+    "ErrorBars": {
+      "color": "#555555",
+      "width": 1,
+      "capSize": 6
+    },
+    "Text": {
+      "color": "#333333",
+      "size": 14
+    },
+    "Segments": {
+      "color": "#555555",
+      "width": 1,
+      "opacity": 1
+    },
+    "Arrows": {
+      "color": "#c74440",
+      "width": 2
+    }
+  },
+  "palette": [
+    "#c74440",
+    "#2d70b3",
+    "#388c46",
+    "#6042a6",
+    "#000000",
+    "#fa7e19",
+    "#8c61b5",
+    "#00a2a2"
+  ],
+  "vectorTile": {
+    "background": {
+      "fill": "#f8f8f8"
+    },
+    "land": {
+      "fill": "#f0f0f0"
+    },
+    "green": {
+      "fill": "#bed8c3"
+    },
+    "water": {
+      "fill": "#a7c3df"
+    },
+    "waterways": {
+      "color": "#96b8d9",
+      "width": 1.5
+    },
+    "buildings": {
+      "fill": "#e0e0e0"
+    },
+    "other": {
+      "fill": "#d6d6d6",
+      "color": "#999999",
+      "width": 1,
+      "size": 5
+    },
+    "paths": {
+      "color": "#fdfdfd",
+      "width": 0.8
+    },
+    "roads": {
+      "color": "#ffffff",
+      "width": 2
+    },
+    "majorRoads": {
+      "color": "#fcb881",
+      "width": 3
+    },
+    "railways": {
+      "color": "#adadad",
+      "width": 1
+    },
+    "boundaries": {
+      "color": "#c0a8d6",
+      "width": 1.2
+    },
+    "places": {
+      "color": "#333333",
+      "size": 13
+    }
+  },
+  "colormap": [
+    "#d7edc7",
+    "#83b576",
+    "#286145"
+  ]
+}
