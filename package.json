@@ -61,7 +61,7 @@
     "@jax-js/jax": "0.1.25",
     "@observablehq/plot": "^0.6.17",
     "@panzoom/panzoom": "^4.6.1",
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.65.0",
     "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/kit": "^2.55.0",
     "@sveltejs/package": "^2.5.8",
