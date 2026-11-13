@@ -82,7 +82,7 @@ jobs:
           - { python: "3.12", numpy: "1", extras: "minimal" }
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: python-bundles
           path: python/hmplot/static
@@ -109,7 +109,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: python-bundles
           path: python/hmplot/static
