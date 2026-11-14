@@ -86,6 +86,8 @@ test("guide, reference, and curated examples have permanent visual routes", asyn
   expect(markdown.headers()["content-type"]).toMatch(/^text\/markdown/);
   expect(await markdown.text()).toMatch(/^# Installation and first plot\n[\s\S]*```python\nimport hmplot as hm\n/);
   expect(await (await page.request.get("/llms.txt")).text()).toContain("- [Points](/reference/python/points.md): ");
+  // The sitemap lists the pages by their absolute address, for search engines.
+  expect(await (await page.request.get("/sitemap.xml")).text()).toMatch(/<loc>https:\/\/gabehope\.github\.io\/reference\/python\/points<\/loc>/);
   await expect(page.locator("iframe")).toHaveCount(0);
   await page.getByRole("link", { name: "Next →" }).click();
   await expect(page).toHaveURL(/\/docs\/composition$/);

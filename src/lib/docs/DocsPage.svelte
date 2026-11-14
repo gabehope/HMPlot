@@ -62,7 +62,9 @@
   {#if mode === "home"}
     <main class="home">
       <h1>HMPlot</h1><p class="lead">Composable plots for Svelte and Python.</p>
-      <p>Build charts from marks, named data, scales, and transforms. The same rendering library powers Svelte applications and Python notebooks, with GPU computation and interactive 2D and 3D views.</p>
+      <p>Build charts from marks, named data, scales, and transforms. The same rendering library powers Svelte applications and Python notebooks, with GPU computation and interactive 2D and 3D views. It was built for real-time visualization of neural networks, as in these <a href="https://gabehope.github.io/teaching-demos/">teaching demos</a>.</p>
+      <h2>A first plot</h2><p>A Plot, a mark and a legend are enough: here, the Palmer penguins' bills, colored by species. Python uses a context manager; Svelte uses child markup. Scene is only needed when composing a larger display.</p>
+      <div class="first-plot"><Example id="penguins" bind:language={codeLanguage} priority /></div>
       {#if data.install}{@const install = data.install}
         <section class="install" aria-labelledby="install">
           <h2 id="install">Install</h2>
@@ -74,8 +76,6 @@
           <p>Interactive rendering requires WebGPU, in the browser or the notebook's webview.</p>
         </section>
       {/if}
-      <h2>A first plot</h2><p>A Plot, a mark and a legend are enough: here, the Palmer penguins' bills, colored by species. Python uses a context manager; Svelte uses child markup. Scene is only needed when composing a larger display.</p>
-      <div class="first-plot"><Example id="penguins" bind:language={codeLanguage} priority /></div>
       <h2>Gallery</h2><p>Statistics, linked views, graphs, maps and 3D scenes, each with its source.</p>
       <div class="cards">{#each data.gallery ?? [] as example (example.id)}<ExampleCard {example} heading="h3" />{/each}</div>
       <p><a href="{base}/examples">All examples →</a></p>
