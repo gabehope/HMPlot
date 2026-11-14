@@ -1,0 +1,539 @@
+# HMPlot
+
+> Composable WebGPU plots for Svelte 5 and Python notebooks: marks, named data, scales, transforms and interaction, in 2D and 3D, with maps, graphs and simulations.
+
+Each page below is Markdown; the HTML page has the same address without `.md`. [llms-full.txt](/HMPlot/llms-full.txt) has every guide and reference page in one file, and [the API on one page](/HMPlot/reference/api.md) lists each component's Python keywords and Svelte props.
+
+## Start here
+
+- [Recipes](/HMPlot/recipes.md): tested Python programs for the common charts (scatter, lines over time, bars, distributions, facets, annotations, linked brushing, sliders, animation, maps, 3D, a million points, export): start from the closest one
+  - Scatter plot colored by category
+  - Lines over time, one per series
+  - Grouped and stacked bars
+  - Histogram
+  - Box plots and violins by category
+  - Small multiples
+  - Scatter with a fitted trend line and confidence band
+  - Annotations: reference lines, shaded spans and labels
+  - Linked brushing across plots
+  - Hover to highlight and show a tooltip
+  - A slider that filters the data
+  - Animate over time with a play button
+  - Regions on a map (a choropleth)
+  - Points on a globe
+  - 3D scatter
+  - A million points
+  - 2-D density as contours
+  - Two y axes over one x axis
+  - Pie and donut charts
+  - Save a chart: interactive HTML, PNG, SVG, or a check of what it drew
+  - A simulation stepped on the GPU
+  - A network laid out by forces
+  - Click drilldown with aggregate bars
+  - Many events, one point per location
+  - Scatter with marginal distributions
+  - Ordered gene heatmap with a condition strip
+  - Centered report with composable title and legend styles
+  - Forest plot
+  - Bullet chart
+  - Dense scatter with a local point partial
+  - Statistical band and a local reference rule
+  - Interval timeline
+  - An annotated chart with an explicit local card style
+  - Sparkline
+  - Compact colorbar text and horizontal placement
+  - Hover a gene in one table to highlight its rows in another
+  - Live statistics per route from brushed flights
+  - A live count and total of the brushed rows
+  - Zoom a line chart with a brush on an overview strip
+  - Stacked panels over one shared x
+  - A pipeline as a layered graph
+  - Where a budget goes, as a Sankey diagram
+
+## Python reference: Core
+
+- [Plot](/HMPlot/reference/python/plot.md): A chart: axes, a camera and the marks inside it, in 2D or 3D.
+- [Theme](/HMPlot/reference/python/theme.md): Fonts, colors and mark styles for everything inside it.
+- [Facet](/HMPlot/reference/python/facet.md): Small multiples: one cell per category, per field, or per pair of fields (a scatterplot matrix).
+- [Partition](/HMPlot/reference/python/partition.md): Repeats its children once per group of rows, all in the same frame: one line, fit or density per group.
+- [Panels](/HMPlot/reference/python/panels.md): Stacks Plots over one shared x: one domain, panned and zoomed together, its axis drawn once under the stack.
+- [TableView](/HMPlot/reference/python/table-view.md): The rows of the data around it as an HTML table, live: a Group's groups, a Sort's top rows, a Filter's kept rows; omitted from image exports.
+- [Title](/HMPlot/reference/python/title.md): A heading or note beside plots, drawn as text that stays text in SVG and PDF exports.
+- [Mapping](/HMPlot/reference/python/mapping.md): Channels (x, y, fill, size, ...) that the marks inside it share.
+- [Frame](/HMPlot/reference/python/frame.md): A coordinate frame inside a Plot: its own scales for some marks (a second y axis), or a small chart placed within its parent.
+- [Markdown](/HMPlot/reference/python/markdown.md): Formatted text (emphasis, lists, tables, math) beside plots in a Python layout.
+- [Scene](/HMPlot/reference/python/scene.md): The root of a Python display: it holds plots, layouts and inputs and stacks its children top to bottom.
+- [Row](/HMPlot/reference/python/row.md): Puts its children side by side.
+- [Column](/HMPlot/reference/python/column.md): Stacks its children top to bottom.
+- [Grid](/HMPlot/reference/python/grid.md): Lays its children out in rows of equal columns (Python hm.Grid).
+- [LinkViews](/HMPlot/reference/python/link-views.md): Makes 2D plots pan and zoom together, over one shared domain.
+- [Template](/HMPlot/reference/python/template.md): A reusable pattern of components, built by a class or function, with a slot for the caller's children.
+- [slot](/HMPlot/reference/python/slot.md): Where a template's children go: hm.slot() marks the place in its build().
+- [AxisDefinition](/HMPlot/reference/python/axis-definition.md): A Plot's or Frame's x, y and z: the domain, scale and transform, and the ticks, labels and title.
+- [rules and bands](/HMPlot/reference/python/bands.md): Reference lines and shaded spans of an axis, behind the marks, on a Plot or a Frame.
+- [Plot (handle)](/HMPlot/reference/python/plot-handle.md): What a bound Plot offers code: fit, settle, selections, the camera, the animation clock and exports.
+- [create_theme](/HMPlot/reference/python/themes.md): A theme: fonts, colors, axes and mark defaults, shared and changed live; themes holds the presets.
+- [connect](/HMPlot/reference/python/connect.md): Connections between marks: Line, Segments, Arrows3D and Arrows draw them between the endpoints' positions.
+- [light](/HMPlot/reference/python/light.md): An ambient, directional, hemisphere or point light for Plot(lights=[...]).
+- [effect](/HMPlot/reference/python/effects.md): Effects over the whole plot: a 3D plot's sky and fog, how glowing marks bloom, and plugins' effects.
+- [use_plugin](/HMPlot/reference/python/use-plugin.md): Use an installed plugin package's effects and shades from Python: its parameters are checked, and its file travels to notebooks and exported pages.
+- [visualize_tree](/HMPlot/reference/python/visualize-tree.md): Draw a scene's component tree as a plot: each component a node, colored by its group. Hovering a node shows its tooltip and highlights its path to the root and its subtree.
+- [Heatmap](/HMPlot/reference/python/heatmap.md): A grid of values drawn as colors, one cell per value.
+- [Points](/HMPlot/reference/python/points.md): A scatter plot's symbols, one per row.
+- [Segments](/HMPlot/reference/python/segments.md): Line segments, one per row, each from its start to its end.
+- [Line](/HMPlot/reference/python/line.md): A line through the rows in order: one path, or one per series.
+- [Image](/HMPlot/reference/python/image.md): An image drawn from its pixels: grayscale, RGB or RGBA.
+- [Area](/HMPlot/reference/python/area.md): A filled area between two edges, with lower=0 by default.
+- [Rect](/HMPlot/reference/python/rect.md): Rectangles given by their edges, one per row: bars, bins, tiles.
+- [Polygon](/HMPlot/reference/python/polygon.md): Filled polygons from their vertices in order, one per series.
+- [Text](/HMPlot/reference/python/text.md): Text labels at data positions, one per row.
+- [Anchor](/HMPlot/reference/python/anchor.md): An invisible position that connections from a Line, Segments or Arrows attach to.
+- [Mark options](/HMPlot/reference/python/mark-options.md): The options the marks share: position, appearance, scales, interaction and animation.
+- [literal](/HMPlot/reference/python/literal.md): A constant, even where a column of that name exists.
+- [rgb](/HMPlot/reference/python/rgb.md): Color each row from red, green and blue columns: 0-255 for integers, 0-1 for floats.
+- [register_shape](/HMPlot/reference/python/shape.md): Add a point shape by name: a polygon or an SVG path in the unit square.
+- [animate](/HMPlot/reference/python/animate-tween.md): Animate one channel of a mark per row, in its scale's space; tween() moves a value in its own units, anywhere in an expression.
+- [Points3D](/HMPlot/reference/python/points-3d.md): Solid spheres or cubes in a 3D plot, one per row.
+- [Surface](/HMPlot/reference/python/surface.md): A 3D surface over a grid of heights, or a triangle mesh.
+- [Arrows3D](/HMPlot/reference/python/arrows-3d.md): Solid arrows, a tube and a cone, from start to end points, one per row.
+- [Text3D](/HMPlot/reference/python/text-3d.md): One piece of text drawn as geometry in the plot, plain or TeX math.
+- [Prism](/HMPlot/reference/python/prism.md): 3D columns (boxes, triangular, hexagonal or round prisms), one per row, extruded along an axis.
+- [Filter](/HMPlot/reference/python/filter.md): Keeps the rows that meet a condition, or the selected or brushed rows.
+- [Sort](/HMPlot/reference/python/sort.md): Orders the rows by one or more columns, so a line connects them in that order.
+- [Shift](/HMPlot/reference/python/shift.md): Shift a numeric or datetime coordinate by a numeric or UTC calendar interval.
+- [Group](/HMPlot/reference/python/group.md): One row per value (or combination of values) of the `by` columns, with the group's count, sums, means or other reductions.
+- [Stack](/HMPlot/reference/python/stack.md): Stacks values on one another, for stacked bars and areas, 100% stacks and streamgraphs.
+- [Dodge](/HMPlot/reference/python/dodge.md): Moves overlapping points apart, for a beeswarm, or lays out one unit per row in a grid, for a unit (waffle) chart.
+- [Interpolate](/HMPlot/reference/python/interpolate.md): Fills a regular grid from scattered samples, for a heatmap, contours or a smooth line.
+- [Slice](/HMPlot/reference/python/slice.md): Each entity's values at one time (or other coordinate), interpolated between its observations, or one slice of a grid table.
+- [Pivot](/HMPlot/reference/python/pivot.md): A long table made wide: a row per group and a column per category of a field.
+- [Fold](/HMPlot/reference/python/fold.md): A wide table made long: each row repeated once per chosen column, with that column's name and value.
+- [Join](/HMPlot/reference/python/join.md): Columns from a second table added to each row, matched by a key.
+- [Sample](/HMPlot/reference/python/sample.md): Keeps a random subset of the rows, a number or a fraction of them, in their original order or shuffled.
+- [Transform](/HMPlot/reference/python/transform.md): Run a registered transform or graph layout with its declared parameters.
+- [Calculate](/HMPlot/reference/python/calculate.md): New columns computed from expressions over the table's columns.
+- [Delaunay](/HMPlot/reference/python/delaunay.md): The Delaunay triangulation of points, as edges for Segments.
+- [Voronoi](/HMPlot/reference/python/voronoi.md): Each point's Voronoi cell, as triangles for Polygon.
+- [Hull](/HMPlot/reference/python/hull.md): The convex hull around points, one per group, as triangles for Polygon.
+- [Contour](/HMPlot/reference/python/contour.md): Contour lines or filled bands of a grid, such as a 2-D density.
+- [Density](/HMPlot/reference/python/density.md): A kernel density estimate of one column (a smooth histogram), or of two on a grid (a density heatmap).
+- [Regression](/HMPlot/reference/python/regression.md): A least-squares fit of y on x, sampled across x, with its confidence band.
+- [col and view](/HMPlot/reference/python/names.md): How a value names a column, an input or view state: col.x, input.bins, view.time.
+- [Expression functions](/HMPlot/reference/python/expressions.md): Arithmetic, comparisons, logic, math and missing values, per row on the GPU wherever a column goes.
+- [Reductions](/HMPlot/reference/python/reductions.md): Scalar and grouped reductions with predicates, logical any/all, and row-aligned running totals, neighbors and windows.
+- [Calendar functions](/HMPlot/reference/python/calendar-functions.md): year, month, weekday, time_floor and the other functions of a datetime column, on the GPU.
+- [Casts](/HMPlot/reference/python/casts.md): as_category, as_ordinal, as_numeric, as_datetime and as_duration: a value's type for one use.
+- [TransformHandle](/HMPlot/reference/python/transform-handle.md): What a bound transform offers code: update it, wait for it, and follow its status.
+- [Legend](/HMPlot/reference/python/legend.md): A key to a plot's marks, or to the colors, shapes or sizes one channel encodes.
+- [continuous](/HMPlot/reference/python/continuous.md): A scale from numbers to colors or sizes that marks and plots can share.
+- [normalization](/HMPlot/reference/python/normalization.md): A domain and transform that several scales share, so their colors and sizes agree.
+- [categorical](/HMPlot/reference/python/categorical.md): A scale from categories to colors, shapes or numbers, in a fixed order.
+- [ordinal](/HMPlot/reference/python/ordinal.md): A scale from ordered categories to colors along a colormap.
+- [colormap](/HMPlot/reference/python/colormap.md): A custom colormap: a list of colors, with an interpolation space and positions.
+- [Minimap](/HMPlot/reference/python/minimap.md): A small overview of a plot's whole extent, with a rectangle to drag its view around (a 3D plot gets an orientation gadget).
+- [Interaction](/HMPlot/reference/python/interaction.md): Names selections as columns ("@focus") that the filters and channels inside it read.
+- [selection](/HMPlot/reference/python/selection.md): A set of selected rows that marks set and read, shared across marks and plots.
+- [identity](/HMPlot/reference/python/identity.md): Which rows are the same thing across tables, by key, so selections carry over.
+- [Tooltips](/HMPlot/reference/python/tooltips.md): The nearest row's values in a box by the pointer, set per mark (tooltip=) or for a Plot.
+- [view](/HMPlot/reference/python/pointer-columns.md): View and interaction state, read in any expression: the pointer, the visible domain, the clock, and each row's interaction flags.
+- [Offsets and dragging](/HMPlot/reference/python/offsets-drag.md): Rows dragged with drag= move by offsets that views read through moved() and offset().
+- [InputContext](/HMPlot/reference/python/input-context.md): A scope for inputs: everything inside it reads the inputs inside it by name (a Python Scene is one already).
+- [TextInput](/HMPlot/reference/python/text-input.md): Text edited by the viewer, updated on each keystroke.
+- [ColorPicker](/HMPlot/reference/python/color-picker.md): An opaque RGB color selected with the browser color picker.
+- [DateTimeInput](/HMPlot/reference/python/date-time-input.md): A date and time edited in a chosen time zone, held as a Date or null.
+- [Slider](/HMPlot/reference/python/slider.md): A number, date or two-endpoint interval the viewer drags between min and max, read by name.
+- [Checkbox](/HMPlot/reference/python/checkbox.md): True or false, set by the viewer and read by name.
+- [Button](/HMPlot/reference/python/button.md): Counts the viewer's presses, so a prop that acts on each change of its value (reset=, refresh=) acts on each press; with set, a press writes other inputs (back to the top of a drill-down).
+- [Select](/HMPlot/reference/python/select.md): One or several options, chosen by the viewer and read by name; a Select of column names picks what a channel plots.
+- [Playback](/HMPlot/reference/python/playback.md): A slider with play, pause and reset buttons that moves its value over time, read by name.
+- [Simulate](/HMPlot/reference/python/simulate.md): Per-row state, such as positions and velocities, stepped at a fixed interval for the marks inside it to draw.
+- [Options from data](/HMPlot/reference/python/input-options.md): columnNames and categories: an input's options read from the data around it.
+- [Data](/HMPlot/reference/python/data.md): A table whose columns the components inside it read by name.
+- [Provider](/HMPlot/reference/python/provider.md): A table loaded asynchronously, from a URL or a load function, for the components inside it.
+- [Table](/HMPlot/reference/python/table.md): A table with an identity, so updates and shared views know its rows.
+- [DictionaryColumn](/HMPlot/reference/python/dictionary-column.md): A category column as integer codes and the categories they stand for.
+- [typed_column](/HMPlot/reference/python/typed-column.md): One column with a logical type (ordinal, datetime, duration, ...), where a schema would type it.
+- [GeoJSON](/HMPlot/reference/python/geojson.md): Maps of GeoJSON regions, lines and points, colored by their properties (choropleths) and optionally extruded.
+- [VectorTile](/HMPlot/reference/python/vector-tile.md): A basemap of land, water, roads, buildings and place names from vector map tiles.
+- [Force](/HMPlot/reference/python/force.md): A force-directed layout of a graph's nodes and edges, simulated live.
+- [GraphData](/HMPlot/reference/python/graph-data.md): A graph from edges, with nodes given or inferred from the edges' endpoints; ordinary transforms operate on the selected table.
+- [DAG](/HMPlot/reference/python/dag.md): A layered layout of a directed acyclic graph, with edges routed around the nodes.
+- [Pack](/HMPlot/reference/python/pack.md): A hierarchy drawn as nested circles, each leaf's area set by its value.
+- [Treemap](/HMPlot/reference/python/treemap.md): A hierarchy drawn as nested rectangles, each leaf's area set by its value.
+- [Sankey](/HMPlot/reference/python/sankey.md): A flow diagram layout, with nodes in columns and links as thick as their values.
+- [Flow](/HMPlot/reference/python/flow.md): A Sankey's links drawn as bands, one per edge.
+- [Routes](/HMPlot/reference/python/routes.md): A DAG's edges drawn along their routed paths, bends included.
+- [Nodes](/HMPlot/reference/python/nodes.md): A graph's nodes, one row each, for the marks inside to draw.
+- [Edges](/HMPlot/reference/python/edges.md): A graph layout's edges, one row each with start and end positions, for the marks inside to draw.
+- [Tree](/HMPlot/reference/python/tree.md): A rooted tree layout of an edge table, as a tidy tree, an icicle or a dendrogram.
+- [DocumentExportOptions](/HMPlot/reference/python/document-export-options.md): How exportSVG and exportPDF draw: size, vector or raster, and text.
+- [check](/HMPlot/reference/python/check.md): Draw a plot headlessly and say what it drew: errors, each mark's rows and columns, the axes, and a PNG.
+- [stats](/HMPlot/reference/python/package-stats.md): Statistical transform patterns; hm.stats in Python.
+- [charts](/HMPlot/reference/python/package-charts.md): Chart patterns composed from core marks and transforms; hm.charts in Python.
+
+## Python reference: Chart patterns
+
+- [charts.Marginals](/HMPlot/reference/python/marginals.md): A scatter plot with a histogram of each of its columns along its top and right sides.
+- [charts.FocusContext](/HMPlot/reference/python/focus-context.md): A line chart over a strip of the whole series: dragging across the strip zooms the chart to that x interval.
+- [charts.Arrows](/HMPlot/reference/python/arrows.md): Arrows from start to end, one per row, with heads sized in pixels.
+- [charts.Bar](/HMPlot/reference/python/bar.md): Bars from a baseline to a value, one per row, on a categorical axis.
+- [charts.BoxPlot](/HMPlot/reference/python/box-plot.md): Box-and-whisker plots: each group's quartiles, median, whiskers and outliers.
+- [charts.Callout](/HMPlot/reference/python/callout.md): A note a fixed distance from a point, with a leader line to the point.
+- [charts.Crosshair](/HMPlot/reference/python/crosshair.md): Rules that follow the pointer across the frame, with a readout of its x and y.
+- [charts.DensityBands](/HMPlot/reference/python/density-bands.md): Filled bands of the density of points in two dimensions, each filled by its lower level.
+- [charts.DensityContour](/HMPlot/reference/python/density-contour.md): Contour lines of the density of points in two dimensions.
+- [charts.Ecdf](/HMPlot/reference/python/ecdf-chart.md): Empirical cumulative distributions as step lines, one per group.
+- [charts.ErrorBars](/HMPlot/reference/python/error-bars.md): Error bars: an interval with caps at each row, such as a confidence interval.
+- [charts.Histogram](/HMPlot/reference/python/histogram.md): Bars counting how many values fall in each bin of a numeric column.
+- [charts.Lollipop](/HMPlot/reference/python/lollipop.md): A stem from a baseline to each value, with a point at its end.
+- [charts.Pie](/HMPlot/reference/python/pie.md): A pie or donut chart: a sector per row, its angle its value's share of the total.
+- [charts.RuleX](/HMPlot/reference/python/rule-x.md): A vertical reference line at x across the frame: one per row, or one at a value or the pointer.
+- [charts.RuleY](/HMPlot/reference/python/rule-y.md): A horizontal reference line at y across the frame: one per row, or one at a value or the pointer.
+- [charts.Smooth](/HMPlot/reference/python/smooth.md): A fitted curve through a scatter, with its confidence band.
+- [charts.Swarm](/HMPlot/reference/python/swarm.md): A beeswarm: points along a categorical axis, moved aside so none overlap.
+- [charts.Violin](/HMPlot/reference/python/violin.md): Violin plots: each group's distribution as a mirrored density curve.
+- [charts.BandX](/HMPlot/reference/python/band-x.md): A vertical shaded reference interval spanning the visible frame.
+- [charts.BandY](/HMPlot/reference/python/band-y.md): A horizontal shaded reference interval spanning the visible frame.
+- [charts.BulletChart](/HMPlot/reference/python/bullet-chart.md): Actual values, target ticks and supplied qualitative ranges on categorical rows.
+- [charts.Candlestick](/HMPlot/reference/python/candlestick.md): Prices over time as candles: a wick from each period's low to its high, and a body from its open to its close.
+- [charts.Dumbbell](/HMPlot/reference/python/dumbbell.md): Two values per category, as points joined by a stem: before and after, or two groups.
+- [charts.EndLabels](/HMPlot/reference/python/end-labels.md): Labels at the ends of lines: each series' name or value beside its last (or first) point.
+- [charts.ForestPlot](/HMPlot/reference/python/forest-plot.md): Point estimates with horizontal confidence intervals on categorical rows.
+- [charts.IntervalTimeline](/HMPlot/reference/python/interval-timeline.md): Task intervals on categorical rows, with optional milestone points.
+- [charts.Sparkline](/HMPlot/reference/python/sparkline.md): A compact line with an optional reference band and final-value label.
+- [charts.Waterfall](/HMPlot/reference/python/waterfall.md): A running total built from changes: each bar steps from the total before it to the total after it.
+
+## Python reference: Statistical patterns
+
+- [stats.Bin](/HMPlot/reference/python/bin.md): Counts the rows in each interval of x (a histogram), or in each cell of an x-y or x-y-z grid.
+- [stats.Normalize](/HMPlot/reference/python/normalize.md): Rescales a column to z-scores, to 0 to 1, or relative to its sum, first value or maximum, over all rows or per group.
+- [stats.Window](/HMPlot/reference/python/window.md): A moving average (or other reduction) over each row and its neighbors.
+- [stats.Hexbin](/HMPlot/reference/python/hexbin.md): Counts the points in each hexagon of a hexagonal grid over x and y.
+- [stats.Summary](/HMPlot/reference/python/summary.md): An estimate per group, the mean or median, with an interval around it: the numbers behind error bars.
+
+## Svelte reference: Core
+
+- [Html](/HMPlot/reference/svelte/html.md): Anchor ordinary HTML at a numeric 2D frame position; excluded from plot exports.
+- [Plot](/HMPlot/reference/svelte/plot.md): A chart: axes, a camera and the marks inside it, in 2D or 3D.
+- [Theme](/HMPlot/reference/svelte/theme.md): Fonts, colors and mark styles for everything inside it.
+- [Facet](/HMPlot/reference/svelte/facet.md): Small multiples: one cell per category, per field, or per pair of fields (a scatterplot matrix).
+- [Partition](/HMPlot/reference/svelte/partition.md): Repeats its children once per group of rows, all in the same frame: one line, fit or density per group.
+- [Panels](/HMPlot/reference/svelte/panels.md): Stacks Plots over one shared x: one domain, panned and zoomed together, its axis drawn once under the stack.
+- [TableView](/HMPlot/reference/svelte/table-view.md): The rows of the data around it as an HTML table, live: a Group's groups, a Sort's top rows, a Filter's kept rows; omitted from image exports.
+- [Title](/HMPlot/reference/svelte/title.md): A heading or note beside plots, drawn as text that stays text in SVG and PDF exports.
+- [Mapping](/HMPlot/reference/svelte/mapping.md): Channels (x, y, fill, size, ...) that the marks inside it share.
+- [Frame](/HMPlot/reference/svelte/frame.md): A coordinate frame inside a Plot: its own scales for some marks (a second y axis), or a small chart placed within its parent.
+- [AxisDefinition](/HMPlot/reference/svelte/axis-definition.md): A Plot's or Frame's x, y and z: the domain, scale and transform, and the ticks, labels and title.
+- [rules and bands](/HMPlot/reference/svelte/bands.md): Reference lines and shaded spans of an axis, behind the marks, on a Plot or a Frame.
+- [PlotHandle](/HMPlot/reference/svelte/plot-handle.md): What a bound Plot offers code: fit, settle, selections, the camera, the animation clock and exports.
+- [createTheme](/HMPlot/reference/svelte/themes.md): A theme: fonts, colors, axes and mark defaults, shared and changed live; themes holds the presets.
+- [connect](/HMPlot/reference/svelte/connect.md): Connections between marks: Line, Segments, Arrows3D and Arrows draw them between the endpoints' positions.
+- [light](/HMPlot/reference/svelte/light.md): An ambient, directional, hemisphere or point light for Plot(lights=[...]).
+- [effects](/HMPlot/reference/svelte/effects.md): Effects over the whole plot: a 3D plot's sky and fog, how glowing marks bloom, and plugins' effects.
+- [registerPlugin](/HMPlot/reference/svelte/plugins.md): Add effects and shades written in TSL: a plugin declares them once, and a Plot's effects and a mark's shade name them.
+- [initializePlot](/HMPlot/reference/svelte/initialize-plot.md): Start the GPU array backend before making GPU arrays yourself; Plots start it on their own.
+- [Heatmap](/HMPlot/reference/svelte/heatmap.md): A grid of values drawn as colors, one cell per value.
+- [Points](/HMPlot/reference/svelte/points.md): A scatter plot's symbols, one per row.
+- [Segments](/HMPlot/reference/svelte/segments.md): Line segments, one per row, each from its start to its end.
+- [Line](/HMPlot/reference/svelte/line.md): A line through the rows in order: one path, or one per series.
+- [Image](/HMPlot/reference/svelte/image.md): An image drawn from its pixels: grayscale, RGB or RGBA.
+- [Area](/HMPlot/reference/svelte/area.md): A filled area between two edges, with lower=0 by default.
+- [Rect](/HMPlot/reference/svelte/rect.md): Rectangles given by their edges, one per row: bars, bins, tiles.
+- [Polygon](/HMPlot/reference/svelte/polygon.md): Filled polygons from their vertices in order, one per series.
+- [Text](/HMPlot/reference/svelte/text.md): Text labels at data positions, one per row.
+- [Anchor](/HMPlot/reference/svelte/anchor.md): An invisible position that connections from a Line, Segments or Arrows attach to.
+- [Mark options](/HMPlot/reference/svelte/mark-options.md): The options the marks share: position, appearance, scales, interaction and animation.
+- [literal](/HMPlot/reference/svelte/literal.md): A constant, even where a column of that name exists.
+- [RGB colors](/HMPlot/reference/svelte/rgb.md): Color each row from red, green and blue columns: 0-255 for integers, 0-1 for floats.
+- [registerShape](/HMPlot/reference/svelte/shape.md): Add a point shape by name: a polygon or an SVG path in the unit square.
+- [animate](/HMPlot/reference/svelte/animate-tween.md): Animate one channel of a mark per row, in its scale's space; tween() moves a value in its own units, anywhere in an expression.
+- [Points3D](/HMPlot/reference/svelte/points-3d.md): Solid spheres or cubes in a 3D plot, one per row.
+- [Surface](/HMPlot/reference/svelte/surface.md): A 3D surface over a grid of heights, or a triangle mesh.
+- [Arrows3D](/HMPlot/reference/svelte/arrows-3d.md): Solid arrows, a tube and a cone, from start to end points, one per row.
+- [Text3D](/HMPlot/reference/svelte/text-3d.md): One piece of text drawn as geometry in the plot, plain or TeX math.
+- [Prism](/HMPlot/reference/svelte/prism.md): 3D columns (boxes, triangular, hexagonal or round prisms), one per row, extruded along an axis.
+- [Filter](/HMPlot/reference/svelte/filter.md): Keeps the rows that meet a condition, or the selected or brushed rows.
+- [Sort](/HMPlot/reference/svelte/sort.md): Orders the rows by one or more columns, so a line connects them in that order.
+- [Shift](/HMPlot/reference/svelte/shift.md): Shift a numeric or datetime coordinate by a numeric or UTC calendar interval.
+- [Group](/HMPlot/reference/svelte/group.md): One row per value (or combination of values) of the `by` columns, with the group's count, sums, means or other reductions.
+- [Stack](/HMPlot/reference/svelte/stack.md): Stacks values on one another, for stacked bars and areas, 100% stacks and streamgraphs.
+- [Dodge](/HMPlot/reference/svelte/dodge.md): Moves overlapping points apart, for a beeswarm, or lays out one unit per row in a grid, for a unit (waffle) chart.
+- [Interpolate](/HMPlot/reference/svelte/interpolate.md): Fills a regular grid from scattered samples, for a heatmap, contours or a smooth line.
+- [Slice](/HMPlot/reference/svelte/slice.md): Each entity's values at one time (or other coordinate), interpolated between its observations, or one slice of a grid table.
+- [Pivot](/HMPlot/reference/svelte/pivot.md): A long table made wide: a row per group and a column per category of a field.
+- [Fold](/HMPlot/reference/svelte/fold.md): A wide table made long: each row repeated once per chosen column, with that column's name and value.
+- [Join](/HMPlot/reference/svelte/join.md): Columns from a second table added to each row, matched by a key.
+- [Sample](/HMPlot/reference/svelte/sample.md): Keeps a random subset of the rows, a number or a fraction of them, in their original order or shuffled.
+- [Transform](/HMPlot/reference/svelte/transform.md): Run a registered transform or graph layout with its declared parameters.
+- [Calculate](/HMPlot/reference/svelte/calculate.md): New columns computed from expressions over the table's columns.
+- [Delaunay](/HMPlot/reference/svelte/delaunay.md): The Delaunay triangulation of points, as edges for Segments.
+- [Voronoi](/HMPlot/reference/svelte/voronoi.md): Each point's Voronoi cell, as triangles for Polygon.
+- [Hull](/HMPlot/reference/svelte/hull.md): The convex hull around points, one per group, as triangles for Polygon.
+- [Contour](/HMPlot/reference/svelte/contour.md): Contour lines or filled bands of a grid, such as a 2-D density.
+- [Density](/HMPlot/reference/svelte/density.md): A kernel density estimate of one column (a smooth histogram), or of two on a grid (a density heatmap).
+- [Regression](/HMPlot/reference/svelte/regression.md): A least-squares fit of y on x, sampled across x, with its confidence band.
+- [col and view](/HMPlot/reference/svelte/names.md): How a value names a column, an input or view state: col.x, input.bins, view.time.
+- [Expression functions](/HMPlot/reference/svelte/expressions.md): Arithmetic, comparisons, logic, math and missing values, per row on the GPU wherever a column goes.
+- [Reductions](/HMPlot/reference/svelte/reductions.md): Scalar and grouped reductions with predicates, logical any/all, and row-aligned running totals, neighbors and windows.
+- [Calendar functions](/HMPlot/reference/svelte/calendar-functions.md): year, month, weekday, time_floor and the other functions of a datetime column, on the GPU.
+- [Casts](/HMPlot/reference/svelte/casts.md): as_category, as_ordinal, as_numeric, as_datetime and as_duration: a value's type for one use.
+- [TransformHandle](/HMPlot/reference/svelte/transform-handle.md): What a bound transform offers code: update it, wait for it, and follow its status.
+- [Legend](/HMPlot/reference/svelte/legend.md): A key to a plot's marks, or to the colors, shapes or sizes one channel encodes.
+- [continuous](/HMPlot/reference/svelte/continuous.md): A scale from numbers to colors or sizes that marks and plots can share.
+- [normalization](/HMPlot/reference/svelte/normalization.md): A domain and transform that several scales share, so their colors and sizes agree.
+- [categorical](/HMPlot/reference/svelte/categorical.md): A scale from categories to colors, shapes or numbers, in a fixed order.
+- [ordinal](/HMPlot/reference/svelte/ordinal.md): A scale from ordered categories to colors along a colormap.
+- [colormap](/HMPlot/reference/svelte/colormap.md): A custom colormap: a list of colors, with an interpolation space and positions.
+- [Minimap](/HMPlot/reference/svelte/minimap.md): A small overview of a plot's whole extent, with a rectangle to drag its view around (a 3D plot gets an orientation gadget).
+- [Interaction](/HMPlot/reference/svelte/interaction.md): Names selections as columns ("@focus") that the filters and channels inside it read.
+- [selection](/HMPlot/reference/svelte/selection.md): A set of selected rows that marks set and read, shared across marks and plots.
+- [identity](/HMPlot/reference/svelte/identity.md): Which rows are the same thing across tables, by key, so selections carry over.
+- [Tooltips](/HMPlot/reference/svelte/tooltips.md): The nearest row's values in a box by the pointer, set per mark (tooltip=) or for a Plot.
+- [view](/HMPlot/reference/svelte/pointer-columns.md): View and interaction state, read in any expression: the pointer, the visible domain, the clock, and each row's interaction flags.
+- [Offsets and dragging](/HMPlot/reference/svelte/offsets-drag.md): Rows dragged with drag= move by offsets that views read through moved() and offset().
+- [zoomViewport](/HMPlot/reference/svelte/zoom-viewport.md): A 2D viewport zoomed by a factor along x, y or both, never past the fitted view.
+- [InputContext](/HMPlot/reference/svelte/input-context.md): A scope for inputs: everything inside it reads the inputs inside it by name (a Python Scene is one already).
+- [TextInput](/HMPlot/reference/svelte/text-input.md): Text edited by the viewer, updated on each keystroke.
+- [ColorPicker](/HMPlot/reference/svelte/color-picker.md): An opaque RGB color selected with the browser color picker.
+- [DateTimeInput](/HMPlot/reference/svelte/date-time-input.md): A date and time edited in a chosen time zone, held as a Date or null.
+- [Slider](/HMPlot/reference/svelte/slider.md): A number, date or two-endpoint interval the viewer drags between min and max, read by name.
+- [Checkbox](/HMPlot/reference/svelte/checkbox.md): True or false, set by the viewer and read by name.
+- [Button](/HMPlot/reference/svelte/button.md): Counts the viewer's presses, so a prop that acts on each change of its value (reset=, refresh=) acts on each press; with set, a press writes other inputs (back to the top of a drill-down).
+- [Select](/HMPlot/reference/svelte/select.md): One or several options, chosen by the viewer and read by name; a Select of column names picks what a channel plots.
+- [Playback](/HMPlot/reference/svelte/playback.md): A slider with play, pause and reset buttons that moves its value over time, read by name.
+- [Simulate](/HMPlot/reference/svelte/simulate.md): Per-row state, such as positions and velocities, stepped at a fixed interval for the marks inside it to draw.
+- [Options from data](/HMPlot/reference/svelte/input-options.md): columnNames and categories: an input's options read from the data around it.
+- [Data](/HMPlot/reference/svelte/data.md): A table whose columns the components inside it read by name.
+- [Provider](/HMPlot/reference/svelte/provider.md): A table loaded asynchronously, from a URL or a load function, for the components inside it.
+- [table](/HMPlot/reference/svelte/table.md): A table with an identity, so updates and shared views know its rows.
+- [gridTable](/HMPlot/reference/svelte/grid-table.md): A table of every cell of a grid: its dimensions' coordinates and its variables.
+- [datetimeCoordinates](/HMPlot/reference/svelte/datetime-coordinates.md): Turn dates into millisecond offsets from an origin, for a datetime axis.
+- [DictionaryColumn](/HMPlot/reference/svelte/dictionary-column.md): A category column as integer codes and the categories they stand for.
+- [typedColumn](/HMPlot/reference/svelte/typed-column.md): One column with a logical type (ordinal, datetime, duration, ...), where a schema would type it.
+- [Fetch sources](/HMPlot/reference/svelte/fetch-sources.md): fetchJSON, fetchCSV, fetchArrow and fetchParquet: a Provider's source that fetches a URL template.
+- [GeoJSON](/HMPlot/reference/svelte/geojson.md): Maps of GeoJSON regions, lines and points, colored by their properties (choropleths) and optionally extruded.
+- [VectorTile](/HMPlot/reference/svelte/vector-tile.md): A basemap of land, water, roads, buildings and place names from vector map tiles.
+- [Force](/HMPlot/reference/svelte/force.md): A force-directed layout of a graph's nodes and edges, simulated live.
+- [GraphData](/HMPlot/reference/svelte/graph-data.md): A graph from edges, with nodes given or inferred from the edges' endpoints; ordinary transforms operate on the selected table.
+- [DAG](/HMPlot/reference/svelte/dag.md): A layered layout of a directed acyclic graph, with edges routed around the nodes.
+- [Pack](/HMPlot/reference/svelte/pack.md): A hierarchy drawn as nested circles, each leaf's area set by its value.
+- [Treemap](/HMPlot/reference/svelte/treemap.md): A hierarchy drawn as nested rectangles, each leaf's area set by its value.
+- [Sankey](/HMPlot/reference/svelte/sankey.md): A flow diagram layout, with nodes in columns and links as thick as their values.
+- [Flow](/HMPlot/reference/svelte/flow.md): A Sankey's links drawn as bands, one per edge.
+- [Routes](/HMPlot/reference/svelte/routes.md): A DAG's edges drawn along their routed paths, bends included.
+- [Nodes](/HMPlot/reference/svelte/nodes.md): A graph's nodes, one row each, for the marks inside to draw.
+- [Edges](/HMPlot/reference/svelte/edges.md): A graph layout's edges, one row each with start and end positions, for the marks inside to draw.
+- [Tree](/HMPlot/reference/svelte/tree.md): A rooted tree layout of an edge table, as a tidy tree, an icicle or a dendrogram.
+- [DocumentExportOptions](/HMPlot/reference/svelte/document-export-options.md): How exportSVG and exportPDF draw: size, vector or raster, and text.
+- [hmplot/check](/HMPlot/reference/svelte/package-check.md): Inspect mounted Svelte plots for readiness, diagnostics and export omissions.
+- [Package entry points](/HMPlot/reference/svelte/package-entries.md): What each import path of the npm package offers, and how stable it is.
+- [hmplot/tiles](/HMPlot/reference/svelte/package-tiles.md): Load, place and style vector tiles yourself; the VectorTile mark does all of it for you.
+- [hmplot/video](/HMPlot/reference/svelte/package-video.md): A plot's animation encoded as MP4 in the browser with WebCodecs, loaded on first use.
+- [hmplot/vite](/HMPlot/reference/svelte/package-vite.md): A Vite plugin that makes an app's own @jax-js/jax imports hmplot's jax-js, so arrays pass straight in.
+- [hmplot/jax](/HMPlot/reference/svelte/package-jax.md): The jax-js that hmplot runs on, for building GPU arrays that plots read without a copy.
+- [hmplot/scene](/HMPlot/reference/svelte/package-scene.md): The runtime that draws declarative scenes (what Python sends) in any Svelte app.
+- [hmplot/templates](/HMPlot/reference/svelte/package-templates.md): Render a code-free Python template inside a Svelte plot or data context.
+- [hmplot/types](/HMPlot/reference/svelte/package-types.md): Option types for settings a component registers: a default, a settings-pane control and a conversion.
+- [hmplot/stats](/HMPlot/reference/svelte/package-stats.md): Statistical transform patterns; hm.stats in Python.
+- [hmplot/charts](/HMPlot/reference/svelte/package-charts.md): Chart patterns composed from core marks and transforms; hm.charts in Python.
+- [hmplot/compound](/HMPlot/reference/svelte/package-compound.md): The built-in templates, and the experimental surface to write your own patterns.
+
+## Svelte reference: Chart patterns
+
+- [Marginals](/HMPlot/reference/svelte/marginals.md): A scatter plot with a histogram of each of its columns along its top and right sides.
+- [FocusContext](/HMPlot/reference/svelte/focus-context.md): A line chart over a strip of the whole series: dragging across the strip zooms the chart to that x interval.
+- [Arrows](/HMPlot/reference/svelte/arrows.md): Arrows from start to end, one per row, with heads sized in pixels.
+- [Bar](/HMPlot/reference/svelte/bar.md): Bars from a baseline to a value, one per row, on a categorical axis.
+- [BoxPlot](/HMPlot/reference/svelte/box-plot.md): Box-and-whisker plots: each group's quartiles, median, whiskers and outliers.
+- [Callout](/HMPlot/reference/svelte/callout.md): A note a fixed distance from a point, with a leader line to the point.
+- [Crosshair](/HMPlot/reference/svelte/crosshair.md): Rules that follow the pointer across the frame, with a readout of its x and y.
+- [DensityBands](/HMPlot/reference/svelte/density-bands.md): Filled bands of the density of points in two dimensions, each filled by its lower level.
+- [DensityContour](/HMPlot/reference/svelte/density-contour.md): Contour lines of the density of points in two dimensions.
+- [Ecdf](/HMPlot/reference/svelte/ecdf-chart.md): Empirical cumulative distributions as step lines, one per group.
+- [ErrorBars](/HMPlot/reference/svelte/error-bars.md): Error bars: an interval with caps at each row, such as a confidence interval.
+- [Histogram](/HMPlot/reference/svelte/histogram.md): Bars counting how many values fall in each bin of a numeric column.
+- [Lollipop](/HMPlot/reference/svelte/lollipop.md): A stem from a baseline to each value, with a point at its end.
+- [Pie](/HMPlot/reference/svelte/pie.md): A pie or donut chart: a sector per row, its angle its value's share of the total.
+- [RuleX](/HMPlot/reference/svelte/rule-x.md): A vertical reference line at x across the frame: one per row, or one at a value or the pointer.
+- [RuleY](/HMPlot/reference/svelte/rule-y.md): A horizontal reference line at y across the frame: one per row, or one at a value or the pointer.
+- [Smooth](/HMPlot/reference/svelte/smooth.md): A fitted curve through a scatter, with its confidence band.
+- [Swarm](/HMPlot/reference/svelte/swarm.md): A beeswarm: points along a categorical axis, moved aside so none overlap.
+- [Violin](/HMPlot/reference/svelte/violin.md): Violin plots: each group's distribution as a mirrored density curve.
+- [BandX](/HMPlot/reference/svelte/band-x.md): A vertical shaded reference interval spanning the visible frame.
+- [BandY](/HMPlot/reference/svelte/band-y.md): A horizontal shaded reference interval spanning the visible frame.
+- [BulletChart](/HMPlot/reference/svelte/bullet-chart.md): Actual values, target ticks and supplied qualitative ranges on categorical rows.
+- [Candlestick](/HMPlot/reference/svelte/candlestick.md): Prices over time as candles: a wick from each period's low to its high, and a body from its open to its close.
+- [Dumbbell](/HMPlot/reference/svelte/dumbbell.md): Two values per category, as points joined by a stem: before and after, or two groups.
+- [EndLabels](/HMPlot/reference/svelte/end-labels.md): Labels at the ends of lines: each series' name or value beside its last (or first) point.
+- [ForestPlot](/HMPlot/reference/svelte/forest-plot.md): Point estimates with horizontal confidence intervals on categorical rows.
+- [IntervalTimeline](/HMPlot/reference/svelte/interval-timeline.md): Task intervals on categorical rows, with optional milestone points.
+- [Sparkline](/HMPlot/reference/svelte/sparkline.md): A compact line with an optional reference band and final-value label.
+- [Waterfall](/HMPlot/reference/svelte/waterfall.md): A running total built from changes: each bar steps from the total before it to the total after it.
+
+## Svelte reference: Statistical patterns
+
+- [Bin](/HMPlot/reference/svelte/bin.md): Counts the rows in each interval of x (a histogram), or in each cell of an x-y or x-y-z grid.
+- [Normalize](/HMPlot/reference/svelte/normalize.md): Rescales a column to z-scores, to 0 to 1, or relative to its sum, first value or maximum, over all rows or per group.
+- [Window](/HMPlot/reference/svelte/window.md): A moving average (or other reduction) over each row and its neighbors.
+- [Hexbin](/HMPlot/reference/svelte/hexbin.md): Counts the points in each hexagon of a hexagonal grid over x and y.
+- [Summary](/HMPlot/reference/svelte/summary.md): An estimate per group, the mean or median, with an interval around it: the numbers behind error bars.
+
+## Examples
+
+- [Portable candlestick template](/HMPlot/examples/template-candlestick.md): OHLC candles composed from ErrorBars, Calculate, Filter and Rect. Download the template and supply your own price table.
+- [Portable parallel coordinates](/HMPlot/examples/template-parallel.md): Fold and Normalize turn a wide table into comparable dimensions. A portable Line template draws one profile per observation.
+- [Portable ridgeline template](/HMPlot/examples/template-ridgeline.md): Grouped Gaussian densities in one shared frame, packaged as a downloadable template. Change the data, bandwidth and ridge height.
+- [Portable radar template](/HMPlot/examples/template-radar.md): A portable polygon template maps normalized scores to a radar chart. Rings, spokes and labels are supplied by the host.
+- [Ridgeline temperatures](/HMPlot/examples/ridgeline.md): Twelve monthly temperature densities from Lincoln's 2016 weather, with overlapping ridges and a shared blue-to-red temperature gradient.
+- [Particles without an uploaded table](/HMPlot/examples/constant-data.md): Data(rows) generates row indices, ones and fixed random values on the GPU; Simulate moves the particles without a dummy table from Python.
+- [Embedded facets](/HMPlot/examples/embedded-facets.md): Facets inside a Plot partition its frame and share its renderer and camera. For grouped bars, use Bar with arrange="group".
+- [Waffle grid](/HMPlot/examples/waffle-grid.md): Integer counts expand into source-identified unit squares, ordered left to right and bottom to top.
+- [Nested scales](/HMPlot/examples/nonlinear-frames.md): A child interval maps through its parent’s logarithmic scale.
+- [Anchored frame](/HMPlot/examples/anchored-frames.md): Pan and zoom: the child frame stays 160 by 100 CSS pixels, anchored at its parent data position.
+- [Brushing frame strips](/HMPlot/examples/strip-brushing.md): Shift-drag on an inset frame's tick strip to brush its own axis. The band stays on the strip; a column shared with other strips shows on each of them.
+- [Brushed filter chain](/HMPlot/examples/brushed-filter-chain.md): Shift-drag to brush 50,000 points; a histogram (Filter > Bin) and per-level means (Filter > Group) follow the brush. A Filter keeps its input's rows and marks the kept ones, so a moving brush changes no array length and compiles no new GPU kernels.
+- [Running totals under a brush](/HMPlot/examples/running-totals.md): Shift-drag to brush 50,000 transactions; the brushed rows are sorted by day, then a running sum and a 500-row moving average follow the brush (Filter > Sort > Window > Line).
+- [Brushed distributions](/HMPlot/examples/brushed-distributions.md): Shift-drag to brush 60,000 points in five clusters; violins and box plots of each group's values are recomputed from the brushed rows on every move, with no GPU kernels compiled while dragging.
+- [Moving particles](/HMPlot/examples/moving-particles.md): 1,500 particles circle at their own speeds: Slice interpolates every particle's position at the current time on every animation frame, and a slider filters them by speed. Neither playing nor filtering compiles new GPU kernels once warm.
+- [Half a million points, one slider](/HMPlot/examples/half-million-threshold.md): A slider filters 500,000 points by magnitude into a 3D hexbin and a histogram. A Filter that keeps under a quarter of a large input packs the kept rows into a few fixed lengths, so the work after it follows the selection and each length compiles once.
+- [Nearby points](/HMPlot/examples/nearby-radius.md): Move the pointer over the clusters: every row within the radius grows, including all overplotted rows at a cluster center, and the rest shrink. Adjust the radius with the slider.
+- [Crosshair and rules](/HMPlot/examples/crosshair.md): Move the pointer over a time series: the crosshair follows it with a readout of each value. A dashed rule marks a threshold and gray rules mark events from a second table, labeled at the top of the frame.
+- [Titles, bands and callouts](/HMPlot/examples/annotations.md): A plot's title, subtitle and caption are part of the plot and its exports; bands shade a span of an axis behind the marks and grid; callouts point at a value with a note.
+- [Tooltips](/HMPlot/examples/tooltips.md): Point near a penguin: the tooltip shows the nearest one within 16 pixels, with chosen fields, labels and formats, and @tooltip enlarges it; a histogram's bars show their bin and count.
+- [Unified x tooltip](/HMPlot/examples/unified-x.md): Move the pointer along the dates: one tooltip lists every series' value at that date, with a marker on each line, beside a Crosshair's vertical rule.
+- [Nearby along x](/HMPlot/examples/nearby-axis.md): Single-axis nearby in data units picks every series at the day under the pointer, whatever the pointer's height, and labels them.
+- [Respond only while active](/HMPlot/examples/any-interaction-columns.md): @any_brushed and @any_selected are 1 on every row while anything is brushed or selected, so the other rows shrink only then. Shift-drag or click in either plot; clear to restore every row.
+- [Marks in nested frames](/HMPlot/examples/frame-mark-families.md): Area, ErrorBars, Rect, and curved Segments inside a linear child of a log parent, and bars with error bars in an anchored inset that keeps its pixel size while you pan and zoom.
+- [One brush, three strips](/HMPlot/examples/strip-brushing-shared.md): Three child frames plot score against different fields. Shift-drag any tick strip: the shared score brush appears on every strip. Drag band ends to resize, the middle to move, scroll to scale, and use arrow keys or Escape.
+- [Legend channels](/HMPlot/examples/legend-channels.md): Colored symbols when one column drives fill and shape, a size ramp for a numeric column, and one legend for a facet grid that hides a species in every cell.
+- [RGB colors from data](/HMPlot/examples/rgb-points.md): Color each point from red, green, and blue columns. Integer data is 0-255 and float data 0-1; RGB colors bypass scales and legends.
+- [Custom colormaps](/HMPlot/examples/custom-colormap.md): A diverging colormap from three colors and a positioned ramp that saves its strongest colors for the top of the domain. Legends and exports follow.
+- [Custom point shapes](/HMPlot/examples/custom-shapes.md): Register polygons as point shapes and map a column to them with shape and shapeScale; the legend and SVG export draw the same polygons.
+- [Mona Lisa histogram](/HMPlot/examples/mona-lisa-histogram.md): Every pixel of the painting is a data-space square with RGB fill, and an RGB histogram sits over its lower part, its three channels screen-blended so overlaps add up to white as in the D3 notebook. Brush a region and the histogram counts only those pixels. After the D3 notebook of the same name.
+- [Lorenz attractor](/HMPlot/examples/lorenz-attractor.md): Sixty thousand Runge-Kutta steps of the Lorenz system trace its butterfly; on the GPU every point then moves on at the Rayleigh number you drag, collapsing onto two fixed points below about 24.7. A glowing 3D orbit with sparks that run along it in time order (evaluated on the GPU from @time), linked to the butterfly projection: brush a region and the 3D view keeps only those points lit while a speed histogram counts them.
+- [Ten million stars, filtered live](/HMPlot/examples/ten-million-stars.md): Ten million synthetic stars generated by Data(rows) on the GPU, age-filtered live, with a fixed 100,000-star H–R sample that brushes the whole galaxy. Square points and additive starlight.
+- [Mixing in a double gyre](/HMPlot/examples/double-gyre.md): 45,000 particles ride the double gyre, a standard model of mixing in ocean flows, stepped on the GPU by Simulate at the display's rate. Each is colored by where it started, and the wobble of the eddies' boundary folds the two into each other; a Shift-drag box drops dye that the particles carry downstream in thin filaments (the brush feeds the simulation's state). A slider sets the wobble: at 0 the eddies never mix.
+- [A globe with streamed map tiles](/HMPlot/examples/globe-tiles.md): An orthographic globe whose basemap streams in as you turn and zoom it: OpenStreetMap vector tiles from VersaTiles, loaded at the zoom the view needs, from the whole planet down to a city's streets, with their credit in the corner. Every magnitude 4.5+ earthquake of 2024 (USGS) sits on top, sized by magnitude and colored by depth.
+- [Earthquakes beneath the globe](/HMPlot/examples/earthquakes.md): Every earthquake of magnitude 4.5+ in 2024 (6,397 events, USGS) placed at its true depth inside a see-through globe, where deep quakes trace subducting slabs; a slider exaggerates the depths. Brush a region on the map and a period on the timeline; the brushes combine, the globe keeps the matching quakes lit, and a log-scale histogram shows the Gutenberg–Richter law.
+- [Earthquakes from a Parquet file](/HMPlot/examples/parquet-earthquakes.md): A Provider reads three of a Parquet file's five columns (ten years of USGS earthquakes, magnitude 4.5+) with HTTP range requests; the other two are never downloaded. Python reads the same columns with hm.Table.from_parquet.
+- [Joining two tables](/HMPlot/examples/join-tables.md): Flights name their origin airport by code; Join adds each airport's region from a second table, so the flights are colored, grouped on an axis and brushed by it.
+- [Earthquakes by year, loaded on demand](/HMPlot/examples/provider-earthquakes.md): A Provider loads one year of real earthquakes (USGS, magnitude 4.5+) from a static CSV when the Year input changes. The previous year stays drawn until the next one arrives, a year already on screen loads nothing, and the Refresh button loads it again.
+- [Vector tiles that follow the view](/HMPlot/examples/vector-tiles.md): A VectorTile loads the tile named for a place at full detail, then, as you pan and zoom, the tiles the view shows (OpenStreetMap data as Mapbox Vector Tiles from VersaTiles), each drawn as soon as it arrives: water, parks, buildings, roads, railways and place names. Pick a place, a theme to recolor the basemap, hide layers (a hidden layer is never decoded), or turn Live off to keep only the named tile; the credit line is part of the plot and its exports.
+- [A gridded field on the globe, month by month](/HMPlot/examples/grid-globe.md): A grid table (month x latitude x longitude, one row per cell) holds a made-up surface temperature on 48 uneven latitudes. Slice through time blends the two months around a Playback's value on the GPU; the Heatmap places the latitudes by their coordinates.
+- [A Hovmöller diagram](/HMPlot/examples/hovmoller.md): Slice at one latitude of a time x latitude x longitude grid table leaves time against longitude: an anomaly travelling east is diagonal banding. The latitude is a slider.
+- [An RGB image from band columns](/HMPlot/examples/rgb-bands.md): An Image's fill takes { r, g, b } columns, as every mark's RGB channel does: three satellite-style bands of a grid table (integers 0-255) make the image, placed by the grid's coordinates.
+- [animate, enter/exit, and @time](/HMPlot/examples/animation-engine.md): animate() moves one channel per row in its scale space (geometric on this log axis) with enter and exit values for rows that come and go, while @time satellites on fixed rows of their own orbit continuously without blocking settlement.
+- [tween and @time in the pipeline](/HMPlot/examples/time-pipeline.md): A tweened column moves as data: the histogram under it re-bins its rows every frame while they glide to new values, and a Filter on @time lets points in as the view clock passes them.
+- [One density per group, one frame](/HMPlot/examples/partition-density.md): Partition repeats its children once per group inside a single frame, sharing the parent's scales, axes, and legend. Here a Density transform runs per species so the curves overlay; Facet would give each species its own cell instead.
+- [Lollipop chart](/HMPlot/examples/lollipop.md): A stem from the baseline to each value, on either side of it, with a point at the end. Lollipop is a built-in template: BarGeometry places each stem, Segments draws the stems and Points the heads.
+- [Pie chart](/HMPlot/examples/pie.md): Each region's share of the sales, clockwise from 12 o'clock, labeled with its percentage. Pie is a built-in template: a PieGeometry transform and Rects in a polar Frame, which it places in a Cartesian Plot.
+- [Donut chart](/HMPlot/examples/donut.md): innerRadius opens the hole and padAngle separates the sectors. Keyed rows tween each sector's angles when the values change.
+- [Pies in a Facet](/HMPlot/examples/pie-facet.md): Small multiples: a Facet repeats the Plot once per year, and each Pie sums its own year's sales, with one legend for the row.
+- [Before and after arrows](/HMPlot/examples/before-after-arrows.md): connect() pairs two marks' rows by key and draws one arrow per pair. The 2000 values are points, the 2021 values an invisible Anchor, and the arrows take their color from the shared table.
+- [Parallel coordinates from connections](/HMPlot/examples/parallel-coordinates-connected.md): An embedded Facet with fields makes one cell per measurement, in which value is that measurement, each with its own y scale titled by the measurement, and a Frame in every cell sets x from 0 to 1, so the points sit on each cell's axis. One Line connects the points across the cells in facet order, and every cell shows the same penguins, so rows match without a key. Shift-drag on any axis to brush that measurement; brushes on several axes combine.
+- [One cell per variable](/HMPlot/examples/facet-fields.md): Facet fields repeats its children once per field over the same rows; inside each cell, value is that field. Each field keeps its own y scale while columns of the table stay shared. With row="station" the fields form a grid by station, a field keeping one scale down its column.
+- [Calculated scatterplot matrix](/HMPlot/examples/calculate-matrix.md): Sixteen coordinated views of four calculated fields. Hover, select, and Shift-drag to brush across cells. Counts are per cell; 25,000 rows produces 400,000 plotted instances.
+- [Large calculated point cloud](/HMPlot/examples/calculate-large.md): Three sequential Calculate scopes share intermediate columns. Change gain to update the final stage; hover, select, and Shift-drag to brush the resulting point cloud. No sampling limit is applied.
+- [Coordinated interaction dashboard](/HMPlot/examples/interaction-dashboard.md): Hover either shared view: the same row enlarges in both. Click/Shift-click selects/toggles; Shift-drag brushes. Drag the brush or click away to clear it. The filtered view updates while brushing. The independent table must not react, even though its IDs and values match.
+- [Dragging points](/HMPlot/examples/drag-matrix.md): Drag a point in a scatterplot matrix: the drag writes offsets on the table's rows, and every cell that reads moved() of the dragged column follows.
+- [Dragging cities on a map](/HMPlot/examples/drag-map.md): Drag a city on a Mercator map: the drag goes back through the projection and writes offsets in degrees; the point and its label both read moved().
+- [Interaction matrix and scrolling](/HMPlot/examples/interaction-matrix.md): The same observation appears in all 16 cells. Hover should enlarge it everywhere; selection and brushing should coordinate by row, not category. Scroll away and back, then repeat. Compare cache sizes 0 and 64. Pan and zoom are independent in this example.
+- [Keyed updates under interaction](/HMPlot/examples/interaction-keyed-updates.md): Select a few points, hover, then step the frame or reverse the rows. Surviving IDs retain selection; removed IDs disappear. Point fades last 500 ms and label fades last 200 ms. No automatic timer runs: every update is explicit. Hover size is immediate unless the configured animation applies.
+- [Symlog axis and a diverging scale](/HMPlot/examples/symlog-diverging.md): Values that cross zero with a wide range: a symlog y axis is linear within ±10 and logarithmic beyond, so small days and large ones both read, and outflows are drawn (a log axis would drop them). The color scale's midpoint puts RdBu's white at 0 and uses both ends of the colormap.
+- [Shared and independent scales](/HMPlot/examples/scale-resources.md): Share one normalization across color and size, isolate same-named columns in separate tables, and map ordered categories.
+- [Data selections and brushing](/HMPlot/examples/data-selections.md): Click or brush observations and filter another plot through data-owned virtual fields.
+- [Hover and click selection](/HMPlot/examples/hover-selection.md): Highlight hovered rows, toggle keyed selections, and update selection state from code.
+- [Draggable brush](/HMPlot/examples/brush-filter.md): Move a committed brush, clear it outside, and filter a sibling view through @brushed.
+- [Explicit shared selection](/HMPlot/examples/shared-selection.md): Name one reusable selection, expose it as a virtual column, and share it across views.
+- [Keyed enter and exit](/HMPlot/examples/enter-exit.md): Keep matching observations continuous while new keys enter and removed keys exit.
+- [Coordinated interaction explorer](/HMPlot/examples/coordinated-explorer.md): Coordinate hover, click selection, a movable brush, and filtered projections across three views.
+- [Multiple selection sets](/HMPlot/examples/selection-compare.md): Build two named selection sets in separate projections and inspect their overlap in a third view.
+- [Interrupted keyed transitions](/HMPlot/examples/lifecycle-stress.md): Interrupt keyed updates while points, halos, and labels use different fade timings and preserve interaction state.
+- [Faceted interaction state](/HMPlot/examples/facet-interactions.md): Select, hover, and brush in linked facet cells while a detail plot consumes the shared keyed state.
+- [Theme presets](/HMPlot/examples/themes.md): Compare every built-in theme on the same plot, including backgrounds, axes, marks, categorical colors, and its legend.
+- [Density estimation](/HMPlot/examples/density.md): Grouped 1D and raster 2D Gaussian kernel density estimates.
+- [Pivot and fold](/HMPlot/examples/pivot-fold.md): Reshape long and wide tables while retaining source identities.
+- [Quantiles and group summaries](/HMPlot/examples/quantile-aggregate.md): Grouped quantile curves and each row's group mean and 90th percentile, all Calculate expressions.
+- [Violin plot](/HMPlot/examples/violin.md): Grouped GPU density bands with categorical color.
+- [Calendar functions and a Playback over dates](/HMPlot/examples/calendar.md): Mauna Loa's monthly CO2: a Playback whose value is a date draws it a month at a time, four years a second, and month_name groups the seasonal cycle by calendar month.
+- [Market hours: an axis that skips weekends and nights](/HMPlot/examples/market-hours.md): Half-hourly prices on an axis that leaves out weekends and the hours outside a 09:30 to 16:00 session in New York; the line runs on from each close to the next open, and a brush can span a break.
+- [Days of the week and calendar months](/HMPlot/examples/weekdays.md): Two years of daily trips: grouped by day_name into weekdays, Monday first, and binned by calendar month with Bin's interval, whose bars start and end at month boundaries.
+- [A fitted curve that refits under a brush](/HMPlot/examples/smooth.md): Smooth fits a curve (linear, polynomial, log, exp or power) with its 95% confidence band on the GPU: penguins' body mass against flipper length. Brush some penguins and the fit follows them.
+- [ECDFs by species](/HMPlot/examples/ecdf.md): Each penguin species' body mass as steps: the fraction of its penguins at or below each mass.
+- [Density contours](/HMPlot/examples/density-contours.md): The density of penguins' bill length against depth as filled bands, contour lines or both, on the GPU: Density, then Contour's marching squares.
+- [Voronoi cells, hulls and a Delaunay triangulation](/HMPlot/examples/voronoi.md): Each penguin's Voronoi cell (hover one to highlight its penguin), each species' convex hull, and the Delaunay triangulation, drawn by Polygon and Segments.
+- [Box plot](/HMPlot/examples/box-plot.md): Quartiles, Tukey whiskers, medians, and source-linked outliers.
+- [Swarm plot](/HMPlot/examples/swarm.md): Deterministic glyph-aware dodge with stable observation identities.
+- [Bar chart](/HMPlot/examples/bar.md): Categorical bars composed from derived geometry and instanced prisms.
+- [Streamgraph](/HMPlot/examples/streamgraph.md): Stack with offset="wiggle" and order="insideOut": each week's stack moves so the layers change slope as little as they can, the biggest genres in the middle, and an Area per genre draws it. The controls switch the offset and the order. Area transitions animate by default; the Animate control can turn them off.
+- [100% stacked bars](/HMPlot/examples/stacked-percent.md): Stack with offset="expand" scales each region's stack to span 0 to 1, so each Bar segment is a product's share of the region's sales.
+- [Zoomable sunburst](/HMPlot/examples/sunburst.md): Click to explore a weighted Tree partition with input weights and layer heights tweened before layout. The Svelte and Python scenes work in standalone HTML.
+- [Expandable tree](/HMPlot/examples/expandable-tree.md): Collapse branches and filter by depth while GPU subtree widths and unequal edge lengths animate. Paired Svelte and Python scenes.
+- [Solar system](/HMPlot/examples/solar-system.md): The Sun and the eight planets as textured spherical Frames placed in a 3D scene. Each planet orbits at its true period, spins on its tilted axis, and is lit by the Sun; Saturn's rings are an Image in a polar Frame turned onto its equator.
+- [Polar and tangent insets](/HMPlot/examples/polar-inset.md): A warped chart and a rigid tangent inset on a rotatable orthographic sphere, with a 24-unit polar dial.
+- [Polar radius](/HMPlot/examples/polar-radius.md): Angles and radial values in an explicit polar chart.
+- [Positioned graph](/HMPlot/examples/positioned-graph.md): Node positions computed from node columns, with edges gathered from those positions.
+- [Tree icicle](/HMPlot/examples/tree-icicle.md): Nested hierarchy rectangles from Tree partition bounds.
+- [Tree sunburst](/HMPlot/examples/tree-sunburst.md): Tree partition spans mapped to annular sectors.
+- [Clustered heatmap](/HMPlot/examples/clustermap.md): A heatmap sorted by two dendrograms, as seaborn's clustermap: Tree mode="cluster" draws each precomputed linkage to scale by its merge heights, in Frames that share the heatmap's rows and columns, and labels the leaves by their order.
+- [Layered DAG](/HMPlot/examples/layered-dag.md): Sugiyama layout with routed links and node sizes.
+- [Sankey flow](/HMPlot/examples/sankey-flow.md): Acyclic weighted network with bands attached to node intervals.
+- [Circle packing](/HMPlot/examples/packed-hierarchy.md): D3 circle packing sized by leaf values, with centers and radii on Nodes.
+- [Treemap](/HMPlot/examples/treemap-hierarchy.md): D3 treemap bounds from a weighted hierarchy.
+- [Curved paths](/HMPlot/examples/curved-paths.md): GPU curves and camera-facing arrowheads with bounded subdivision.
+- [Rooted tree](/HMPlot/examples/rooted-tree.md): A deterministic spanning tree with labels and curved directional links.
+- [Scatterplot matrix](/HMPlot/examples/scatterplot-matrix.md): Facet pairs: lazy pair views, one domain per field on x and y, and consistent category colors.
+- [Shared mappings](/HMPlot/examples/shared-mappings.md): One mapping scope drives positions and styles for points and labels.
+- [Point labels](/HMPlot/examples/point-labels.md): Named observations with GPU-rendered labels that follow pan and zoom.
+- [Data shortcuts](/HMPlot/examples/data-shortcut.md): Composable data scopes, coordinate frames, and shared navigation.
+- [Twin coordinate frames](/HMPlot/examples/twin-axes.md): Composable data scopes, coordinate frames, and shared navigation.
+- [Categorical and datetime frames](/HMPlot/examples/typed-axes.md): Composable data scopes, coordinate frames, and shared navigation.
+- [Three-dimensional axes](/HMPlot/examples/frame-3d.md): Composable data scopes, coordinate frames, and shared navigation.
+- [Facet settings](/HMPlot/examples/controlled-facets.md): Composable data scopes, coordinate frames, and shared navigation.
+- [Histogram bins](/HMPlot/examples/histograms.md): A Slider input sets a Histogram's bin count.
+- [Large force graph](/HMPlot/examples/large-graph.md): Explore seeded graphs of 64 to 10,000 nodes, thin edges, dragging, and a linked overview in 2D or 3D.
+- [Signal and uncertainty](/HMPlot/examples/layered-signal.md): Animated intervals, estimates, observations, error bars, legends, and an independent overview.
+- [Globe and routes](/HMPlot/examples/globe-routes.md): Regions, great-circle paths, outlined cities, projection switching, legends, and navigation.
+- [World map projections](/HMPlot/examples/map-projections.md): equal-earth and natural-earth world maps, albers (conic equal-area) and albers-usa (the United States with Alaska and Hawaii as insets): each maps longitude and latitude jointly into one curved outline around its center, cut at its seam, with a graticule and outline instead of edge axes. Move the center to move the seam; click a country for the longitude and latitude under the pointer.
+- [Country map](/HMPlot/examples/geojson-map.md): GPU maps with feature data and interaction.
+- [Categorical map](/HMPlot/examples/geojson-categories.md): GPU maps with feature data and interaction.
+- [Joined choropleth](/HMPlot/examples/geojson-joined.md): GPU maps with feature data and interaction.
+- [Projected extrusions](/HMPlot/examples/geojson-projected.md): GPU maps with feature data and interaction.
+- [Globe extrusions](/HMPlot/examples/geojson-globe.md): GPU maps with feature data and interaction.
+- [Filtered and faceted maps](/HMPlot/examples/geojson-facets.md): GPU maps with feature data and interaction.
+- [GeoJSON geometry](/HMPlot/examples/geojson-mixed.md): Feature picking, holes, and extruded regions.
+- [Bilinear grid](/HMPlot/examples/transform-grid.md): GPU-resident transforms with interactive controls.
+- [Scattered interpolation](/HMPlot/examples/transform-scattered.md): GPU-resident transforms with interactive controls.
+- [Signal interpolation](/HMPlot/examples/transform-line.md): GPU-resident transforms with interactive controls.
+- [Time-varying field](/HMPlot/examples/transform-field.md): GPU-resident transforms with interactive controls.
+- [Categorical grid](/HMPlot/examples/transform-categories.md): GPU-resident transforms with interactive controls.
+- [Entity motion](/HMPlot/examples/transform-slice.md): GPU-resident transforms with interactive controls.
+- [Force layout · 2D](/HMPlot/examples/transform-force.md): A small team graph laid out by a force simulation on the GPU: run, step, reset, repulsion and dragging.
+- [Force layout · 3D](/HMPlot/examples/transform-force3d.md): GPU-resident transforms with interactive controls.
+- [Layered forces](/HMPlot/examples/transform-forces.md): d3's forces by name, their strengths and targets from node columns.
+- [Inputs](/HMPlot/examples/inputs.md): A Select, a Playback and a Slider drive a Filter and a Bin by name; the options and a range are read from the data.
+- [Springs](/HMPlot/examples/springs.md): Simulate steps a ring of damped springs every 16 ms: Sliders set the stiffness and damping, Run pauses, Kick starts again, and a clicked point's spring pulls it out.
+- [Filter and bin inputs](/HMPlot/examples/transform-controls.md): A Select with multiple=true of the species column's categories filters the rows, and a Slider sets the histogram's bin count.
+- [Facets & transforms](/HMPlot/examples/facets.md): Derived data scopes, repeated plots, and extruded bins.
+- [Point symbols](/HMPlot/examples/symbols.md): Eight flat symbols, inward outlines, rotation, and GPU picking.
+- [Lines & vector fields](/HMPlot/examples/paths.md): Connected lines, independent segments, dashes, and endpoint arrows.
+- [Density & surfaces](/HMPlot/examples/surface.md): One GPU heatmap, fixed color bounds, contours, and an optional 3D surface.
+- [Images](/HMPlot/examples/image.md): Grayscale and RGB tensors retain their original colors, with nearest-neighbor pixels.
+- [Linked views & minimap](/HMPlot/examples/linked.md): Two views share a viewport. An external overview retains the full domain.
+- [Axes & datetime](/HMPlot/examples/axes.md): Calendar-aware labels, major/minor grids, reference rules, and axis-specific zoom.
+- [Interactive textures](/HMPlot/examples/texture.md): Points and paths painted into a heatmap texture remain clickable on its surface.
+- [Earth relief](/HMPlot/examples/earth.md): NASA imagery over an elevation surface, with adjustable relief and directional lighting.
+- [Spherical coordinates](/HMPlot/examples/sphere.md): Longitude–latitude data becomes a globe or a wrapping map, with a linked overview.
+- [Long time series](/HMPlot/examples/timeseries.md): Zoom into a long signal with adaptive peak-preserving detail or draw every point.
+- [Animated points](/HMPlot/examples/animation-points.md): Change targets during a transition. Data and appearance interpolate on the GPU.
+- [Animated line](/HMPlot/examples/animation-line.md): Change targets during a transition. Data and appearance interpolate on the GPU.
+- [Animated surface](/HMPlot/examples/animation-surface.md): Change targets during a transition. Data and appearance interpolate on the GPU.
+- [Animated globe](/HMPlot/examples/animation-globe.md): Change targets during a transition. Data and appearance interpolate on the GPU.
+- [Legends & uncertainty](/HMPlot/examples/guides.md): Series legends, GPU colorbars, filled areas, and capped uncertainty intervals.
+- [Named data & categories](/HMPlot/examples/categories.md): Named columns, shared categorical colors and symbols, categorical axes, and GPU dictionary columns.
+- [Manhattan building flyover](/HMPlot/examples/manhattan-flyover.md): Fly over 10,000 of Manhattan's 45,194 building footprints, over streets, water and parks from vector tiles, or stream the map tiles around the camera with their own buildings standing.
+
+## Optional
+
+- [llms-full.txt](/HMPlot/llms-full.txt): every guide and reference page as Markdown, in one file
+- [API on one page](/HMPlot/reference/api.md): each component's Python signature and Svelte props, from the Python package's registry

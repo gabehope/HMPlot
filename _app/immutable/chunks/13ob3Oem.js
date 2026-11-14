@@ -1,0 +1,13 @@
+const o=`<script>
+  import { Plot } from "hmplot";
+import { BoxPlot } from "hmplot/charts";
+  const data = {
+    group: ["A", "A", "A", "A", "A", "B", "B", "B", "B", "B", "C", "C", "C", "C", "C"],
+    value: [2.1, 2.9, 3.4, 3.8, 5.2, 4.4, 5.1, 5.6, 6.3, 9.8, 3.1, 3.5, 3.9, 4.1, 4.6],
+  };
+<\/script>
+
+<Plot {data} height={300} axes2d>
+  <BoxPlot x="group" y="value" />
+</Plot>
+`;export{o as default};

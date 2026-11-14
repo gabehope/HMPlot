@@ -1,0 +1,159 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "template": {
+    "version": 1,
+    "parameters": {
+      "index": {
+        "default": "dimension"
+      },
+      "count": {
+        "default": 5
+      },
+      "value": {
+        "default": "score"
+      },
+      "series": {
+        "default": "profile"
+      }
+    },
+    "slot": "425c033db75a45daac2cfd2e8bdab911-slot-13"
+  },
+  "root": {
+    "id": "425c033db75a45daac2cfd2e8bdab911-template-1",
+    "kind": "Template",
+    "props": {},
+    "events": [],
+    "children": [
+      {
+        "id": "425c033db75a45daac2cfd2e8bdab911-calculate-3",
+        "kind": "Calculate",
+        "props": {
+          "columns": {
+            "angle": {
+              "$expression": {
+                "op": "subtract",
+                "args": [
+                  1.5707963267948966,
+                  {
+                    "$expression": {
+                      "op": "multiply",
+                      "args": [
+                        {
+                          "$param": "index"
+                        },
+                        {
+                          "$expression": {
+                            "op": "divide",
+                            "args": [
+                              6.283185307179586,
+                              {
+                                "$param": "count"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "events": [],
+        "children": [
+          {
+            "id": "425c033db75a45daac2cfd2e8bdab911-calculate-7",
+            "kind": "Calculate",
+            "props": {
+              "columns": {
+                "px": {
+                  "$expression": {
+                    "op": "multiply",
+                    "args": [
+                      {
+                        "$param": "value"
+                      },
+                      {
+                        "$expression": {
+                          "op": "cos",
+                          "args": [
+                            "angle"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                "py": {
+                  "$expression": {
+                    "op": "multiply",
+                    "args": [
+                      {
+                        "$param": "value"
+                      },
+                      {
+                        "$expression": {
+                          "op": "sin",
+                          "args": [
+                            "angle"
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "events": [],
+            "children": [
+              {
+                "id": "425c033db75a45daac2cfd2e8bdab911-polygon-9",
+                "kind": "Polygon",
+                "props": {
+                  "x": "px",
+                  "y": "py",
+                  "series": {
+                    "$param": "series"
+                  },
+                  "fill": {
+                    "$param": "series"
+                  },
+                  "opacity": 0.18,
+                  "outlineWidth": 0
+                },
+                "events": [],
+                "children": []
+              },
+              {
+                "id": "425c033db75a45daac2cfd2e8bdab911-line-11",
+                "kind": "Line",
+                "props": {
+                  "x": "px",
+                  "y": "py",
+                  "series": {
+                    "$param": "series"
+                  },
+                  "color": {
+                    "$param": "series"
+                  },
+                  "width": 2
+                },
+                "events": [],
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "425c033db75a45daac2cfd2e8bdab911-slot-13",
+        "kind": "Slot",
+        "props": {},
+        "events": [],
+        "children": []
+      }
+    ]
+  }
+}

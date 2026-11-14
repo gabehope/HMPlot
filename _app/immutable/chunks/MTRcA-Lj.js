@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import e from"./CL6cdHyS.js";import a from"./wTcQ2cFY.js";function d(t){const r={x:[0,2,0,2],y:[0,0,2,2],value:[1,3,2,4]};e(t,{get data(){return r},type:"3d",height:300,axes3d:!0,children:(o,i)=>{a(o,{x:"x",y:"y",z0:0,z1:"value"})},$$slots:{default:!0}})}export{d as default};

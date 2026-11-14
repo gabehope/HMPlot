@@ -1,0 +1,1 @@
+import{a as t,f as e}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as r}from"./B9wkoLL1.js";var n=e('<h2 id="usage">Usage</h2> <p>A Python layout container with gap in pixels. Data/transform scopes do not add visible layout boxes. In Svelte use ordinary document layout.</p>',1);function p(o){var a=n();r(2),t(o,a)}export{p as default};

@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import s from"./CL6cdHyS.js";import d from"./M4Xs0c1C.js";function l(t){const r=[[0,0,0],[0,0,0],[0,0,0]],o=[[1,0,0],[0,1,0],[0,0,1]];s(t,{type:"3d",height:300,axes3d:!0,autoBounds:!0,children:(e,i)=>{d(e,{get start(){return r},get end(){return o},width:1})},$$slots:{default:!0}})}export{l as default};

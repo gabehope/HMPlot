@@ -1,0 +1,1 @@
+const t=n=>typeof n?.dataSource=="function";function r(n,o){const e=n.dataSource();if(e&&(typeof e.read!="function"||typeof e.current!="function"))throw Error(`${o}: a reference names a transform's output (a Filter, Group, Calculate, ...); this component has none.`);return e??null}export{t as i,r as p};

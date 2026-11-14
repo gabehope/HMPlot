@@ -1,0 +1,1 @@
+import{a as e,f as o}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as t}from"./B9wkoLL1.js";var n=o('<h2 id="usage">Usage</h2> <p>Unlike an unordered categorical palette, an ordinal colormap communicates rank. Supply the category order explicitly; category values are not numerically interpolated.</p>',1);function m(a){var r=n();t(2),e(a,r)}export{m as default};

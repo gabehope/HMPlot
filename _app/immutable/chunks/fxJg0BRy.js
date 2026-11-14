@@ -1,0 +1,1 @@
+import{a as n}from"./N83JKgEV.js";import{J as c,b as m,d as l,g as r}from"./B9wkoLL1.js";import{df as p,dg as d,k as a}from"./tOd4CyYd.js";function g(){const t=c(p),o=()=>[t?.read?.()??a.hmplot,t?.unresolved?.()??t?.read?.()??a.hmplot];let e=m(o());const s=t?.subscribe?.(()=>{l(e,o())});return s&&n(s),{get style(){return d(r(e)[0],r(e)[1])}}}export{g as c};

@@ -1,0 +1,1 @@
+import{a as o,f as t}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as r}from"./B9wkoLL1.js";var d=t('<h2 id="usage">Usage</h2> <p>Delaunay makes the triangulation’s edges, a row each: <code>start</code> and <code>end</code> for Segments, and <code>source</code> and <code>target</code>, the two points’ rows.</p>',1);function m(e){var a=d();r(2),o(e,a)}export{m as default};

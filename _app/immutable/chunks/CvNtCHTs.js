@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import e from"./CL6cdHyS.js";import i from"./CHz9m0Kf.js";function f(t){const o=[[0,1,2,1],[1,3,4,2],[2,4,3,1]];e(t,{height:300,autoBounds:!0,children:(r,l)=>{i(r,{get fill(){return o}})},$$slots:{default:!0}})}export{f as default};

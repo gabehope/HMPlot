@@ -1,0 +1,243 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "template": {
+    "version": 1,
+    "parameters": {
+      "x": {
+        "default": "day"
+      },
+      "low": {
+        "default": "low"
+      },
+      "high": {
+        "default": "high"
+      },
+      "width": {
+        "default": 0.65
+      },
+      "opening": {
+        "default": "open"
+      },
+      "closing": {
+        "default": "close"
+      },
+      "rising": {
+        "default": "#15805d"
+      },
+      "falling": {
+        "default": "#d34b37"
+      }
+    },
+    "slot": "2018615dbdd74b8685f4fe0e99f99204-slot-17"
+  },
+  "root": {
+    "id": "2018615dbdd74b8685f4fe0e99f99204-template-1",
+    "kind": "Template",
+    "props": {},
+    "events": [],
+    "children": [
+      {
+        "id": "2018615dbdd74b8685f4fe0e99f99204-errorbars-3",
+        "kind": "ErrorBars",
+        "props": {
+          "x": {
+            "$param": "x"
+          },
+          "y": {
+            "$expression": {
+              "op": "divide",
+              "args": [
+                {
+                  "$expression": {
+                    "op": "add",
+                    "args": [
+                      {
+                        "$param": "low"
+                      },
+                      {
+                        "$param": "high"
+                      }
+                    ]
+                  }
+                },
+                2
+              ]
+            }
+          },
+          "lower": {
+            "$param": "low"
+          },
+          "upper": {
+            "$param": "high"
+          },
+          "capSize": 0,
+          "color": "#334155",
+          "width": 1.2
+        },
+        "events": [],
+        "children": []
+      },
+      {
+        "id": "2018615dbdd74b8685f4fe0e99f99204-calculate-7",
+        "kind": "Calculate",
+        "props": {
+          "columns": {
+            "left": {
+              "$expression": {
+                "op": "subtract",
+                "args": [
+                  {
+                    "$param": "x"
+                  },
+                  {
+                    "$expression": {
+                      "op": "divide",
+                      "args": [
+                        {
+                          "$param": "width"
+                        },
+                        2
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "right": {
+              "$expression": {
+                "op": "add",
+                "args": [
+                  {
+                    "$param": "x"
+                  },
+                  {
+                    "$expression": {
+                      "op": "divide",
+                      "args": [
+                        {
+                          "$param": "width"
+                        },
+                        2
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "bottom": {
+              "$expression": {
+                "op": "minimum",
+                "args": [
+                  {
+                    "$param": "opening"
+                  },
+                  {
+                    "$param": "closing"
+                  }
+                ]
+              }
+            },
+            "top": {
+              "$expression": {
+                "op": "maximum",
+                "args": [
+                  {
+                    "$param": "opening"
+                  },
+                  {
+                    "$param": "closing"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "events": [],
+        "children": [
+          {
+            "id": "2018615dbdd74b8685f4fe0e99f99204-filter-9",
+            "kind": "Filter",
+            "props": {
+              "where": {
+                "$expression": {
+                  "op": "greater_equal",
+                  "args": [
+                    {
+                      "$param": "closing"
+                    },
+                    {
+                      "$param": "opening"
+                    }
+                  ]
+                }
+              }
+            },
+            "events": [],
+            "children": [
+              {
+                "id": "2018615dbdd74b8685f4fe0e99f99204-rect-11",
+                "kind": "Rect",
+                "props": {
+                  "x0": "left",
+                  "x1": "right",
+                  "y0": "bottom",
+                  "y1": "top",
+                  "fill": {
+                    "$param": "rising"
+                  }
+                },
+                "events": [],
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "2018615dbdd74b8685f4fe0e99f99204-filter-13",
+            "kind": "Filter",
+            "props": {
+              "where": {
+                "$expression": {
+                  "op": "less",
+                  "args": [
+                    {
+                      "$param": "closing"
+                    },
+                    {
+                      "$param": "opening"
+                    }
+                  ]
+                }
+              }
+            },
+            "events": [],
+            "children": [
+              {
+                "id": "2018615dbdd74b8685f4fe0e99f99204-rect-15",
+                "kind": "Rect",
+                "props": {
+                  "x0": "left",
+                  "x1": "right",
+                  "y0": "bottom",
+                  "y1": "top",
+                  "fill": {
+                    "$param": "falling"
+                  }
+                },
+                "events": [],
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2018615dbdd74b8685f4fe0e99f99204-slot-17",
+        "kind": "Slot",
+        "props": {},
+        "events": [],
+        "children": []
+      }
+    ]
+  }
+}

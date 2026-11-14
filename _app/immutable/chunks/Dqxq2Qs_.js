@@ -1,0 +1,13 @@
+import{a as o,f as t}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as r}from"./B9wkoLL1.js";var n=t(`<h2 id="usage">Usage</h2> <p>Shift offsets coordinates, preserving observations and their order. It adds <code>shifted</code> and <code>original</code> columns to its children; <code>as</code> renames either. Use the outputs on x, y, or another
+numeric channel. A positive interval moves coordinates forward; a negative one moves them back.
+It does not lag rows or look up a previous observation.</p> <p>Numeric intervals use data units, including milliseconds for datetimes. Named intervals
+require a datetime column and use UTC: millisecond, second, minute, hour, day, week,
+month, quarter, half, year, or a weekday (one week), optionally plural and prefixed with a
+signed integer. Month/year offsets follow UTC calendar rollover, retaining time of day;
+January 31 plus one month can fall in March. Missing values remain missing.</p> <p>Inspired by <a href="https://observablehq.github.io/plot/transforms/shift" rel="nofollow">Observable Plot’s shiftX/shiftY</a>, this column-based transform works on either
+axis. HMPlot keeps its usual scale inference: it does not silently crop the domain to the
+overlapping period. Set a Plot/Frame domain or use Filter when an overlap is desired.
+Numeric and fixed-duration shifts run on the device. Variable calendar offsets retain exact
+host values when available; derived device columns need one readback. Datetime metadata and
+origin are preserved. No grouping or sorting is needed for a coordinate offset.</p> <p>Transform handles support <code>update()</code>, <code>whenSettled()</code> and status subscriptions. Intervals
+can read an HMPlot input; portable templates serialize the transform as ordinary scene data.</p>`,1);function l(e){var a=n();r(8),o(e,a)}export{l as default};

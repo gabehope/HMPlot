@@ -1,0 +1,10 @@
+const n=`<script>
+  import { Legend, Plot, Points } from "hmplot";
+  const data = { x: [1, 2, 3, 4], y: [3, 1, 4, 2], group: ["a", "b", "a", "b"] };
+<\/script>
+
+<Plot {data} height={300} axes2d>
+  <Points x="x" y="y" fill="group" />
+  <Legend channel="fill" />
+</Plot>
+`;export{n as default};

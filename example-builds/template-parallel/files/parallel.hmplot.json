@@ -1,0 +1,95 @@
+{
+  "protocol": 1,
+  "library": "0.1.0-alpha.1",
+  "template": {
+    "version": 1,
+    "parameters": {
+      "fields": {},
+      "observation": {
+        "default": "id"
+      },
+      "color": {
+        "default": "group"
+      },
+      "opacity": {
+        "default": 0.55
+      }
+    },
+    "slot": "adb233dbca204c9babd77e8041bf7281-slot-13"
+  },
+  "root": {
+    "id": "adb233dbca204c9babd77e8041bf7281-template-1",
+    "kind": "Template",
+    "props": {},
+    "events": [],
+    "children": [
+      {
+        "id": "adb233dbca204c9babd77e8041bf7281-fold-3",
+        "kind": "Fold",
+        "props": {
+          "fields": {
+            "$param": "fields"
+          }
+        },
+        "events": [],
+        "children": [
+          {
+            "id": "adb233dbca204c9babd77e8041bf7281-normalize-7",
+            "kind": "Normalize",
+            "props": {
+              "field": "value",
+              "by": "key",
+              "method": "extent",
+              "as": "scaled"
+            },
+            "events": [],
+            "children": [
+              {
+                "id": "adb233dbca204c9babd77e8041bf7281-sort-9",
+                "kind": "Sort",
+                "props": {
+                  "by": [
+                    {
+                      "$param": "observation"
+                    },
+                    "key"
+                  ]
+                },
+                "events": [],
+                "children": [
+                  {
+                    "id": "adb233dbca204c9babd77e8041bf7281-line-11",
+                    "kind": "Line",
+                    "props": {
+                      "x": "key",
+                      "y": "scaled",
+                      "series": {
+                        "$param": "observation"
+                      },
+                      "color": {
+                        "$param": "color"
+                      },
+                      "opacity": {
+                        "$param": "opacity"
+                      },
+                      "width": 1.6
+                    },
+                    "events": [],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "adb233dbca204c9babd77e8041bf7281-slot-13",
+        "kind": "Slot",
+        "props": {},
+        "events": [],
+        "children": []
+      }
+    ]
+  }
+}

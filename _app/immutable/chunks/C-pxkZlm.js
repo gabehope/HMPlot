@@ -1,0 +1,1 @@
+import{a as r}from"./N83JKgEV.js";import{i as a,G as o}from"./B9wkoLL1.js";function u(e){const s=new Set;return a(()=>{const t=e();o(()=>{for(const n of s)n(t)})}),r(()=>{const t={...o(e),pending:!1,mounted:!1};for(const n of s)n(t);s.clear()}),{subscribe(t){return s.add(t),t(o(e)),()=>{s.delete(t)}}}}export{u as s};

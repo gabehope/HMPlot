@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import r from"./CL6cdHyS.js";import i from"./K2Ts1cHv.js";function d(t){const e=[[[.9,.3,.2],[.95,.75,.2],[.3,.7,.4]],[[.2,.5,.8],[.5,.3,.7],[.9,.9,.9]]];r(t,{height:300,children:(o,a)=>{i(o,{get data(){return e},pixelated:!0})},$$slots:{default:!0}})}export{d as default};

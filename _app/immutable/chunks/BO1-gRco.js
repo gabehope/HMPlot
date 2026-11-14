@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import{D as e}from"./DK5ZAW9T.js";import s from"./CL6cdHyS.js";import i from"./B3lrqsIQ.js";function c(t){const o={x:[1,2,3,4],y:[3,1,4,2]};e(t,{get value(){return o},children:(r,l)=>{s(r,{height:300,axes2d:!0,children:(a,m)=>{i(a,{x:"x",y:"y"})},$$slots:{default:!0}})},$$slots:{default:!0}})}export{c as default};

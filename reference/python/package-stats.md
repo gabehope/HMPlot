@@ -1,0 +1,33 @@
+# stats
+
+Statistical transform patterns; hm.stats in Python.
+
+## Usage
+
+Bin, Hexbin, Normalize, Window and Summary live in `hmplot/stats` in Svelte and `hm.stats`
+in Python. They transform the data inherited by their children. Core operations such as
+Calculate, Group, Filter and Sort stay in `hmplot`.
+
+```svelte
+<script>
+  import { Plot, Points } from "hmplot";
+  import { Normalize } from "hmplot/stats";
+</script>
+<Plot data={{ x: [1, 2, 3] }}>
+  <Normalize field="x"><Points x="x" y="normalized" /></Normalize>
+</Plot>
+```
+
+```python
+import hmplot as hm
+with hm.Plot(data={"x": [1, 2, 3]}) as plot:
+    with hm.stats.Normalize(field="x"):
+        hm.Points(x="x", y="normalized")
+```
+
+Python's old root names raise an error naming the replacement. In Svelte, change the import
+module; component props and child markup use the same spelling.
+
+## Related examples
+
+- [Histogram bins](/HMPlot/examples/histograms.md)
