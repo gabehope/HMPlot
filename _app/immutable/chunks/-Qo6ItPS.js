@@ -1,0 +1,6 @@
+import{a as s,f as o}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as t}from"./B9wkoLL1.js";var i=o(`<h2 id="usage">Usage</h2> <p>Pass the Plot handles positionally: hm.LinkViews(first, second, axes=‘x’). Links compatible 2D dimensions with feedback suppression; 3D cameras remain independent.</p> <p>The linked axes share one domain: the union of the plots’ domains (each one’s data, or its
+explicit domain), so a value lines up in every plot and panning or zooming one moves the others
+over the same range. Stacked panels whose data end at different dates, or whose labels pad their
+ends differently, still align. A plot with an explicit domain keeps it, so it lines up with the
+others only where its domain is theirs; a plot whose marks draw nothing takes the others’
+domain. A plot can be in several LinkViews (one on x, another on y): each shares the domains of its own plots, as it links their views. <code>scales="free"</code> keeps each plot’s own domain.</p> <p>A domain can be dates: <code>x=&#123;"domain": [datetime.date(2024, 1, 1), datetime.date(2024, 3, 1)]&#125;</code> (or datetime64) draws a time axis over those days.</p>`,1);function h(e){var a=i();t(6),s(e,a)}export{h as default};

@@ -1,0 +1,1 @@
+import{a as e,f as a}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as s}from"./B9wkoLL1.js";var l=a('<h2 id="usage">Usage</h2> <p>Hull makes the convex hull of each group of <code>by</code> as triangles for Polygon, carrying the group’s first row: <code>fill="species"</code> colors each hull by its group.</p>',1);function c(o){var r=l();s(2),e(o,r)}export{c as default};

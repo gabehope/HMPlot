@@ -1,0 +1,27 @@
+import{a,f as n}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as o}from"./B9wkoLL1.js";var s=n(`<h2 id="usage">Usage</h2> <p>A template packages existing components as a reusable node. Use <code>@hm.template</code> for a function,
+or subclass <code>hm.Template</code> and construct the pattern in <code>build(self, ...)</code>. Its signature and
+Python defaults are the build’s. It can compose marks inside a Plot, or a non-mark pattern
+such as Calculate → Plot → slot, placed in a Row. It adds no numerical or rendering operation.</p> <p>Calling it builds immediately and attaches it to the current context. Create new components
+each time; one component cannot belong to two instances. Each instance has independent nodes,
+parts, slot and input names. A shared host table still shares its interaction state.</p> <h2 id="parameters-main-part-and-named-parts">Parameters, main part and named parts</h2> <p>The template’s own marks determine its mark contract; the caller’s slot children do not.</p> <table><thead><tr><th>Declaration</th><th>Behavior</th></tr></thead><tbody><tr><td>One mark, no explicit main</td><td>That mark is the main part, even below containers.</td></tr><tr><td><code>hm.contract(main=mark, parts=&#123;"band": band&#125;)</code></td><td>Declares one main part and names components for <code>instance.part("band")</code>. A nested template can be main; its main mark is used. Call contract once during the build.</td></tr><tr><td>Keywords not taken by <code>build()</code></td><td>Forward to the main mark. A <code>band=&#123;...&#125;</code> keyword overrides the named part’s props. Part names must differ from build parameters and main-mark props. A build accepting <code>**kwargs</code> handles its own forwarding.</td></tr><tr><td>Several marks and no main</td><td>A group: <code>visible=</code> controls its marks; other undeclared props and operations needing one mark raise. Use its named parts instead.</td></tr></tbody></table> <p>Mark events, selections, <code>endpoint()</code> and <code>hm.connect()</code> use the main mark. A declared main
+also supplies references such as <code>Legend(target=instance)</code>. Without a declared main, references
+use the single top-level node, with an only-mark fallback for a Legend. Exports and camera
+commands use the single top-level node; expose a specific Plot as a class attribute when a
+larger pattern needs that Plot’s handles.</p> <h2 id="children-and-updates">Children and updates</h2> <p>Call <code>hm.slot()</code> once in the component scope where children belong. <code>with instance:</code>, <code>add</code>, <code>remove</code> and <code>clear</code> act on that slot; children retain its data/frame scopes and draw position. <code>clear()</code> leaves the template’s own components intact. <code>children</code> lists the template’s own
+top-level nodes, and <code>slot.children</code> the caller’s children. Without a slot, <code>with</code> and <code>add</code> raise. There is one unnamed slot, not a separate slot for each named part.</p> <p><code>instance.update(**params)</code> is supported after its own <code>with</code> block closes. It merges parameters
+and forwarded properties into the original call and rebuilds in place. Components matched by
+kind and position keep IDs, handles and externally registered callbacks; caller children move
+to the rebuilt slot. A failed build preserves the previous instance. Parts’ direct edits and
+settings reset to the new build’s declarations. Nested templates rebuild with their parent.</p> <h2 id="settings-and-legends">Settings and legends</h2> <p>Inside a Plot, a mark template has a settings group: with a main part, its controls represent
+the template and helper rows are hidden; without a main, parts are listed. View/layout
+patterns retain their own settings structure. Build parameters do not automatically create
+settings-pane controls; use <code>update()</code> or a part’s existing controls.</p> <p>The main mark supplies the legend entry. Helper marks default to <code>legend=False</code> and follow
+its effective visibility unless they explicitly set their own choices. A group can instead
+call <code>hm.contract(legend_entries=[&#123;"label": "Range", "swatch": band, "parts": [band, points]&#125;])</code> to make one entry control several marks; this cannot be combined with <code>main=</code>. Slot children
+keep their own legend and visibility behavior.</p> <h2 id="portable-files-and-other-extensions">Portable files and other extensions</h2> <p>Build a fresh instance with explicit <code>hm.template_param("name", default=...)</code> markers, an
+empty slot and no callbacks, then call <code>export_template(path)</code>. <code>hm.load_template(path)</code> returns a callable Template class in Python; <a href="package-templates"><code>PortableTemplate</code></a> loads
+it in Svelte. The tree, parameters and contracts travel; Python methods, arbitrary resources
+and build-time branching do not. Reattach host callbacks after loading.</p> <p>The repository’s <code>docs/PORTABLE-TEMPLATES.md</code> authoring guide has tested mark and non-mark
+examples, file limits and repository-local JavaScript definitions. A template composes
+existing operations; a <a href="/HMPlot/reference/svelte/plugins">plug-in</a> adds numerical execution,
+layout, effects or shading through its own extension contract.</p>`,1);function c(e){var t=s();o(30),a(e,t)}export{c as default};

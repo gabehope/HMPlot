@@ -1,0 +1,18 @@
+import{a,f as o}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as r}from"./B9wkoLL1.js";var d=o(`<h2 id="usage">Usage</h2> <p><code>hmplot/templates</code> publicly exports <code>PortableTemplate</code>, the Svelte loader for an exported
+Python template. The repository’s JavaScript <code>defineTemplate</code> and <code>TemplateHost</code> are internal
+authoring tools, not exports of this package entry. Use an ordinary Svelte component for a
+pattern authored directly in an application.</p> <p>A portable file is an expanded component tree: it can hold marks inside a host Plot, or a
+non-mark pattern such as Calculate → Plot → slot inside a host Data scope. Supply the table
+from the host. The same file loads in Python with <code>hm.load_template(path)</code>.</p> <table><thead><tr><th>Prop</th><th>Purpose</th></tr></thead><tbody><tr><td><code>definition</code></td><td>The exported <code>.hmplot.json</code> object, not a JavaScript template definition.</td></tr><tr><td><code>params</code></td><td>The file’s explicit parameter values; omitted values use marker defaults. Unknown or missing required parameters are errors.</td></tr><tr><td><code>props</code></td><td>Extra properties for the main mark, or a named-part object such as <code>&#123;band: &#123;opacity: 0.2&#125;&#125;</code>. A group with several marks and no main takes only <code>visible</code> besides named-part overrides.</td></tr><tr><td><code>events</code></td><td>Host callbacks by contract part name, else a node’s unique <code>name</code>, such as <code>&#123;head: &#123;click: handler&#125;&#125;</code>. They are not code from the file.</td></tr><tr><td>Children</td><td>A Svelte snippet placed at the exported slot; supplying children without a slot is an error.</td></tr></tbody></table> <p>Each instance remaps node IDs and has its own children and handlers. Changing <code>params</code> or <code>props</code> updates its instantiated tree; it does not run Python. Main/named parts, nested
+contracts, follower visibility and legend entries retain their declared behavior. Slot
+children remain the caller’s marks and do not select the template’s main part.</p> <p>Python authors with <code>hm.Template</code> or <code>@hm.template</code>, passes explicit <code>hm.template_param()</code> markers, then exports an instance with an empty slot and no registered callbacks. A marker’s
+own JSON default, not the Python function’s default, determines whether a file parameter is
+optional. Attach Python callbacks after loading, or Svelte callbacks through <code>events</code>.
+Python methods and attributes do not travel.</p> <p>Files require a matching HMPlot version and are limited to 1 MiB, 256 nodes and 32 nesting
+levels. Loaders reject embedded resources, external URLs, unsupported component properties
+and callbacks in the file. See <a href="template">Template</a> and the
+repository’s <code>docs/PORTABLE-TEMPLATES.md</code> authoring guide for mark composition, a non-mark
+transform/layout pattern, complete programs and exact limits.
+Templates compose existing behavior; <a href="/HMPlot/reference/svelte/plugins">plug-ins</a> supply new execution or rendering.</p> <p>Download and adapt <a href="/HMPlot/examples/template-candlestick">candlestick</a>, <a href="/HMPlot/examples/template-parallel">parallel coordinates</a>, <a href="/HMPlot/examples/template-ridgeline">ridgeline</a>,
+and <a href="/HMPlot/examples/template-radar">radar</a>. Each provides Python authoring/loading, Svelte loading,
+a portable JSON file and its host-data shape.</p>`,1);function i(e){var t=d();r(14),a(e,t)}export{i as default};

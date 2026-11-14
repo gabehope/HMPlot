@@ -1,0 +1,55 @@
+# charts
+
+Chart patterns composed from core marks and transforms; hm.charts in Python.
+
+## Usage
+
+Chart patterns live in `hmplot/charts` in Svelte and `hm.charts` in Python. They compose the
+core marks and transforms; use their reference pages to choose a pattern and its options.
+
+```svelte
+<script>
+  import { Plot } from "hmplot";
+  import { Bar } from "hmplot/charts";
+</script>
+<Plot data={{ category: ["A", "B"], value: [2, 3] }}>
+  <Bar x="category" y="value" />
+</Plot>
+```
+
+```python
+import hmplot as hm
+with hm.Plot(data={"category": ["A", "B"], "value": [2, 3]}) as plot:
+    hm.charts.Bar(x="category", y="value")
+```
+
+The catalog includes Bar, Histogram, BoxPlot, Violin, Swarm, Pie, Lollipop, Smooth, Ecdf,
+DensityContour, DensityBands, RuleX, RuleY, Callout, Crosshair, ErrorBars and Arrows.
+Python's old root names raise an error naming the replacement; Svelte imports must use the
+charts module. Core marks such as Points, Line, Rect, Text and Segments stay in `hmplot`.
+
+## Building blocks
+
+| Pattern | Composition |
+| --- | --- |
+| Bar | BarGeometry transform and Prism |
+| Histogram | Bin transform and Rect; a hidden Points part supplies brushing |
+| BoxPlot | BoxStats and BoxOutliers transforms, Rect, Segments and Points |
+| Violin | Density, Area and Anchor |
+| Swarm | Dodge and Points |
+| Pie | PieGeometry, Rect and a polar Frame |
+| Lollipop | BarGeometry, Segments and Points |
+| Smooth | Regression, Area and Line |
+| Ecdf | Empirical-distribution transform and a step Line |
+| DensityContour | Density, Contour and Segments |
+| DensityBands | Density, Contour, Filter and Polygon |
+| RuleX, RuleY | Segments placed at the frame edges |
+| Callout | Text with a box and leader |
+| Crosshair | Segments and Text, driven by the pointer |
+| ErrorBars | Segments with bar caps |
+| Arrows | Directed segments with arrowheads |
+
+## Related examples
+
+- [Bar chart](/HMPlot/examples/bar.md)
+- [Histogram bins](/HMPlot/examples/histograms.md)

@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import e from"./CL6cdHyS.js";import a from"./Dr6_eZia.js";function x(t){const o={x:[1,2,3],y:[2,3,1],word:["one","two","three"]};e(t,{get data(){return o},height:300,axes2d:!0,children:(r,i)=>{a(r,{x:"x",y:"y",text:"word"})},$$slots:{default:!0}})}export{x as default};

@@ -1,0 +1,2415 @@
+const i=[{id:"template-candlestick",title:"Portable candlestick template",group:"Composition",description:"OHLC candles composed from ErrorBars, Calculate, Filter and Rect. Download the template and supply your own price table.",tags:["Templates","Composition"],code:`<script>
+  import { Plot } from "hmplot";
+  import { PortableTemplate } from "hmplot/templates";
+  import { untrack } from "svelte";
+  import definition from "./candlestick.hmplot.json";
+  import download from "./candlestick.hmplot.json?url";
+  import data from "./data.json";
+  let { onready } = $props(), plot = $state();
+  $effect(() => { const p = plot; untrack(() => onready?.(p)); });
+<\/script>
+<p>Deterministic simulated prices, not investment data. One row per day, with numeric day, open, close, low and high columns. width uses the x coordinate units. The empty slot accepts caller annotations. <a href={download} download="candlestick.hmplot.json">Download template</a></p>
+<Plot bind:this={plot} {data} responsive height={380} x={{"label": "Trading day", "domain": [-1, 30]}} y={{"label": "Price ($)"}}>
+  <PortableTemplate {definition} params={{}} />
+</Plot>
+<style>p {font-size:14px;line-height:1.5}</style>
+`,python:`import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import hmplot as hm
+
+@hm.template
+def candles(x, opening, closing, low, high, width=0.65, rising="#15805d", falling="#d34b37"):
+    hm.charts.ErrorBars(x=x, y=hm.divide(hm.add(low, high), 2), lower=low, upper=high, cap_size=0, color="#334155", width=1.2)
+    with hm.Calculate(columns={"left": hm.subtract(x, width / 2), "right": hm.add(x, width / 2),
+                               "bottom": hm.minimum(opening, closing), "top": hm.maximum(opening, closing)}):
+        with hm.Filter(where=hm.greater_equal(closing, opening)):
+            hm.Rect(x0="left", x1="right", y0="bottom", y1="top", fill=rising)
+        with hm.Filter(where=hm.less(closing, opening)):
+            hm.Rect(x0="left", x1="right", y0="bottom", y1="top", fill=falling)
+    hm.slot()
+
+# Export and reload without changing the downloaded example files.
+with TemporaryDirectory() as directory:
+    candles(hm.template_param("x", default="day"), hm.template_param("opening", default="open"),
+            hm.template_param("closing", default="close"), hm.template_param("low", default="low"),
+            hm.template_param("high", default="high"), width=hm.template_param("width", default=0.65),
+            rising=hm.template_param("rising", default="#15805d"),
+            falling=hm.template_param("falling", default="#d34b37")).export_template(Path(directory) / "candlestick.hmplot.json")
+    pattern = hm.load_template(Path(directory) / "candlestick.hmplot.json")
+
+data = json.loads(Path("data.json").read_text())
+with hm.Plot(data=data, height=380, x={'label': 'Trading day', 'domain': [-1, 30]}, y={'label': 'Price ($)'}) as plot:
+    pattern()
+plot
+`},{id:"template-parallel",title:"Portable parallel coordinates",group:"Composition",description:"Fold and Normalize turn a wide table into comparable dimensions. A portable Line template draws one profile per observation.",tags:["Templates","Composition"],code:`<script>
+  import { Plot, Legend } from "hmplot";
+  import { PortableTemplate } from "hmplot/templates";
+  import { untrack } from "svelte";
+  import definition from "./parallel.hmplot.json";
+  import download from "./parallel.hmplot.json?url";
+  import data from "./data.json";
+  let { onready } = $props(), plot = $state();
+  $effect(() => { const p = plot; untrack(() => onready?.(p)); });
+<\/script>
+<p>Simulated product profiles. Supply one row per observation with a unique id, categorical group, and numeric measure columns. fields determines dimension order. Each measure is normalized across visible rows to 0–1; this is not a shared physical unit scale. <a href={download} download="parallel.hmplot.json">Download template</a></p>
+<Plot bind:this={plot} {data} responsive height={380} x={{"label": "Measure"}} y={{"label": "Relative value", "domain": [0, 1]}}>
+  <PortableTemplate {definition} params={{"fields": ["speed", "range", "comfort", "efficiency"]}} />
+  <Legend channel="color" label="Group" position="bottom" />
+</Plot>
+<style>p {font-size:14px;line-height:1.5}</style>
+`,python:`import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import hmplot as hm
+
+@hm.template
+def parallel(fields, observation="id", color="group", opacity=0.55):
+    with hm.Fold(fields=fields):
+        with hm.stats.Normalize(field="value", by="key", method="extent", as_="scaled"):
+            with hm.Sort(by=[observation, "key"]):
+                hm.Line(x="key", y="scaled", series=observation, color=color, opacity=opacity, width=1.6)
+    hm.slot()
+
+# Export and reload without changing the downloaded example files.
+with TemporaryDirectory() as directory:
+    parallel(hm.template_param("fields"), hm.template_param("observation", default="id"),
+             hm.template_param("color", default="group"),
+             opacity=hm.template_param("opacity", default=0.55)).export_template(Path(directory) / "parallel.hmplot.json")
+    pattern = hm.load_template(Path(directory) / "parallel.hmplot.json")
+
+data = json.loads(Path("data.json").read_text())
+with hm.Plot(data=data, height=380, x={'label': 'Measure'}, y={'label': 'Relative value', 'domain': [0, 1]}) as plot:
+    pattern(fields=['speed', 'range', 'comfort', 'efficiency'])
+    hm.Legend(channel="color", label="Group", position="bottom")
+plot
+`},{id:"template-ridgeline",title:"Portable ridgeline template",group:"Composition",description:"Grouped Gaussian densities in one shared frame, packaged as a downloadable template. Change the data, bandwidth and ridge height.",tags:["Templates","Composition"],code:`<script>
+  import { Plot } from "hmplot";
+  import { PortableTemplate } from "hmplot/templates";
+  import { untrack } from "svelte";
+  import definition from "./ridgeline.hmplot.json";
+  import download from "./ridgeline.hmplot.json?url";
+  import data from "./data.json";
+  let { onready } = $props(), plot = $state();
+  $effect(() => { const p = plot; untrack(() => onready?.(p)); });
+<\/script>
+<p>Simulated measurements for five ordered groups. value is numeric; group is a numeric baseline index (0, 1, …), not a category name. bandwidth uses value units and gain sets the vertical density multiplier. All groups share a measurement scale. <a href={download} download="ridgeline.hmplot.json">Download template</a></p>
+<Plot bind:this={plot} {data} responsive height={420} x={{"label": "Measurement"}} y={{"label": "Group", "step": 1, "grid": "off", "domain": [-0.15, 5.7]}}>
+  <PortableTemplate {definition} params={{}} />
+</Plot>
+<style>p {font-size:14px;line-height:1.5}</style>
+`,python:`import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import hmplot as hm
+
+@hm.template
+def ridges(value="value", group="group", bandwidth=0.4, gain=2.2):
+    with hm.Density(x=value, by=group, bandwidth=bandwidth, resolution=128):
+        with hm.Calculate(columns={"baseline": hm.multiply(group, 1),
+                                   "ridge": hm.add(group, hm.multiply("density", gain))}):
+            hm.Area(x="x", upper="ridge", lower="baseline", series=group, fill=group, opacity=0.65)
+            hm.Line(x="x", y="ridge", series=group, color="#334155", width=1.1)
+    hm.slot()
+
+# Export and reload without changing the downloaded example files.
+with TemporaryDirectory() as directory:
+    ridges(hm.template_param("value", default="value"), hm.template_param("group", default="group"),
+           bandwidth=hm.template_param("bandwidth", default=0.4),
+           gain=hm.template_param("gain", default=2.2)).export_template(Path(directory) / "ridgeline.hmplot.json")
+    pattern = hm.load_template(Path(directory) / "ridgeline.hmplot.json")
+
+data = json.loads(Path("data.json").read_text())
+with hm.Plot(data=data, responsive=True, height=420, x={'label': 'Measurement'}, y={'label': 'Group', 'step': 1, 'grid': 'off', 'domain': [-0.15, 5.7]}) as plot:
+    pattern()
+plot
+`},{id:"template-radar",title:"Portable radar template",group:"Composition",description:"A portable polygon template maps normalized scores to a radar chart. Rings, spokes and labels are supplied by the host.",tags:["Templates","Composition"],code:`<script>
+  import { Plot, Line, Text, Legend } from "hmplot";
+  import { PortableTemplate } from "hmplot/templates";
+  import { untrack } from "svelte";
+  import definition from "./radar.hmplot.json";
+  import download from "./radar.hmplot.json?url";
+  import data from "./data.json";
+  import guides from "./guides.json";
+  let { onready } = $props(), plot = $state();
+  $effect(() => { const p = plot; untrack(() => onready?.(p)); });
+<\/script>
+<p>Simulated profiles; dimension is an ordered index 0–count (repeat the first score at count to close the outline), score is already normalized to 0–1, and profile identifies each polygon. The host supplies a square equal-aspect frame and optional rings, spokes and labels; the template does not infer comparable units. <a href={download} download="radar.hmplot.json">Download template</a></p>
+<Plot bind:this={plot} {data} responsive height={440} axes2d={false} aspect={"equal"} x={{"domain": [-1.3, 1.3]}} y={{"domain": [-1.3, 1.3]}}>
+  <Line data={guides.rings} x="x" y="y" series="ring" color="#cbd5e1" width={0.8} />
+  <Line data={guides.spokes} x="x" y="y" series="spoke" color="#cbd5e1" width={0.8} />
+  <Text data={guides.labels} x="x" y="y" text="text" size={13} />
+  <PortableTemplate {definition} params={{}} />
+  <Legend channel="color" label="Profile" position="bottom" />
+</Plot>
+<style>p {font-size:14px;line-height:1.5}</style>
+`,python:`import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import hmplot as hm
+
+@hm.template
+def radar(index="dimension", value="score", series="profile", count=5):
+    with hm.Calculate(columns={"angle": hm.subtract(1.5707963267948966, hm.multiply(index, 6.283185307179586 / count))}):
+        with hm.Calculate(columns={"px": hm.multiply(value, hm.cos("angle")),
+                                   "py": hm.multiply(value, hm.sin("angle"))}):
+            hm.Polygon(x="px", y="py", series=series, fill=series, opacity=0.18,
+                       outline_width=0)
+            hm.Line(x="px", y="py", series=series, color=series, width=2)
+    hm.slot()
+
+# Export and reload without changing the downloaded example files.
+with TemporaryDirectory() as directory:
+    radar(hm.template_param("index", default="dimension"), hm.template_param("value", default="score"),
+          hm.template_param("series", default="profile"),
+          count=hm.template_param("count", default=5)).export_template(Path(directory) / "radar.hmplot.json")
+    pattern = hm.load_template(Path(directory) / "radar.hmplot.json")
+
+data = json.loads(Path("data.json").read_text())
+with hm.Plot(data=data, height=440, axes2d=False, aspect='equal', x={'domain': [-1.3, 1.3]}, y={'domain': [-1.3, 1.3]}) as plot:
+    guides = json.loads(Path("guides.json").read_text())
+    hm.Line(data=guides["rings"], x="x", y="y", series="ring", color="#cbd5e1", width=0.8)
+    hm.Line(data=guides["spokes"], x="x", y="y", series="spoke", color="#cbd5e1", width=0.8)
+    hm.Text(data=guides["labels"], x="x", y="y", text="text", size=13)
+    pattern()
+    hm.Legend(channel="color", label="Profile", position="bottom")
+plot
+`},{id:"ridgeline",title:"Ridgeline temperatures",group:"Composition",description:"Twelve monthly temperature densities from Lincoln's 2016 weather, with overlapping ridges and a shared blue-to-red temperature gradient.",tags:["Density","Area","Real data"],code:`<Density x="temperature" by="month" bandwidth={4 / Math.sqrt(5)}>
+  <Calculate columns={{ baseline: subtract(11, "month"), ridge: add(subtract(11, "month"), multiply("density", 1 / 0.06)) }}>
+    <Area x="x" upper="ridge" lower="baseline" series="month" fill="x" fillScale={temperatureColor} opacity={0.75} blend="multiply" />
+    <Line x="x" y="ridge" series="month" />
+  </Calculate>
+</Density>`},{id:"constant-data",title:"Particles without an uploaded table",group:"Interaction",tags:["Data","Simulation"],description:"Data(rows) generates row indices, ones and fixed random values on the GPU; Simulate moves the particles without a dummy table from Python.",code:`<script>
+  import { Data, Calculate, row, random, InputContext, Checkbox, Simulate, Plot, Points,
+    add, multiply, divide, cos, sin, prev, input, view,
+    continuous,
+  } from "hmplot";
+  let { onready } = $props();
+  let plot = $state();
+  const initial = { angle: multiply(row(), 2 * Math.PI / 256) };
+  const update = { angle: add(prev("angle"), multiply(add(1, "random"), divide(view.dt, 1000))) };
+  $effect(() => { if (plot) onready?.(plot); });
+<\/script>
+
+<InputContext>
+  <Checkbox name="running" label="Run simulation" value={false} />
+  <Data rows={256}>
+    <Calculate columns={{ random: random({ seed: 0 }) }}>
+    <Simulate {initial} {update} running={input.running}>
+      <Plot bind:this={plot} responsive height={360} x={{ domain: [-2, 2] }} y={{ domain: [-2, 2] }}>
+        <Points x={multiply(add(0.5, "random"), cos("angle"))}
+          y={multiply(add(0.5, "random"), sin("angle"))} fill="random" fillScale={continuous({ domain: [0, 1] })} size={5} />
+      </Plot>
+    </Simulate>
+    </Calculate>
+  </Data>
+</InputContext>
+`,python:`import hmplot as hm
+import math
+
+# Only these properties travel to the browser; no dummy NumPy table is uploaded.
+initial = {"angle": hm.row() * (2 * math.pi / 256)}
+update = {"angle": hm.prev.angle + (1 + hm.col.random) * hm.view.dt / 1000}
+with hm.Scene() as scene:
+    hm.Checkbox(name="running", label="Run simulation", value=False)
+    with hm.Data(rows=256), hm.Calculate(columns={"random": hm.random(seed=0)}):
+        with hm.Simulate(initial=initial, update=update, running=hm.input.running):
+            with hm.Plot(height=360, responsive=True, x={"domain": [-2, 2]}, y={"domain": [-2, 2]}):
+                hm.Points(x=(0.5 + hm.col.random) * hm.cos(hm.col.angle),
+                          y=(0.5 + hm.col.random) * hm.sin(hm.col.angle),
+                          fill="random", fill_scale=hm.continuous(domain=[0, 1]), size=5)
+scene
+`},{id:"embedded-facets",title:"Embedded facets",group:"Composition",description:'Facets inside a Plot partition its frame and share its renderer and camera. For grouped bars, use Bar with arrange="group".',tags:["Frame","Facet","Bar"],code:`<script>
+  import { Plot, Facet } from "hmplot";
+import { Bar } from "hmplot/charts";
+  const data = {
+    region: ["North", "North", "South", "South", "West", "West"],
+    year: ["2024", "2025", "2024", "2025", "2024", "2025"],
+    total: [12, 18, 9, 15, 21, 25],
+  };
+<\/script>
+<Plot {data} responsive height={420} axes2d y={{domain:[0,30]}}>
+  <Facet column="region" bandPadding={0.2}>
+    <Bar x="year" y="total" fill="year" />
+  </Facet>
+</Plot>`,python:`import hmplot as hm
+
+data = {
+    "region": ["North", "North", "South", "South", "West", "West"],
+    "year": ["2024", "2025", "2024", "2025", "2024", "2025"],
+    "total": [12, 18, 9, 15, 21, 25],
+}
+with hm.Plot(data=data, height=420, axes2d=True, y={"domain": [0, 30]}) as plot:
+    with hm.Facet(column="region", band_padding=0.2):
+        hm.charts.Bar(x="year", y="total", fill="year")
+plot`},{id:"waffle-grid",title:"Waffle grid",group:"Composition",description:"Integer counts expand into source-identified unit squares, ordered left to right and bottom to top.",tags:["Dodge","Counts"],code:`<script>
+  import { Plot, Dodge, Points } from "hmplot";
+  const data = { category: ["A", "B", "C"], count: [23, 35, 42] };
+<\/script>
+<Plot {data} responsive height={420} x={{domain:[0,10]}} y={{domain:[0,10]}}>
+  <Dodge mode="grid" columns={10} count="count">
+    <Points x="x" y="y" fill="category" shape="square" size={12} />
+  </Dodge>
+</Plot>`,python:`import hmplot as hm
+
+data = {"category": ["A", "B", "C"], "count": [23, 35, 42]}
+with hm.Plot(data=data, height=420,
+             x={"domain": [0, 10]}, y={"domain": [0, 10]}) as plot:
+    with hm.Dodge(mode="grid", columns=10, count="count"):
+        hm.Points(x="x", y="y", fill="category", shape="square", size=12)
+plot`},{id:"nonlinear-frames",title:"Nested scales",description:"A child interval maps through its parent’s logarithmic scale.",group:"Composition",tags:["Frame","Coordinates"],code:`<script>
+  import { Plot, Frame, Points, Line } from "hmplot";
+  const positions = [[0, 0], [50, 50], [100, 100]];
+<\/script>
+<Plot responsive height={420} axes2d
+  x={{domain:[1,1000], transform:"log"}} y={{domain:[0,100]}}>
+  <Frame x={{domain:[0,100], range:[10,100]}}
+    y={{domain:[0,100], range:[20,80]}}>
+    <Line position={positions} color="#547ba2" width={2} />
+    <Points position={positions} fill="#7b9865" size={6} />
+  </Frame>
+</Plot>`,python:`import hmplot as hm
+
+positions = [[0, 0], [50, 50], [100, 100]]
+with hm.Plot(axes2d=True, height=420,
+             x={"domain": [1, 1000], "transform": "log"},
+             y={"domain": [0, 100]}) as plot:
+    with hm.Frame(x={"domain": [0, 100], "range": [10, 100]},
+                  y={"domain": [0, 100], "range": [20, 80]}):
+        hm.Line(position=positions, color="#547ba2", width=2)
+        hm.Points(position=positions, fill="#7b9865", size=6)
+plot`},{id:"anchored-frames",title:"Anchored frame",description:"Pan and zoom: the child frame stays 160 by 100 CSS pixels, anchored at its parent data position.",group:"Composition",tags:["Frame","Coordinates"],code:`<script>
+  import { Plot, Frame, Points } from "hmplot";
+<\/script>
+<Plot responsive height={420} axes2d x={{domain:[0,100]}} y={{domain:[0,100]}}>
+  <Frame placement={{anchor:[35,65], size:[160,100], rotation:[0,0,20]}}
+    x={{domain:[0,10]}} y={{domain:[0,10]}}>
+    <Points position={[[0,0],[5,5],[10,10]]} size={6} fill="#7b9865" />
+  </Frame>
+</Plot>`,python:`import hmplot as hm
+
+with hm.Plot(axes2d=True, height=420,
+             x={"domain": [0, 100]}, y={"domain": [0, 100]}) as plot:
+    with hm.Frame(placement={"anchor": [35, 65], "size": [160, 100],
+                             "rotation": [0, 0, 20]},
+                  x={"domain": [0, 10]}, y={"domain": [0, 10]}):
+        hm.Points(position=[[0, 0], [5, 5], [10, 10]],
+                         size=6, fill="#7b9865")
+plot`},{id:"strip-brushing",title:"Brushing frame strips",group:"Composition",description:"Shift-drag on an inset frame's tick strip to brush its own axis. The band stays on the strip; a column shared with other strips shows on each of them.",tags:["Frame","Brush","Interaction"],code:`<Plot data={data} axes2d x={{domain: [0, 100]}} y={{domain: [0, 100]}}>
+  <Points x="x" y="y" brush size={where("@brushed", 4.5, 2.5)} />
+  <Frame x={{domain: [0, 100], range: [62, 96]}} y={{domain: [0, 100], range: [8, 48]}}>
+    <!-- Shift-drag on this frame's y tick strip brushes score. -->
+    <Points x="x" y="score" brush={{axis: "y"}} size={where("@brushed", 4, 2)} />
+  </Frame>
+</Plot>`,python:`import hmplot as hm
+
+with hm.Plot(data=data, axes2d=True, x={"domain": [0, 100]}, y={"domain": [0, 100]}) as plot:
+    hm.Points(x="x", y="y", brush=True, size=hm.where("@brushed", 4.5, 2.5))
+    with hm.Frame(x={"domain": [0, 100], "range": [62, 96]}, y={"domain": [0, 100], "range": [8, 48]}):
+        # Shift-drag on this frame's y tick strip brushes score.
+        hm.Points(x="x", y="score", brush={"axis": "y"}, size=hm.where("@brushed", 4, 2))
+plot`},{id:"brushed-filter-chain",title:"Brushed filter chain",group:"Interaction",description:"Shift-drag to brush 50,000 points; a histogram (Filter > Bin) and per-level means (Filter > Group) follow the brush. A Filter keeps its input's rows and marks the kept ones, so a moving brush changes no array length and compiles no new GPU kernels.",tags:["Interaction","Filter","Transforms"],code:`<script>
+  import { Data, Plot, Points, Filter, Group, Rect, add, mean } from "hmplot";
+import { Bin } from "hmplot/stats";
+  // table: 50,000 rows with x, y (to brush), value, and level (the y band, 0-7).
+<\/script>
+<Data value={table}>
+  <Plot axes2d x={{ domain: [0, 1] }} y={{ domain: [0, 1] }}>
+    <Points x="x" y="y" size={1} brush maxElements={50000} />
+  </Plot>
+  <Plot axes2d>
+    <Filter where="@brushed">
+      <Bin x="value" bins={32}><Rect x0="x0" x1="x1" y0={0} y1="count" /></Bin>
+    </Filter>
+  </Plot>
+  <Plot axes2d>
+    <Filter where="@brushed">
+      <Group by="level" columns={{ mean: mean("value") }}>
+        <Rect x0="level" x1={add("level", 0.8)} y0={0} y1="mean" />
+      </Group>
+    </Filter>
+  </Plot>
+</Data>`},{id:"running-totals",title:"Running totals under a brush",group:"Interaction",description:"Shift-drag to brush 50,000 transactions; the brushed rows are sorted by day, then a running sum and a 500-row moving average follow the brush (Filter > Sort > Window > Line).",tags:["Interaction","Filter","Window"],code:`<script>
+  import { Data, Plot, Points, Filter, Sort, Line } from "hmplot";
+import { Window } from "hmplot/stats";
+  // table: 50,000 rows with day (0-365, unsorted) and amount.
+<\/script>
+<Data value={table}>
+  <Plot axes2d x={{ domain: [0, 365] }} y={{ domain: [0, 400] }}>
+    <Points x="day" y="amount" size={1} brush maxElements={50000} />
+  </Plot>
+  <Plot axes2d x={{ domain: [0, 365] }}>
+    <Filter where="@brushed"><Sort by="day">
+      <Window field="amount" size={50000} reduce="sum" as="total"><Line x="day" y="total" /></Window>
+    </Sort></Filter>
+  </Plot>
+  <Plot axes2d x={{ domain: [0, 365] }}>
+    <Filter where="@brushed"><Sort by="day">
+      <Window field="amount" size={500} reduce="mean" as="average"><Line x="day" y="average" /></Window>
+    </Sort></Filter>
+  </Plot>
+</Data>`},{id:"brushed-distributions",title:"Brushed distributions",group:"Interaction",description:"Shift-drag to brush 60,000 points in five clusters; violins and box plots of each group's values are recomputed from the brushed rows on every move, with no GPU kernels compiled while dragging.",tags:["Interaction","Filter","Distributions"],code:`<script>
+  import { Data, Plot, Points, Filter, categorical } from "hmplot";
+import { Violin, BoxPlot } from "hmplot/charts";
+  // table: 60,000 rows with x, y (to brush), group (five clusters) and value.
+  const scale = categorical({ domain: ["North", "East", "South", "West", "Center"] });
+<\/script>
+<Data value={table}>
+  <Plot axes2d>
+    <Points x="x" y="y" size={1} fill="group" brush maxElements={60000} />
+  </Plot>
+  <Plot x={{ scale: scale }} axes2d>
+    <Filter where="@brushed"><Violin x="group" y="value" fill="group" /></Filter>
+  </Plot>
+  <Plot x={{ scale: scale }} axes2d>
+    <Filter where="@brushed"><BoxPlot x="group" y="value" fill="group" /></Filter>
+  </Plot>
+</Data>`},{id:"moving-particles",title:"Moving particles",group:"Interaction",description:"1,500 particles circle at their own speeds: Slice interpolates every particle's position at the current time on every animation frame, and a slider filters them by speed. Neither playing nor filtering compiles new GPU kernels once warm.",tags:["Animation","Slice","Filter"],code:`<script>
+  import { Theme, themes, Data, Plot, Points, Filter, Slice } from "hmplot";
+  // table: 90,000 rows: particle, time (0-59), x, y and speed.
+  let time = $state(0), minimum = $state(0.3); // time advances every animation frame
+<\/script>
+<input type="range" min="0" max="0.95" step="0.01" bind:value={minimum} />
+<Theme value={themes.dark}><Data value={table}>
+  <Plot axes2d x={{ domain: [-1.5, 1.5] }} y={{ domain: [-1.5, 1.5] }}>
+    <Filter where={{ field: "speed", op: "gt", value: minimum }}>
+      <Points x="x" y="y" size={1} fill="speed" colormap="Plasma" opacity={0.3}
+        blend="additive" maxElements={90000} />
+      <Slice field="time" at={time} by="particle" values={["x", "y", "speed"]}>
+        <Points x="x" y="y" size={3.5} fill="speed" colormap="Plasma" blend="additive" />
+      </Slice>
+    </Filter>
+  </Plot>
+</Data></Theme>`},{id:"half-million-threshold",title:"Half a million points, one slider",group:"Interaction",description:"A slider filters 500,000 points by magnitude into a 3D hexbin and a histogram. A Filter that keeps under a quarter of a large input packs the kept rows into a few fixed lengths, so the work after it follows the selection and each length compiles once.",tags:["Filter","Hexbin","Large data"],code:`<script>
+  import { T } from "@threlte/core";
+  import { Data, Plot, Filter, Prism, Rect } from "hmplot";
+import { Hexbin, Bin } from "hmplot/stats";
+  // table: 500,000 rows with x, y and magnitude.
+  let minimum = $state(2);
+<\/script>
+<input type="range" min="0.5" max="6" step="0.01" bind:value={minimum} />
+<Data value={table}>
+  <Plot x={{ domain: [-6, 6] }} y={{ domain: [-6, 6] }} type="3d" axes3d
+    cameraPosition={[110, -140, 130]} cameraUp={[0, 0, 1]}>
+    <T.AmbientLight intensity={1.5} /><T.DirectionalLight position={[40, 80, 100]} intensity={3} />
+    <Filter where={{ field: "magnitude", op: "gt", value: minimum }}>
+      <Hexbin x="x" y="y" bins={36} bounds={{ x: [-6, 6], y: [-6, 6] }}>
+        <Prism x="x" y="y" width="width" depth="depth" z0={0} z1="count"
+          shape="hexagon" rotation="rotation" fill="count" lit={true} />
+      </Hexbin>
+    </Filter>
+  </Plot>
+  <Plot axes2d>
+    <Filter where={{ field: "magnitude", op: "gt", value: minimum }}>
+      <Bin x="magnitude" bins={40}><Rect x0="x0" x1="x1" y0={0} y1="count" /></Bin>
+    </Filter>
+  </Plot>
+</Data>`},{id:"nearby-radius",title:"Nearby points",group:"Interaction",description:"Move the pointer over the clusters: every row within the radius grows, including all overplotted rows at a cluster center, and the rest shrink. Adjust the radius with the slider.",tags:["Interaction","Nearby"],code:`<script>
+  import { Plot, Points, where } from "hmplot";
+  let radius = $state(24);
+  // Dense clusters with many exactly overplotted rows, so hover alone would reach only one of them.
+  const count = 3000;
+  const centers = [[25, 30], [60, 70], [75, 25]];
+  const data = {
+    x: Array.from({length: count}, (_, i) => { const c = centers[i % 3]; return i % 5 === 0 ? c[0] : c[0] + 12 * Math.sin(i * 1.7) * Math.cos(i * 0.31); }),
+    y: Array.from({length: count}, (_, i) => { const c = centers[i % 3]; return i % 5 === 0 ? c[1] : c[1] + 12 * Math.cos(i * 1.3) * Math.sin(i * 0.53); }),
+  };
+<\/script>
+<label class="controls">Radius <input type="range" min="6" max="80" bind:value={radius} /> {radius} px</label>
+<Plot data={data} responsive height={420} axes2d x={{domain: [0, 100]}} y={{domain: [0, 100]}}>
+  <Points x="x" y="y" nearby={{radius}} fill="#547ba2"
+    size={where("@any_nearby", where("@nearby", 5, 1), 2)} />
+</Plot>`,python:`import hmplot as hm
+
+with hm.Plot(data=data, axes2d=True, height=420, x={"domain": [0, 100]}, y={"domain": [0, 100]}) as plot:
+    hm.Points(x="x", y="y", nearby={"radius": 24}, fill="#547ba2",
+                     size=hm.where("@any_nearby", hm.where("@nearby", 5, 1), 2))
+plot`},{id:"crosshair",title:"Crosshair and rules",group:"Interaction",description:"Move the pointer over a time series: the crosshair follows it with a readout of each value. A dashed rule marks a threshold and gray rules mark events from a second table, labeled at the top of the frame.",tags:["Interaction","Pointer","Rules","Datetime"],code:`<script>
+  import { Data, Plot, Line, Text } from "hmplot";
+import { RuleX, RuleY, Crosshair } from "hmplot/charts";
+  const day = 86400000, start = Date.UTC(2026, 0, 1);
+  const series = { date: [], load: [] };
+  for (let i = 0, level = 60; i < 120; i++) {
+    level += Math.sin(i * 0.9) * 1.5 + Math.cos(i * 0.23);
+    series.date.push(new Date(start + i * day));
+    series.load.push(level);
+  }
+  const events = { date: [new Date(start + 33 * day), new Date(start + 76 * day)], name: ["Release", "Outage"] };
+<\/script>
+<Plot data={series} responsive height={340} axes2d y={{ label: "load (%)" }}>
+  <Line x="date" y="load" color="#547ba2" width={2} />
+  <RuleY y={75} color="#cf8955" dash />
+  <Data value={events}>
+    <RuleX x="date" color="#8a949e" />
+    <Text x="date" y="@view_y_max" text="name" dx={4} dy={10} align="left" legend={false} />
+  </Data>
+  <Crosshair />
+</Plot>`,python:`import hmplot as hm
+import numpy as np
+import pandas as pd
+
+dates = pd.date_range("2026-01-01", periods=120, freq="D")
+i = np.arange(120)
+series = pd.DataFrame({"date": dates, "load": 60 + np.cumsum(np.sin(i * 0.9) * 1.5 + np.cos(i * 0.23))})
+events = pd.DataFrame({"date": pd.to_datetime(["2026-02-03", "2026-03-18"]), "name": ["Release", "Outage"]})
+with hm.Plot(data=series, height=340, axes2d=True, y={"label": "load (%)"}) as plot:
+    hm.Line(x="date", y="load", color="#547ba2", width=2)
+    hm.charts.RuleY(y=75, color="#cf8955", dash=True)
+    with hm.Data(events):
+        hm.charts.RuleX(x="date", color="#8a949e")
+        hm.Text(x="date", y="@view_y_max", text="name", dx=4, dy=10, align="left", legend=False)
+    hm.charts.Crosshair()
+plot`},{id:"annotations",title:"Titles, bands and callouts",group:"Composition",description:"A plot's title, subtitle and caption are part of the plot and its exports; bands shade a span of an axis behind the marks and grid; callouts point at a value with a note.",tags:["Composition","Titles","Bands","Export"],code:`<script>
+  import { Plot, Line, Points } from "hmplot";
+import { Callout } from "hmplot/charts";
+  // A made-up monthly temperature anomaly, with a warm spell and a cold spell.
+  const noise = (i) => { const v = Math.sin(i * 12.9898) * 43758.5453; return v - Math.floor(v); };
+  const series = { month: [], anomaly: [] };
+  for (let i = 0; i < 96; i++) {
+    series.month.push(i);
+    series.anomaly.push(Math.round((0.012 * i + 0.35 * Math.sin(i / 7) + (noise(i) - 0.5) * 0.4 + (i >= 40 && i < 52 ? 0.45 : 0) - (i >= 70 && i < 76 ? 0.5 : 0)) * 100) / 100);
+  }
+<\/script>
+
+<Plot data={series} responsive height={320} axes2d
+  title="Monthly temperature anomaly" subtitle="Relative to the 1991–2020 mean, °C"
+  caption="Source: a made-up series for this example."
+  x={{ label: "month" }} y={{ label: "anomaly (°C)" }}
+  rules={[{ axis: "y", value: 0, color: "#7a8392" }]}
+  bands={[{ axis: "x", from: 40, to: 52, label: "Warm spell", color: "#d9824b", opacity: 0.16 },
+    { axis: "x", from: 70, to: 76, label: "Cold spell", color: "#4f86c6", opacity: 0.16 }]}>
+  <Line x="month" y="anomaly" color="#3d5a80" width={1.5} />
+  <Points x="month" y="anomaly" size={2} fill="#3d5a80" />
+  <Callout x={48} y={series.anomaly[48]} text="Warmest month" dx={-30} dy={-28} />
+  <Callout x={73} y={series.anomaly[73]} text="Coldest since month 30" dx={28} dy={-40} />
+</Plot>`,python:`import hmplot as hm
+import numpy as np
+
+i = np.arange(96)
+anomaly = 0.012 * i + 0.35 * np.sin(i / 7) + np.where((i >= 40) & (i < 52), 0.45, 0) - np.where((i >= 70) & (i < 76), 0.5, 0)
+with hm.Plot(data={"month": i, "anomaly": anomaly}, height=320, axes2d=True,
+             title="Monthly temperature anomaly", subtitle="Relative to the 1991-2020 mean, °C",
+             caption="Source: a made-up series for this example.",
+             rules=[{"axis": "y", "value": 0, "color": "#7a8392"}],
+             bands=[{"axis": "x", "from": 40, "to": 52, "label": "Warm spell", "color": "#d9824b", "opacity": 0.16},
+                    {"axis": "x", "from": 70, "to": 76, "label": "Cold spell", "color": "#4f86c6", "opacity": 0.16}]) as plot:
+    hm.Line(x="month", y="anomaly", color="#3d5a80", width=1.5)
+    hm.Points(x="month", y="anomaly", size=2, fill="#3d5a80")
+    hm.charts.Callout(x=48, y=float(anomaly[48]), text="Warmest month", dx=-30, dy=-28)
+    hm.charts.Callout(x=73, y=float(anomaly[73]), text="Coldest since month 30", dx=28, dy=-40)
+plot`},{id:"tooltips",title:"Tooltips",group:"Interaction",description:"Point near a penguin: the tooltip shows the nearest one within 16 pixels, with chosen fields, labels and formats, and @tooltip enlarges it; a histogram's bars show their bin and count.",tags:["Interaction","Tooltip","Hover"],code:`<script>
+  import { Plot, Points, where } from "hmplot";
+import { Histogram } from "hmplot/charts";
+  const species = ["Adelie", "Chinstrap", "Gentoo"], islands = ["Biscoe", "Dream", "Torgersen"];
+  const penguins = { species: [], island: [], bill: [], mass: [] };
+  for (let i = 0; i < 330; i++) {
+    penguins.species.push(species[i % 3]);
+    penguins.island.push(islands[(i * 7) % 3]);
+    penguins.bill.push(38 + (i % 3) * 5 + Math.sin(i) * 3.5);
+    penguins.mass.push(3500 + (i % 3) * 700 + Math.cos(i * 1.7) * 450);
+  }
+<\/script>
+<Plot data={penguins} responsive height={320} axes2d>
+  <Points x="bill" y="mass" fill="species" size={where("@tooltip", 5, 2.5)}
+    tooltip={["island", "bill", { field: "mass", label: "body mass (g)", format: ",.0f" }]} />
+</Plot>
+<Plot data={penguins} responsive height={320} axes2d tooltip>
+  <Histogram x="mass" bins={20} fill="#547ba2" />
+</Plot>`,python:`import hmplot as hm
+import numpy as np
+
+i = np.arange(330)
+penguins = {"species": np.array(["Adelie", "Chinstrap", "Gentoo"])[i % 3],
+            "island": np.array(["Biscoe", "Dream", "Torgersen"])[(i * 7) % 3],
+            "bill": 38 + (i % 3) * 5 + np.sin(i) * 3.5,
+            "mass": 3500 + (i % 3) * 700 + np.cos(i * 1.7) * 450}
+with hm.Scene() as scene:
+    with hm.Row():
+        with hm.Plot(data=penguins, height=320, axes2d=True):
+            hm.Points(x="bill", y="mass", fill="species", size=hm.where("@tooltip", 5, 2.5),
+                             tooltip=["island", "bill", {"field": "mass", "label": "body mass (g)", "format": ",.0f"}])
+        with hm.Plot(data=penguins, height=320, axes2d=True, tooltip=True):
+            hm.charts.Histogram(x="mass", bins=20, fill="#547ba2")
+scene`},{id:"unified-x",title:"Unified x tooltip",group:"Interaction",description:"Move the pointer along the dates: one tooltip lists every series' value at that date, with a marker on each line, beside a Crosshair's vertical rule.",tags:["Interaction","Tooltip","Datetime","Pointer"],code:`<script>
+  import { Plot, Line } from "hmplot";
+import { Crosshair } from "hmplot/charts";
+  const day = 86400000, start = Date.UTC(2026, 0, 1);
+  const prices = { date: [], price: [], ticker: [] };
+  ["North", "East", "West"].forEach((ticker, k) => {
+    for (let i = 0; i < 90; i++) {
+      prices.date.push(new Date(start + i * day));
+      prices.price.push(100 - k * 15 + Math.sin(i / 7 + k) * 8 + i * 0.1);
+      prices.ticker.push(ticker);
+    }
+  });
+<\/script>
+<Plot data={prices} responsive height={340} axes2d tooltip={{ mode: "x" }} y={{ label: "price" }}>
+  <Line x="date" y="price" series="ticker" color="ticker" width={2} />
+  <Crosshair axes="x" readout={false} />
+</Plot>`,python:`import hmplot as hm
+import numpy as np
+import pandas as pd
+
+i = np.arange(90)
+prices = pd.concat([pd.DataFrame({"date": pd.date_range("2026-01-01", periods=90, freq="D"),
+                                  "price": 100 - k * 15 + np.sin(i / 7 + k) * 8 + i * 0.1, "ticker": ticker})
+                    for k, ticker in enumerate(["North", "East", "West"])])
+with hm.Plot(data=prices, height=340, axes2d=True, tooltip={"mode": "x"}, y={"label": "price"}) as plot:
+    hm.Line(x="date", y="price", series="ticker", color="ticker", width=2)
+    hm.charts.Crosshair(axes="x", readout=False)
+plot`},{id:"nearby-axis",title:"Nearby along x",group:"Interaction",description:"Single-axis nearby in data units picks every series at the day under the pointer, whatever the pointer's height, and labels them.",tags:["Interaction","Nearby"],code:`<script>
+  import { Plot, Points, Filter, Text, where } from "hmplot";
+  // Three series sampled at the same integer days, in long format.
+  const days = 60, series = ["North", "South", "East"];
+  const rows = series.flatMap((name, s) => Array.from({length: days}, (_, t) => ({
+    day: t, series: name, value: 50 + 25 * Math.sin(t / (6 + 3 * s) + s) + 6 * Math.cos(t * 0.9 + s),
+  })));
+  const data = {
+    day: rows.map((row) => row.day), series: rows.map((row) => row.series),
+    value: rows.map((row) => row.value), label: rows.map((row) => \`\${row.series} \${row.value.toFixed(1)}\`),
+  };
+<\/script>
+<Plot data={data} responsive height={420} axes2d x={{domain: [0, days - 1]}} y={{domain: [0, 100]}}>
+  <Points x="day" y="value" fill="series" nearby={{axis: "x", units: "data", radius: 0.5}}
+    size={where("@nearby", 6, 2.5)} />
+  <Filter where="@nearby" inactive="none">
+    <Text x="day" y="value" text="label" size={11} dy={-14} />
+  </Filter>
+</Plot>`,python:`import hmplot as hm
+
+with hm.Plot(data=data, axes2d=True, height=420, x={"domain": [0, 59]}, y={"domain": [0, 100]}) as plot:
+    hm.Points(x="day", y="value", fill="series", size=hm.where("@nearby", 6, 2.5),
+                     nearby={"axis": "x", "units": "data", "radius": 0.5})
+    with hm.Filter(where="@nearby", inactive="none"):
+        hm.Text(x="day", y="value", text="label", size=11, dy=-14)
+plot`},{id:"any-interaction-columns",title:"Respond only while active",group:"Interaction",description:"@any_brushed and @any_selected are 1 on every row while anything is brushed or selected, so the other rows shrink only then. Shift-drag or click in either plot; clear to restore every row.",tags:["Interaction","Brush","Selection"],code:`<script>
+  import { Data, Plot, Points, where } from "hmplot";
+  const records = Array.from({length: 600}, (_, i) => ({
+    id: i, group: ["A", "B", "C"][i % 3],
+    x: 50 + 40 * Math.sin(i * 0.37) * Math.cos(i * 0.011),
+    y: 50 + 40 * Math.cos(i * 0.23),
+    score: (i * 71) % 100, response: 50 + 35 * Math.sin(i * 0.05),
+  }));
+<\/script>
+<div class="plots">
+  <Data value={records} key="id">
+    <section><h3>Brush here</h3>
+      <Plot responsive height={340} axes2d x={{domain: [0, 100]}} y={{domain: [0, 100]}}>
+        <Points x="x" y="y" fill="group" brush select
+          size={where("@any_brushed", where("@brushed", 4.5, 1), 3)} />
+      </Plot>
+    </section>
+    <section><h3>…or here</h3>
+      <Plot responsive height={340} axes2d x={{domain: [0, 100]}} y={{domain: [0, 100]}}>
+        <Points x="score" y="response" fill="group" brush select
+          size={where("@any_selected", where("@selected", 7, 1.5), where("@any_brushed", where("@brushed", 4.5, 1), 3))} />
+      </Plot>
+    </section>
+  </Data>
+</div>`,python:`import hmplot as hm
+
+brushed = hm.where("@any_brushed", hm.where("@brushed", 4.5, 1), 3)
+with hm.Data(records, key="id") as scope:
+    with hm.Plot(axes2d=True, height=340):
+        hm.Points(x="x", y="y", fill="group", brush=True, select=True, size=brushed)
+    with hm.Plot(axes2d=True, height=340):
+        hm.Points(x="score", y="response", fill="group", brush=True, select=True,
+                         size=hm.where("@any_selected", hm.where("@selected", 7, 1.5), brushed))
+scope`},{id:"frame-mark-families",title:"Marks in nested frames",group:"Composition",description:"Area, ErrorBars, Rect, and curved Segments inside a linear child of a log parent, and bars with error bars in an anchored inset that keeps its pixel size while you pan and zoom.",tags:["Frame","Coordinates"],code:`<script>
+  import { Plot, Frame, Area, Rect, Segments, Points, Text } from "hmplot";
+import { ErrorBars } from "hmplot/charts";
+  const t = Array.from({length: 21}, (_, i) => i * 5);
+  const signal = t.map((v) => 45 + 20 * Math.sin(v / 16));
+  const band = { t, signal, lower: signal.map((v) => v - 8), upper: signal.map((v) => v + 8) };
+  const samples = { t: t.filter((_, i) => i % 4 === 2), y: signal.filter((_, i) => i % 4 === 2) };
+  samples.lower = samples.y.map((v) => v - 12); samples.upper = samples.y.map((v) => v + 12);
+  const bars = { x0: [0.5, 2.5, 4.5, 6.5], x1: [1.5, 3.5, 5.5, 7.5], y0: [0, 0, 0, 0], y1: [6, 8.5, 4, 7] };
+<\/script>
+<Plot responsive height={460} axes2d x={{domain: [1, 1000], transform: "log"}} y={{domain: [0, 100]}}>
+  <Frame x={{domain: [0, 100], range: [10, 1000]}} y={{domain: [0, 100], range: [5, 70]}}>
+    <Area x={t} upper={signal} lower={0} fill="#dbe4ee" />
+    <Area x={t} lower={band.lower} upper={band.upper} fill="#547ba2" opacity={0.45} />
+    <ErrorBars x={samples.t} y={samples.y} lower={samples.lower} upper={samples.upper} color="#754331" capSize={5} />
+    <Points x={samples.t} y={samples.y} fill="#754331" size={3.5} />
+    <Rect x0={[40]} x1={[60]} y0={[80]} y1={[95]} fill="#c0504d" opacity={0.7} />
+    <Segments start={[[0, 88], [100, 88]]} end={[[40, 88], [60, 88]]} color="#444444" />
+    <Text position={[[50, 99]]} text={["linear child 40–60"]} size={11} />
+  </Frame>
+  <!-- A child that sets its own domain is linear; it does not inherit the parent's log x scale. -->
+  <Frame placement={{anchor: [3, 84], size: [180, 120]}} x={{domain: [0, 8]}} y={{domain: [0, 10]}}>
+    <Rect x0={bars.x0} x1={bars.x1} y0={bars.y0} y1={bars.y1} fill="#7b9865" />
+    <ErrorBars position={[[1, 6], [3, 8.5], [5, 4], [7, 7]]} lower={[5, 7.5, 3, 6]} upper={[7, 9.5, 5, 8]} color="#333333" capSize={4} />
+  </Frame>
+</Plot>`,python:`import hmplot as hm
+
+with hm.Plot(axes2d=True, height=460, x={"domain": [1, 1000], "transform": "log"}, y={"domain": [0, 100]}) as plot:
+    with hm.Frame(x={"domain": [0, 100], "range": [10, 1000]},
+                  y={"domain": [0, 100], "range": [5, 70]}):
+        hm.Area(x=t, upper=signal, lower=0, fill="#dbe4ee")
+        hm.Area(x=t, lower=lower, upper=upper, fill="#547ba2", opacity=0.45)
+        hm.charts.ErrorBars(x=sample_t, y=sample_y, lower=sample_lower, upper=sample_upper, color="#754331", cap_size=5)
+        hm.Rect(x0=[40], x1=[60], y0=[80], y1=[95], fill="#c0504d", opacity=0.7)
+        hm.Segments(start=[[0, 88], [100, 88]], end=[[40, 88], [60, 88]], color="#444444")
+    # A child that sets its own domain is linear; it does not inherit the parent's log x scale.
+    with hm.Frame(placement={"anchor": [3, 84], "size": [180, 120]},
+                  x={"domain": [0, 8]}, y={"domain": [0, 10]}):
+        hm.Rect(x0=[0.5, 2.5, 4.5, 6.5], x1=[1.5, 3.5, 5.5, 7.5], y0=[0, 0, 0, 0], y1=[6, 8.5, 4, 7], fill="#7b9865")
+plot`},{id:"strip-brushing-shared",title:"One brush, three strips",group:"Composition",description:"Three child frames plot score against different fields. Shift-drag any tick strip: the shared score brush appears on every strip. Drag band ends to resize, the middle to move, scroll to scale, and use arrow keys or Escape.",tags:["Frame","Brush","Interaction"],code:`<script>
+  import { Plot, Frame, Points, Text, where } from "hmplot";
+  const count = 300;
+  // A deterministic pseudo-random sequence, so the gallery renders the same rows every time.
+  const noise = (i, k) => { const v = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return v - Math.floor(v); };
+  const data = {
+    height: Array.from({length: count}, (_, i) => 150 + 50 * noise(i, 1)),
+    weight: Array.from({length: count}, (_, i) => 50 + 50 * noise(i, 2)),
+    age: Array.from({length: count}, (_, i) => 20 + 60 * noise(i, 3)),
+  };
+  data.score = data.height.map((h, i) => Math.min(100, Math.max(0, 0.9 * (h - 150) + 0.5 * (data.weight[i] - 50) + 20 * (noise(i, 4) - 0.5))));
+  const panels = [["height", [150, 200], [10, 36]], ["weight", [50, 100], [42, 68]], ["age", [20, 80], [74, 98]]];
+<\/script>
+<Plot data={data} responsive height={380} x={{domain: [0, 100]}} y={{domain: [0, 100]}}>
+  {#each panels as [field, domain, range]}
+    <Frame x={{domain, range}} y={{domain: [0, 100], range: [12, 90]}}>
+      <Points x={field} y="score" brush={{axis: "y"}} fill="#547ba2" size={where("@any_brushed", where("@brushed", 4.5, 1), 2.5)} />
+      <Text position={[[(domain[0] + domain[1]) / 2, 104]]} text={[field]} size={12} />
+    </Frame>
+  {/each}
+</Plot>`,python:`import hmplot as hm
+
+panels = [("height", [150, 200], [10, 36]), ("weight", [50, 100], [42, 68]), ("age", [20, 80], [74, 98])]
+with hm.Plot(data=data, height=380, x={"domain": [0, 100]}, y={"domain": [0, 100]}) as plot:
+    for field, domain, span in panels:
+        with hm.Frame(x={"domain": domain, "range": span}, y={"domain": [0, 100], "range": [12, 90]}):
+            hm.Points(x=field, y="score", brush={"axis": "y"}, fill="#547ba2",
+                             size=hm.where("@any_brushed", hm.where("@brushed", 4.5, 1), 2.5))
+plot`},{id:"legend-channels",title:"Legend channels",group:"Composition",description:"Colored symbols when one column drives fill and shape, a size ramp for a numeric column, and one legend for a facet grid that hides a species in every cell.",tags:["Legend","Facet","Scales"],code:`<script>
+  import { Plot, Facet, Points, Legend, continuous } from "hmplot";
+  let points = $state();
+  // Deterministic pseudo-random measurements for three species on three islands.
+  const noise = (i, k) => { const v = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return v - Math.floor(v); };
+  const species = ["Adelie", "Gentoo", "Chinstrap"], islands = ["Biscoe", "Dream", "Torgersen"];
+  const rows = Array.from({ length: 180 }, (_, i) => {
+    const s = i % 3;
+    return { species: species[s], island: islands[Math.floor(noise(i, 5) * 3)],
+      bill: 38 + 6 * s + 5 * noise(i, 1), flipper: 185 + 12 * s + 14 * noise(i, 2),
+      mass: 3000 + 900 * s + 1500 * noise(i, 3) };
+  });
+  const data = Object.fromEntries(Object.keys(rows[0]).map((key) => [key, rows.map((row) => row[key])]));
+  const mass = continuous({ domain: [3000, 6300], range: [3, 14] });
+<\/script>
+<Plot data={data} responsive height={380} axes2d>
+  <Points bind:this={points} x="bill" y="flipper" fill="species" shape="species" size="mass" sizeScale={mass} />
+  <Legend for={points} channel="fill" label="Species" position="right" />
+  <Legend for={points} channel="size" label="Body mass (g)" position="right" />
+</Plot>
+<Facet data={data} column="island">
+  <Plot height={220} axes2d>
+    <Points x="bill" y="flipper" fill="species" size="mass" sizeScale={mass} />
+    <Legend channel="fill" label="Species" position="bottom" />
+  </Plot>
+</Facet>`,python:`import hmplot as hm
+
+mass = hm.continuous(domain=[3000, 6300], range=[3, 14])
+with hm.Scene() as scene:
+    with hm.Plot(data=data, height=380, axes2d=True):
+        points = hm.Points(x="bill", y="flipper", fill="species", shape="species",
+                                  size="mass", size_scale=mass)
+        hm.Legend(target=points, channel="fill", label="Species", position="right")
+        hm.Legend(target=points, channel="size", label="Body mass (g)", position="right")
+    with hm.Facet(data=data, column="island"):
+        with hm.Plot(height=220, axes2d=True):
+            hm.Points(x="bill", y="flipper", fill="species", size="mass", size_scale=mass)
+            hm.Legend(channel="fill", label="Species", position="bottom")
+scene`},{id:"rgb-points",title:"RGB colors from data",group:"Composition",description:"Color each point from red, green, and blue columns. Integer data is 0-255 and float data 0-1; RGB colors bypass scales and legends.",tags:["Color","Data"],code:`<script>
+  import { Plot, Points } from "hmplot";
+  // A 40 x 24 grid whose colors come straight from data: red grows left to right,
+  // green bottom to top, and blue is fixed. Integer columns are 0-255.
+  const columns = 40, rows = 24;
+  const cells = Array.from({ length: columns * rows }, (_, i) => [i % columns, Math.floor(i / columns)]);
+  const data = {
+    x: cells.map(([c]) => c), y: cells.map(([, r]) => r),
+    red: Uint8Array.from(cells, ([c]) => Math.round((c / (columns - 1)) * 255)),
+    green: Uint8Array.from(cells, ([, r]) => Math.round((r / (rows - 1)) * 255)),
+    blue: Uint8Array.from(cells, () => 140),
+  };
+<\/script>
+<Plot data={data} responsive height={380} axes2d toneMapping={0}>
+  <Points x="x" y="y" fill={{ r: "red", g: "green", b: "blue" }} shape="square" size={6} />
+</Plot>`,python:`import numpy as np
+import hmplot as hm
+
+columns, rows = 40, 24
+c, r = np.meshgrid(np.arange(columns), np.arange(rows))
+data = {"x": c.ravel(), "y": r.ravel(),
+        "red": (c.ravel() / (columns - 1) * 255).astype(np.uint8),
+        "green": (r.ravel() / (rows - 1) * 255).astype(np.uint8),
+        "blue": np.full(columns * rows, 140, dtype=np.uint8)}
+with hm.Plot(data=data, height=380, axes2d=True, tone_mapping=0) as plot:
+    hm.Points(x="x", y="y", fill=hm.rgb("red", "green", "blue"), shape="square", size=6)
+plot`},{id:"custom-colormap",title:"Custom colormaps",group:"Composition",description:"A diverging colormap from three colors and a positioned ramp that saves its strongest colors for the top of the domain. Legends and exports follow.",tags:["Color","Scales","Legend"],code:`<script>
+  import { Plot, Points, Legend, continuous } from "hmplot";
+  let points = $state(), ranked = $state();
+  const n = 900;
+  const data = {
+    x: Array.from({ length: n }, (_, i) => (i % 30) / 29 * 6 - 3),
+    y: Array.from({ length: n }, (_, i) => Math.floor(i / 30) / 29 * 6 - 3),
+  };
+  data.value = data.x.map((x, i) => Math.sin(x) * Math.cos(data.y[i]));
+  // A diverging map from three colors, interpolated in Lab.
+  const diverging = continuous({ domain: [-1, 1], colormap: ["#2166ac", "#f7f7f7", "#b2182b"] });
+  // Positions squeeze most of the ramp into the top tenth of the domain.
+  const alert = continuous({ domain: [-1, 1], colormap: { colors: ["#e8eef4", "#9ab0c4", "#f2a900", "#d7301f"], positions: [0, 0.8, 0.9, 1] } });
+<\/script>
+<Plot data={data} responsive height={320} axes2d>
+  <Points bind:this={points} x="x" y="y" fill="value" fillScale={diverging} shape="square" size={5} />
+  <Legend for={points} channel="fill" label="Diverging" position="right" />
+</Plot>
+<Plot data={data} responsive height={320} axes2d>
+  <Points bind:this={ranked} x="x" y="y" fill="value" fillScale={alert} shape="square" size={5} />
+  <Legend for={ranked} channel="fill" label="Alert levels" position="right" />
+</Plot>`,python:`import numpy as np
+import hmplot as hm
+
+x, y = np.meshgrid(np.linspace(-3, 3, 30), np.linspace(-3, 3, 30))
+data = {"x": x.ravel(), "y": y.ravel(), "value": (np.sin(x) * np.cos(y)).ravel()}
+diverging = hm.continuous(domain=[-1, 1], colormap=["#2166ac", "#f7f7f7", "#b2182b"])
+alert = hm.continuous(domain=[-1, 1], colormap=hm.colormap(
+    ["#e8eef4", "#9ab0c4", "#f2a900", "#d7301f"], positions=[0, 0.8, 0.9, 1]))
+with hm.Scene() as scene:
+    for scale, label in [(diverging, "Diverging"), (alert, "Alert levels")]:
+        with hm.Plot(data=data, height=320, axes2d=True):
+            points = hm.Points(x="x", y="y", fill="value", fill_scale=scale, shape="square", size=5)
+            hm.Legend(target=points, channel="fill", label=label, position="right")
+scene`},{id:"custom-shapes",title:"Custom point shapes",group:"Composition",description:"Register polygons as point shapes and map a column to them with shape and shapeScale; the legend and SVG export draw the same polygons.",tags:["Shapes","Legend","Scales"],code:`<script>
+  import { Plot, Points, Legend, categorical, registerShape } from "hmplot";
+  let points = $state();
+  // Custom polygons in the unit square [-1, 1], y up: vertex lists or M/L/Z paths.
+  registerShape("kite", [[0, 1], [0.7, 0.2], [0, -1], [-0.7, 0.2]]);
+  registerShape("bolt", "M0.2 1 L-0.6 -0.1 L-0.05 -0.1 L-0.2 -1 L0.6 0.1 L0.05 0.1 Z");
+  registerShape("house", [[0, 1], [0.9, 0.2], [0.9, -1], [-0.9, -1], [-0.9, 0.2]]);
+  const noise = (i, k) => { const v = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return v - Math.floor(v); };
+  const kinds = ["Station", "Buoy", "Shelter"], regions = ["North", "Coast", "Valley"];
+  const rows = Array.from({ length: 90 }, (_, i) => ({ kind: kinds[i % 3], region: regions[Math.floor(noise(i, 3) * 3)],
+    x: 100 * noise(i, 1), y: 100 * noise(i, 2) }));
+  const data = Object.fromEntries(Object.keys(rows[0]).map((key) => [key, rows.map((row) => row[key])]));
+  const symbols = categorical({ domain: kinds, range: ["kite", "bolt", "house"] });
+<\/script>
+<Plot data={data} responsive height={420} axes2d x={{ domain: [0, 100] }} y={{ domain: [0, 100] }}>
+  <Points bind:this={points} x="x" y="y" shape="kind" shapeScale={symbols} fill="region" size={9} />
+  <Legend for={points} channel="shape" label="Kind" position="right" />
+  <Legend for={points} channel="fill" label="Region" position="right" />
+</Plot>`,python:`import math
+import hmplot as hm
+
+hm.register_shape("kite", [[0, 1], [0.7, 0.2], [0, -1], [-0.7, 0.2]])
+hm.register_shape("bolt", "M0.2 1 L-0.6 -0.1 L-0.05 -0.1 L-0.2 -1 L0.6 0.1 L0.05 0.1 Z")
+hm.register_shape("house", [[0, 1], [0.9, 0.2], [0.9, -1], [-0.9, -1], [-0.9, 0.2]])
+
+def noise(i, k):
+    v = math.sin(i * 12.9898 + k * 78.233) * 43758.5453
+    return v - math.floor(v)
+
+kinds, regions = ["Station", "Buoy", "Shelter"], ["North", "Coast", "Valley"]
+data = {"kind": [kinds[i % 3] for i in range(90)], "region": [regions[int(noise(i, 3) * 3)] for i in range(90)],
+        "x": [100 * noise(i, 1) for i in range(90)], "y": [100 * noise(i, 2) for i in range(90)]}
+symbols = hm.categorical(domain=kinds, range=["kite", "bolt", "house"])
+with hm.Plot(data=data, height=420, axes2d=True, x={"domain": [0, 100]}, y={"domain": [0, 100]}) as plot:
+    points = hm.Points(x="x", y="y", shape="kind", shape_scale=symbols, fill="region", size=9)
+    hm.Legend(target=points, channel="shape", label="Kind", position="right")
+    hm.Legend(target=points, channel="fill", label="Region", position="right")
+plot`},{id:"mona-lisa-histogram",title:"Mona Lisa histogram",group:"Composition",description:"Every pixel of the painting is a data-space square with RGB fill, and an RGB histogram sits over its lower part, its three channels screen-blended so overlaps add up to white as in the D3 notebook. Brush a region and the histogram counts only those pixels. After the D3 notebook of the same name.",tags:["RGB","Brush","Bin","Frame"],code:`<script>
+  import { onMount } from "svelte";
+  import { Data, Plot, Frame, Points, Rect } from "hmplot";
+import { Bin } from "hmplot/stats";
+  let { onready = () => {} } = $props();
+  let plot = $state(), pixels = $state.raw(), size = $state([250, 373]), error = $state("");
+  const abort = new AbortController();
+  const width = 420, height = $derived(Math.round(width * size[1] / size[0]));
+  // 64 fixed bins over 0-1 keep the axis still while the brush changes.
+  const edges = Array.from({ length: 65 }, (_, i) => i / 64);
+  const channels = [["r", "#e0301e"], ["g", "#1a9e3f"], ["b", "#2360d8"]];
+
+  onMount(() => {
+    (async () => {
+      const response = await fetch("/examples/mona-lisa/mona-lisa.jpg", { signal: abort.signal });
+      if (!response.ok) throw Error(\`Could not load the image (\${response.status}).\`);
+      const bitmap = await createImageBitmap(await response.blob());
+      const { width: w, height: h } = bitmap;
+      // One-time decoding: one row per pixel, with its position and 0-1 channel values.
+      const context = new OffscreenCanvas(w, h).getContext("2d", { willReadFrequently: true });
+      context.drawImage(bitmap, 0, 0);
+      bitmap.close();
+      const data = context.getImageData(0, 0, w, h).data, n = w * h;
+      const table = { x: new Float32Array(n), y: new Float32Array(n), r: new Float32Array(n), g: new Float32Array(n), b: new Float32Array(n) };
+      for (let i = 0; i < n; i++) {
+        table.x[i] = i % w;
+        table.y[i] = h - 1 - Math.floor(i / w); // image rows run top-down
+        table.r[i] = data[i * 4] / 255; table.g[i] = data[i * 4 + 1] / 255; table.b[i] = data[i * 4 + 2] / 255;
+      }
+      abort.signal.throwIfAborted();
+      size = [w, h];
+      pixels = table;
+    })().catch((e) => { if (!abort.signal.aborted) error = e.message; });
+    return () => abort.abort();
+  });
+  $effect(() => onready(plot));
+<\/script>
+
+{#if error}<p role="alert">{error}</p>{/if}
+{#if pixels}
+  <Data value={pixels}>
+    <Plot bind:this={plot} {width} {height} toneMapping={0} x={{ domain: [0, size[0]] }} y={{ domain: [0, size[1]] }} z={{ domain: [-1, 1] }}>
+      <!-- Size-1 squares in data units tile like pixels at any zoom. -->
+      <Points x="x" y="y" fill={{ r: "r", g: "g", b: "b" }} shape="square" size={1.6} sizeUnits="data" brush respond={false} />
+      <Frame x={{ domain: [0, 1], range: [0, size[0]] }} y={{ range: [0, size[1] * 0.35] }}>
+        <!-- weight="@brushed" counts brushed pixels (every pixel with no brush) without
+             refiltering, so brushing reuses the same compiled GPU kernels. -->
+        {#each channels as [column, color]}
+          <Bin x={column} bins={edges} weight="@brushed">
+            <Rect x0="x0" x1="x1" y0={0} y1="count" fill={color} blend="screen" />
+          </Bin>
+        {/each}
+      </Frame>
+    </Plot>
+  </Data>
+{/if}`,python:`import numpy as np
+from PIL import Image as PILImage   # pip install pillow
+import hmplot as hm
+
+image = np.asarray(PILImage.open("mona-lisa.jpg").convert("RGB"))   # (373, 250, 3) uint8
+h, w, _ = image.shape
+rows, cols = np.mgrid[0:h, 0:w]
+pixels = {"x": cols.ravel(), "y": (h - 1 - rows).ravel(),
+          "r": image[..., 0].ravel() / 255, "g": image[..., 1].ravel() / 255, "b": image[..., 2].ravel() / 255}
+edges = [i / 64 for i in range(65)]
+
+with hm.Data(pixels) as scope:
+    with hm.Plot(width=420, height=round(420 * h / w), tone_mapping=0,
+                 x={"domain": [0, w]}, y={"domain": [0, h]}):
+        # Size-1 squares in data units tile like pixels at any zoom.
+        hm.Points(x="x", y="y", fill=hm.rgb("r", "g", "b"), shape="square", size=1.6,
+                         size_units="data", brush=True, respond=False)
+        with hm.Frame(x={"domain": [0, 1], "range": [0, w]}, y={"range": [0, h * 0.35]}):
+            for column, color in [("r", "#e0301e"), ("g", "#1a9e3f"), ("b", "#2360d8")]:
+                with hm.stats.Bin(x=column, bins=edges, weight="@brushed"):
+                    hm.Rect(x0="x0", x1="x1", y0=0, y1="count", fill=color, blend="screen")
+scope`},{id:"lorenz-attractor",title:"Lorenz attractor",group:"Combinations",description:"Sixty thousand Runge-Kutta steps of the Lorenz system trace its butterfly; on the GPU every point then moves on at the Rayleigh number you drag, collapsing onto two fixed points below about 24.7. A glowing 3D orbit with sparks that run along it in time order (evaluated on the GPU from @time), linked to the butterfly projection: brush a region and the 3D view keeps only those points lit while a speed histogram counts them.",tags:["3D","Animation","Brush","Bin","Blend"],code:`<script>
+  import { untrack } from "svelte";
+  import { Theme, themes, Data, Plot, Frame, Points, Rect, continuous, subtract, multiply, divide, cos, exp } from "hmplot";
+import { Bin } from "hmplot/stats";
+  let { onready = () => {} } = $props();
+  let plot = $state();
+  $effect(() => { if (plot) untrack(() => onready(plot)); });
+
+  // rho (the Rayleigh number) sets the regime: below about 24.7 every orbit spirals into one of
+  // two fixed points; above it the orbit never settles and traces the butterfly.
+  let rho = $state(28);
+  const steps = 60000, dt = 0.003;
+  // Fourth-order Runge-Kutta. 60,000 steps take a few milliseconds, so the slider integrates
+  // live, and the row count never changes, so every GPU kernel is reused.
+  // Additive blending skips depth writes, so every overlapping point is shaded and blended.
+  // Once an orbit settles onto a fixed point, thousands of steps land on the same pixels and
+  // the frame rate collapses. A step that has moved less than \`minStep\` since the last drawn
+  // one gets a NaN position (drawn as nothing); its speed still counts in the histogram.
+  const minStep = 0.05;
+  function integrate(rho) {
+    const f = (x, y, z) => [10 * (y - x), x * (rho - z) - y, x * y - (8 / 3) * z];
+    const table = { x: new Float32Array(steps), y: new Float32Array(steps), z: new Float32Array(steps),
+      speed: new Float32Array(steps), t: new Float32Array(steps) };
+    let x = 1, y = 1, z = 20, px = Infinity, py = 0, pz = 0;
+    for (let i = 0; i < steps; i++) {
+      const a = f(x, y, z), b = f(x + dt / 2 * a[0], y + dt / 2 * a[1], z + dt / 2 * a[2]);
+      const c = f(x + dt / 2 * b[0], y + dt / 2 * b[1], z + dt / 2 * b[2]);
+      const d = f(x + dt * c[0], y + dt * c[1], z + dt * c[2]);
+      x += dt / 6 * (a[0] + 2 * b[0] + 2 * c[0] + d[0]);
+      y += dt / 6 * (a[1] + 2 * b[1] + 2 * c[1] + d[1]);
+      z += dt / 6 * (a[2] + 2 * b[2] + 2 * c[2] + d[2]);
+      const v = f(x, y, z);
+      if (Math.hypot(x - px, y - py, z - pz) >= minStep) {
+        table.x[i] = x; table.y[i] = y; table.z[i] = z;
+        px = x; py = y; pz = z;
+      } else table.x[i] = table.y[i] = table.z[i] = NaN;
+      table.speed[i] = Math.hypot(v[0], v[1], v[2]);
+      table.t[i] = i / (steps - 1);
+    }
+    return table;
+  }
+  const orbit = $derived(integrate(rho));
+
+  // One ramp for every view: slow (deep violet) to fast (white-hot). Speeds past 320 clamp.
+  const glow = continuous({ domain: [0, 320],
+    colormap: ["#3a2a80", "#7a36b4", "#e8457a", "#ffb347", "#fff6d8"] });
+  const edges = Array.from({ length: 57 }, (_, i) => i * 10);
+
+  // Forty sparks run along the orbit in time order: exp(k (cos(phase) - 1)) is a narrow bump
+  // on every cycle of the phase, and @time moves the phase. The GPU evaluates it every frame;
+  // the data never changes.
+  const phase = multiply(6.283185, subtract(multiply(40, "t"), divide("@time", 2500)));
+  const spark = exp(multiply(400, subtract(cos(phase), 1)));
+  // Additive blending adds nothing for black, so the spark layer fades from black (invisible
+  // between sparks) to white-hot at a peak.
+  const sparkRamp = continuous({ domain: [0, 1], colormap: ["#000000", "#ff9d3c", "#fff8e8"] });
+<\/script>
+
+<p>Sixty thousand steps of the Lorenz system, integrated live. Drag the 3D view to orbit it; sparks travel along the trajectory in time order. Shift-drag across the butterfly projection to brush a region: the 3D orbit keeps only those passes lit, and the histogram shows how fast the system moves there. Slide <em>ρ</em> below about 24.7 and the chaos collapses into a spiral toward a fixed point.</p>
+<label class="control">ρ = {rho.toFixed(1)}
+  <input type="range" min="12" max="35" step="0.1" bind:value={rho} aria-label="Rayleigh number rho" /></label>
+<Theme value={themes.dark}>
+  <Data value={orbit}>
+    <div class="layout">
+      <Plot bind:this={plot} type="3d" responsive height={500} antialias="off" cameraPosition={[-70, 45, 160]}>
+        <!-- The Lorenz z axis points up, so it maps to the plot's vertical y. -->
+        <Frame x={{ domain: [-30, 30], label: "x" }} y={{ domain: [0, 65], label: "z" }}
+          z={{ domain: [-35, 35], label: "y" }}>
+          <!-- Low opacity: seen edge-on, a wing stacks dozens of points per pixel, and additive
+               blending would saturate them to white. -->
+          <Points x="x" y="z" z="y" fill="speed" fillScale={glow} size={1.25} opacity={0.45}
+            blend="additive" respond="brushed" label="Orbit" legend={false} />
+          <Points x="x" y="z" z="y" fill={spark} fillScale={sparkRamp} size={2.5} blend="additive"
+            respond={false} label="Sparks" legend={false} />
+        </Frame>
+      </Plot>
+      <div class="side">
+        <Plot responsive height={280} axes2d antialias="off" x={{ domain: [-30, 30], label: "x" }}
+          y={{ domain: [0, 65], label: "z" }}>
+          <Points x="x" y="z" fill="speed" fillScale={glow} size={0.75} blend="additive"
+            brush respond="brushed" label="Projection" legend={false} />
+        </Plot>
+        <Plot responsive height={210} axes2d antialias="off" x={{ domain: [0, 560], label: "speed" }}
+          y={{ label: "steps" }}>
+          <!-- The dim bars count every step; the bright ones only the brushed steps (all of
+               them when nothing is brushed). weight="@brushed" reuses the same kernels. -->
+          <Bin x="speed" bins={edges}>
+            <Rect x0="x0" x1="x1" y0={0} y1="count" fill="#3b3363" legend={false} />
+          </Bin>
+          <Bin x="speed" bins={edges} weight="@brushed">
+            <Rect x0="x0" x1="x1" y0={0} y1="count" fill="#ffb347" legend={false} />
+          </Bin>
+        </Plot>
+      </div>
+    </div>
+  </Data>
+</Theme>
+
+<style>
+  p { font-size: 14px; line-height: 1.5; }
+  .control { display: flex; gap: 10px; align-items: center; margin: 8px 0 12px; font-size: 14px; }
+  .control input { width: 220px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+  .side { display: grid; gap: 12px; align-content: start; }
+  @media (max-width: 760px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+</style>
+`},{id:"ten-million-stars",title:"Ten million stars, filtered live",group:"Combinations",description:"Ten million synthetic stars generated by Data(rows) on the GPU, age-filtered live, with a fixed 100,000-star H–R sample that brushes the whole galaxy. Square points and additive starlight.",tags:["3D","Large data","Data","Calculate","Filter","Brush","Blend"],code:`<script>
+  import { untrack, onMount } from "svelte";
+  import { InputContext, Slider, Theme, themes, Data, Calculate, Filter, Sample, Plot, Points, continuous,
+    col, input, random, logical_and, greater_equal, less_equal, multiply, add, subtract, divide, where, less, greater,
+    power, square, sqrt, minimum, maximum, clip, floor, exp, log, sin, cos } from "hmplot";
+  import { galaxyColumns, galaxyIntensity } from "./galaxy.js";
+  let { onready = () => {} } = $props();
+  let plot = $state(), hr = $state();
+  $effect(() => { if (plot) untrack(() => onready(plot)); });
+
+  const STARS = 10_000_000;
+  const columns = galaxyColumns({ random, multiply, add, subtract, divide, where, less, greater,
+    greater_equal, power, square, sqrt, minimum, maximum, clip, floor, exp, log, sin, cos });
+  const intensity = galaxyIntensity({ where, greater, clip, multiply, power });
+  // Approximate blackbody colors, shared by both views; sunlight is warm white.
+  const temperatures = continuous({ domain: [2400, 40000], colormap: {
+    colors: ["#ff9955", "#ffc184", "#ffe4c4", "#fff4ea", "#e4ebff", "#a9c5ff"],
+    positions: [0, 0.029, 0.0585, 0.096, 0.202, 1], space: "srgb",
+  } });
+  const kept = logical_and(greater_equal(col("age"), input("youngest")), less_equal(col("age"), input("oldest")));
+  onMount(() => {
+    if (import.meta.env.DEV) window.__galaxyExample = { get plot() { return plot; }, get hr() { return hr; } };
+    return () => { if (import.meta.env.DEV) delete window.__galaxyExample; };
+  });
+<\/script>
+
+<InputContext>
+<div class="scene">
+  <p>Ten million synthetic stars in a 3D spiral galaxy with an older central bulge. Most are faint red dwarfs; rare hot stars and red giants supply much of the light. Color follows temperature and brightness follows luminosity, compressed to keep faint stars visible. This is an illustrative population, not an observed catalog. Drag the galaxy to orbit; scroll to zoom. The Hertzsprung–Russell (H–R) diagram shows a fixed sample of 100,000 stars. Shift-drag a box to highlight all matching stars in the galaxy, including those outside the sample; double-click inside the box to clear. Hot stars are on the left, luminous stars at the top. The age sliders filter both plots.</p>
+  <div class="controls">
+    <Slider name="youngest" label="Youngest (billion years)" min={0} max={10} step={0.05} value={0} />
+    <Slider name="oldest" label="Oldest (billion years)" min={0} max={10} step={0.05} value={10} />
+  </div>
+    <Theme value={themes.dark}>
+      <Data rows={STARS}>
+        <Calculate {columns}>
+        <Calculate columns={{ intensity }}>
+        <div class="row">
+          <div class="main">
+            <Filter where={kept}>
+              <Plot bind:this={plot} type="3d" height={500} antialias="off" toneMapping={4} cameraPosition={[105, 95, 165]}
+                x={{ domain: [-10, 10] }} y={{ domain: [-10, 10] }} z={{ domain: [-10, 10] }}>
+                <Points x="x" y="y" z="z" fill="temperature" fillScale={temperatures} shape="square"
+                  size={0.7} opacity="intensity" blend="additive" respond="brushed" selectionOpacity={0.015} legend={false} />
+              </Plot>
+            </Filter>
+          </div>
+          <div class="side">
+            <!-- Sample the source once; age changes filter these same rows without resampling. -->
+            <Sample size={100_000} seed={42}>
+              <Filter where={kept}>
+                <Plot bind:this={hr} height={500} axes2d antialias="off"
+                  x={{ domain: [2000, 40000], transform: "log", invert: true, label: "temperature (K)", format: "~s" }}
+                  y={{ domain: [0.00001, 100000], transform: "log", label: "luminosity (Sun = 1)", format: "~g" }}>
+                  <Points x="temperature" y="luminosity" fill="temperature" fillScale={temperatures} shape="square"
+                    size={1.2} opacity={0.4} brush respond="brushed" selectionOpacity={0.08} legend={false} />
+                </Plot>
+              </Filter>
+            </Sample>
+          </div>
+        </div>
+      </Calculate>
+      </Calculate>
+      </Data>
+    </Theme>
+</div>
+</InputContext>
+
+<style>
+  /* Python's Scene(gap=12) and Row(wrap=True, min_width=0); both views share one generated table. */
+  .scene { display: flex; flex-direction: column; gap: 12px; }
+  .scene p { margin: 0; font-size: 14px; line-height: 1.5; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
+  /* Three fifths and two fifths, 12 px apart; one column on a narrow screen. */
+  .row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .main { flex: 3 1 429px; min-width: 0; }
+  .side { flex: 2 1 286px; min-width: 0; }
+</style>
+`,python:`import math
+import hmplot as hm
+
+# All ten million rows are generated on the browser's GPU. Python sends this scene's
+# configuration and expressions, not NumPy columns or a downloaded stellar catalog.
+STARS = 10_000_000
+c = hm.col
+born = hm.random(seed=7) * 10
+bulge = hm.random(seed=8) < 0.14
+age = hm.where(bulge, born * 0.3 + 7, born)
+arm = hm.floor(hm.random(seed=9) * 2) * math.pi
+radius = (hm.random(seed=10, distribution="exponential") + hm.random(seed=11, distribution="exponential")) * 1.8
+spread = hm.square(age * 0.1) * 1.2 + 0.15 + hm.exp(hm.square(radius) * -0.5) * 1.5
+angle = hm.log(radius + 0.5) * 2.6 + arm + hm.random(seed=12, distribution="normal") * spread
+r = radius * (hm.random(seed=13, distribution="normal") * 0.07 + 1)
+x = hm.where(bulge, hm.random(seed=12, distribution="normal") * 0.65 - hm.random(seed=13, distribution="normal") * 0.2, r * hm.cos(angle))
+z = hm.where(bulge, hm.random(seed=13, distribution="normal") * 0.6 + hm.random(seed=12, distribution="normal") * 0.2, r * hm.sin(angle))
+y = hm.random(seed=14, distribution="normal") * hm.where(bulge, 0.4, age * 0.025 + 0.055)
+
+# Kroupa birth masses: dN/dM ~ M^-1.3 / M^-2.3, continuous at 0.5 solar masses.
+# https://arxiv.org/abs/astro-ph/0011328
+# Lifetimes, giant tracks and white-dwarf cooling are illustrative approximations.
+low = (0.5 ** -0.3 - 0.08 ** -0.3) / -0.3
+high = 0.5 * (30 ** -1.3 - 0.5 ** -1.3) / -1.3
+p = low / (low + high)
+small = (hm.clip(hm.random(seed=15) / p, 0, 1) * (0.5 ** -0.3 - 0.08 ** -0.3) + 0.08 ** -0.3) ** (-1 / 0.3)
+large = (hm.clip((hm.random(seed=15) - p) / (1 - p), 0, 1) * (30 ** -1.3 - 0.5 ** -1.3) + 0.5 ** -1.3) ** (-1 / 1.3)
+mass = hm.where(hm.random(seed=15) < p, small, large)
+lifetime = mass ** -2.5 * 10
+phase = age / lifetime
+giant = hm.clip((phase - 1) / 0.12, 0, 1)
+main_t = hm.minimum(hm.where(mass < 1, mass ** 0.35, mass ** 0.55) * 5772, 40000)
+main_l = hm.where(mass < 0.43, mass ** 2.3 * 0.23, mass ** 3.5)
+giant_t = hm.sqrt(giant) * -1800 + 4900
+giant_l = 10 ** (giant * 2.4 + 1.2)
+cooling = hm.maximum(age - lifetime * 1.12, 0)
+dwarf_t = (cooling * 6 + 1) ** -0.35 * 26000
+dwarf_l = (dwarf_t / 5772) ** 4 * 0.012 ** 2
+remnant_l = hm.where(mass >= 8, 0, dwarf_l)
+temperature = hm.where(phase < 1, main_t, hm.where(phase < 1.12, giant_t, dwarf_t))
+luminosity = hm.where(phase < 1, main_l, hm.where(phase < 1.12, giant_l, remnant_l)) * 10 ** (hm.random(seed=16, distribution="normal") * 0.08)
+intensity = hm.where(c.luminosity > 0, hm.clip(c.luminosity ** 0.3 * 0.012, 0.001, 0.25), 0)
+columns = dict(x=x, y=y, z=z, age=age, temperature=temperature, luminosity=luminosity)
+
+# Approximate blackbody colors, shared by both views; sunlight is warm white.
+temperatures = hm.continuous(domain=[2400, 40000], colormap={
+    "colors": ["#ff9955", "#ffc184", "#ffe4c4", "#fff4ea", "#e4ebff", "#a9c5ff"],
+    "positions": [0, 0.029, 0.0585, 0.096, 0.202, 1], "space": "srgb",
+})
+kept = (c.age >= hm.input.youngest) & (c.age <= hm.input.oldest)
+
+with hm.Scene(gap=12) as scene:
+    hm.Markdown("Ten million synthetic stars in a 3D spiral galaxy with an older central bulge. Most are faint "
+                "red dwarfs; rare hot stars and red giants supply much of the light. Color follows temperature "
+                "and brightness follows luminosity, compressed to keep faint stars visible. This is an "
+                "illustrative population, not an observed catalog. Drag the galaxy to orbit; scroll to zoom. "
+                "The Hertzsprung–Russell (H–R) diagram shows a fixed sample of 100,000 stars. Shift-drag a box "
+                "to highlight all matching stars in the galaxy, including those outside the sample; "
+                "double-click inside the box to clear. Hot stars are on the left, luminous stars at the top. "
+                "The age sliders filter both plots.")
+    with hm.Row(wrap=True, min_width=0):
+        hm.Slider(name="youngest", label="Youngest (billion years)", min=0, max=10, step=0.05, value=0)
+        hm.Slider(name="oldest", label="Oldest (billion years)", min=0, max=10, step=0.05, value=10)
+    with hm.Theme(value=hm.themes.dark):
+        with hm.Data(rows=STARS):
+            with hm.Calculate(columns=columns):
+                with hm.Calculate(columns={"intensity": intensity}):
+                    with hm.Row(widths=[3, 2], wrap=True, min_width=286, gap=12):
+                        with hm.Filter(where=kept):
+                            with hm.Plot(type="3d", height=500, antialias="off", tone_mapping=4, camera_position=[105, 95, 165],
+                                         x={"domain": [-10, 10]}, y={"domain": [-10, 10]}, z={"domain": [-10, 10]}):
+                                # Additive blending already disables depth writes in the beauty pass.
+                                hm.Points(x="x", y="y", z="z", fill="temperature", fill_scale=temperatures, shape="square",
+                                          size=0.7, opacity="intensity", blend="additive", respond="brushed",
+                                          selection_opacity=0.015, legend=False)
+                        # Sample the source once; age changes filter these same rows without resampling.
+                        with hm.Sample(size=100_000, seed=42):
+                            with hm.Filter(where=kept):
+                                with hm.Plot(height=500, axes2d=True, antialias="off",
+                                             x={"domain": [2000, 40000], "transform": "log", "invert": True,
+                                                "label": "temperature (K)", "format": "~s"},
+                                             y={"domain": [0.00001, 100000], "transform": "log",
+                                                "label": "luminosity (Sun = 1)", "format": "~g"}):
+                                    hm.Points(x="temperature", y="luminosity", fill="temperature", fill_scale=temperatures,
+                                              shape="square", size=1.2, opacity=0.4, brush=True, respond="brushed",
+                                              selection_opacity=0.08, legend=False)
+scene
+`},{id:"double-gyre",title:"Mixing in a double gyre",group:"Combinations",description:"45,000 particles ride the double gyre, a standard model of mixing in ocean flows, stepped on the GPU by Simulate at the display's rate. Each is colored by where it started, and the wobble of the eddies' boundary folds the two into each other; a Shift-drag box drops dye that the particles carry downstream in thin filaments (the brush feeds the simulation's state). A slider sets the wobble: at 0 the eddies never mix.",tags:["Simulate","Brush","Animation","Inputs"],code:`<Simulate initial={{ x: "x", y: "y", dye: 0 }} {update} reset={input.reset}>
+  <Plot height={420}>
+    <Points x="x" y="y" fill={color} brush respond={false} />
+  </Plot>
+</Simulate>`},{id:"globe-tiles",title:"A globe with streamed map tiles",group:"Maps",description:"An orthographic globe whose basemap streams in as you turn and zoom it: OpenStreetMap vector tiles from VersaTiles, loaded at the zoom the view needs, from the whole planet down to a city's streets, with their credit in the corner. Every magnitude 4.5+ earthquake of 2024 (USGS) sits on top, sized by magnitude and colored by depth.",tags:["VectorTile","Globe","Live","Real data"],code:`<Plot data={quakes} coordinates="spherical" projection="orthographic">
+  <VectorTile tile={[2, 3, 1]} />
+  <Points x="lon" y="lat" size="mag" fill="depth" />
+</Plot>`},{id:"earthquakes",title:"Earthquakes beneath the globe",group:"Maps",description:"Every earthquake of magnitude 4.5+ in 2024 (6,397 events, USGS) placed at its true depth inside a see-through globe, where deep quakes trace subducting slabs; a slider exaggerates the depths. Brush a region on the map and a period on the timeline; the brushes combine, the globe keeps the matching quakes lit, and a log-scale histogram shows the Gutenberg–Richter law.",tags:["Real data","Globe","3D","Brush","Bin"],code:`<script>
+  import { onMount, untrack } from "svelte";
+  import { Theme, themes, Data, Plot, GeoJSON, Points, Rect, continuous } from "hmplot";
+import { Bin } from "hmplot/stats";
+  import { loadCountries } from "./load.js";
+  let { onready = () => {} } = $props();
+  let plot = $state(), quakes = $state.raw(), countries = $state.raw(), error = $state("");
+  // Depths are exaggerated so the slabs show: at 4x, a 700 km deep quake sits 44% of the way
+  // to the center instead of 11%.
+  let exaggeration = $state(4);
+  $effect(() => { if (plot) untrack(() => onready(plot)); });
+
+  onMount(() => {
+    const abort = new AbortController();
+    const csv = fetch("/data/earthquakes/usgs-m45-2015-2024.csv", { signal: abort.signal })
+      .then((r) => { if (!r.ok) throw Error(\`Could not load the earthquake catalog (\${r.status}).\`); return r.text(); });
+    Promise.all([csv, loadCountries(abort.signal)]).then(([text, geo]) => {
+      // year, lat, lon, depth (km), mag: one row per earthquake, sorted by time.
+      const lines = text.trim().split("\\n").slice(1), n = lines.length;
+      const table = { year: new Float32Array(n), lat: new Float32Array(n), lon: new Float32Array(n),
+        depth: new Float32Array(n), mag: new Float32Array(n), radius: new Float32Array(n) };
+      lines.forEach((line, i) => {
+        const [year, lat, lon, depth, mag] = line.split(",").map(Number);
+        table.year[i] = year; table.lat[i] = lat; table.lon[i] = lon; table.depth[i] = depth; table.mag[i] = mag;
+        // Spherical radius is baseRadius + radialScale * offset: depth as a fraction of Earth's radius.
+        table.radius[i] = -depth / 6371;
+      });
+      quakes = table;
+      countries = geo;
+    }).catch((e) => { if (!abort.signal.aborted) error = e.message; });
+    return () => abort.abort();
+  });
+
+  // Shallow quakes are hot yellow; the deepest, 700 km down in sinking slabs, are violet.
+  const depthColors = continuous({ domain: [0, 700], colormap: ["#ffe066", "#ff7b39", "#e0245e", "#8e2de2", "#4361ee"] });
+  const magnitudeEdges = Array.from({ length: 41 }, (_, i) => +(4.5 + i * 0.1).toFixed(1));
+<\/script>
+
+<p>Every magnitude 4.5+ earthquake from 2015 to 2024 (72,956 of them, from the USGS catalog), placed at its true depth inside a see-through Earth. Orbit the globe and look under the western Pacific: the deep quakes trace slabs of ocean floor sinking into the mantle. Shift-drag on the map or the timeline to brush; the brushes combine, the globe keeps only the matching quakes lit, and the histogram counts them. On its log scale, counts fall on the Gutenberg–Richter line: every step of one magnitude is about ten times rarer.</p>
+{#if error}<p role="alert">{error}</p>{:else if !quakes}<p>Loading the earthquake catalog…</p>{:else}
+  <label class="control">Depth exaggeration ×{exaggeration.toFixed(1)}
+    <input type="range" min="1" max="6" step="0.1" bind:value={exaggeration} aria-label="Depth exaggeration" /></label>
+  <Theme value={themes.dark}>
+    <Data value={quakes}>
+      <div class="layout">
+        <Plot bind:this={plot} coordinates="spherical" type="3d-y-up" responsive height={560}
+          globeBackground={false} radialScale={exaggeration} cameraPosition={[-150, 60, 90]}>
+          <GeoJSON fill={null} data={countries} color="#5b6b82" width={1} />
+          <Points x="lon" y="lat" z="radius" fill="depth" fillScale={depthColors} size={1.5}
+            respond="brushed" label="Earthquakes" legend={false} />
+        </Plot>
+        <div class="side">
+          <Plot responsive height={230} axes2d x={{ domain: [-180, 180], label: "longitude" }}
+            y={{ domain: [-90, 90], label: "latitude" }}>
+            <Points x="lon" y="lat" fill="depth" fillScale={depthColors} size={1}
+              brush respond="brushed" label="Map" legend={false} />
+          </Plot>
+          <Plot responsive height={170} axes2d x={{ domain: [2015, 2025], label: "year" }}
+            y={{ domain: [4.5, 8.5], label: "magnitude" }}>
+            <Points x="year" y="mag" fill="depth" fillScale={depthColors} size={1}
+              brush respond="brushed" label="Timeline" legend={false} />
+          </Plot>
+          <Plot responsive height={170} axes2d x={{ domain: [4.5, 8.5], label: "magnitude" }}
+            y={{ domain: [0.8, 30000], transform: "log", label: "earthquakes" }}>
+            <!-- Dim: every quake. Bright: the brushed ones (all of them with no brush). -->
+            <Bin x="mag" bins={magnitudeEdges}>
+              <Rect x0="x0" x1="x1" y0={0.8} y1="count" fill="#3b3363" legend={false} />
+            </Bin>
+            <Bin x="mag" bins={magnitudeEdges} weight="@brushed">
+              <Rect x0="x0" x1="x1" y0={0.8} y1="count" fill="#ff7b39" legend={false} />
+            </Bin>
+          </Plot>
+        </div>
+      </div>
+    </Data>
+  </Theme>
+{/if}
+<small>Data: U.S. Geological Survey earthquake catalog (public domain). Borders: Natural Earth (public domain).</small>
+
+<style>
+  p { font-size: 14px; line-height: 1.5; }
+  .control { display: flex; gap: 10px; align-items: center; margin: 8px 0 12px; font-size: 14px; }
+  .control input { width: 200px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 12px; }
+  .side { display: grid; gap: 12px; align-content: start; }
+  @media (max-width: 760px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+</style>
+`},{id:"parquet-earthquakes",title:"Earthquakes from a Parquet file",group:"Maps",description:"A Provider reads three of a Parquet file's five columns (ten years of USGS earthquakes, magnitude 4.5+) with HTTP range requests; the other two are never downloaded. Python reads the same columns with hm.Table.from_parquet.",tags:["Provider","Parquet","Real data"],code:`<script>
+  import { Provider, Plot, Points, continuous } from "hmplot";
+  const magnitudeColors = continuous({ domain: [4.5, 8], colormap: ["#ffe066", "#e0245e", "#4361ee"] });
+<\/script>
+<!-- Only lon, lat and mag are read from the file, by HTTP range requests. -->
+<Provider url="/data/earthquakes/usgs-m45-2015-2024.parquet" format="parquet" columns={["lon", "lat", "mag"]}>
+  <Plot height={360} axes2d x={{ domain: [-180, 180] }} y={{ domain: [-90, 90] }}>
+    <Points x="lon" y="lat" fill="mag" fillScale={magnitudeColors} size={1} />
+  </Plot>
+</Provider>`,python:`import hmplot as hm
+
+# pip install "hmplot[arrow]". Python reads only the named columns; the browser gets them
+# as binary columns.
+quakes = hm.Table.from_parquet("usgs-m45-2015-2024.parquet", columns=["lon", "lat", "mag"])
+colors = hm.continuous(domain=[4.5, 8], colormap=["#ffe066", "#e0245e", "#4361ee"])
+with hm.Plot(data=quakes, height=360, axes2d=True, x={"domain": [-180, 180]}, y={"domain": [-90, 90]}) as plot:
+    hm.Points(x="lon", y="lat", fill="mag", fill_scale=colors, size=1)
+plot`},{id:"join-tables",title:"Joining two tables",group:"Interaction",description:"Flights name their origin airport by code; Join adds each airport's region from a second table, so the flights are colored, grouped on an axis and brushed by it.",tags:["Join","Data","Brush"],code:`<script>
+  import { Data, Join, Plot, Points } from "hmplot";
+  const airports = { code: ["SEA", "DEN", "ORD", "JFK"], region: ["West", "Mountain", "Central", "East"] };
+  const flights = { id: [0, 1, 2, 3, 4], origin: ["SEA", "JFK", "ORD", "SEA", "DEN"],
+    distance: [1100, 2400, 700, 3800, 1600], delay: [5, 31, -4, 12, 18] };
+<\/script>
+<Data value={flights} key="id">
+  <!-- Each flight gets its origin airport's region: a column from the second table, by key. -->
+  <Join data={airports} leftOn="origin" rightOn="code" fields={["region"]}>
+    <Plot axes2d><Points x="distance" y="delay" fill="region" respond="brushed" /></Plot>
+    <Plot axes2d><Points x="region" y="delay" fill="region" brush={{ axis: "x" }} /></Plot>
+  </Join>
+</Data>`,python:`import hmplot as hm
+import pandas as pd
+
+airports = pd.DataFrame({"code": ["SEA", "DEN", "ORD", "JFK"], "region": ["West", "Mountain", "Central", "East"]})
+flights = pd.DataFrame({"id": [0, 1, 2, 3, 4], "origin": ["SEA", "JFK", "ORD", "SEA", "DEN"],
+                        "distance": [1100, 2400, 700, 3800, 1600], "delay": [5, 31, -4, 12, 18]})
+with hm.Scene() as scene:
+    with hm.Data(flights, key="id"):
+        # Each flight gets its origin airport's region: a column from the second table, by key.
+        with hm.Join(data=airports, left_on="origin", right_on="code", fields=["region"]):
+            with hm.Row():
+                with hm.Plot(axes2d=True):
+                    hm.Points(x="distance", y="delay", fill="region", respond="brushed")
+                with hm.Plot(axes2d=True):
+                    hm.Points(x="region", y="delay", fill="region", brush={"axis": "x"})
+scene`},{id:"provider-earthquakes",title:"Earthquakes by year, loaded on demand",group:"Maps",description:"A Provider loads one year of real earthquakes (USGS, magnitude 4.5+) from a static CSV when the Year input changes. The previous year stays drawn until the next one arrives, a year already on screen loads nothing, and the Refresh button loads it again.",tags:["Provider","Real data","Bin"],code:`<script>
+  import { Provider, Plot, Points, Rect, Button, InputContext, Select, continuous, input } from "hmplot";
+import { Bin } from "hmplot/stats";
+  const depthColors = continuous({ domain: [0, 700], colormap: ["#ffe066", "#ff7b39", "#e0245e", "#8e2de2", "#4361ee"] });
+  const magnitudeEdges = Array.from({ length: 41 }, (_, i) => +(4.5 + i * 0.1).toFixed(1));
+<\/script>
+<InputContext>
+  <Select name="year" options={[2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]} value={2024} label="Year" />
+  <!-- Each press loads the year again. -->
+  <Button name="reload" label="Refresh" />
+  <!-- A JavaScript string: in a quoted attribute, Svelte would read {year} as an expression. -->
+  <Provider url={"/data/earthquakes/by-year/{year}.csv"} format="csv" params={{ year: input("year") }} refresh={input("reload")}>
+    <Plot height={320} axes2d x={{ domain: [-180, 180] }} y={{ domain: [-90, 90] }}>
+      <Points x="lon" y="lat" fill="depth" fillScale={depthColors} size={1.5} />
+    </Plot>
+    <Plot height={320} axes2d x={{ domain: [4.5, 8.5] }} y={{ domain: [0.8, 5000], transform: "log" }}>
+      <Bin x="mag" bins={magnitudeEdges}><Rect x0="x0" x1="x1" y0={0.8} y1="count" fill="#e0245e" /></Bin>
+    </Plot>
+  </Provider>
+</InputContext>`,python:`import hmplot as hm
+
+colors = hm.continuous(domain=[0, 700], colormap=["#ffe066", "#ff7b39", "#e0245e", "#8e2de2", "#4361ee"])
+edges = [round(4.5 + i * 0.1, 1) for i in range(41)]
+with hm.Scene() as scene:
+    with hm.Controls():
+        hm.Button(name="reload", label="Refresh")  # each press loads the year again
+    # The browser loads the file; Python never sees the rows. An absolute URL works in a notebook.
+    with hm.Provider(url="https://example.org/data/earthquakes/by-year/{year}.csv", format="csv",
+                     params={"year": 2024}, refresh=hm.input.reload) as quakes:
+        with hm.Row():
+            with hm.Plot(height=320, axes2d=True, x={"domain": [-180, 180]}, y={"domain": [-90, 90]}):
+                hm.Points(x="lon", y="lat", fill="depth", fill_scale=colors, size=1.5)
+            with hm.Plot(height=320, axes2d=True, x={"domain": [4.5, 8.5]}, y={"domain": [0.8, 5000], "transform": "log"}):
+                with hm.stats.Bin(x="mag", bins=edges):
+                    hm.Rect(x0="x0", x1="x1", y0=0.8, y1="count", fill="#e0245e")
+scene
+
+# Another year: the browser loads it, and the plots keep 2024 until it arrives.
+quakes.params = {"year": 2020}`},{id:"vector-tiles",title:"Vector tiles that follow the view",group:"Maps",description:"A VectorTile loads the tile named for a place at full detail, then, as you pan and zoom, the tiles the view shows (OpenStreetMap data as Mapbox Vector Tiles from VersaTiles), each drawn as soon as it arrives: water, parks, buildings, roads, railways and place names. Pick a place, a theme to recolor the basemap, hide layers (a hidden layer is never decoded), or turn Live off to keep only the named tile; the credit line is part of the plot and its exports.",tags:["VectorTile","Real data","Live"],code:`<script>
+  import { Plot, Theme, VectorTile, Points, Text, themes } from "hmplot";
+  let tiles = $state(), placeName = $state("Stockholm"), themeName = $state("minimal"), live = $state(true), status = $state(""), picked = $state("");
+  // A tile ([zoom, column, row]) and a landmark per place, in longitude/latitude.
+  const places = {
+    Stockholm: { tile: [14, 9014, 4818], landmark: [18.0716, 59.3268], label: "Royal Palace" },
+    Amsterdam: { tile: [14, 8414, 5384], landmark: [4.8930, 52.3731], label: "Dam Square" },
+    Venice: { tile: [13, 4376, 2932], landmark: [12.3397, 45.4341], label: "St Mark's Square" },
+    "New York Harbor": { tile: [13, 2411, 3080], landmark: [-74.0445, 40.6892], label: "Statue of Liberty" },
+  };
+  const place = $derived(places[placeName]);
+  // Parts to draw: a part set to false is hidden, and a source layer whose every part is hidden is
+  // never decoded (a zoom-14 city tile without buildings prepares in a quarter of the time).
+  const layerNames = { buildings: "Buildings", roads: "Roads", paths: "Paths", railways: "Railways", places: "Place names" };
+  let layers = $state({ buildings: true, roads: true, paths: true, railways: true, places: true });
+  const styles = $derived({ ...layers, majorRoads: layers.roads });
+  function inspect(event) {
+    const { layerName, kind, name } = event.feature.properties;
+    picked = [layerName, kind, name].filter(Boolean).join(" · ");
+  }
+  // The live level, for the readout.
+  $effect(() => {
+    const timer = setInterval(() => {
+      const live = tiles?.getStatus?.().live;
+      status = live ? \`zoom \${live.zoom}: \${live.shown} of \${live.selected} tiles\` : "";
+    }, 250);
+    return () => clearInterval(timer);
+  });
+<\/script>
+
+<p>
+  A basemap that follows the view. <code>VectorTile</code> loads the tile named for each place at full
+  detail and frames it; as you pan and zoom, the tiles the view shows load too, each drawn as soon as
+  it arrives, finer tiles over coarser ones. Without a <code>url</code> the tiles come from VersaTiles
+  (OpenStreetMap data, no key), with their credit in the corner. Turn Live off to keep only the named
+  tile; turn a layer off to hide it (its source layers are then not decoded at all). The landmark is an ordinary <code>Points</code> in longitude and latitude.
+</p>
+<div class="controls">
+  <label>Place
+    <select bind:value={placeName} aria-label="Place">
+      {#each Object.keys(places) as value}<option {value}>{value}</option>{/each}
+    </select>
+  </label>
+  <!-- Every theme has a matching basemap scheme (its vectorTile section). -->
+  <label>Theme
+    <select bind:value={themeName} aria-label="Theme">
+      {#each Object.keys(themes) as value}<option {value}>{themes[value].name}</option>{/each}
+    </select>
+  </label>
+  {#each Object.entries(layerNames) as [part, name]}
+    <label><input type="checkbox" bind:checked={layers[part]} /> {name}</label>
+  {/each}
+  <label><input type="checkbox" bind:checked={live} /> Live</label>
+  <output>{status}</output>
+</div>
+<Theme value={themes[themeName]}>
+<Plot coordinates="spherical" projection="mercator" toneMapping={0} responsive height={480}>
+  <VectorTile bind:this={tiles} tile={place.tile} {live} {styles} onclick={inspect} />
+  <Points position={[place.landmark]} size={6} fill="#d6453d" legend={false} />
+  <Text position={[place.landmark]} text={[place.label]} dy={-16} size={13} color="#d6453d" legend={false} />
+</Plot>
+</Theme>
+<p class="picked" aria-live="polite">{picked || "Click the map to inspect a feature."}</p>
+`,python:`import hmplot as hm
+
+# A tile ([zoom, column, row]) and a landmark per place, in longitude/latitude.
+places = {
+    "Stockholm": ((14, 9014, 4818), (18.0716, 59.3268), "Royal Palace"),
+    "Venice": ((13, 4376, 2932), (12.3397, 45.4341), "St Mark's Square"),
+}
+tile, landmark, label = places["Stockholm"]
+# The basemap takes the enclosing theme's scheme (every preset has one); scheme= picks another.
+with hm.Theme(value=hm.create_theme(extends="dark")), hm.Plot(coordinates="spherical", projection="mercator", tone_mapping=0, height=480) as plot:
+    # Without url=, VersaTiles' OpenStreetMap tiles, credited in the corner; url= takes any MVT
+    # server's {z}/{x}/{y} template (then credit it with attribution=). The named tile loads at full
+    # detail; as the view moves, the tiles it shows load too (live).
+    # styles= hides parts: a hidden part's layers are never decoded.
+    tiles = hm.VectorTile(tile=tile, styles={"railways": False})
+    hm.Points(position=[landmark], size=6, fill="#d6453d")
+    hm.Text(position=[landmark], text=[label], dy=-16, size=13, color="#8f1f19")
+plot
+
+# Later: tiles.update(tile=places["Venice"][0])   # the view moves there and loads it
+`},{id:"grid-globe",title:"A gridded field on the globe, month by month",group:"Maps",description:"A grid table (month x latitude x longitude, one row per cell) holds a made-up surface temperature on 48 uneven latitudes. Slice through time blends the two months around a Playback's value on the GPU; the Heatmap places the latitudes by their coordinates.",tags:["Maps","Grid tables","Slice","Heatmap"],code:`<script>
+  import { Data, InputContext, Playback, Plot, Slice, Heatmap, gridTable, continuous, input, min, max } from "hmplot";
+  // tas: one value per (month, latitude, longitude) cell, in that order.
+  const field = gridTable({ dims: { time, lat, lon }, columns: { tas } });
+  const temperature = continuous({ colormap: ["#2166ac", "#f7f7f7", "#b2182b"], domain: [240, 310] });
+<\/script>
+
+<InputContext>
+  <Data value={field}>
+    <Playback name="month" min={min("time")} max={max("time")} rate={2} loop label="Month" />
+    <Slice field="time" at={input("month")}>
+      <Plot responsive height={420} coordinates="spherical" projection="orthographic"
+        x={{ domain: [-180, 180] }} y={{ domain: [-90, 90] }} legend>
+        <Heatmap fill="tas" fillScale={temperature} tooltip />
+      </Plot>
+    </Slice>
+  </Data>
+</InputContext>`},{id:"hovmoller",title:"A Hovmöller diagram",group:"Maps",description:"Slice at one latitude of a time x latitude x longitude grid table leaves time against longitude: an anomaly travelling east is diagonal banding. The latitude is a slider.",tags:["Maps","Grid tables","Slice","Heatmap","Datetime"],code:`<InputContext>
+  <Data value={gridTable({ dims: { time, lat, lon }, columns: { anomaly } })}>
+    <Slider name="latitude" min={-30} max={30} step={0.5} value={0} label="Latitude" />
+    <Slice field="lat" at={input("latitude")}>
+      <Plot responsive height={420} axes2d legend>
+        <Heatmap fill="anomaly" fillScale={anomalies} />
+      </Plot>
+    </Slice>
+  </Data>
+</InputContext>`},{id:"rgb-bands",title:"An RGB image from band columns",group:"Maps",description:"An Image's fill takes { r, g, b } columns, as every mark's RGB channel does: three satellite-style bands of a grid table (integers 0-255) make the image, placed by the grid's coordinates.",tags:["Maps","Grid tables","Image","RGB"],code:`<Data value={gridTable({ dims: { y, x }, columns: { B04: red, B03: green, B02: blue } })}>
+  <Plot responsive height={380} axes2d>
+    <Image fill={{ r: "B04", g: "B03", b: "B02" }} />
+  </Plot>
+</Data>`},{id:"animation-engine",title:"animate, enter/exit, and @time",group:"Composition",description:"animate() moves one channel per row in its scale space (geometric on this log axis) with enter and exit values for rows that come and go, while @time satellites on fixed rows of their own orbit continuously without blocking settlement.",tags:["Animation","Interaction"],code:`<script>
+  import { Plot, Data, Points, animate, add, multiply, sin, cos, divide } from "hmplot";
+  let step = $state(0);
+  // The satellites' own fixed rows: a @time channel has no transition, so @time is their only motion.
+  const slots = { x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], y: Array(12).fill(3), angle: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] };
+<\/script>
+<button onclick={() => step++}>Next keyed update</button>
+<Plot data={rows(step)} key="id" responsive height={400} axes2d
+  x={{ domain: [0, 13] }} y={{ domain: [1, 2000], transform: "log" }}>
+  <Points x="x" y={animate("y", { duration: 900, enter: 1, exit: 1500 })} size={7} />
+  <Data value={slots}>
+    <Points x={add("x", multiply(0.35, cos(add(divide("@time", 700), "angle"))))}
+      y={multiply("y", add(1, multiply(0.25, sin(add(divide("@time", 700), "angle")))))} size={3} fill="#cf8955" />
+  </Data>
+</Plot>`,python:`import hmplot as hm
+
+# The satellites' own fixed rows: a @time channel has no transition, so @time is their only motion.
+slots = {"x": list(range(1, 13)), "y": [3] * 12, "angle": list(range(12))}
+with hm.Plot(data=rows, key="id", height=400, axes2d=True,
+             x={"domain": [0, 13]}, y={"domain": [1, 2000], "transform": "log"}) as plot:
+    hm.Points(x="x", y=hm.animate("y", duration=900, enter=1, exit=1500), size=7)
+    with hm.Data(slots):
+        t = hm.col("@time") / 700
+        hm.Points(x=hm.col.x + 0.35 * hm.cos(t + hm.col.angle),
+                         y=hm.col.y * (1 + 0.25 * hm.sin(t + hm.col.angle)), size=3, fill="#cf8955")
+plot
+
+# Later: await plot.export_mp4("orbit.mp4", duration=4000, fps=30)`},{id:"time-pipeline",title:"tween and @time in the pipeline",group:"Composition",description:"A tweened column moves as data: the histogram under it re-bins its rows every frame while they glide to new values, and a Filter on @time lets points in as the view clock passes them.",tags:["Animation","Transforms"],code:`<script>
+  import { Plot, Calculate, Filter, Rect, Points, tween, less, divide, col } from "hmplot";
+import { Bin } from "hmplot/stats";
+  const edges = Array.from({ length: 41 }, (_, i) => i / 40);
+<\/script>
+<Plot bind:this={plot} data={rows} height={340} axes2d x={{ domain: [0, 1] }} y={{ domain: [-9, 60] }}>
+  <!-- v moves: the Bin under it re-bins every frame of the glide -->
+  <Calculate columns={{ v: tween("value", { duration: 1200 }) }}>
+    <Bin x="v" bins={edges}><Rect x0="x0" x1="x1" y0={0} y1="count" /></Bin>
+    <!-- 100 points per second of the view clock -->
+    <Filter where={less("order", divide(col("@time"), 10))}>
+      <Points x="v" y="lane" size={1.5} />
+    </Filter>
+  </Calculate>
+</Plot>`,python:`import hmplot as hm
+
+edges = [i / 40 for i in range(41)]
+with hm.Plot(data=rows, height=340, axes2d=True, x={"domain": [0, 1]}, y={"domain": [-9, 60]}) as plot:
+    with hm.Calculate(v=hm.tween("value", duration=1200)):
+        with hm.stats.Bin(x="v", bins=edges):
+            hm.Rect(x0="x0", x1="x1", y0=0, y1="count")
+        with hm.Filter(where=hm.col.order < hm.col("@time") / 10):
+            hm.Points(x="v", y="lane", size=1.5)
+plot
+
+# New values glide, and the histogram follows: rows.update_columns(value=...)`},{id:"partition-density",title:"One density per group, one frame",group:"Composition",description:"Partition repeats its children once per group inside a single frame, sharing the parent's scales, axes, and legend. Here a Density transform runs per species so the curves overlay; Facet would give each species its own cell instead.",tags:["Composition","Statistical"],code:`<script>
+  import { Plot, Partition, Density, Area, Line } from "hmplot";
+<\/script>
+<Plot data={penguins} responsive height={380} axes2d legend>
+  <Partition by="species" legendGroups>
+    <Density x="bill_length" resolution={128}>
+      <Area x="x" upper="density" fill="species" opacity={0.35} />
+      <Line x="x" y="density" color="species" width={2} />
+    </Density>
+  </Partition>
+</Plot>`,python:`import hmplot as hm
+
+with hm.Plot(data=penguins, height=380, axes2d=True, legend=True) as plot:
+    with hm.Partition(by="species", legend_groups=True):
+        with hm.Density(x="bill_length", resolution=128):
+            hm.Area(x="x", upper="density", fill="species", opacity=0.35)
+            hm.Line(x="x", y="density", color="species", width=2)
+plot`},{id:"lollipop",title:"Lollipop chart",group:"Composition",description:"A stem from the baseline to each value, on either side of it, with a point at the end. Lollipop is a built-in template: BarGeometry places each stem, Segments draws the stems and Points the heads.",tags:["Compound","Statistical"],code:`<script>
+  import { Plot } from "hmplot";
+import { Lollipop } from "hmplot/charts";
+  const data = {
+    category: ["Alder", "Birch", "Cedar", "Douglas fir", "Elm", "Hemlock", "Larch"],
+    value: [18, 31, 12, 44, 26, 9, 37],
+  };
+<\/script>
+<Plot data={data} responsive height={360} axes2d y={{ domain: [0, 50] }}>
+  <Lollipop x="category" y="value" fill="#547ba2" size={7} />
+</Plot>`,python:`import hmplot as hm
+
+data = {"category": ["Alder", "Birch", "Cedar", "Douglas fir", "Elm", "Hemlock", "Larch"],
+        "value": [18, 31, 12, 44, 26, 9, 37]}
+with hm.Plot(data=data, height=360, axes2d=True, y={"domain": [0, 50]}) as plot:
+    hm.charts.Lollipop(x="category", y="value", fill="#547ba2", size=7)
+plot`},{id:"pie",title:"Pie chart",group:"Composition",description:"Each region's share of the sales, clockwise from 12 o'clock, labeled with its percentage. Pie is a built-in template: a PieGeometry transform and Rects in a polar Frame, which it places in a Cartesian Plot.",tags:["Compound","Statistical","Polar"],code:`<script>
+  import { Plot, Legend } from "hmplot";
+import { Pie } from "hmplot/charts";
+  let pie = $state();
+  const data = {
+    region: ["North", "East", "South", "West", "Central"],
+    sales: [42, 18, 27, 9, 14],
+  };
+<\/script>
+<Plot {data} responsive height={380}>
+  <Pie bind:this={pie} value="sales" category="region" sectorLabel="percent" hover respond="hovered" />
+  <Legend for={pie} channel="fill" label="Region" position="right" />
+</Plot>`,python:`import hmplot as hm
+
+data = {"region": ["North", "East", "South", "West", "Central"],
+        "sales": [42, 18, 27, 9, 14]}
+with hm.Plot(data=data, height=380) as plot:
+    pie = hm.charts.Pie(value="sales", category="region", sector_label="percent", hover=True,
+                 respond="hovered")
+    hm.Legend(target=pie, channel="fill", label="Region", position="right")
+plot`},{id:"donut",title:"Donut chart",group:"Composition",description:"innerRadius opens the hole and padAngle separates the sectors. Keyed rows tween each sector's angles when the values change.",tags:["Compound","Statistical","Polar","Animation"],code:`<script>
+  import { Plot } from "hmplot";
+import { Pie } from "hmplot/charts";
+  const regions = ["North", "East", "South", "West", "Central"];
+  let sales = $state([42, 18, 27, 9, 14]);
+  // Next month: new values for the same keys tween each sector's angles.
+  const next = () => (sales = sales.map(() => 8 + Math.round(40 * Math.random())));
+<\/script>
+<button onclick={next}>Next month</button>
+<Plot data={{ region: regions, sales }} key="region" responsive height={380}>
+  <Pie value="sales" category="region" innerRadius={0.55} padAngle={1.5} sectorLabel="category"
+    animation animationDuration={700} />
+</Plot>`,python:`import hmplot as hm
+
+data = {"region": ["North", "East", "South", "West", "Central"],
+        "sales": [42, 18, 27, 9, 14]}
+with hm.Plot(data=data, key="region", height=380) as plot:
+    hm.charts.Pie(value="sales", category="region", inner_radius=0.55, pad_angle=1.5, sector_label="category",
+           animation=True, animation_duration=700)
+plot
+# plot.update(data={"region": [...], "sales": [...]}) tweens the sectors to the new values.`},{id:"pie-facet",title:"Pies in a Facet",group:"Composition",description:"Small multiples: a Facet repeats the Plot once per year, and each Pie sums its own year's sales, with one legend for the row.",tags:["Compound","Facet","Polar"],code:`<script>
+  import { Plot, Facet, Legend } from "hmplot";
+import { Pie } from "hmplot/charts";
+  // One row per year and region.
+  const regions = ["North", "East", "South", "West"];
+  const sales = {
+    year: ["2023", "2024", "2025"].flatMap((year) => regions.map(() => year)),
+    region: [...regions, ...regions, ...regions],
+    sales: [10, 38, 12, 27, 15, 32, 27, 24, 11, 12, 21, 20],
+  };
+<\/script>
+<Facet data={sales} column="year">
+  <Plot height={240}>
+    <Pie value="sales" category="region" innerRadius={0.4} sectorLabel="percent" />
+    <Legend channel="fill" label="Region" position="bottom" />
+  </Plot>
+</Facet>`,python:`import hmplot as hm
+
+# One row per year and region.
+regions = ["North", "East", "South", "West"]
+sales = {"year": [year for year in ["2023", "2024", "2025"] for _ in regions],
+         "region": regions * 3,
+         "sales": [10, 38, 12, 27, 15, 32, 27, 24, 11, 12, 21, 20]}
+with hm.Facet(data=sales, column="year") as facet:
+    with hm.Plot(height=240):
+        hm.charts.Pie(value="sales", category="region", inner_radius=0.4, sector_label="percent")
+        hm.Legend(channel="fill", label="Region", position="bottom")
+facet`},{id:"before-after-arrows",title:"Before and after arrows",group:"Composition",description:"connect() pairs two marks' rows by key and draws one arrow per pair. The 2000 values are points, the 2021 values an invisible Anchor, and the arrows take their color from the shared table.",tags:["Connections","Anchor","Arrows3D"],code:`<script>
+  import { Plot, Points, Anchor, Text, Legend, connect } from "hmplot";
+import { Arrows } from "hmplot/charts";
+  let before = $state(), after = $state(), arrows = $state();
+  // Illustrative life expectancy at birth (years), 2000 and 2021.
+  const data = {
+    country: ["Nigeria", "Kenya", "South Africa", "India", "Russia", "Brazil", "United States", "Chile", "Norway", "Japan"],
+    region: ["Africa", "Africa", "Africa", "Asia", "Europe", "Americas", "Americas", "Americas", "Europe", "Asia"],
+    y2000: [46.3, 52.2, 55.9, 62.7, 65.3, 70.1, 76.6, 76.9, 78.7, 81.1],
+    y2021: [52.7, 61.4, 62.3, 67.2, 69.4, 72.8, 76.4, 78.9, 83.2, 84.5],
+  };
+<\/script>
+<Plot {data} responsive height={440} axes2d
+  x={{ label: "Life expectancy at birth (years)", domain: [40, 90] }} y={{ visible: false }}>
+  <Points bind:this={before} x="y2000" y="country" size={5.5} fill="#9aa3ad" />
+  <Text x="y2000" y="country" text="country" align="right" dx={-10} size={12} color="#39424d" />
+  <Anchor bind:this={after} x="y2021" y="country" />
+  <Arrows bind:this={arrows} connections={connect(before, after, { key: "country" })}
+    color="region" width={2.5} headLength={11} headWidth={9} />
+  <Legend for={arrows} channel="color" label="Region" position="right" />
+</Plot>`,python:`import hmplot as hm
+
+# Illustrative life expectancy at birth (years), 2000 and 2021.
+data = {
+    "country": ["Nigeria", "Kenya", "South Africa", "India", "Russia", "Brazil", "United States", "Chile", "Norway", "Japan"],
+    "region": ["Africa", "Africa", "Africa", "Asia", "Europe", "Americas", "Americas", "Americas", "Europe", "Asia"],
+    "y2000": [46.3, 52.2, 55.9, 62.7, 65.3, 70.1, 76.6, 76.9, 78.7, 81.1],
+    "y2021": [52.7, 61.4, 62.3, 67.2, 69.4, 72.8, 76.4, 78.9, 83.2, 84.5],
+}
+with hm.Plot(data=data, height=440, axes2d=True,
+             x={"label": "Life expectancy at birth (years)", "domain": [40, 90]}, y={"show": False}) as plot:
+    before = hm.Points(x="y2000", y="country", size=5.5, fill="#9aa3ad")
+    hm.Text(x="y2000", y="country", text="country", align="right", dx=-10, size=12, color="#39424d")
+    after = hm.Anchor(x="y2021", y="country")
+    arrows = hm.charts.Arrows(connections=hm.connect(before, after, key="country"),
+                                color="region", width=2.5, head_length=11, head_width=9)
+    hm.Legend(target=arrows, channel="color", label="Region", position="right")
+plot`},{id:"parallel-coordinates-connected",title:"Parallel coordinates from connections",group:"Composition",description:"An embedded Facet with fields makes one cell per measurement, in which value is that measurement, each with its own y scale titled by the measurement, and a Frame in every cell sets x from 0 to 1, so the points sit on each cell's axis. One Line connects the points across the cells in facet order, and every cell shows the same penguins, so rows match without a key. Shift-drag on any axis to brush that measurement; brushes on several axes combine.",tags:["Connections","Facet","Frame"],code:`<script>
+  import { Plot, Frame, Facet, Points, Line, Legend, connect, categorical } from "hmplot";
+  // penguins: one row per penguin with id, species, bill_length, bill_depth, flipper, mass.
+  let facet = $state(), lines = $state();
+  const colors = categorical({ domain: ["Adelie", "Chinstrap", "Gentoo"], range: ["#e07b39", "#7b5ea7", "#2a9d8f"] });
+<\/script>
+<Plot data={penguins} responsive height={420} axes2d={false}>
+  <Facet bind:this={facet} fields={["bill_length", "bill_depth", "flipper", "mass"]}>
+    <!-- x runs from 0 to 1 across the cell (hidden); y is the cell's measurement. -->
+    <Frame x={{ domain: [0, 1], visible: false }}>
+      <Points name="values" x={0} y="value" size={2.5} fill="#5d6773" brush={{ axis: "y" }} />
+    </Frame>
+  </Facet>
+  <Line bind:this={lines} connections={connect(facet?.endpoint("values"))}
+    color="species" colorScale={colors} width={1.5} opacity={0.7} respond="brushed" />
+  <Legend for={lines} channel="color" label="Species" position="right" />
+</Plot>`,python:`import hmplot as hm
+
+# penguins: one row per penguin with id, species, bill_length, bill_depth, flipper, mass.
+colors = hm.categorical(domain=["Adelie", "Chinstrap", "Gentoo"], range=["#e07b39", "#7b5ea7", "#2a9d8f"])
+with hm.Plot(data=penguins, height=420, axes2d=False) as plot:
+    with hm.Facet(fields=["bill_length", "bill_depth", "flipper", "mass"]):
+        # x runs from 0 to 1 across each cell (hidden); y is the cell's measurement.
+        with hm.Frame(x={"domain": [0, 1], "show": False}):
+            values = hm.Points(x=0, y="value", size=2.5, fill="#5d6773", brush={"axis": "y"})
+    lines = hm.Line(connections=hm.connect(values),
+                    color="species", color_scale=colors, width=1.5, opacity=0.7, respond="brushed")
+    hm.Legend(target=lines, channel="color", label="Species", position="right")
+plot`},{id:"facet-fields",title:"One cell per variable",group:"Composition",description:'Facet fields repeats its children once per field over the same rows; inside each cell, value is that field. Each field keeps its own y scale while columns of the table stay shared. With row="station" the fields form a grid by station, a field keeping one scale down its column.',tags:["Facet","Composition"],code:`<Plot data={weather} height={260} axes2d>
+  <Facet fields={["temperature", "humidity", "wind"]}>
+    <Line x="hour" y="value" color="station" width={1.5} />
+  </Facet>
+</Plot>
+<Plot data={weather} height={420} axes2d>
+  <Facet fields={["temperature", "humidity", "wind"]} row="station">
+    <Points x="hour" y="value" fill="station" size={2} />
+  </Facet>
+</Plot>`,python:`import hmplot as hm
+
+# weather: hourly rows with hour, station, temperature, humidity, wind.
+with hm.Scene() as scene:
+    with hm.Plot(data=weather, height=260, axes2d=True):
+        with hm.Facet(fields=["temperature", "humidity", "wind"]):
+            hm.Line(x="hour", y="value", color="station", width=1.5)
+    with hm.Plot(data=weather, height=420, axes2d=True):
+        with hm.Facet(fields=["temperature", "humidity", "wind"], row="station"):
+            hm.Points(x="hour", y="value", fill="station", size=2)
+scene`},{id:"calculate-matrix",title:"Calculated scatterplot matrix",group:"Interaction",description:"Sixteen coordinated views of four calculated fields. Hover, select, and Shift-drag to brush across cells. Counts are per cell; 25,000 rows produces 400,000 plotted instances.",tags:["Calculate","Interaction","Stress checks"],code:`<Data value={data}>
+  <!-- Calculate assignments are simultaneous; nest scopes for dependencies. -->
+  <Calculate columns={{energy: add(square("x"), square("y")), cross: multiply("x", "y"), shifted: add("x", "noise")}}>
+    <Calculate columns={{weight: exp(multiply("energy", -0.5)), logEnergy: log(add("energy", 1)), residual: subtract("shifted", divide("cross", add("energy", 1)))}}>
+      <Calculate columns={{score: clip(multiply(multiply("residual", "weight"), gain), -2, 2), magnitude: sqrt(add(square("residual"), 0.01))}}>
+        <Facet pairs={["shifted", "residual", "score", "logEnergy"]} scales="field" link="grid">
+          <Plot height={250} axes2d>
+            <Points x="x" y="y" fill="score" size={where("@hovered", 8, 1.5)}
+              hover select brush respond={["hovered", "selected", "brushed"]} />
+          </Plot>
+        </Facet>
+      </Calculate>
+    </Calculate>
+  </Calculate>
+</Data>`},{id:"calculate-large",title:"Large calculated point cloud",group:"Interaction",description:"Three sequential Calculate scopes share intermediate columns. Change gain to update the final stage; hover, select, and Shift-drag to brush the resulting point cloud. No sampling limit is applied.",tags:["Calculate","Interaction","Stress checks"],code:`<Data value={data}>
+  <!-- Calculate assignments are simultaneous; nest scopes for dependencies. -->
+  <Calculate columns={{energy: add(square("x"), square("y")), cross: multiply("x", "y"), shifted: add("x", "noise")}}>
+    <Calculate columns={{weight: exp(multiply("energy", -0.5)), logEnergy: log(add("energy", 1)), residual: subtract("shifted", divide("cross", add("energy", 1)))}}>
+      <Calculate columns={{score: clip(multiply(multiply("residual", "weight"), gain), -2, 2), magnitude: sqrt(add(square("residual"), 0.01))}}>
+        <Plot height={520} axes2d x={{domain: [-2.3, 2.3]}} y={{domain: [-2.3, 2.3]}}>
+          <Points x="shifted" y="score" fill="magnitude" size={where("@hovered", 9, 2)}
+            hover select brush respond={["hovered", "selected", "brushed"]} />
+        </Plot>
+      </Calculate>
+    </Calculate>
+  </Calculate>
+</Data>`},{id:"interaction-dashboard",title:"Coordinated interaction dashboard",group:"Interaction",description:"Hover either shared view: the same row enlarges in both. Click/Shift-click selects/toggles; Shift-drag brushes. Drag the brush or click away to clear it. The filtered view updates while brushing. The independent table must not react, even though its IDs and values match.",tags:["Interaction","Stress checks"],code:`<Data value={records} key="id">
+  <Plot axes2d>
+    <Points x="x" y="y" fill="group" size={where("@hovered", 11, 6)}
+      hover select brush respond={["hovered", "selected", "brushed"]} />
+    <Filter where="@hovered" inactive="none">
+      <Text x="x" y="y" text="id" size={12} dy={-16} />
+    </Filter>
+  </Plot>
+  <Plot axes2d>
+    <Points x="score" y="response" fill="group" size={where("@hovered", 11, 6)}
+      hover select brush respond={["hovered", "selected", "brushed"]} />
+  </Plot>
+  <Plot axes2d>
+    <Filter where="@brushed" inactive="none">
+      <Points x="x" y="score" fill="group" respond="hovered" />
+    </Filter>
+  </Plot>
+</Data>
+
+<!-- An independent table does not react, even with matching IDs. -->
+<Plot data={independent} key="id" axes2d>
+  <Points x="x" y="y" fill="group" hover select />
+</Plot>`},{id:"drag-matrix",title:"Dragging points",group:"Interaction",description:"Drag a point in a scatterplot matrix: the drag writes offsets on the table's rows, and every cell that reads moved() of the dragged column follows.",tags:["Interaction","Drag","Facet"],code:`<Data value={penguins} key="id">
+  <Plot axes2d>
+    <Facet pairs={["bill", "depth", "mass"]} triangle="lower">
+      <Points x={moved("x")} y={moved("y")} fill="species" select drag
+        ondragend={(event) => console.log(event.keys, event.changes)} />
+    </Facet>
+  </Plot>
+</Data>`,python:`import hmplot as hm
+
+penguins = hm.Table(rows, key="id")  # rows: id, species, bill, depth, mass
+with hm.Scene() as scene:
+    with hm.Plot(data=penguins, axes2d=True):
+        with hm.Facet(pairs=["bill", "depth", "mass"], triangle="lower"):
+            points = hm.Points(x=hm.moved("x"), y=hm.moved("y"), color="species", drag=True)
+points.on_event("dragend", lambda event: print(event.keys, event.changes))
+scene
+# After dragging: penguins.offsets (key, column, delta); penguins.apply_offsets() is a new Table.`},{id:"drag-map",title:"Dragging cities on a map",group:"Interaction",description:"Drag a city on a Mercator map: the drag goes back through the projection and writes offsets in degrees; the point and its label both read moved().",tags:["Interaction","Drag","Map"],code:`<Data value={cities} key="name">
+  <Plot type="2d" coordinates="spherical" projection="mercator"
+    x={{ domain: [-180, 180], visible: false }} y={{ domain: [-60, 75], visible: false }}>
+    <GeoJSON data={countries} fill="#d8dde3" />
+    <Points x={moved("lon")} y={moved("lat")} fill="#d62728" drag />
+    <Text x={moved("lon")} y={moved("lat")} text="name" dy={14} />
+  </Plot>
+</Data>`,python:`import hmplot as hm
+
+cities = hm.Table({"name": names, "lon": lons, "lat": lats}, key="name")
+with hm.Plot(data=cities, type="2d", coordinates="spherical", projection="mercator",
+             x={"domain": [-180, 180], "show": False}, y={"domain": [-60, 75], "show": False}) as plot:
+    hm.GeoJSON(data=countries, fill="#d8dde3")
+    hm.Points(x=hm.moved("lon"), y=hm.moved("lat"), fill="#d62728", drag=True)
+    hm.Text(x=hm.moved("lon"), y=hm.moved("lat"), text="name", dy=14)
+plot
+# cities.offsets: how far each city was dragged, in degrees.`},{id:"interaction-matrix",title:"Interaction matrix and scrolling",group:"Interaction",description:"The same observation appears in all 16 cells. Hover should enlarge it everywhere; selection and brushing should coordinate by row, not category. Scroll away and back, then repeat. Compare cache sizes 0 and 64. Pan and zoom are independent in this example.",tags:["Interaction","Stress checks"],code:`<Data value={records} key="id">
+  <Facet pairs={["x", "y", "score", "response"]} scales="field" link="grid" cacheSize={64}>
+    <Plot height={260} axes2d>
+      <Points x="x" y="y" fill="group" size={where("@hovered", 11, 5)}
+        hover select brush respond={["hovered", "selected", "brushed"]} />
+    </Plot>
+  </Facet>
+</Data>`},{id:"interaction-keyed-updates",title:"Keyed updates under interaction",group:"Interaction",description:"Select a few points, hover, then step the frame or reverse the rows. Surviving IDs retain selection; removed IDs disappear. Point fades last 500 ms and label fades last 200 ms. No automatic timer runs: every update is explicit. Hover size is immediate unless the configured animation applies.",tags:["Interaction","Stress checks"],code:`<Plot data={records} key="id" height={480} axes2d x={{domain: [0, 1]}} y={{domain: [0, 1]}}>
+  <Points x="x" y="y" fill="group" size={where("@hovered", 12, 7)}
+    hover select brush respond={["hovered", "selected", "brushed"]}
+    animation animationDuration={500} enterEffect="fade" exitEffect="fade" />
+  <Text x="x" y="y" text="id" size={10} dy={-17}
+    respond={["selected", "hovered"]} selectionOpacity={0.15}
+    animation animationDuration={200} enterEffect="fade" exitEffect="fade" />
+</Plot>`},{id:"symlog-diverging",title:"Symlog axis and a diverging scale",group:"Marks",description:"Values that cross zero with a wide range: a symlog y axis is linear within ±10 and logarithmic beyond, so small days and large ones both read, and outflows are drawn (a log axis would drop them). The color scale's midpoint puts RdBu's white at 0 and uses both ends of the colormap.",tags:["Scales","Color"],code:`<script>
+  import { Plot, Points, Legend, continuous } from "hmplot";
+  // flow: daily net flows, a few units most days and tens of thousands on a few.
+  const scale = continuous({ colormap: "RdBu", transform: "symlog", constant: 10, midpoint: 0 });
+  let points = $state();
+<\/script>
+<Plot {data} responsive height={420} axes2d
+  x={{ label: "Day" }} y={{ transform: "symlog", constant: 10, label: "Net flow" }}>
+  <Points bind:this={points} x="day" y="flow" fill="flow" fillScale={scale} size={3.5} />
+  <Legend for={points} channel="fill" label="Net flow" position="right" />
+</Plot>`},{id:"scale-resources",title:"Shared and independent scales",group:"Marks",description:"Share one normalization across color and size, isolate same-named columns in separate tables, and map ordered categories.",tags:["Scales","Color","Categories"],code:`<script>
+  const norm = normalization({ domain: [0, 100] });
+  const color = continuous({ normalization: norm, colormap: "Viridis" });
+  const size = continuous({ normalization: norm, range: [8, 22] });
+  const ordered = ordinal({ domain: ["Low", "Middle", "High"], colormap: "Viridis" });
+<\/script>
+
+<Plot data={observations} axes2d>
+  <Points x="x" y="y" fill="score" size="score"
+    fillScale={color} sizeScale={size} />
+</Plot>
+
+<Plot data={comparison} axes2d>
+  <!-- This table's score column receives its own automatic scale. -->
+  <Points x="x" y="y" fill="score" />
+</Plot>
+
+<Plot data={observations} axes2d>
+  <Points x="x" y="y" fill="group" fillScale={ordered} />
+</Plot>`,python:`import hmplot as hm
+
+normalization = hm.normalization(domain=[0, 100])
+color = hm.continuous(normalization=normalization, colormap="Viridis")
+size = hm.continuous(normalization=normalization, range=[8, 22])
+ordered = hm.ordinal(domain=["Low", "Middle", "High"], colormap="Viridis")
+
+with hm.Scene() as scene:
+    with hm.Plot(data=observations, axes2d=True):
+        hm.Points(x="x", y="y", fill="score", size="score",
+                         fill_scale=color, size_scale=size)
+    with hm.Plot(data=comparison, axes2d=True):
+        hm.Points(x="x", y="y", fill="score")
+    with hm.Plot(data=observations, axes2d=True):
+        hm.Points(x="x", y="y", fill="group", fill_scale=ordered)
+
+scene`},{id:"data-selections",title:"Data selections and brushing",group:"Interaction",description:"Click or brush observations and filter another plot through data-owned virtual fields.",tags:["Selection","Brush","Filter"],code:`<Data value={observations} key="id">
+  <Plot>
+    <Points x="x" y="y" select hover brush respond={true} />
+  </Plot>
+  <Plot>
+    <Filter where="@selected" inactive="all">
+      <Points x="x" y="y" fill="coral" />
+    </Filter>
+  </Plot>
+</Data>`,python:`import hmplot as hm
+
+observations = hm.Table({"id": ids, "x": x, "y": y}, key="id")
+with hm.Plot(data=observations) as plot:
+    hm.Points(x="x", y="y", select=True, hover=True,
+                     brush=True, respond=True)
+    with hm.Filter(where="@selected", inactive="all"):
+        hm.Points(x="x", y="y", fill="coral")
+
+# In a later notebook cell:
+await plot.selection.replace([0, 3, 5])`},{id:"hover-selection",title:"Hover and click selection",group:"Interaction",description:"Highlight hovered rows, toggle keyed selections, and update selection state from code.",tags:["Hover","Selection","Keys"],code:`<script>import { where } from "hmplot";<\/script>
+<Plot data={observations} key="id">
+  <Points x="x" y="y" select hover respond="selected"
+    size={where("@hovered", 10, 7)} />
+  <Text x="x" y="y" text="name" />
+</Plot>`,python:`with hm.Plot(data=observations, key="id") as plot:
+    hm.Points(x="x", y="y", select=True,
+                     hover=True, respond="selected",
+                     size=hm.where("@hovered", 10, 7))
+    hm.Text(x="x", y="y", text="name")
+
+await plot.selection.replace([0, 4, 8])`},{id:"brush-filter",title:"Draggable brush",group:"Interaction",description:"Move a committed brush, clear it outside, and filter a sibling view through @brushed.",tags:["Brush","Filter","Linked views"],code:`<Data value={observations} key="id">
+  <Plot><Points x="x" y="y" brush respond="brushed" /></Plot>
+  <Plot><Filter where="@brushed" inactive="all">
+    <Points x="x" y="y" />
+  </Filter></Plot>
+</Data>`,python:`with hm.Data(observations, key="id"):
+    with hm.Row():
+        with hm.Plot() as source:
+            hm.Points(x="x", y="y", brush=True,
+                             respond="brushed")
+        with hm.Plot():
+            with hm.Filter(where="@brushed", inactive="all"):
+                hm.Points(x="x", y="y")`},{id:"shared-selection",title:"Explicit shared selection",group:"Interaction",description:"Name one reusable selection, expose it as a virtual column, and share it across views.",tags:["Selection","Interaction","Virtual columns"],code:`<script>const focus = selection();<\/script>
+<Data value={observations} key="id">
+  <Interaction columns={{ "@focus": focus }}>
+    <Plot><Points x="x" y="y" select={focus} respond={focus} /></Plot>
+    <Plot><Filter where="@focus" inactive="all">
+      <Points x="x" y="y" />
+    </Filter></Plot>
+  </Interaction>
+</Data>`,python:`focus = hm.selection()
+with hm.Data(observations, key="id"):
+    with hm.Interaction(columns={"@focus": focus}):
+        with hm.Plot():
+            hm.Points(x="x", y="y", select=focus,
+                             respond=focus)
+        with hm.Plot():
+            with hm.Filter(where="@focus", inactive="all"):
+                hm.Points(x="x", y="y")`},{id:"enter-exit",title:"Keyed enter and exit",group:"Interaction",description:"Keep matching observations continuous while new keys enter and removed keys exit.",tags:["Animation","Keys","Lifecycle"],code:`<Plot data={observations} key="id" animationDuration={550}>
+  <Points x="x" y="y" animation enterEffect="fade" exitEffect="fade" />
+  <Text x="x" y="y" text="id" animation enterEffect="fade" exitEffect="fade" />
+</Plot>`,python:`with hm.Plot(data=observations, key="id",
+             animation_duration=550) as plot:
+    points = hm.Points(x="x", y="y", animation=True,
+                              enter_effect="fade", exit_effect="fade")
+    hm.Text(x="x", y="y", text="id", animation=True,
+             enter_effect="fade", exit_effect="fade")
+
+observations.replace(next_observations)
+await plot.when_animations_finished()`},{id:"coordinated-explorer",title:"Coordinated interaction explorer",group:"Interaction",description:"Coordinate hover, click selection, a movable brush, and filtered projections across three views.",tags:["Hover","Brush","Linked views"],code:`<Data value={observations} key="id">
+  <Plot>
+    <Points x="x" y="y" select hover brush
+      respond={["selected", "brushed", "hovered"]} />
+  </Plot>
+  <Plot><Filter where="@brushed" inactive="none">
+    <Points x="score" y="response" />
+  </Filter></Plot>
+  <Plot><Filter where="@hovered" inactive="none">
+    <Text x="x" y="y" text="id" />
+  </Filter></Plot>
+</Data>`,python:`with hm.Data(observations, key="id"):
+    with hm.Row():
+        with hm.Plot() as source:
+            hm.Points(x="x", y="y", select=True, hover=True,
+                brush=True, respond=["selected", "brushed", "hovered"])
+        with hm.Plot():
+            with hm.Filter(where="@brushed", inactive="none"):
+                hm.Points(x="score", y="response")`},{id:"selection-compare",title:"Multiple selection sets",group:"Interaction",description:"Build two named selection sets in separate projections and inspect their overlap in a third view.",tags:["Selections","Virtual columns","Linked views"],code:`<script>
+  const primary = selection(), comparison = selection();
+<\/script>
+<Data value={observations} key="id">
+  <Interaction columns={{ "@primary": primary, "@comparison": comparison }}>
+    <Plot><Points x="x" y="y" select={primary} hover /></Plot>
+    <Plot><Points x="u" y="v" select={comparison} hover /></Plot>
+    <Plot><Filter where={["@primary", "@comparison"]} inactive="none">
+      <Text x="x" y="y" text="id" />
+    </Filter></Plot>
+  </Interaction>
+</Data>`,python:`primary, comparison = hm.selection(), hm.selection()
+with hm.Data(observations, key="id"):
+    with hm.Interaction(columns={"@primary": primary, "@comparison": comparison}):
+        with hm.Row():
+            with hm.Plot():
+                hm.Points(x="x", y="y", select=primary, hover=True)
+            with hm.Plot():
+                hm.Points(x="u", y="v", select=comparison, hover=True)`},{id:"lifecycle-stress",title:"Interrupted keyed transitions",group:"Interaction",description:"Interrupt keyed updates while points, halos, and labels use different fade timings and preserve interaction state.",tags:["Animation","Lifecycle","Stress test"],code:`<Plot data={observations} key="id">
+  <Points x="x" y="y" animation animationDuration={900}
+    enterEffect="fade" exitEffect="fade" respond="selected" />
+  <Points x="x" y="y" animation animationDuration={520}
+    enterEffect="fade" exitEffect="fade" select hover brush respond={true} />
+  <Text x="x" y="y" text="label" animation animationDuration={240}
+    enterEffect="fade" exitEffect="fade" respond={["selected", "hovered"]} />
+</Plot>`,python:`with hm.Plot(data=observations, key="id") as plot:
+    hm.Points(x="x", y="y", animation=True,
+        animation_duration=520, enter_effect="fade", exit_effect="fade",
+        select=True, hover=True, brush=True, respond=True)
+    hm.Text(x="x", y="y", text="label", animation=True,
+        animation_duration=240, enter_effect="fade", exit_effect="fade")
+
+observations.replace(next_frame)
+await plot.when_animations_finished()`},{id:"facet-interactions",title:"Faceted interaction state",group:"Interaction",description:"Select, hover, and brush in linked facet cells while a detail plot consumes the shared keyed state.",tags:["Facets","Brush","Selection"],code:`<Data value={observations} key="id">
+  <Facet column="region" wrap={3} scales="shared" link="xy">
+    <Plot><Points x="x" y="y" select hover brush respond={true} /></Plot>
+  </Facet>
+  <Plot><Filter where="@selected" inactive="none">
+    <Points x="x" y="y" /><Text x="x" y="y" text="id" />
+  </Filter></Plot>
+</Data>`,python:`with hm.Data(observations, key="id"):
+    with hm.Facet(column="region", wrap=3, scales="shared", link="xy"):
+        with hm.Plot():
+            hm.Points(x="x", y="y", select=True, hover=True,
+                             brush=True, respond=True)
+    with hm.Plot():
+        with hm.Filter(where="@selected", inactive="none"):
+            hm.Points(x="x", y="y")
+            hm.Text(x="x", y="y", text="id")`},{id:"themes",title:"Theme presets",group:"Interaction",description:"Compare every built-in theme on the same plot, including backgrounds, axes, marks, categorical colors, and its legend.",tags:["Themes","Appearance","Python"],code:`<script>
+  import { Theme, Plot, Line, Points, themes } from "hmplot";
+  let selected = $state("minimal");
+  const presetNames = Object.keys(themes);
+  // observations and trend are ordinary data arrays.
+<\/script>
+
+{#each presetNames as name}
+  <button onclick={() => selected = name}>{themes[name].name}</button>
+{/each}
+
+<Theme value={themes[selected]}>
+  <Plot data={observations} axes2d legend>
+    <Line position={trend} label="Trend" />
+    <Points x="x" y="y" fill="group" label="Observations" />
+  </Plot>
+</Theme>`,python:`import hmplot as hm
+
+selected = "minimal"
+print(hm.themes.names())
+
+with hm.Theme(value=hm.themes[selected]) as themed:
+    with hm.Plot(data=observations, axes2d=True, legend=True):
+        hm.Line(position=trend, label="Trend")
+        hm.Points(x="x", y="y", fill="group", label="Observations")
+
+# Named properties include hm.themes.dark, .finance_terminal, .pastel,
+# .graph, .sea, .sunset, .ggplot, .seaborn_dark, .notebook,
+# .graphing_calculator, .observable, .wes_anderson, .ghibli, .yellow_glow,
+# .eight_bit, .five_thirty_eight, .vaporwave, .blueprint, .bubblegum, .spooky,
+# .treasure_map, .bureau, .journal, .bauhaus, .risograph, and .tufte.
+themed`},{id:"density",title:"Density estimation",description:"Grouped 1D and raster 2D Gaussian kernel density estimates.",group:"Interaction",tags:["Density","Transforms"],code:'<Density x="value" by="group"><Line x="x" y="density" /></Density>'},{id:"pivot-fold",title:"Pivot and fold",description:"Reshape long and wide tables while retaining source identities.",group:"Interaction",tags:["Tables","Transforms"],code:`<Fold fields={['before','after']}><Points x="key" y="value" /></Fold>`},{id:"quantile-aggregate",title:"Quantiles and group summaries",description:"Grouped quantile curves and each row's group mean and 90th percentile, all Calculate expressions.",group:"Interaction",tags:["Statistics","Transforms"],code:'<Sort by="value"><Calculate columns={{ probability: divide(cumsum(is_finite("value"), { by: "group", orderBy: "value" }), count("value", { by: "group" })) }}><Line x="probability" y="value" series="group" color="group" /></Calculate></Sort>'},{id:"violin",title:"Violin plot",description:"Grouped GPU density bands with categorical color.",group:"Marks",tags:["Statistics","Density"],code:'<Violin x="group" y="value" />'},{id:"calendar",title:"Calendar functions and a Playback over dates",group:"Time",description:"Mauna Loa's monthly CO2: a Playback whose value is a date draws it a month at a time, four years a second, and month_name groups the seasonal cycle by calendar month.",tags:["Time","Inputs","Calendar"],code:`<InputContext>
+  <Provider url="/data/co2/mauna-loa-co2-monthly.csv" format="csv" schema={{ date: "datetime" }}>
+    <Playback name="until" min={min("date")} max={max("date")} rate="4 years" step="1 month" loop />
+    <Plot axes2d>
+      <Line x="date" y="co2" color="#c9d3dd" />
+      <Filter where={less_equal("date", input("until"))}><Line x="date" y="co2" /></Filter>
+    </Plot>
+    <Calculate columns={{ month: month_name("date"), seasonal: subtract("co2", "deseasonalized") }}>
+      <Group by="month" columns={{ cycle: mean("seasonal") }}>
+        <Plot axes2d><Bar x="month" y="cycle" /></Plot>
+      </Group>
+    </Calculate>
+  </Provider>
+</InputContext>`,python:`co2 = pd.read_csv("mauna-loa-co2-monthly.csv", parse_dates=["date"])
+with hm.Scene() as scene:
+    with hm.Data(co2):
+        hm.Playback(name="until", min=hm.min("date"), max=hm.max("date"), rate="4 years", step="1 month", loop=True)
+        with hm.Plot():
+            hm.Line(x="date", y="co2", color="#c9d3dd")
+            with hm.Filter(where=hm.col.date <= hm.input.until):
+                hm.Line(x="date", y="co2")
+        with hm.Calculate(month=hm.month_name("date"), seasonal=hm.col.co2 - hm.col.deseasonalized):
+            with hm.Group(by="month", columns={"cycle": hm.mean("seasonal")}):
+                with hm.Plot():
+                    hm.charts.Bar(x="month", y="cycle")
+scene`},{id:"market-hours",title:"Market hours: an axis that skips weekends and nights",group:"Time",description:"Half-hourly prices on an axis that leaves out weekends and the hours outside a 09:30 to 16:00 session in New York; the line runs on from each close to the next open, and a brush can span a break.",tags:["Time","Axes","Brushing"],code:`<Plot {data} axes2d x={{ timezone: "America/New_York", breaks: ["weekends", { hours: [16, 9.5] }] }}>
+  <Line x="t" y="price" />
+  <Points x="t" y="price" size={2} brush respond="brushed" />
+</Plot>`,python:`with hm.Plot(data=prices, axes2d=True, x={"timezone": "America/New_York", "breaks": ["weekends", {"hours": [16, 9.5]}]}) as plot:
+    hm.Line(x="t", y="price")
+    hm.Points(x="t", y="price", size=2, brush=True, respond="brushed")
+plot`},{id:"weekdays",title:"Days of the week and calendar months",group:"Time",description:"Two years of daily trips: grouped by day_name into weekdays, Monday first, and binned by calendar month with Bin's interval, whose bars start and end at month boundaries.",tags:["Time","Calendar","Bin"],code:`<Data value={data}>
+  <Plot axes2d><Line x="day" y="trips" /></Plot>
+  <Calculate columns={{ weekday: day_name("day") }}>
+    <Group by="weekday" columns={{ mean: mean("trips") }}>
+      <Plot axes2d><Bar x="weekday" y="mean" /></Plot>
+    </Group>
+  </Calculate>
+  <Bin x="day" interval="1 month" columns={{ total: sum("trips") }}>
+    <Plot axes2d><Rect x0="x0" x1="x1" y0={0} y1="total" /></Plot>
+  </Bin>
+</Data>`,python:`with hm.Scene() as scene:
+    with hm.Data(trips):
+        with hm.Calculate(weekday=hm.day_name("day")):
+            with hm.Group(by="weekday", columns={"mean": hm.mean("trips")}):
+                with hm.Plot():
+                    hm.charts.Bar(x="weekday", y="mean")
+        with hm.stats.Bin(x="day", interval="1 month", columns={"total": hm.sum("trips")}):
+            with hm.Plot():
+                hm.Rect(x0="x0", x1="x1", y0=0, y1="total")
+scene`},{id:"smooth",title:"A fitted curve that refits under a brush",description:"Smooth fits a curve (linear, polynomial, log, exp or power) with its 95% confidence band on the GPU: penguins' body mass against flipper length. Brush some penguins and the fit follows them.",group:"Marks",tags:["Statistics","Regression","Brushing"],code:`<InputContext>
+  <Select name="method" options={["linear", "poly", "log", "exp", "pow"]} value="linear" label="Fit" />
+  <Provider url="/data/penguins/penguins.csv" format="csv">
+    <Plot axes2d legend x={{ domain: [170, 235] }} y={{ domain: [2500, 6500] }}>
+      <Points x="flipper_length_mm" y="body_mass_g" fill="species" brush respond="brushed" />
+      <Filter where="@brushed" inactive="all">
+        <Smooth x="flipper_length_mm" y="body_mass_g" method={input("method")} />
+      </Filter>
+    </Plot>
+  </Provider>
+</InputContext>`},{id:"ecdf",title:"ECDFs by species",description:"Each penguin species' body mass as steps: the fraction of its penguins at or below each mass.",group:"Marks",tags:["Statistics","Distributions"],code:`<Provider url="/data/penguins/penguins.csv" format="csv">
+  <Plot axes2d>
+    <Ecdf bind:this={chart} x="body_mass_g" by="species" />
+    <Legend for={chart} channel="color" position="right" />
+  </Plot>
+</Provider>`},{id:"density-contours",title:"Density contours",description:"The density of penguins' bill length against depth as filled bands, contour lines or both, on the GPU: Density, then Contour's marching squares.",group:"Marks",tags:["Statistics","Density","Contours"],code:`<InputContext>
+  <Checkbox name="bands" value={true} label="Bands" />
+  <Checkbox name="lines" value={false} label="Lines" />
+  <Provider url="/data/penguins/penguins.csv" format="csv">
+    <Plot axes2d>
+      <DensityBands x="bill_length_mm" y="bill_depth_mm" thresholds={10} visible={input("bands")} />
+      <DensityContour x="bill_length_mm" y="bill_depth_mm" thresholds={10} visible={input("lines")} />
+      <Points x="bill_length_mm" y="bill_depth_mm" fill="species" />
+    </Plot>
+  </Provider>
+</InputContext>`},{id:"voronoi",title:"Voronoi cells, hulls and a Delaunay triangulation",description:"Each penguin's Voronoi cell (hover one to highlight its penguin), each species' convex hull, and the Delaunay triangulation, drawn by Polygon and Segments.",group:"Marks",tags:["Statistics","Geometry","Hover"],code:`<Plot axes2d>
+  <Voronoi x="bill_length_mm" y="bill_depth_mm">
+    <Polygon fill="species" opacity={0.3} hover respond="hovered" />
+  </Voronoi>
+  <Points x="bill_length_mm" y="bill_depth_mm" fill="species" respond="hovered" />
+</Plot>
+<Plot axes2d>
+  <Hull x="bill_length_mm" y="bill_depth_mm" by="species">
+    <Polygon fill="species" opacity={0.25} outlineWidth={1.5} />
+  </Hull>
+</Plot>
+<Plot axes2d>
+  <Delaunay x="bill_length_mm" y="bill_depth_mm">
+    <Segments start="start" end="end" />
+  </Delaunay>
+</Plot>`},{id:"box-plot",title:"Box plot",description:"Quartiles, Tukey whiskers, medians, and source-linked outliers.",group:"Marks",tags:["Statistics","Intervals"],code:'<BoxPlot x="group" y="value" />'},{id:"swarm",title:"Swarm plot",description:"Deterministic glyph-aware dodge with stable observation identities.",group:"Marks",tags:["Statistics","Dodge"],code:'<Swarm x="value" y="group" />'},{id:"bar",title:"Bar chart",description:"Categorical bars composed from derived geometry and instanced prisms.",group:"Marks",tags:["Categories","Rect"],code:'<Bar x="group" y="total" />'},{id:"streamgraph",title:"Streamgraph",description:`Stack with offset="wiggle" and order="insideOut": each week's stack moves so the layers change slope as little as they can, the biggest genres in the middle, and an Area per genre draws it. The controls switch the offset and the order. Area transitions animate by default; the Animate control can turn them off.`,group:"Marks",tags:["Stack","Area"],code:`<script>
+  import { Plot, Stack, Area, Legend, InputContext, Select, Checkbox, input } from "hmplot";
+  import { untrack } from "svelte";
+  let { onready } = $props(), plot = $state(), area = $state(), stack = $state();
+  // Weekly plays of eight genres over a year, each a few bumps: one row per genre and week.
+  const genres = ["Ambient", "Blues", "Country", "Disco", "Electro", "Folk", "Gospel", "House"];
+  const week = [], genre = [], plays = [];
+  genres.forEach((name, g) => {
+    for (let t = 0; t < 52; t++) {
+      let value = 0.3;
+      for (let k = 0; k < 3; k++) {
+        const peak = (g * 11 + k * 19) % 52, spread = 3 + ((g + 2 * k) % 5) * 1.5, height = 1 + ((g * 5 + k * 3) % 7);
+        value += height * Math.exp(-((t - peak) ** 2) / (2 * spread ** 2));
+      }
+      week.push(t);
+      genre.push(name);
+      plays.push(Math.round(value * 100) / 100);
+    }
+  });
+  const data = { week, genre, plays };
+  let animate = $state(true);
+  $effect(() => { const p = plot; untrack(() => onready?.(p)); });
+  $effect(() => {
+    if (!import.meta.env.DEV || !plot || !area || !stack) return;
+    window.__streamgraph = { plot, area, stack };
+    return () => { delete window.__streamgraph; };
+  });
+<\/script>
+<p>A streamgraph: Stack with offset="wiggle" moves each week's stack so the layers change slope as little as they can, and order="insideOut" puts the biggest genres in the middle. Each Area draws one genre from y0 to y1. Try the other offsets: center stacks around zero, zero from zero, expand to 100%.</p>
+<InputContext>
+  <div class="controls">
+    <Select name="offset" options={["wiggle", "center", "zero", "expand"]} label="Offset" />
+    <Select name="order" options={["insideOut", "none", "appearance", "ascending", "descending", "reverse"]} label="Order" />
+    <Checkbox name="animate" label="Animate" bind:value={animate} />
+  </div>
+  <Plot bind:this={plot} {data} responsive height={420} axes2d animateBounds={animate} boundsDuration={700}
+    x={{ label: "Week" }} y={{ label: "Plays" }}>
+    <Stack bind:this={stack} x="week" y="plays" series="genre" offset={input("offset")} order={input("order")}>
+      <Area bind:this={area} x="week" upper="y1" lower="y0" fill="genre" series="genre" opacity={0.9} animation={animate} animationDuration={700} />
+    </Stack>
+    <Legend channel="fill" label="Genre" position="right" />
+  </Plot>
+</InputContext>
+<style>p {font-size:14px;line-height:1.5}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}</style>
+`,python:`import math
+
+import hmplot as hm
+
+# Weekly plays of eight genres over a year: one row per genre and week.
+genres = ["Ambient", "Blues", "Country", "Disco", "Electro", "Folk", "Gospel", "House"]
+data = {"week": [], "genre": [], "plays": []}
+for g, genre in enumerate(genres):
+    for week in range(52):
+        value = 0.3
+        for k in range(3):
+            peak = (g * 11 + k * 19) % 52
+            spread = 3 + ((g + 2 * k) % 5) * 1.5
+            height = 1 + ((g * 5 + k * 3) % 7)
+            value += height * math.exp(-((week - peak) ** 2) / (2 * spread ** 2))
+        data["week"].append(week)
+        data["genre"].append(genre)
+        data["plays"].append(math.floor(value * 100 + 0.5) / 100)
+
+with hm.Scene(gap=12) as scene:
+    hm.Markdown('A streamgraph: Stack with offset="wiggle" moves each week\\'s stack so the layers '
+                'change slope as little as they can, and order="insideOut" puts the biggest genres '
+                'in the middle. Each Area draws one genre from y0 to y1. Try the other offsets: '
+                'center stacks around zero, zero from zero, expand to 100%.')
+    with hm.Row(wrap=True, min_width=0, gap=12):
+        hm.Select(name="offset", label="Offset", value="wiggle", options=["wiggle", "center", "zero", "expand"])
+        hm.Select(name="order", label="Order", value="insideOut",
+                  options=["insideOut", "none", "appearance", "ascending", "descending", "reverse"])
+        hm.Checkbox(name="animate", label="Animate", value=True)
+    with hm.Plot(data=data, responsive=True, height=420, axes2d=True, animate_bounds=hm.input.animate,
+                 bounds_duration=700, x={"label": "Week"}, y={"label": "Plays"}):
+        with hm.Stack(x="week", y="plays", series="genre", offset=hm.input.offset, order=hm.input.order):
+            hm.Area(x="week", upper="y1", lower="y0", fill="genre", series="genre", opacity=0.9,
+                    animation=hm.input.animate, animation_duration=700)
+        hm.Legend(channel="fill", label="Genre", position="right")
+scene
+`},{id:"stacked-percent",title:"100% stacked bars",description:`Stack with offset="expand" scales each region's stack to span 0 to 1, so each Bar segment is a product's share of the region's sales.`,group:"Marks",tags:["Stack","Bar"],code:`<Stack x="region" y="sales" series="product" offset="expand">
+  <Bar x="region" y="y1" baseline="y0" fill="product" />
+</Stack>`},{id:"sunburst",title:"Zoomable sunburst",description:"Click to explore a weighted Tree partition with input weights and layer heights tweened before layout. The Svelte and Python scenes work in standalone HTML.",group:"Combinations",tags:["Tree","Polar","Selection","Animation"],code:'<GraphData {nodes} {edges}><Tree mode="partition" directed root={0} nodeWidth={tween(weight)} layerHeight={tween(height)}><Nodes><Rect x0="x0" x1="x1" y0="y0" y1="y1" select /></Nodes></Tree></GraphData>'},{id:"expandable-tree",title:"Expandable tree",description:"Collapse branches and filter by depth while GPU subtree widths and unequal edge lengths animate. Paired Svelte and Python scenes.",group:"Combinations",tags:["Tree","Selection","Animation"],code:'<GraphData {nodes} {edges}><Tree mode="tidy-approx" root={0} where={visible} edgeLength="length" enter={{nodeWidth:0,edgeLength:0}} exit={{nodeWidth:0,edgeLength:0}}><Nodes><Points x="x" y="y" opacity="presence" select /></Nodes></Tree></GraphData>'},{id:"solar-system",title:"Solar system",description:"The Sun and the eight planets as textured spherical Frames placed in a 3D scene. Each planet orbits at its true period, spins on its tilted axis, and is lit by the Sun; Saturn's rings are an Image in a polar Frame turned onto its equator.",group:"Combinations",tags:["3D","Spherical","Frame","Animation"],code:`<Plot type="3d-y-up">
+  <T.PointLight position={[0, 0, 0]} decay={0} />
+  <Frame coordinates="spherical" placement={{anchor, size, rotation: [tilt, spin, 0]}}>
+    <Image data={texture} lit />
+  </Frame>
+</Plot>`},{id:"polar-inset",title:"Polar and tangent insets",description:"A warped chart and a rigid tangent inset on a rotatable orthographic sphere, with a 24-unit polar dial.",group:"Combinations",tags:["Polar","Spherical","Frames"],code:`<Frame coordinates="spherical" projection="orthographic" projectionCenter={[0,0]}><Frame coordinates="cartesian" x={{range:[0,45]}} y={{range:[-20,20]}}>…</Frame><Frame coordinates="cartesian" placement={{anchor:[-35,0],size:[100,100],orientation:'tangent'}}>…</Frame></Frame>`},{id:"polar-radius",title:"Polar radius",description:"Angles and radial values in an explicit polar chart.",group:"Combinations",tags:["Data","Polar"],code:`<Plot data={data} coordinates="polar" y={{domain:[0,3]}}>
+ <Line x="angle" y="radius" />
+ <Points x="angle" y="radius" />
+</Plot>`},{id:"positioned-graph",title:"Positioned graph",description:"Node positions computed from node columns, with edges gathered from those positions.",group:"Combinations",tags:["GraphData","Data"],code:'<GraphData {nodes} {edges}><Nodes><Calculate columns={{x: multiply("column", 2), y: "lane"}}>…</Calculate></Nodes></GraphData>'},{id:"tree-icicle",title:"Tree icicle",description:"Nested hierarchy rectangles from Tree partition bounds.",group:"Combinations",tags:["Tree","Hierarchy"],code:'<GraphData><Tree mode="partition" root="Root"><Nodes><Rect x0="x0" x1="x1" y0="y0" y1="y1" /></Nodes></Tree></GraphData>'},{id:"tree-sunburst",title:"Tree sunburst",description:"Tree partition spans mapped to annular sectors.",group:"Combinations",tags:["Tree","Polar"],code:'<GraphData><Tree mode="partition" orientation="up" root="Root">…</Tree></GraphData>'},{id:"clustermap",title:"Clustered heatmap",description:`A heatmap sorted by two dendrograms, as seaborn's clustermap: Tree mode="cluster" draws each precomputed linkage to scale by its merge heights, in Frames that share the heatmap's rows and columns, and labels the leaves by their order.`,group:"Combinations",tags:["Tree","Heatmap","Frames"],code:`<GraphData nodes={rows.nodes} edges={rows.edges}>
+  <Tree root={rows.root} mode="cluster" height="height" orientation="right">
+    <Frame x={{domain: [-7, 0], range: [-3, -0.15]}} y={{domain: [-0.5, R - 0.5], range: [0, R]}}>
+      <Edges><Segments start="start" end="end" curve="step-before" /></Edges>
+    </Frame>
+  </Tree>
+</GraphData>`},{id:"layered-dag",title:"Layered DAG",description:"Sugiyama layout with routed links and node sizes.",group:"Combinations",tags:["DAG","Graph"],code:'<GraphData><DAG><Edges><Routes /></Edges><Nodes><Points position="position" /></Nodes></DAG></GraphData>'},{id:"sankey-flow",title:"Sankey flow",description:"Acyclic weighted network with bands attached to node intervals.",group:"Combinations",tags:["Sankey","Flow"],code:'<GraphData><Sankey value="value"><Edges><Flow startLower="startLower" endLower="endLower" startUpper="startUpper" endUpper="endUpper" /></Edges></Sankey></GraphData>'},{id:"packed-hierarchy",title:"Circle packing",description:"D3 circle packing sized by leaf values, with centers and radii on Nodes.",group:"Combinations",tags:["Pack","Hierarchy"],code:`<GraphData><Pack root="Root" value="weight"><Nodes><Points x="x" y="y" size={multiply('r',2)} sizeUnits="data" /></Nodes></Pack></GraphData>`},{id:"treemap-hierarchy",title:"Treemap",description:"D3 treemap bounds from a weighted hierarchy.",group:"Combinations",tags:["Treemap","Hierarchy"],code:'<GraphData><Treemap root="Root" value="weight"><Nodes><Rect x0="x0" x1="x1" y0="y0" y1="y1" /></Nodes></Treemap></GraphData>'},{id:"curved-paths",title:"Curved paths",description:"GPU curves and camera-facing arrowheads with bounded subdivision.",group:"Combinations",tags:["Data","GPU"],code:`<script>
+ import { Plot, Line, Points } from '$lib';
+import { Arrows } from '$lib/charts/index.js';
+  import {untrack} from 'svelte';
+  let {plot=$bindable(),onready=undefined}=$props();
+  $effect(()=>{const p=plot;untrack(()=>onready?.(p));});
+ let curve=$state('catmull-rom');
+ const points=[[0,0],[1,2],[2,1],[3,3],[4,1],[5,2]];
+<\/script>
+<label>Curve <select bind:value={curve}>{#each ['linear','step','step-before','step-after','monotone-x','catmull-rom','basis'] as c}<option>{c}</option>{/each}</select></label>
+<Plot bind:this={plot} responsive height={440} axes2d x={{domain:[-.5,5.5]}} y={{domain:[-1,4]}}>
+ <Line position={points} {curve} color="#547ba2" width={2}/>
+ <Points position={points} size={3} fill="#cf8955"/>
+ <Arrows start={[[0,-.5]]} end={[[4,-.5]]} curve="cubic" control1={[[1,.7]]} control2={[[3,.7]]} color="#30343b"/>
+</Plot>`},{id:"rooted-tree",title:"Rooted tree",description:"A deterministic spanning tree with labels and curved directional links.",group:"Combinations",tags:["Data","GPU"],code:`<script>
+ import { Data, GraphData, Tree, Plot, Nodes, Edges, Points, Text, InputContext, Select, categories, input } from '$lib';
+import { Arrows } from '$lib/charts/index.js';
+  import {untrack} from 'svelte';
+  let {plot=$bindable(),onready=undefined}=$props();
+  $effect(()=>{const p=plot;untrack(()=>onready?.(p));});
+ const data={source:['Root','Root','Left','Left','Right','Right','Isolated'],target:['Left','Right','Leaf A','Leaf B','Leaf C','Leaf D','Other']};
+<\/script>
+<InputContext><Data value={data}>
+ <Select name="root" options={categories("source")} value="Root" label="Root"/>
+ <Select name="orientation" options={["down","up","left","right"]} label="Orientation"/>
+ <GraphData><Tree root={input("root")} orientation={input("orientation")}>
+ <Plot bind:this={plot} responsive height={440} x={{domain:[-1,5]}} y={{domain:[-3,1]}}>
+  <Edges><Arrows start="start" end="end" curve="link-vertical" width={1} color="#7b9865"/></Edges>
+  <Nodes><Points position="position" size={4} fill="#547ba2"/><Text x="x" y="y" text="id" dy={-14}/></Nodes>
+ </Plot>
+</Tree></GraphData></Data></InputContext>`},{id:"scatterplot-matrix",title:"Scatterplot matrix",description:"Facet pairs: lazy pair views, one domain per field on x and y, and consistent category colors.",group:"Combinations",tags:["Data","GPU"],code:`<script>
+ import {Plot,Facet,Data,Points} from '$lib';
+  import {untrack} from 'svelte';
+  let {plot=$bindable(),onready=undefined}=$props();
+  $effect(()=>{const p=plot;untrack(()=>onready?.(p));});
+ const data=Array.from({length:40},(_,i)=>({length:i/10,width:Math.sin(i*.4),height:Math.cos(i*.23)+i*.04,group:i%2?'A':'B'}));
+<\/script>
+<Data value={data}><Facet pairs={['length','width','height']} link="grid"><Plot height={240} axes2d><Points x="x" y="y" fill="group" size={4} brush respond="brushed"/></Plot></Facet></Data>`},{id:"shared-mappings",title:"Shared mappings",description:"One mapping scope drives positions and styles for points and labels.",group:"Combinations",tags:["Data","GPU"],code:`<script>
+ import {Plot,Mapping,Points,Text} from '$lib';
+  import {untrack} from 'svelte';
+  let {plot=$bindable(),onready=undefined}=$props();
+  $effect(()=>{const p=plot;untrack(()=>onready?.(p));});
+ const data=[{x:1,y:1,name:'North',group:'A'},{x:2,y:3,name:'East',group:'B'},{x:4,y:2,name:'West',group:'A'}];
+<\/script>
+<Plot bind:this={plot} {data} responsive height={400} axes2d x={{domain:[0,6]}} y={{domain:[0,4]}}><Mapping x="x" y="y" fill="group" opacity={.9}><Points size={4.5}/><Text text="name" dx={10} align="left" color="#30343b"/></Mapping></Plot>`},{id:"point-labels",title:"Point labels",group:"Marks",tags:["Text3D","Annotations"],description:"Named observations with GPU-rendered labels that follow pan and zoom.",code:`<Plot data={observations}>
+  <Points x="x" y="y" />
+  <Text x="x" y="y" text="name" dx={8} align="left" />
+</Plot>`},{id:"data-shortcut",title:"Data shortcuts",group:"Interaction",description:"Composable data scopes, coordinate frames, and shared navigation.",tags:["Data","Axes"],code:"<Plot>…</Plot>"},{id:"twin-axes",title:"Twin coordinate frames",group:"Interaction",description:"Composable data scopes, coordinate frames, and shared navigation.",tags:["Data","Axes"],code:"<Plot>…</Plot>"},{id:"typed-axes",title:"Categorical and datetime frames",group:"Interaction",description:"Composable data scopes, coordinate frames, and shared navigation.",tags:["Data","Axes"],code:"<Plot>…</Plot>"},{id:"frame-3d",title:"Three-dimensional axes",group:"Interaction",description:"Composable data scopes, coordinate frames, and shared navigation.",tags:["Data","Axes"],code:"<Plot>…</Plot>"},{id:"controlled-facets",title:"Facet settings",group:"Interaction",description:"Composable data scopes, coordinate frames, and shared navigation.",tags:["Data","Axes"],code:"<Plot>…</Plot>"},{id:"histograms",title:"Histogram bins",group:"Interaction",description:"A Slider input sets a Histogram's bin count.",tags:["Data","Axes"],code:"<Plot>…</Plot>"},{id:"large-graph",title:"Large force graph",tags:["Combined","Interactive"],group:"Combinations",description:"Explore seeded graphs of 64 to 10,000 nodes, thin edges, dragging, and a linked overview in 2D or 3D.",code:"<Plot>…</Plot>"},{id:"layered-signal",title:"Signal and uncertainty",tags:["Combined","Interactive"],group:"Combinations",description:"Animated intervals, estimates, observations, error bars, legends, and an independent overview.",code:"<Plot>…</Plot>"},{id:"globe-routes",title:"Globe and routes",tags:["Combined","Interactive"],group:"Combinations",description:"Regions, great-circle paths, outlined cities, projection switching, legends, and navigation.",code:"<Plot>…</Plot>"},{id:"map-projections",title:"World map projections",tags:["GeoJSON","Maps","Projections"],group:"Maps",description:"equal-earth and natural-earth world maps, albers (conic equal-area) and albers-usa (the United States with Alaska and Hawaii as insets): each maps longitude and latitude jointly into one curved outline around its center, cut at its seam, with a graticule and outline instead of edge axes. Move the center to move the seam; click a country for the longitude and latitude under the pointer.",code:`<script>
+  // World map projections with curved outlines (TODO 39.5-39.6): equal-earth and natural-earth
+  // for world maps, albers (conic equal-area) and albers-usa (the United States with Alaska and
+  // Hawaii as insets). A graticule and the map's outline replace the edge axes.
+  import { onMount } from "svelte";
+  import { Plot, GeoJSON, InputContext, Select, Slider } from "hmplot";
+  const loadCountries = async () => { const response = await fetch("/data/geo/countries.json"); if (!response.ok) throw Error("Could not load countries."); return response.json(); };
+  let { onready } = $props();
+  let countries = $state(), error = $state(""), plot = $state(), mark = $state(), picked = $state("");
+  let projection = $state("equal-earth"), center = $state(0);
+  const projections = ["equal-earth", "natural-earth", "albers", "albers-usa", "equirectangular"];
+  $effect(() => { if (plot) onready?.(plot); });
+  $effect(() => {
+    if (!import.meta.env.DEV || !plot || !mark) return;
+    window.__projections = { plot, mark };
+    return () => { delete window.__projections; };
+  });
+  onMount(() => {
+    const cancel = new AbortController();
+    loadCountries(cancel.signal).then((data) => (countries = data))
+      .catch((e) => { if (e.name !== "AbortError") error = e.message; });
+    return () => cancel.abort();
+  });
+<\/script>
+
+<InputContext>
+<div class="controls">
+  <Select name="projection" label="Projection" options={projections} bind:value={projection} />
+  <Slider name="center" label="Center longitude" min={-180} max={180} step={5}
+    format={(value) => \`\${value}°\`} bind:value={center} />
+  <span aria-live="polite">{picked}</span>
+</div>
+{#if error}<p role="alert">{error}</p>{:else if countries}
+  <!-- albers centers on the United States' latitude, as d3.geoAlbers does. -->
+  <Plot bind:this={plot} responsive height={440} type="2d" coordinates="spherical" {projection}
+    projectionCenter={[projection === "albers" ? center - 96 : center, projection === "albers" ? 38.7 : 0]} axes2d>
+    <GeoJSON bind:this={mark} data={countries} fill="continent"
+      onclick={(event) => (picked = \`\${event.feature.properties.name}: \${event.geographicCoordinates
+        ?.map((value) => value.toFixed(1)).join("°, ")}°\`)} />
+  </Plot>
+{:else}<p>Loading map…</p>{/if}
+<small>Natural Earth · public domain.</small>
+</InputContext>
+
+<style>
+  .controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 8px; font: 13px system-ui; }
+</style>
+`,python:`import hmplot as hm
+
+# countries: a GeoJSON FeatureCollection with a "continent" property per country.
+with hm.Plot(coordinates="spherical", projection="equal-earth", projection_center=[150, 0],
+             type="2d", height=440, axes2d=True) as plot:
+    hm.GeoJSON(data=countries, fill="continent")
+plot`},{id:"geojson-map",title:"Country map",tags:["GeoJSON","Maps"],group:"Maps",description:"GPU maps with feature data and interaction.",code:"<GeoJSON data={countries} />"},{id:"geojson-categories",title:"Categorical map",tags:["GeoJSON","Maps"],group:"Maps",description:"GPU maps with feature data and interaction.",code:"<GeoJSON data={countries} />"},{id:"geojson-joined",title:"Joined choropleth",tags:["GeoJSON","Maps"],group:"Maps",description:"GPU maps with feature data and interaction.",code:"<GeoJSON data={countries} />"},{id:"geojson-projected",title:"Projected extrusions",tags:["GeoJSON","Maps"],group:"Maps",description:"GPU maps with feature data and interaction.",code:"<GeoJSON data={countries} />"},{id:"geojson-globe",title:"Globe extrusions",tags:["GeoJSON","Maps"],group:"Maps",description:"GPU maps with feature data and interaction.",code:"<GeoJSON data={countries} />"},{id:"geojson-facets",title:"Filtered and faceted maps",tags:["GeoJSON","Maps"],group:"Maps",description:"GPU maps with feature data and interaction.",code:"<GeoJSON data={countries} />"},{id:"geojson-mixed",title:"GeoJSON geometry",tags:["Maps","GeoJSON"],group:"Maps",description:"Feature picking, holes, and extruded regions.",code:"<GeoJSON data={features} />"},{id:"transform-grid",title:"Bilinear grid",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-scattered",title:"Scattered interpolation",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-line",title:"Signal interpolation",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-field",title:"Time-varying field",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-categories",title:"Categorical grid",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-slice",title:"Entity motion",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-force",title:"Force layout · 2D",tags:["Data","Transforms"],group:"Interaction",description:"A small team graph laid out by a force simulation on the GPU: run, step, reset, repulsion and dragging.",code:"<Data value={observations}>…</Data>"},{id:"transform-force3d",title:"Force layout · 3D",tags:["Data","Transforms"],group:"Interaction",description:"GPU-resident transforms with interactive controls.",code:"<Data value={observations}>…</Data>"},{id:"transform-forces",title:"Layered forces",tags:["Data","Transforms"],group:"Interaction",description:"d3's forces by name, their strengths and targets from node columns.",code:'<Force forces={{ byTeam: { type: "x", x: "teamX" }, spacing: { type: "collide", radius: "size" } }}>…</Force>'},{id:"inputs",title:"Inputs",tags:["Data","Controls"],group:"Interaction",description:"A Select, a Playback and a Slider drive a Filter and a Bin by name; the options and a range are read from the data.",code:`<InputContext><Data value={observations}>
+  <Select name="species" options={categories("species")} />
+  <Playback name="start" min={min("x")} max={max("x")} rate={0.5} loop />
+  <Slider name="bins" min={4} max={40} step={1} value={12} />
+  <Filter where={logical_and(equal(col("species"), input("species")), greater_equal(col("x"), input("start")))}><Plot>
+    <Bin x="x" bins={input("bins")}><Rect x0="x0" x1="x1" y0={0} y1="count" /></Bin>
+  </Plot></Filter>
+</Data></InputContext>`},{id:"springs",title:"Springs",tags:["Data","Simulation"],group:"Interaction",description:"Simulate steps a ring of damped springs every 16 ms: Sliders set the stiffness and damping, Run pauses, Kick starts again, and a clicked point's spring pulls it out.",code:`<InputContext>
+  <Slider name="stiffness" min={5} max={120} value={40} /> <Checkbox name="run" value={true} /> <Button name="kick" />
+  <Data value={ring} key="id">
+    <Simulate initial={{ x: "x0", vx: 0 }} update={{ vx: velocity, x: add(prev("x"), multiply(velocity, divide("@dt", 1000))) }}
+      running={input("run")} reset={input("kick")} stop={{ tolerance: 0.0005 }}>
+      <Plot><Points x="x" y="y" select /></Plot>
+    </Simulate>
+  </Data>
+</InputContext>`},{id:"transform-controls",title:"Filter and bin inputs",tags:["Data","Controls"],group:"Interaction",description:"A Select with multiple=true of the species column's categories filters the rows, and a Slider sets the histogram's bin count.",code:`<InputContext><Data value={observations}>
+  <Select multiple name="species" options={categories("species")} value={["A"]} label="Species" />
+  <Slider name="bins" min={1} max={64} step={1} value={12} label="Bins" />
+  <Filter where={is_in(col("species"), input("species"))}><Plot>
+    <Bin x="x" bins={input("bins")}><Rect x0="x0" x1="x1" y0={0} y1="count" /></Bin>
+  </Plot></Filter>
+</Data></InputContext>`},{id:"facets",title:"Facets & transforms",group:"Marks",description:"Derived data scopes, repeated plots, and extruded bins.",tags:["Data","Facets","3D"],code:`<Data value={observations}>
+ <Facet column="species" wrap={3}>
+  <Plot height={240} axes2d>
+   <Bin x="length" bins={24}>
+    <Rect x0="x0" x1="x1" y0={0} y1="count" />
+   </Bin>
+  </Plot>
+ </Facet>
+</Data>`},{id:"symbols",title:"Point symbols",group:"Marks",description:"Eight flat symbols, inward outlines, rotation, and GPU picking.",tags:["Shapes","Picking"],code:`<Points position={points} shape={shape}
+  size={12}
+  outlineWidth={0.95}
+  outlineColor="#30343b" fill="#e9b873"
+  onclick={(event) => select(event.instanceId)} />`},{id:"paths",title:"Lines & vector fields",group:"Marks",description:"Connected lines, independent segments, dashes, and endpoint arrows.",tags:["Lines","Arrows3D"],code:`<Line position={curve} width={2} />
+<Arrows3D start={starts} end={ends}
+  width={0.07} headLength={2} headWidth={1.5} />`},{id:"surface",title:"Density & surfaces",group:"Marks",description:"One GPU heatmap, fixed color bounds, contours, and an optional 3D surface.",tags:["Heatmap","Contours","3D"],code:`<Heatmap fill={density} fillScale={continuous({ domain: [0, 1] })}
+  contour-enabled={true}
+  surfaceMode={true} surface3d={mode === '3d'}
+  zScale={20} />`},{id:"image",title:"Images",group:"Marks",description:"Grayscale and RGB tensors retain their original colors, with nearest-neighbor pixels.",tags:["RGB","Pixels"],code:`<Plot toneMapping={0}>
+  <Image data={rgb} pixelated={true} />
+</Plot>`},{id:"linked",title:"Linked views & minimap",group:"Interaction",description:"Two views share a viewport. An external overview retains the full domain.",tags:["Linked zoom","Overview"],code:`<Plot bind:this={first} {viewport}
+  onviewportchange={(v) => viewport = v}>…</Plot>
+<Plot {viewport}
+  onviewportchange={(v) => viewport = v}>…</Plot>
+<Minimap for={first} displayScale={0.35} />`},{id:"axes",title:"Axes & datetime",group:"Interaction",description:"Calendar-aware labels, major/minor grids, reference rules, and axis-specific zoom.",tags:["UTC / IANA","Grid rules"],code:`const { values, origin } = datetimeCoordinates(dates);
+<Plot axes2d x={{ type: 'datetime', origin,
+  timezone: 'America/New_York', format: '%H:%M' }} axisMarginZoom>…</Plot>`},{id:"texture",title:"Interactive textures",group:"Surfaces",description:"Points and paths painted into a heatmap texture remain clickable on its surface.",tags:["Child marks","GPU picking"],code:`<Heatmap fill={density} textureResolution={[1024, 512]}>
+  <Line position={curve} width={2} />
+  <Points position={points} onclick={inspect} />
+</Heatmap>`},{id:"earth",title:"Earth relief",group:"Surfaces",description:"NASA imagery over an elevation surface, with adjustable relief and directional lighting.",tags:["Globe","Elevation","Lighting"],code:`<Plot x={{ domain: [-180,180] }} y={{ domain: [-90,90] }} coordinates="spherical" type="3d-y-up" baseRadius={1} overview>
+  <T.AmbientLight intensity={0.35} />
+  <T.DirectionalLight position={[3,2,4]} intensity={2} />
+  <Heatmap fill={elevation} surfaceMode lit detail={256}
+    zScale={exaggeration * 6400 / 6371000}
+    fillScale={continuous({ domain: [0, 1] })} textureResolution={[2048,1024]}>
+    <Image data={color} />
+  </Heatmap>
+</Plot>`},{id:"sphere",title:"Spherical coordinates",group:"Surfaces",description:"Longitude–latitude data becomes a globe or a wrapping map, with a linked overview.",tags:["Globe","Projections","Texture"],code:`<Plot coordinates="spherical" type={mode}
+  projection="equirectangular" overview>
+  <Heatmap fill={density} textureResolution={[1024, 512]}>
+    <Points position={observations} onclick={inspect} />
+  </Heatmap>
+</Plot>`},{id:"timeseries",title:"Long time series",group:"Interaction",tags:["GPU extrema","1,000,000 points"],description:"Zoom into a long signal with adaptive peak-preserving detail or draw every point.",code:`<Plot x={{ domain: [0, count-1] }} y={{ domain: [-2,2] }} bind:this={plot} axes2d zoomAxis="x">
+  <Line position={series} sampling="uniform-x" width={1.25} />
+</Plot>
+<Minimap for={plot} width={900} height={90} axes={{x:true,y:false}} />`},...["points","line","surface","globe"].map(n=>({id:`animation-${n}`,title:`Animated ${n}`,group:n==="surface"||n==="globe"?"Surfaces":"Interaction",description:"Change targets during a transition. Data and appearance interpolate on the GPU.",tags:["Animation","Easing","GPU"],code:`<Plot animationDuration={700} animationEasing="cubic-in-out">
+  <${n==="points"?"Points":n==="line"?"Line":"Heatmap"} animation={true} ${n==="points"||n==="line"?"position={points}":"fill={density} surfaceMode zScale={height}"} />
+</Plot>`}))],u=["circle","square","diamond","triangle","hexagon","plus","cross","star"];function g(){const n=Array.from({length:240},(o,e)=>{const a=e*2.399963229728653,t=Math.sqrt((e+.5)/240);return[2.7*t*Math.cos(a),1.7*t*Math.sin(a)]}),h=Array.from({length:129},(o,e)=>{const a=-3+e*6/128;return[a,Math.sin(a*2)*.9]}),s=[],r=[];for(let o=0;o<7;o++)for(let e=0;e<11;e++){const a=-2.7+e*.54,t=-1.5+o*.5;s.push([a,t]),r.push([a-t*.13,t+a*.08])}const p=Array.from({length:64},(o,e)=>Array.from({length:128},(a,t)=>{const l=(t/127-.5)*6,d=(e/63-.5)*4;return Math.exp(-((l+.9)**2+(d-.35)**2)/1.2)*.8+Math.exp(-((l-1.2)**2+(d+.5)**2)/.65)*.6})),m=Array.from({length:64},(o,e)=>Array.from({length:128},(a,t)=>.5+.3*Math.cos(t/127*Math.PI*2)*Math.cos((e/63-.5)*Math.PI)+.15*Math.sin(e/63*Math.PI*4))),c=Array.from({length:32},(o,e)=>Array.from({length:48},(a,t)=>[t/47,e/31,(Math.floor(t/4)+Math.floor(e/4))%2*.65+.2]));return{points:n,curve:h,starts:s,ends:r,density:p,globe:m,rgb:c,segmentStarts:[[-2.5,-1.65]],segmentEnds:[[2.5,-1.65]],observations:[[0,0],[45,20],[-50,-25],[179,15]],route:[[-70,0],[0,40],[70,0]]}}i.push({id:"guides",title:"Legends & uncertainty",group:"Marks",tags:["Guides","Confidence bands"],description:"Series legends, GPU colorbars, filled areas, and capped uncertainty intervals.",code:`<Plot legend>
+  <Area x={x} lower={lower} upper={upper} opacity={0.2} label="95% interval" />
+  <Line position={estimate} label="Estimate" />
+  <ErrorBars position={observations} lower={lowerBounds} upper={upperBounds} />
+</Plot>
+<Legend for={heatmap} channel="fill" label="Density" />`});i.push({id:"categories",title:"Named data & categories",group:"Marks",tags:["Data","Categories"],description:"Named columns, shared categorical colors and symbols, categorical axes, and GPU dictionary columns.",code:`<Plot x={{ scale: categorical({domain: ['Control', 'A', 'B']}) }}>
+  <Data value={observations}>
+    <Points x="group" y="value" fill="group" />
+  </Data>
+</Plot>`});i.push({id:"manhattan-flyover",title:"Manhattan building flyover",group:"Maps",tags:["3D","GeoJSON","VectorTile","Flyover","Scale"],description:"Fly over 10,000 of Manhattan's 45,194 building footprints, over streets, water and parks from vector tiles, or stream the map tiles around the camera with their own buildings standing.",code:`<script>
+  import { Plot, GeoJSON, VectorTile, continuous } from "hmplot";
+  import buildings from "./manhattan-buildings.json";
+  let maxBuildings = $state(10000);
+  let shown = $derived({
+    type: "FeatureCollection",
+    features: buildings.features.slice(0, maxBuildings)
+  });
+<\/script>
+
+<label>Maximum buildings
+  <input type="number" min="100" max={buildings.features.length} bind:value={maxBuildings} />
+</label>
+<button onclick={() => maxBuildings = buildings.features.length}>All buildings</button>
+<!-- A drag released while moving glides on (flyoverMomentum, on by default). -->
+<Plot type="3d-y-up" cameraMode="flyover" responsive height={520}
+  x={{ domain: [-40, 22], range: [-40, 22] }}
+  y={{ domain: [-23, 78], range: [-23, 78] }}
+  z={{ domain: [0, 30], range: [0, 30] }}>
+  <!-- Streets, water and parks: twelve bundled zoom-12 vector tiles, as they are (live={false}),
+    in the buildings' plane (0.004 units per meter). -->
+  <VectorTile url={"/data/vector-tiles/{z}/{x}/{y}.mvt"} bounds={[-74.068, 40.669, -73.885, 40.895]} zoom={12} live={false}
+    origin={[-73.95, 40.72]} unitsPerMeter={0.004} plane="xz" styles={{ places: false, buildings: false }} />
+  <GeoJSON data={shown} plane="xz" fill="height" fillScale={continuous({ domain: [0, 1.3] })}
+    height="height" heightScale={continuous({ domain: [0, 2], range: [0, 20] })} lit />
+  <!-- Or, without the GeoJSON: VersaTiles' tiles streamed around the camera, their buildings
+    standing (extrudeBuildings={false} lays them flat).
+  <VectorTile bounds={[-74.068, 40.669, -73.885, 40.895]} zoom={12} origin={[-73.95, 40.72]}
+    unitsPerMeter={0.004} plane="xz" styles={{ places: false }} /> -->
+</Plot>`,python:`import hmplot as hm
+import json
+from pathlib import Path
+
+# Download the buildings with the Svelte example.
+buildings = json.loads(Path("manhattan-buildings.json").read_text())
+max_buildings = 10000  # Use len(buildings["features"]) for all buildings.
+shown = {"type": "FeatureCollection", "features": buildings["features"][:max_buildings]}
+# Map-style flyover: a drag keeps the street under the cursor and the wheel zooms toward it;
+# fly_speed (and Shift) scale the wheel and keys, right-drag looks, and a drag released while
+# moving glides on (flyover_momentum=False stops it).
+with hm.Plot(type="3d-y-up", camera_mode="flyover", fly_speed=2, height=520,
+             x={"domain": [-40, 22], "range": [-40, 22]},
+             y={"domain": [-23, 78], "range": [-23, 78]},
+             z={"domain": [0, 30], "range": [0, 30]},
+             lights=[hm.light("ambient", intensity=1.2),
+                     hm.light("directional", position=[-35, 95, 20], intensity=2.2)]) as plot:
+    # Streets, water and parks from OpenStreetMap vector tiles, in the buildings' plane: the
+    # twelve zoom-12 tiles as they are (live=False). Live, without the GeoJSON below and with
+    # styles={"places": False}, the tiles stream around the camera with their own buildings
+    # standing (extrude_buildings=False lays them flat).
+    hm.VectorTile(url="https://tiles.versatiles.org/tiles/osm/{z}/{x}/{y}",
+                  bounds=(-74.068, 40.669, -73.885, 40.895), zoom=12, live=False,
+                  origin=(-73.95, 40.72), units_per_meter=0.004, plane="xz",
+                  styles={"places": False, "buildings": False})
+    hm.GeoJSON(data=shown, plane="xz", fill="height", fill_scale=hm.continuous(domain=[0, 1.3]),
+               height="height", height_scale=hm.continuous(domain=[0, 2], range=[0, 20]), lit=True)
+plot`});export{i as a,g as e,u as s};

@@ -1,0 +1,382 @@
+# registerPlugin
+
+Add effects and shades written in TSL: a plugin declares them once, and a Plot's effects and a mark's shade name them.
+
+## Example
+
+```svelte
+registerPlugin(vignette);
+<Plot effects={[{ kind: "vignette", amount: 0.5 }]}>…</Plot>
+```
+
+## Functions
+
+- `registerPlugin(plugin)` (`void`): Registers a plugin from definePlugin: its setup runs once, and plots that name its effects draw them from then on. The same plugin again does nothing; another of the same name, or one declaring a kind already registered, throws.
+- `definePlugin({name, apiVersion, setup})` (`plugin`): A checked plugin: a lowercase name ("vignette", "acme.grain"), apiVersion 1 (the plugin API it is written for) and setup(hm), which declares its effects with hm.effect(kind, definition) and its shades with hm.shade(kind, definition). hm.three, hm.tsl and hm.jax are the library's own modules.
+
+## Usage
+
+A plugin adds numerical transforms, graph layouts, effects or shades. Transform and layout
+authoring examples appear below; effects and shades are written in [TSL](https://threejs.org/docs/#api/en/nodes/Nodes), three.js's shader language, which a Plot's `effects` and a mark's `shade` then name. It is JavaScript only: `definePlugin({ name, apiVersion: 1, setup })` checks it, and `registerPlugin(plugin)` runs its `setup` once. `setup(hm)` declares each effect with `hm.effect(kind, definition)` and each shade with `hm.shade(kind, definition)`; `hm.three`, `hm.tsl` and `hm.jax` are the library's own modules, which a plugin uses instead of importing its own (two copies of three.js cannot share a shader graph). A plot that names a kind before its plugin registers draws without it, with a warning, and draws it once the plugin arrives.
+
+An effect's definition:
+
+- `stage`: `"linear"`, after the marks are drawn and before tone mapping, in linear color; `"display"`, after tone mapping, in display color (as the sky is drawn); or `"object"`, an object in the plot's scene (below).
+- `linear({ rgb, alpha, depth, uv, params, camera })` or `display({ rgb, alpha, uv, params, camera })`: TSL nodes in, `{ rgb, alpha }` nodes out. `rgb` is straight (not premultiplied) color; `depth` is the distance from the camera in world units (linear stage only); `uv` the pixel's position in the plot (0 to 1, down from the top); `camera` the camera's `projectionInverse` and `world` matrices and its `up` vector.
+- `parameters`: a schema, by name: `{ type, default, min, max, ... }`, with `type` one of number, color, boolean, select, string, field, expression, vector, image, union, array or object. A Plot's values are checked against it, naming the parameter. Number, color and vector parameters reach `params` as uniforms, so changing one compiles nothing; the rest arrive as plain values (or mark a number `structural: true`), and changing one rebuilds the effect. A vector is a list of `length` (2, 3 or 4) numbers. An image is a URL, an `ImageBitmap`, an `<img>`, a `<canvas>` or a `Blob` (in Python a URL, a file path, bytes or a PIL image): the library loads it, the plot waits for it (`whenSettled()`), and the effect is drawn once it has loaded, with the image in `params` as a texture node sampled as stored (`wrap: "repeat"` filters across its left and right edges, as a panorama needs). A value of `null` is one left out. A parameter without a default that is left out is `null` in `params` (a shade's too); giving it or leaving it out rebuilds the effect.
+- `check(values, context)`: optional, what the schema cannot say. It gets the values as given and the Plot's `{ threeD, plot }` (the sky needs a 3D plot) and returns `""`, or a problem that the Plot reports after the effect's name (the sky's `"takes image or the gradient's colors (horizon), not both."`).
+- `shown(values)`: optional; false leaves the effect out, not drawn and not exported (the sky's `visible: false`).
+- `order` within its stage, default 0 (fog is 0 and glow's composite 1 in the linear stage, the sky -1 in the display stage; at a tie the built-in comes first, then the Plot's order), `cameras` (`"any"`, or `"perspective"` for 3D plots only) and `export` (`"raster"`, the default: SVG and PDF draw the plot as one image while it shows, naming it; or `"none"`).
+
+An effect whose nodes throw, or return something other than nodes, is left out with a `plugin.failed` warning naming it, until it builds again. The built-in names (bloom, fog, glow) are not a plugin's kind, and the library's own plugins (sky, atmosphere) have taken theirs: declaring one is a `plugin.conflict`. Warnings reach the scene's diagnostics, or the console on a page without a scene.
+
+```svelte
+<script>
+  import { Plot, Points, definePlugin, registerPlugin } from "hmplot";
+
+  // A vignette: the plot's edges darken toward a color.
+  registerPlugin(definePlugin({
+    name: "vignette",
+    apiVersion: 1,
+    setup(hm) {
+      const { float, mix } = hm.tsl;
+      hm.effect("vignette", {
+        stage: "display",
+        parameters: {
+          amount: { type: "number", default: 0.5, min: 0, max: 1 },
+          color: { type: "color", default: "#000000" },
+        },
+        display({ rgb, alpha, uv, params }) {
+          const edge = uv.sub(0.5).length().mul(1.4).pow(2).mul(params.amount).clamp(0, 1);
+          const covered = mix(alpha, float(1), edge);
+          return { rgb: mix(rgb.mul(alpha), params.color, edge).div(covered.max(1e-6)), alpha: covered };
+        },
+      });
+    },
+  }));
+</script>
+
+<Plot data={{ x: [1, 2, 3], y: [2, 1, 3] }} effects={[{ kind: "vignette", amount: 0.6 }]}>
+  <Points x="x" y="y" />
+</Plot>
+```
+
+An effect of stage `"object"` adds an object to the plot's scene rather than recoloring its pixels. Only the library's atmosphere uses it for now, which a Frame's `atmosphere` adds around its globe; a Plot's `effects` do not list one, and nothing else mounts one yet. Its `object()` returns `{ object, set(values), update(inputs), dispose() }`: `object` a three.js mesh, which picking, the axes' domains and the minimap leave out; `set` gets the values with their defaults when they change; `update({ camera, width, height, frame })` runs before each draw of it, with `frame.point(position)`, a Frame position's place in the scene, and `frame.period`, its angular period; `dispose` frees it. Its `check(values, { frame })` gets `frame.globe`, whether the Frame is a globe in a 3D plot.
+
+Python names a plugin's effect as it names a built-in one, `hm.effect("vignette", amount=0.6)`, once it uses the plugin's package ([use_plugin](/HMPlot/reference/python/use-plugin.md)).
+
+## Shades
+
+`hm.shade(kind, definition)` declares a shade, which a mark's `shade` names: `shade={{ kind: "hatch", spacing: 6 }}`. `shade(inputs)` returns the color the mark draws, a `vec4` node, for each of its fragments. It cannot move or hide geometry, so picking, tooltips, domains and legends are unchanged; SVG and PDF exports draw a shaded mark as an image. Number and color parameters are uniforms, as an effect's are, and changing another parameter rebuilds the mark's shader.
+
+The inputs:
+
+- Every mark: `color` (what the mark would draw: straight, not premultiplied, alpha, in linear color before the plot's tone mapping), `screenCoordinate` (the fragment's position in device pixels), `screenUV` (0 to 1, down from the top), `time` (seconds; the plot draws a frame only when something changes) and `params`.
+- Marks with surface normals (Points3D, Prism, Surface, Arrows3D, GeoJSON's faces, a Heatmap, a lit Image) also have `normalView` and `positionView`, in view space. A shade that reads one on another mark (a rim light on Points) is that mark's error, naming the marks that have it, and the mark draws unshaded.
+
+Values a shade passes from the vertex to the fragment stage count toward the shader's limit of 16; past it the mark reports a `limit.varyings` error naming it.
+
+```svelte
+<script>
+  import { Plot, Points, definePlugin, registerPlugin } from "hmplot";
+
+  // A hatch: diagonal stripes of ink, spacing pixels apart.
+  registerPlugin(definePlugin({
+    name: "hatch",
+    apiVersion: 1,
+    setup(hm) {
+      const { fract, mix, step, vec4 } = hm.tsl;
+      hm.shade("hatch", {
+        parameters: {
+          spacing: { type: "number", default: 8, min: 2 },
+          width: { type: "number", default: 0.5, min: 0, max: 1 },
+          ink: { type: "color", default: "#000000" },
+        },
+        shade({ color, screenCoordinate, params }) {
+          const along = fract(screenCoordinate.x.add(screenCoordinate.y).div(params.spacing));
+          return vec4(mix(color.rgb, params.ink, step(along, params.width)), color.a);
+        },
+      });
+    },
+  }));
+</script>
+
+<Plot data={{ x: [1, 2, 3], y: [2, 1, 3] }}>
+  <Points x="x" y="y" size={40} shade={{ kind: "hatch", spacing: 6 }} />
+</Plot>
+```
+
+Python names it the same way, `hm.Points(x="x", y="y", shade=hm.shade("hatch", spacing=6))`.
+
+## Choosing a template or a plugin
+
+Use a [template](/HMPlot/reference/svelte/package-templates.md) when existing marks, transforms and layouts
+can express the pattern. Its parameters, named parts and slots let callers customize that
+composition. Use a plug-in when the pattern needs a new computation, layout or shader.
+A template can contain a Transform that calls a plug-in, keeping the computation reusable
+across several visual patterns.
+
+## Authoring a row transform
+
+Declare a transform in `setup` with `hm.transform(kind, definition)`. Keep kernel functions
+outside `run`, so their identity stays the same between parameter updates:
+
+```javascript
+export default {
+  name: "acme-scale", version: "1.0.0", apiVersion: 1,
+  setup(hm) {
+    const scale = (values, factor) => values.mul(factor);
+    hm.transform("acme.scale", {
+      reads: "padded", output: "sameRows",
+      parameters: {
+        field: { type: "field", default: "x" },
+        factor: { type: "number", default: 2, min: 0 },
+      },
+      outputs: () => [{ name: "scaled", type: "numeric", label: "Scaled value" }],
+      run({ columns, params, jit }) {
+        return { columns: { scaled: jit(scale)(columns[params.field].ref, params.factor) } };
+      },
+    });
+  },
+};
+```
+
+Import that module and pass its default export to `registerPlugin`. Then use
+`<Transform kind="acme.scale" params={{ field: "x", factor: 3 }}>` around marks that read
+`scaled`. After [packaging it for Python](/HMPlot/reference/python/use-plugin.md), the equivalent is
+`hm.Transform(kind="acme.scale", field="x", factor=3)`. Parameter keywords are snake_case in
+Python and camelCase in JavaScript. Python also accepts a `params` dictionary with snake_case
+keys. Keyword updates patch existing parameters; replacing `params` replaces the dictionary.
+
+The schema supplies defaults and validates values. A `field` parameter names an input column
+or supplies one numeric value per original input row; filtering and ordering align those values
+before `run`, including fields nested inside array, object and union schemas. Authored parameter
+objects are not mutated during alignment. An `expression` parameter accepts a scalar expression, such as a reduction over the table.
+Declare these accurately so changes to the fields and expressions rerun the computation.
+`outputs(params)` optionally describes output columns with unique `name`, logical `type`,
+and optional `unit`, `label` and `source`; every declared name must be returned.
+`source` names an input column whose display title the output inherits; an explicit `label`
+overrides that title. These become ordinary
+column metadata, including after `as` renames the output.
+
+The execution contract:
+
+Transform and layout kinds share a namespace: use a plugin-prefixed name such as
+`acme.scale`, distinct from built-in computations. Parameter names must not use Transform's
+controls (`kind`, `params`, `name`, `label`, `by`, `as`, `children`, `onconfigure`) or start
+with `__`. A conflicting declaration rejects the whole plug-in before any hook is registered.
+
+- `reads: "rows"` compacts visible rows first. `reads: "padded"` keeps physical rows and their
+  validity. Both provide power-of-two column buffers and `length`, their padded length.
+  `valid` is an integer mask: zero for hidden rows and padding. A reduction must use it.
+- `run` receives `columns`, `length`, `valid`, `params`, `signal`, `jit`, `cache`, `jax`, `grid`,
+  `groups`, `relation`, `hostColumn`, `array` and `maxBytes`. `maxBytes` is the storage-buffer
+  byte limit; check large working allocations before creating them. Columns are loaded lazily. `run` may be asynchronous.
+  `await hostColumn(name)` returns an aligned numeric host copy, preserving authored Float64
+  precision when the input rows are unchanged. `array(flatValues, { shape?, dtype? })` uploads
+  host values without folding short constant columns into GPU kernels; the default shape is
+  `[flatValues.length]`, dtype is `float32` or `int32`, and the caller owns the returned array.
+- `output: "sameRows"` returns `{ columns }`, with one value per input buffer row. Padding is
+  removed by the runner. Existing columns remain available.
+- `output: "subset"` returns `{ rows }`, integer indices into the input buffer. Selected rows
+  must be visible. Optional `columns` have one value per selected row.
+- `output: "newRows"` returns `{ columns }` with equal row counts; it starts an independent
+  table unless it supplies source provenance (below). `output: "graph"` returns `{ nodes: { columns }, edges: { columns } }`, using node `id`
+  and edge `source`/`target` keys. Invalid keys or endpoints are errors.
+
+Numerical parameters can use `type: "vector", shape: [2, 2]` for nested arrays such as
+Voronoi bounds. `shape` replaces `length`, has positive integer dimensions, and holds at most
+64 numbers. The settings pane edits its cells. Effect/shade vector uniforms retain `length`.
+
+A result with `geometry: "triangles"` publishes polygon triangle rows: `__corner0`, `__corner1`
+and `__corner2` each have shape `[rows, 2]`; `__edges` has shape `[rows]` and marks outline edges
+with bits 1 (a–b), 2 (b–c) and 4 (c–a). The adapter validates shapes before publication.
+
+Independent `newRows` may return `valid`, one mask value per physical output row, and optional
+`count`, the number of visible rows. Positive values are visible. If count is omitted the
+runner computes it; if supplied it must match the mask. A grid describes the full physical
+rows, even when some are hidden. Output aliases rename its dimensions and value fields too.
+A `topology` string or finite number may identify stable row order/connectivity across runs;
+change it when that structure changes. These are publication metadata, not extra columns.
+
+`maxBytes` is the storage-buffer limit. Call `checkBytes(bytes, { what, hint })` before allocating
+large working buffers to report the standard limit diagnostic. `masked` indicates an upstream
+validity mask; `valid` also covers padding even when masked is false. Grouped kernels can use
+`groups.positions(field)` for borrowed numeric positions in the enclosing frame's category
+order. A definition's optional `categoryAxis(params)` returns `"x"`, `"y"` or null to subscribe
+to that frame order (for example a violin's categorical axis).
+
+A `newRows` result can retain source links in either of two ways:
+
+- `provenance: { rows }` supplies one visible input-buffer index per output row, allowing
+  repeats. Unchanged input columns and source-row identities remain available.
+- `provenance: { codes, ids, fields? }` describes aggregates: `codes` has one group ID per
+  input-buffer row, `ids` one per output row. IDs are nonnegative integers; `codes` may use
+  -1 for unassigned rows. Hidden rows and padding never become contributors. Optional `fields`
+  names grouping columns present in both the input and returned output; inspection reads
+  their output values. The output remains an independent table, with contributor
+  queries mapped back through upstream filters and reorderings.
+
+An independent aggregate can instead return `provenance: { fields }`, naming output columns
+for inspection without claiming source contributors. Any provenance form may set a nonempty
+`kind` string to name its semantic category; otherwise the registered transform kind is used.
+
+These buffers transfer ownership just like output columns. Invalid lengths, fractional indices,
+or references to hidden rows reject the result and preserve the previous publication.
+
+A transform can also return `resources`, an object of auxiliary JAX or typed arrays whose
+shape is independent of the output rows. These buffers are owned by the publication but do
+not become columns. Declare `inspect({ resources, params })` to read them lazily and return
+a summary when the transform handle's `inspect()` method is called. It may be asynchronous;
+its borrowed resources remain alive until it finishes, even if a new run replaces the output.
+This is useful for fitted coefficients or diagnostics that should not force a device readback
+every time the plot updates. As with columns, pass `.ref` when consuming a JAX resource.
+
+For numerical confidence bands, `setup(hm)` also receives a small `hm.math` contract:
+`studentTTable(probability, count=60)` builds `{ table, z, terms }` on the host, and
+`studentTOnDevice(table, degreesOfFreedom)` evaluates it on the device. The latter consumes
+the degrees-of-freedom array and returns an owned array. These are the same tested helpers
+used by built-in statistics; a plug-in does not need an internal import or another copy.
+The bundled Regression plug-in uses them while its kernels use the `jax` passed to `run`.
+
+Inputs are **borrowed**. JAX operations consume their arguments, so pass `columns.x.ref`,
+`valid.ref`, or another retained reference when computing from an input. The runner owns each
+array reference returned in an output property, releases rejected or canceled results, and
+keeps successful results alive until their views are released. Returning the same array in
+two properties requires two references. Dispose your own intermediate arrays if execution
+throws before returning them; prefer a jitted kernel for numerical work.
+
+`jit(fn)` caches by function identity and input shape. Numeric arguments become device scalar
+buffers, so changing a factor does not compile another kernel. Use
+`jit(fn, { staticArgnums: [1] })` only when an argument really determines program structure:
+changing a static value recompiles. Do not close over a changing parameter inside a cached
+kernel; pass it as an argument. Check `signal.aborted` in long host computations. Storage-buffer
+limits apply to outputs, and a failed update retains the previous successful result.
+
+### Grids and groups
+
+A grid still has one row per cell, in C order. `grid` is null for a plain table; otherwise it
+provides `dims`, `drawable(n)`, `drawn(n)` and `field(name)`. The last returns a borrowed,
+reshaped field with hidden cells represented by NaN. `reads: "grid"` requires a grid and uses
+its shape without row padding. A transform may branch on `grid` and keep a table fallback;
+`output` may be a function of `{ params, grid }` when those paths publish differently.
+
+A parameter with `when: "grid"` or `when: "rows"` applies only to that input form.
+Only active parameters receive defaults and contribute dependencies; explicitly supplying
+an inactive parameter reports an error before its expression is evaluated. Expression defaults
+are evaluated against the input just like explicit expressions.
+
+Schemas compose: `{ type: "union", variants: [...] }` accepts the first matching variant;
+`{ type: "array", items: schema, minLength, maxLength }` validates every item (null or
+missing items are rejected); and
+`{ type: "object", properties: { key: schema }, required: ["key"] }` rejects undeclared
+properties and checks required keys. For example, a confidence band may use a union of
+`{ type: "number", min: 0, max: 1 }` and `{ type: "select", options: [false] }`.
+Expression parameters nested in these structures resolve and track dependencies recursively.
+Defaults apply to top-level parameters; nested defaults are suggestions for adding values in
+the settings editor, not implicit additions to supplied objects.
+
+`run` also receives `column(fieldOrValues)`, a borrowed numeric array padded like `columns`,
+and asynchronous `hostColumn(fieldOrValues)`, a copy of the aligned unpadded values. Both
+accept the effective field parameter supplied in `params`. Prefer `column` for device kernels;
+`hostColumn` is for algorithms that actually need host values.
+
+Registered transforms and layouts inside a Plot have a Parameters editor in its settings pane.
+They can also wrap a Plot, for example `Data > Transform > Force > Plot` for generated graphs;
+that outer computation has no enclosing plot settings group.
+The schema supplies labels, number bounds/steps, select choices and defaults; inactive
+grid/row parameters are hidden. Viewer edits update the existing transform and travel
+through Python's settings bridge and exported HTML. Changing authored parameters replaces
+the viewer's parameter overrides; supplying unchanged values preserves them. Expressions
+and input references are shown read-only: edit their source instead. Reset restores the
+authored parameter bag, or schema defaults where the author supplied no value.
+
+`sameRows` preserves grid metadata unless it overwrites a coordinate column; a subset drops
+it. A `newRows` result may include `grid: hm.grid({ dims: { y: [...], x: [...] } })`; returned
+value columns must have one row per cell. Coordinates are published lazily.
+
+`Transform`'s `by` supplies `groups`, either null or `{ codes, count, keys }`. Its borrowed
+codes align with the input buffer; use `valid` when grouping padded rows. Inside Nodes or
+Edges, `relation` identifies that graph table. A same-row transform cannot overwrite the
+node key or edge endpoints; create a new graph when the relationship changes.
+
+A numerical definition can declare `perGroup: true` with row inputs and `newRows` output.
+The runner invokes it once per visible group in group order, with padded columns, a valid mask,
+`groups: null`, and a shared kernel cache. `column(fieldOrValues)` and `hostColumn(fieldOrValues)`
+read that same group. Results must have the same numeric columns and
+trailing shapes. Group keys are added automatically, including categorical keys. Aggregate
+contributors are supplied automatically; alternatively every group may return `provenance.rows`
+to retain particular source rows. Empty input invokes the definition once with length zero;
+return correctly shaped empty columns. Per-group results cannot publish grids, graphs, separate validity masks/counts or
+auxiliary inspection resources. Implement a single grouped kernel using `groups` for those
+outputs, or when vectorizing over groups is faster.
+
+The [large-graph example](/HMPlot/examples/large-graph.md) uses the bundled `community-graph` transform.
+It accepts `nodes` (1–100,000, default 512) and `seed` (an unsigned 32-bit integer, default 42),
+and produces three edges per node. Its host-only implementation in
+`src/lib/plugins/communityGraph.js` uses no library internals. A Button drives its seed, so
+regeneration also works in exported HTML without a Python callback. This is a graph generator;
+Force remains responsible for positioning and simulation.
+
+## Authoring a graph layout
+
+Use `hm.layout` for a one-shot layout that writes columns on the existing nodes and edges.
+It uses the same parameter schema and the same Transform component. Expression parameters
+(including defaults) evaluate to one finite number over the input edge table's shown rows;
+use a reduction such as `mean(col.weight)` for a column. Integer expressions round the result.
+Input reads in defaults resolve before evaluation. Changes to an input, an interaction read by
+an expression, or its clock/pointer state rerun the layout. Node columns remain available to
+`run` through `graph.nodeColumns`; they are not the expression parameter's table.
+Grid-only parameters do not apply to layouts.
+
+For example:
+
+```javascript
+export default {
+  name: "acme-tree", version: "1.0.0", apiVersion: 1,
+  setup(hm) {
+    hm.layout("acme.tree", {
+      hierarchy: true,
+      parameters: { gap: { type: "number", default: 2, min: 0 } },
+      run({ graph, params }) {
+        const position = graph.hierarchy.depth.map((depth, row) => [depth * params.gap, row]);
+        return {
+          nodeColumns: { position },
+          edgeColumns: {
+            start: Array.from(graph.from, row => position[row]),
+            end: Array.from(graph.to, row => position[row]),
+          },
+        };
+      },
+    });
+  },
+};
+```
+
+Place `Transform(kind="acme.tree", gap=2)` inside GraphData. Under it, put Points reading
+`position` inside Nodes, and Segments reading `start`/`end` inside Edges.
+
+`run({ graph, params, signal })` receives borrowed `ids`, indexed `from` and `to` endpoints,
+`nodeColumns` and `edgeColumns`. With `hierarchy: true`, HMPlot validates a connected acyclic
+tree with one parent per non-root node, infers its root, and supplies `hierarchy` with `root`,
+`parent`, `children`, `depth` and `degree`. These are row indices, not node keys. Without that
+flag, `hierarchy` is null and arbitrary graphs are allowed.
+
+Return `nodeColumns` and/or `edgeColumns`. Each output has one value per existing node or
+edge; keys and endpoints cannot be replaced. Host arrays are supported. Returned JAX arrays
+follow the same ownership rules as transform outputs. Optional `nodeOutputs(params)` and
+`edgeOutputs(params)` declare metadata in the same form as a transform's `outputs`.
+
+## Testing an extension
+
+Test the computation separately on a tiny input whose answer is known, then test what its
+marks draw. Include hidden rows, empty input, changed parameters, invalid output, cancellation,
+and repeated creation/disposal. For a grid transform, exercise both a grid and its table
+fallback. For a hierarchy layout, include a cycle and a disconnected graph.
+
+In an HMPlot checkout, run numerical tests under `tests/unit/helpers/leakHarness.js` with
+`LEAK_CHECK=1`. A focused browser test should inspect pixels or exported SVG at device pixel
+ratio 2, wait for every canvas to finish loading before `whenSettled()`, and verify completed
+frames advance after updates. Count kernel traces or compiles across parameter changes and
+bucket changes. Finally test the Python package in a notebook and in exported HTML: registration
+in a development page alone does not verify packaged delivery.

@@ -1,0 +1,49 @@
+# TransformHandle
+
+What a bound transform offers code: update it, wait for it, and follow its status.
+
+## Example
+
+```python
+with hm.stats.Bin(x="value") as bin:
+    ...
+bin.update(bins=20)
+```
+
+## Members
+
+This table describes the JavaScript interface. Python has its own Node and resource methods, listed under “Python members” below; these member names are not Python method names.
+
+- `subscribe` (`(listener: (status: TransformStatus) => void) => () => void`): Required.
+- `update` (`(patch: Record<string, unknown>) => Promise<void>`): Required.
+- `whenSettled` (`() => Promise<void>`): Required.
+- `action` (`((id: string) => Promise<void>)`): Runs one of the transform's named actions (such as a layout's reheat); resolves when its work settles.
+- `read` (`{ (options?: (ReadOptions & { rows?: false | undefined; }) | undefined): Promise<HostColumns>; (options: ReadOptions & { rows: true; }): Promise<HostRows>; }`): Its output's rows on the host, once its current inputs have run: for a value code shows in the page (a total in a sentence, a breadcrumb, a list). One read per call, bounded by limit.readback; subscribe() says when the output changes, so a readout is subscribe then read. Marks draw the output without it. Required.
+
+## Svelte
+
+Bind the transform with `bind:this={transform}`. Use `update({...})` to change options,
+`whenSettled()` to wait for its result, `subscribe(listener)` to follow status, and
+`action(name)` for an action supported by that transform.
+
+## Python members
+
+The context manager returns the node: `with hm.stats.Bin(x="value") as bins:`. A transform node has
+every node's members, listed on [Plot (handle)](plot-handle) with what sync and await mean
+there; these are the ones a transform is used through. `update` works without a browser and
+redraws every view; the `await` members need a displayed notebook view and raise `hm.SceneError`
+(`bridge.missing_view`) without one. Python nodes have no `subscribe`: a transform's status
+reaches Python only through `when_settled`, which raises when the transform failed.
+
+| Member | Kind | What it does |
+|---|---|---|
+| `update(**props)` | sync | Set the transform's options, snake_case keywords such as `bins.update(bins=20)`, and rerun it in every view. Returns the node. |
+| `batch_update()` | sync | A context manager: several updates inside it reach the views as one. |
+| `when_settled(*, view=None, timeout=60)` | await | Returns once the view has rerun the transform and drawn its result. |
+| `action(action, *, view=None, timeout=60)` | await | Run an action the transform has: Force's `"reset"`, or a Provider's `"refresh"` (also `await provider.refresh()`). |
+| `props` | attribute | The options as the scene sends them, camelCase. |
+| `children` | attribute | The nodes inside the transform, which read its output. |
+
+## Related examples
+
+- [Filter and bin inputs](/HMPlot/examples/transform-controls.md)

@@ -1,0 +1,1 @@
+import{a as e,f as o}from"./CBBAqgJ0.js";import"./COd-AvuQ.js";import{_ as r}from"./B9wkoLL1.js";var s=o('<h2 id="usage">Usage</h2> <p>Python’s hm.Grid(columns=2) is a layout grid, beside Row and Column; the scene adapter names that node LayoutGrid. Interpolation is Interpolate. Svelte uses CSS grid.</p>',1);function m(a){var t=s();r(2),e(a,t)}export{m as default};

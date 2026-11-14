@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import e from"./CL6cdHyS.js";import{V as r}from"./BDKvbv3t.js";function m(t){e(t,{coordinates:"spherical",projection:"mercator",toneMapping:0,height:300,children:(o,i)=>{r(o,{tile:[14,9014,4818],live:!1})},$$slots:{default:!0}})}export{m as default};

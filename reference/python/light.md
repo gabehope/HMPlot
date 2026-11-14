@@ -1,0 +1,56 @@
+# light
+
+An ambient, directional, hemisphere or point light for Plot(lights=[...]).
+
+## Example
+
+```python
+hm.Plot(type="3d", lights=[hm.light("ambient", intensity=0.3), hm.light("directional", position=[3, 2, 4])])
+```
+
+## Members
+
+- `kind` (`"ambient" | "directional" | "hemisphere" | "point"`): Ambient reaches every surface; directional aims toward the origin; hemisphere blends sky and ground; point shines from a position. Required.
+- `color` (`string`): A CSS color, default white.
+- `intensity` (`number`): Light strength, at least zero; default 1.
+- `position` (`[number, number, number]`): World position for directional and point lights; the up direction for hemisphere. Default [0, 1, 0], or [0, 0, 0] for point.
+- `ground_color` (`string`): Hemisphere light's ground color, default white.
+- `distance` (`number`): Point light's maximum reach in world units; default 0 means unlimited.
+- `decay` (`number`): Point light's distance falloff exponent: default 2 is inverse square, 0 is constant.
+
+## Usage
+
+Lights are settings of a Plot. Set `lit=true` on the marks that should use them.
+
+```python
+with hm.Plot(type="3d", lights=[hm.light("ambient", intensity=0.3),
+                              hm.light("directional", position=[3, 2, 4], intensity=2)]):
+    hm.Points3D(x="x", y="y", z="z", lit=True)
+```
+
+In Svelte, pass `lights={[light("ambient", { intensity: 0.3 }),
+light("directional", { position: [3, 2, 4], intensity: 2 })]}`. Import `light` from `hmplot`;
+plain objects with a `kind` work too. The settings pane can add, remove and adjust individual
+lights. Update the Plot's list to change it from code.
+
+| Kind | Behavior | Additional parameters |
+| --- | --- | --- |
+| `ambient` | Reaches every surface equally | None |
+| `directional` | Parallel light aimed toward the origin | `position`, default `[0, 1, 0]` |
+| `hemisphere` | Blends sky and ground colors by surface direction | `groundColor`, `position` (the up direction, default `[0, 1, 0]`) |
+| `point` | Shines in every direction from one point | `position`, default `[0, 0, 0]`; `distance`, default `0`; `decay`, default `2` |
+
+Every kind takes `color` (default white) and `intensity` (default 1). Positions and distance
+use world units. A point light's distance of zero means unlimited reach; decay 2 dims with the
+square of distance, while decay 0 keeps constant intensity. Python spells `ground_color` in
+`hm.light()`. Python light parameters can read inputs.
+
+`AmbientLight`, `DirectionalLight`, `HemisphereLight` and `PointLight` scene components were
+removed. Move their parameters into `Plot(lights=[hm.light(kind, ...)])`. Existing light
+parameter changes update the scene objects; changing their number or kind can rebuild lit
+materials. Lighting does not change data, bounds or picking identities.
+
+## Related examples
+
+- [Solar system](/HMPlot/examples/solar-system.md)
+- [Earth relief](/HMPlot/examples/earth.md)

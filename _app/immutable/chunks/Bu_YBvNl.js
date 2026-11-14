@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import e from"./CL6cdHyS.js";import s from"./B3lrqsIQ.js";function d(t){const o={x:[1,2,3,4,5,6],y:[2,4,3,6,5,7],group:["A","A","A","B","B","B"],score:[10,25,40,60,75,95]};e(t,{get data(){return o},height:340,axes2d:!0,children:(r,a)=>{s(r,{x:"x",y:"y",size:4})},$$slots:{default:!0}})}export{d as default};

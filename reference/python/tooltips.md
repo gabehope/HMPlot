@@ -1,0 +1,27 @@
+# Tooltips
+
+The nearest row's values in a box by the pointer, set per mark (tooltip=) or for a Plot.
+
+## Example
+
+```python
+hm.Points(x="bill", y="mass", fill="species", tooltip=True)
+```
+
+## Members
+
+- `fields` (`TooltipField[]`): The fields to list (default: the columns the mark's channels read).
+- `radius` (`number`): How near the pointer a row is found, in CSS pixels (default 16).
+- `content` (`Snippet<[{ values: Record<string, unknown>; row: number; mark: string; lines: { label: string; text: string; }[]; }]>`): Svelte only: the box's content, given { values, row, mark, lines }.
+
+## Usage
+
+`tooltip` on a mark shows the nearest row's values in a box beside the pointer. `true` lists the columns the mark's channels read; a list picks the fields, each a column name or `{ field, label, format }`. On a Plot, `tooltip` is the default of its marks, and a mark's `tooltip={false}` opts out. Tooltips are off by default.
+
+The nearest row within `radius` (16 CSS pixels by default) of a mark with a tooltip is shown, so small points are easy to reach: each pick reads a small window of the pick buffer around the pointer, whatever the number of rows. Only what is drawn counts, so a hidden or covered row is never shown, and 3D views work the same way. That row is `@nearest`, which [nearest](interaction) sets without the box; hover and clicks still take the row exactly under the pointer.
+
+`tooltip={{ mode: "x" }}` on a Plot is unified x: one box lists each series' value at the pointer's x, as a time series reads, with a marker on each line; `<Crosshair axes="x" />` draws the rule. In Svelte, `content` replaces the box's table with a snippet given `{ values, row, mark, lines }`.
+
+## Related examples
+
+- [Tooltips](/HMPlot/examples/tooltips.md)

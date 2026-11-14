@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import e from"./CL6cdHyS.js";import a from"./DCKueQBG.js";function l(t){const r={x:[1,2,3,4,5],y:[2,4,3,5,4]};e(t,{get data(){return r},height:300,axes2d:!0,children:(o,i)=>{a(o,{x:"x",upper:"y"})},$$slots:{default:!0}})}export{l as default};

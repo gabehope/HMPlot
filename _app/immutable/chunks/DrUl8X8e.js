@@ -1,0 +1,1 @@
+import"./CBBAqgJ0.js";import"./COd-AvuQ.js";import"./B-ja0Cv4.js";import r from"./CL6cdHyS.js";import e from"./BIHPzvlN.js";function d(t){const o={x:[0,2,2,0,3,5,4],y:[0,0,2,2,0,0,2],shape:["a","a","a","a","b","b","b"]};r(t,{get data(){return o},height:300,axes2d:!0,children:(a,s)=>{e(a,{x:"x",y:"y",series:"shape"})},$$slots:{default:!0}})}export{d as default};
