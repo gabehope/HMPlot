@@ -1,6 +1,8 @@
 import { readFileSync } from "node:fs";
 import { test, expect } from "./fixtures.js";
 
+test.use({ deviceScaleFactor: 2 });
+
 // The plot's export button (TODO 60): a keyboard-accessible, format-aware panel inside the plot,
 // apart from settings, and the same panel from the context menu.
 test("the export button opens a format-aware export panel inside the plot", async ({ page }) => {
@@ -37,10 +39,15 @@ test("the export button opens a format-aware export panel inside the plot", asyn
   await button.click();
   await button.click();
   await expect(panel).toHaveCount(0);
-  // The context menu offers the same panel, at the pointer.
-  await plot.locator("canvas").click({ button: "right" });
+  // The plot's parent clips overflow. Open near the left edge of a short plot,
+  // where the SVG form is wider than the plot and taller than either side of the pointer.
+  await page.getByLabel("Fixture width", { exact: true }).fill("200");
+  await page.getByLabel("Fixture height", { exact: true }).fill("140");
+  await plot.locator("canvas").click({ button: "right", position: { x: 12, y: 70 } });
   await page.getByRole("menuitem", { name: "Export…" }).click();
   await expect(panel).toBeVisible();
+  expect(await inside()).toBe(true);
+  await panel.getByRole("button", { name: "Download" }).click({ trial: true });
   expect(await inside()).toBe(true);
   await page.keyboard.press("Escape");
   await expect(panel).toHaveCount(0);

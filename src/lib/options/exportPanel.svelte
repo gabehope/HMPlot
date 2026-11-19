@@ -30,11 +30,18 @@
     const a = at ? new DOMRect(at.x, at.y, 0, 0) : anchor?.isConnected ? anchor.getBoundingClientRect() : null;
     if (!opened || !host || !a) return;
     const h = host.getBoundingClientRect();
-    right = Math.max(4, h.right - a.right);
+    // Keep the panel's left edge inside the plot even when opened near that edge.
+    right = Math.max(4, Math.min(h.right - a.right, host.clientWidth - panel.offsetWidth - 4));
     // Above the button, or below it when there is more room there (a Facet's top-corner button).
     const above = a.top - h.top, below = h.bottom - a.bottom;
-    if (above >= below) { top = undefined; bottom = Math.max(4, h.bottom - a.top + 6); maxHeight = Math.max(96, above - 10); }
-    else { bottom = undefined; top = a.bottom - h.top + 6; maxHeight = Math.max(96, below - 10); }
+    if (Math.max(above, below) - 10 < 96) {
+      // In a short plot, use its full height and let the fields scroll.
+      top = 4; bottom = undefined; maxHeight = Math.max(0, host.clientHeight - 8);
+    } else if (above >= below) {
+      top = undefined; bottom = Math.max(4, h.bottom - a.top + 6); maxHeight = host.clientHeight - bottom - 4;
+    } else {
+      bottom = undefined; top = Math.max(4, a.bottom - h.top + 6); maxHeight = host.clientHeight - top - 4;
+    }
   }
   export async function open(element, point = undefined) {
     anchor = point ? undefined : element;
@@ -44,7 +51,7 @@
     opened = true;
     await tick();
     place();
-    formatInput?.focus();
+    formatInput?.focus({ preventScroll: true });
   }
   export function close({ restoreFocus = true } = {}) {
     if (!opened) return;
